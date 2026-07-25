@@ -1,0 +1,25 @@
+app: forge-mes-cookbook
+region: asia-south1
+entrypoint: "server.js"
+env:
+  HOSTNAME: "0.0.0.0"
+  NODE_ENV: "production"
+  PORT: "8080"
+serverlessConfig:
+  Name: "forge-mes-cookbook"
+  Description: "Public, self-service Forge MES product cookbook"
+  Runtime: "git"
+  PortMap:
+    - Name: "http"
+      Port: 8080
+      Protocol: "http"
+  Scaling:
+    AutoStop: true
+    Min: 0
+    Max: 3
+    MaxIdleTime: 300
+  Resources:
+    CPU: 0.5
+    MemoryMB: 512
+    MemoryMaxMB: 1024
+  Timeout: 60

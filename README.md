@@ -20,7 +20,13 @@ Open `http://localhost:3000`. The root URL redirects to the cookbook.
 
 ## Deploy
 
-Use these settings on a Next.js-compatible hosting platform:
+The repository includes:
+
+- `boltic.yaml` with the Boltic application and port configuration
+- A multi-stage `Dockerfile` that builds the Next.js standalone server
+- A production runtime listening on `0.0.0.0:8080`
+
+For other Next.js-compatible hosting platforms, use:
 
 - Install command: `pnpm install --frozen-lockfile`
 - Build command: `pnpm build`
