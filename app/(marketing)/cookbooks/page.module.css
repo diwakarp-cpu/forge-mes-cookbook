@@ -1,0 +1,59 @@
+.hero {
+  background: var(--fds-neutral-10);
+  padding-bottom: 5rem;
+  padding-top: 6rem;
+}
+
+.heroCopy {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: center;
+  margin: 0 auto;
+  max-width: 780px;
+  text-align: center;
+}
+
+.grid {
+  align-items: stretch;
+}
+
+.cardLink {
+  color: inherit;
+  display: flex;
+  max-width: 24rem;
+  min-height: 19rem;
+  text-decoration: none;
+  width: 100%;
+}
+
+.cardLink > * {
+  flex: 1;
+}
+
+.cardLink:focus-visible {
+  border-radius: 1rem;
+  outline: 2px solid var(--fds-neutral-100);
+  outline-offset: 4px;
+}
+
+.cardLink:hover :global(.fds-rich-icon-card) {
+  border-color: var(--fds-neutral-50);
+}
+
+.forgeLogo {
+  display: block;
+  height: auto;
+  width: 10.5rem;
+}
+
+@media (max-width: 767px) {
+  .hero {
+    padding-bottom: 4rem;
+    padding-top: 4rem;
+  }
+
+  .cardLink {
+    max-width: none;
+    min-height: 18rem;
+  }
+}

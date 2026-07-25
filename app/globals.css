@@ -1,0 +1,21 @@
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background: var(--fds-neutral-0);
+  color: var(--fds-neutral-100);
+  margin: 0;
+}
+
+.fds-search-bar__input,
+.fds-search-bar__input:hover,
+.fds-search-bar__input:focus,
+.fds-search-bar__input:focus-visible,
+.fds-search-bar__input:active {
+  appearance: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
