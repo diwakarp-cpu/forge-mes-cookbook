@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+  async redirects() {
+    return [
+      {
+        source: "/cookbooks/forge/:path*",
+        destination: "/cookbooks/ERP/Forge/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

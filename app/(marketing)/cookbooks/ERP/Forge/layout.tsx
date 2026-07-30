@@ -5,7 +5,7 @@ import {
   getForgeCookbookTopLevelEntries,
   getVisibleForgeCookbookEntries,
 } from "@/lib/cookbooks/forge";
-import { CookbookShell } from "./_components/CookbookShell";
+import { CookbookShell } from "../../forge/_components/CookbookShell";
 
 export default function ForgeCookbookLayout({ children }: { children: ReactNode }) {
   const navigationItems = getForgeCookbookTopLevelEntries().map((entry) => ({

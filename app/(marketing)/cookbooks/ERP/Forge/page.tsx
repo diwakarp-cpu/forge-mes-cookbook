@@ -6,7 +6,7 @@ import {
   getForgeCookbookEntry,
 } from "@/lib/cookbooks/forge";
 import { getLocale } from "@/lib/get-locale";
-import { CookbookPageView } from "./_components/CookbookPageView";
+import { CookbookPageView } from "../../forge/_components/CookbookPageView";
 
 const PAGE_DESCRIPTION =
   "A visual, beginner-friendly guide to setting up Forge MES, launching production, and tracing finished units.";

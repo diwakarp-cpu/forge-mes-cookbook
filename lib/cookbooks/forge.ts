@@ -2,8 +2,11 @@ import "server-only";
 
 import fs from "node:fs";
 import path from "node:path";
+import { getForgeTaskGuide } from "@/lib/cookbooks/forge-task-guides";
+import { FORGE_COOKBOOK_BASE_PATH } from "@/lib/cookbooks/routes";
 
-const COOKBOOK_BASE_PATH = "/cookbooks/forge";
+export { FORGE_COOKBOOK_BASE_PATH } from "@/lib/cookbooks/routes";
+
 const PUBLIC_GUIDE_PATH = path.join(
   process.cwd(),
   "content",
@@ -84,7 +87,9 @@ export const FORGE_COOKBOOK_SECTIONS: ForgeCookbookSection[] = catalog.sections.
 );
 
 function entryHref(slug: string[]): string {
-  return slug.length > 0 ? `${COOKBOOK_BASE_PATH}/${slug.join("/")}` : COOKBOOK_BASE_PATH;
+  return slug.length > 0
+    ? `${FORGE_COOKBOOK_BASE_PATH}/${slug.join("/")}`
+    : FORGE_COOKBOOK_BASE_PATH;
 }
 
 function bulletList(items: string[]): string {
@@ -128,6 +133,18 @@ function buildPageBody(page: GuidePageSpec): string {
     page.prerequisites.length > 0
       ? bulletList(page.prerequisites)
       : "- No earlier cookbook topic is required.";
+  const taskGuide = getForgeTaskGuide(page.slug);
+  const actionSection = taskGuide
+    ? [
+        "## Step-by-step in Forge",
+        `**Navigation:** ${taskGuide.navigationPath}`,
+        numberedList(taskGuide.steps),
+      ]
+    : ["## What to do", numberedList(page.steps)];
+  const gifPlaceholder = JSON.stringify({
+    title: `Watch: ${page.title}`,
+    description: `GIF walkthrough placeholder for ${page.title}.`,
+  });
 
   return [
     "## Before you begin",
@@ -135,8 +152,9 @@ function buildPageBody(page: GuidePageSpec): string {
     "## How it works",
     `\`\`\`diagram\n${buildDiagram(page)}\n\`\`\``,
     `**Why this connection matters:** ${page.rules[0]}`,
-    "## What to do",
-    numberedList(page.steps),
+    ...actionSection,
+    "## Watch the task",
+    `\`\`\`gif-placeholder\n${gifPlaceholder}\n\`\`\``,
     "## Rules to remember",
     bulletList(page.rules),
     "## Ready when",
@@ -159,7 +177,7 @@ function buildEntries(): ForgeCookbookEntry[] {
       id: "forge-root",
       title: catalog.title,
       slug: [],
-      href: COOKBOOK_BASE_PATH,
+      href: FORGE_COOKBOOK_BASE_PATH,
       sourcePath: PUBLIC_GUIDE_PATH,
       body: "",
       excerpt: catalog.description,
@@ -273,8 +291,8 @@ export function getForgeCookbookArticleNavigation(entry: ForgeCookbookEntry) {
 export function resolveForgeCookbookHref(rawHref: string): string {
   if (/^(https?:|mailto:|tel:)/i.test(rawHref)) return rawHref;
   if (rawHref.startsWith("#")) return rawHref;
-  if (rawHref.startsWith(COOKBOOK_BASE_PATH)) {
-    const route = rawHref.slice(COOKBOOK_BASE_PATH.length).replace(/^\/|\/$/g, "");
+  if (rawHref.startsWith(FORGE_COOKBOOK_BASE_PATH)) {
+    const route = rawHref.slice(FORGE_COOKBOOK_BASE_PATH.length).replace(/^\/|\/$/g, "");
     return entriesByRoute.has(route) ? rawHref : "#";
   }
   return "#";

@@ -9,6 +9,7 @@ import {
 } from "@fynd-design-engineering/fynd-one-ds";
 import { buildMetadata } from "@/app/components/seo/metadata";
 import { JsonLd, buildGraph, breadcrumbsFromPath, webPageLd } from "@/app/components/seo/jsonld";
+import { FORGE_COOKBOOK_BASE_PATH } from "@/lib/cookbooks/routes";
 import { getLocale } from "@/lib/get-locale";
 import styles from "./page.module.css";
 
@@ -62,7 +63,7 @@ export default function CookbooksPage() {
           bg="subtle"
         >
           <Grid columns={3} gap={24} className={styles.grid}>
-            <Link href="/cookbooks/forge" className={styles.cardLink}>
+            <Link href={FORGE_COOKBOOK_BASE_PATH} className={styles.cardLink}>
               <RichIconCard
                 title="Forge"
                 subtext="Product modules, recipes, implementation guidance, and troubleshooting references for Forge MES."

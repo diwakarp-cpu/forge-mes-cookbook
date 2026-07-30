@@ -1,14 +1,15 @@
 import Link from "next/link";
-import Image from "next/image";
 import {
   Button,
   Chip,
   Grid,
+  HeroSplit,
   RichIconCard,
   Section,
   Text,
 } from "@fynd-design-engineering/fynd-one-ds";
 import {
+  FORGE_COOKBOOK_BASE_PATH,
   FORGE_COOKBOOK_SECTIONS,
   type ForgeCookbookEntry,
   getForgeCookbookArticleNavigation,
@@ -29,37 +30,37 @@ const SETUP_STAGES = [
     number: "01",
     title: "Model the factory",
     detail: "Create the Site, Lines, Stations, repair Stations, and Shifts.",
-    href: "/cookbooks/forge/configure-factory",
+    href: `${FORGE_COOKBOOK_BASE_PATH}/configure-factory`,
   },
   {
     number: "02",
     title: "Define what you make",
     detail: "Create Components, Products, Variants, and an active BOM.",
-    href: "/cookbooks/forge/define-products",
+    href: `${FORGE_COOKBOOK_BASE_PATH}/define-products`,
   },
   {
     number: "03",
     title: "Design the process",
     detail: "Build a Routing and connect the Product to an eligible starting Line.",
-    href: "/cookbooks/forge/design-process",
+    href: `${FORGE_COOKBOOK_BASE_PATH}/design-process`,
   },
   {
     number: "04",
     title: "Plan production",
     detail: "Create a Work Order, confirm capacity, and generate every finished-unit serial.",
-    href: "/cookbooks/forge/plan-production",
+    href: `${FORGE_COOKBOOK_BASE_PATH}/plan-production`,
   },
   {
     number: "05",
     title: "Run the work",
     detail: "Release the Work Order and move its Production Tasks through the route.",
-    href: "/cookbooks/forge/run-production",
+    href: `${FORGE_COOKBOOK_BASE_PATH}/run-production`,
   },
   {
     number: "06",
     title: "Verify and trace",
     detail: "Inspect, handle exceptions, package, ship, and preserve genealogy.",
-    href: "/cookbooks/forge/quality-exceptions",
+    href: `${FORGE_COOKBOOK_BASE_PATH}/quality-exceptions`,
   },
 ];
 
@@ -282,76 +283,39 @@ function RootPage() {
 }
 
 function RootHero() {
-  const guideCount = getVisibleForgeCookbookEntries().filter(
-    (entry) => entry.slug.length === 2,
-  ).length;
-  const stats = [
-    { value: `${guideCount}`, label: "Guided articles" },
-    { value: `${FORGE_COOKBOOK_SECTIONS.length}`, label: "Ordered stages" },
-    { value: "1", label: "Setup-to-shipment path" },
-  ];
-
   return (
-    <div id="hero">
-      <Section hideHeader title="Forge MES Product Cookbook hero" className={styles.rootHero}>
-        <div className={styles.rootHeroGrid}>
-          <div className={styles.rootHeroCopy}>
-            <Image
-              src="/brand/forge-dark.png"
-              alt="Forge"
-              width={168}
-              height={51}
-              unoptimized
-              priority
-              className={styles.rootHeroLogo}
-            />
-            <Text variant="heading-xl" as="h1">
-              Set up and run Forge MES with confidence
-            </Text>
-            <Text variant="body-l" as="p" color="secondary" className={styles.rootHeroDescription}>
-              A visual, self-serve guide that explains manufacturing in plain language and walks
-              you from factory setup to a traceable finished unit.
-            </Text>
-            <div className={styles.rootHeroActions}>
-              <Button
-                label="Start the guided setup"
-                href="/cookbooks/forge/start-here/forge-mes-in-plain-language"
-              />
-              <Button
-                label="See the complete setup journey"
-                href="/cookbooks/forge/start-here/complete-setup-journey"
-                variant="secondary"
-              />
-              <Button
-                label="Download complete cookbook (PDF)"
-                href="/api/cookbooks/forge/download"
-                variant="secondary"
-              />
-            </div>
-            <Grid columns={3} mobileColumns={1} gap={28} className={styles.rootHeroStats}>
-              {stats.map((stat) => (
-                <div className={styles.rootHeroStat} key={stat.label}>
-                  <Text variant="heading-s" as="p">
-                    {stat.value}
-                  </Text>
-                  <Text variant="body-s" as="p" color="secondary">
-                    {stat.label}
-                  </Text>
-                </div>
-              ))}
-            </Grid>
-          </div>
-          <Image
-            src="https://cdn.pixelbin.io/v2/nameless-waterfall-bf6e98/original/fynd-web/solutions/forge/forge-hero.png"
-            alt="Forge MES manufacturing operations"
-            width={1272}
-            height={716}
-            priority
-            className={styles.rootHeroImage}
+    <HeroSplit
+      id="hero"
+      title="Set up and run Forge MES with confidence"
+      description="A visual, self-serve guide that explains manufacturing in plain language and walks you from factory setup to a traceable finished unit."
+      actions={
+        <div className={styles.rootHeroActions}>
+          <Button
+            label="Start the guided setup"
+            href={`${FORGE_COOKBOOK_BASE_PATH}/start-here/forge-mes-in-plain-language`}
+          />
+          <Button
+            label="See the complete setup journey"
+            href={`${FORGE_COOKBOOK_BASE_PATH}/start-here/complete-setup-journey`}
+            variant="secondary"
+          />
+          <Button
+            label="Download complete cookbook (PDF)"
+            href="/api/cookbooks/forge/download"
+            variant="secondary"
           />
         </div>
-      </Section>
-    </div>
+      }
+      image={{
+        src: "https://cdn.pixelbin.io/v2/nameless-waterfall-bf6e98/original/fynd-web/solutions/forge/forge-hero.png",
+        alt: "Forge MES manufacturing operations",
+        width: 1272,
+        height: 716,
+      }}
+      imagePriority
+      bg="var(--fds-neutral-0)"
+      visualBg="var(--fds-neutral-10)"
+    />
   );
 }
 
@@ -504,7 +468,7 @@ function DetailPage({ entry }: { entry: ForgeCookbookEntry }) {
               ) : null}
               <Button
                 label={articleNavigation.next ? "Next topic" : "Cookbook home"}
-                href={articleNavigation.next?.href || "/cookbooks/forge"}
+                href={articleNavigation.next?.href || FORGE_COOKBOOK_BASE_PATH}
                 showChevron
                 aria-label={`${articleNavigation.next ? "Next topic" : "Cookbook home"}: ${articleNavigation.next?.title || "Return to the cookbook home"}`}
               />

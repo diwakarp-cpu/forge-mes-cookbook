@@ -13,7 +13,7 @@ const siteUrl =
 const navigation: NavItem[] = [
   {
     label: "Cookbook home",
-    href: "/cookbooks/forge",
+    href: "/cookbooks/ERP/Forge",
   },
   {
     label: "Download PDF",
@@ -57,7 +57,7 @@ export default function RootLayout({
               priority
             />
           }
-          logoHref="/cookbooks/forge"
+          logoHref="/cookbooks/ERP/Forge"
           navItems={navigation}
           alwaysSolidBg
         />

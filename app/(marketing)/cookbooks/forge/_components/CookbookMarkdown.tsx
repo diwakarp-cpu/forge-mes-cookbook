@@ -25,6 +25,11 @@ type DiagramSpec = {
   }>;
 };
 
+type GifPlaceholderSpec = {
+  title: string;
+  description: string;
+};
+
 const BLOCK_START = /^(#{2,6}\s|```|<aside>|---+$|\|.*\|$|[-*]\s|[-*]\s+\[[ xX]\]|\d+\.\s)/;
 
 function removeDecorativeEmoji(value: string): string {
@@ -131,6 +136,37 @@ function parseDiagram(value: string): DiagramSpec | undefined {
   } catch {
     return undefined;
   }
+}
+
+function parseGifPlaceholder(value: string): GifPlaceholderSpec | undefined {
+  try {
+    const parsed = JSON.parse(value) as GifPlaceholderSpec;
+    if (!parsed.title || !parsed.description) return undefined;
+    return parsed;
+  } catch {
+    return undefined;
+  }
+}
+
+function GifPlaceholderBlock({ placeholder }: { placeholder: GifPlaceholderSpec }) {
+  return (
+    <figure className={styles.gifPlaceholder}>
+      <div className={styles.gifPlaceholderVisual} aria-hidden>
+        <span className={styles.gifPlaceholderPlay}>▶</span>
+        <Text variant="body-xs" as="span" weight="semibold">
+          GIF PLACEHOLDER
+        </Text>
+      </div>
+      <figcaption className={styles.gifPlaceholderCaption}>
+        <Text variant="body-m" as="p" weight="semibold">
+          {placeholder.title}
+        </Text>
+        <Text variant="body-s" as="p" color="secondary">
+          {placeholder.description}
+        </Text>
+      </figcaption>
+    </figure>
+  );
 }
 
 function DiagramBlock({ diagram }: { diagram: DiagramSpec }) {
@@ -313,6 +349,18 @@ export function CookbookMarkdown({ content }: Props) {
         const diagram = parseDiagram(code.join("\n"));
         if (diagram) {
           blocks.push(<DiagramBlock diagram={diagram} key={`diagram-${index}`} />);
+          continue;
+        }
+      }
+      if (language === "gif-placeholder") {
+        const placeholder = parseGifPlaceholder(code.join("\n"));
+        if (placeholder) {
+          blocks.push(
+            <GifPlaceholderBlock
+              placeholder={placeholder}
+              key={`gif-placeholder-${index}`}
+            />,
+          );
           continue;
         }
       }

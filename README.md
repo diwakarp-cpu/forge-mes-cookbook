@@ -16,7 +16,11 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Open `http://localhost:3000`. The root URL redirects to the cookbook.
+Open `http://localhost:3000`. The root URL redirects to
+`/cookbooks/ERP/Forge`.
+
+The previous `/cookbooks/forge/*` URLs redirect permanently to the canonical
+route.
 
 ## Deploy
 
