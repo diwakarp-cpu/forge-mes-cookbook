@@ -1,20 +1,20 @@
 {
-  "title": "Forge MES Product Cookbook",
-  "description": "A visual, self-serve guide to setting up Forge MES, launching production, operating the shop floor, and tracing every finished unit.",
+  "title": "Fynd ERP Product Cookbook",
+  "description": "A visual, self-serve guide to setting up Fynd ERP, launching production, operating the shop floor, and tracing every finished unit.",
   "sections": [
     {
       "title": "Start Here",
-      "label": "Start with Forge",
+      "label": "Start with Fynd ERP",
       "slug": "start-here",
-      "description": "Learn the manufacturing basics, understand how Forge records connect, and see the complete journey before configuring anything.",
+      "description": "Learn the manufacturing basics, understand how Fynd ERP records connect, and see the complete journey before configuring anything.",
       "pages": [
         {
-          "title": "Forge MES in Plain Language",
+          "title": "Fynd ERP in Plain Language",
           "slug": "forge-mes-in-plain-language",
-          "summary": "Understand what Forge MES does without needing a manufacturing background.",
+          "summary": "Understand what Fynd ERP does without needing a manufacturing background.",
           "importance": "Required",
           "diagram": {
-            "intro": "Forge is the digital control layer between a production plan and the real work performed in the factory. This is the full journey of one production run.",
+            "intro": "Fynd ERP is the digital control layer between a production plan and the real work performed in the factory. This is the full journey of one production run.",
             "nodes": [
               {
                 "title": "Decide what to make",
@@ -24,13 +24,13 @@
               },
               {
                 "title": "Prepare the factory and product",
-                "description": "Forge needs Lines, Stations, Shifts, a Product, an active BOM, and a Routing so it knows where, when, and how the Product can be built.",
+                "description": "Fynd ERP needs Lines, Stations, Shifts, a Product, an active BOM, and a Routing so it knows where, when, and how the Product can be built.",
                 "relation": "makes the production plan executable",
                 "category": "Configure"
               },
               {
                 "title": "Release a Work Order",
-                "description": "The Work Order authorises a specific quantity. Forge checks the setup, capacity, materials, identifiers, and finished-unit serials before release.",
+                "description": "The Work Order authorises a specific quantity. Fynd ERP checks the setup, capacity, materials, identifiers, and finished-unit serials before release.",
                 "relation": "creates one controlled unit record for every output",
                 "category": "Release"
               },
@@ -48,21 +48,27 @@
             ]
           },
           "prerequisites": [],
-          "flow": ["Plan what to make", "Prepare the factory", "Release production", "Build each unit", "Inspect and trace"],
+          "flow": [
+            "Plan what to make",
+            "Prepare the factory",
+            "Release production",
+            "Build each unit",
+            "Inspect and trace"
+          ],
           "steps": [
-            "Use Forge to turn a production plan into controlled work on real factory lines.",
+            "Use Fynd ERP to turn a production plan into controlled work on real factory lines.",
             "Give every unit a route, a production task, and a history that can be traced later.",
             "Use checks, repair paths, packaging, and dashboards to keep production reliable."
           ],
           "rules": [
-            "Forge MES manages manufacturing execution; it does not replace the physical factory.",
+            "Fynd ERP manages manufacturing execution; it does not replace the physical factory.",
             "Master data describes what can happen. Transaction data records what actually happened.",
             "The setup sequence matters because downstream records depend on upstream records."
           ],
           "checklist": [
             "I can explain the difference between setup data and production activity.",
             "I understand that a finished unit moves through a routing one station at a time.",
-            "I know that Forge keeps a traceable record for every released unit."
+            "I know that Fynd ERP keeps a traceable record for every released unit."
           ]
         },
         {
@@ -105,7 +111,13 @@
             ]
           },
           "prerequisites": [],
-          "flow": ["Material", "Operation", "Station", "Finished unit", "Shipment"],
+          "flow": [
+            "Material",
+            "Operation",
+            "Station",
+            "Finished unit",
+            "Shipment"
+          ],
           "steps": [
             "A product is the item the factory intends to make.",
             "A bill of materials lists the components required to make that product.",
@@ -125,12 +137,12 @@
           ]
         },
         {
-          "title": "How Forge Data Connects",
+          "title": "How Fynd ERP Data Connects",
           "slug": "how-forge-data-connects",
           "summary": "See the dependency chain that connects factory setup to executable production.",
           "importance": "Required",
           "diagram": {
-            "intro": "Forge uses two setup branches—where work happens and what is being made. They meet in the Routing and Line assignment before a Work Order can run.",
+            "intro": "Fynd ERP uses two setup branches—where work happens and what is being made. They meet in the Routing and Line assignment before a Work Order can run.",
             "nodes": [
               {
                 "title": "Site and Line",
@@ -169,8 +181,18 @@
               }
             ]
           },
-          "prerequisites": ["Forge MES in Plain Language", "Manufacturing Basics for New Users"],
-          "flow": ["Site and Line", "Station and Shift", "Product and active BOM", "Routing and Line assignment", "Work Order", "Production Tasks"],
+          "prerequisites": [
+            "Fynd ERP in Plain Language",
+            "Manufacturing Basics for New Users"
+          ],
+          "flow": [
+            "Site and Line",
+            "Station and Shift",
+            "Product and active BOM",
+            "Routing and Line assignment",
+            "Work Order",
+            "Production Tasks"
+          ],
           "steps": [
             "Sites locate Stations and can also group Lines.",
             "Products use BOMs to define material requirements.",
@@ -190,12 +212,12 @@
           ]
         },
         {
-          "title": "Complete Forge Setup Journey",
+          "title": "Complete Fynd ERP Setup Journey",
           "slug": "complete-setup-journey",
-          "summary": "Follow the recommended order for configuring Forge and releasing the first production run.",
+          "summary": "Follow the recommended order for configuring Fynd ERP and releasing the first production run.",
           "importance": "Required",
           "diagram": {
-            "intro": "Use this as the setup map for a new Forge environment. Do not skip ahead: every required stage supplies information used by the next stage.",
+            "intro": "Use this as the setup map for a new Fynd ERP environment. Do not skip ahead: every required stage supplies information used by the next stage.",
             "nodes": [
               {
                 "title": "Model the factory",
@@ -212,7 +234,7 @@
               {
                 "title": "Activate the material recipe",
                 "description": "Review the Product's draft BOM, confirm every Component and quantity, approve it, and make one version active.",
-                "relation": "allows Forge to validate and create",
+                "relation": "allows Fynd ERP to validate and create",
                 "category": "Required"
               },
               {
@@ -240,8 +262,16 @@
               }
             ]
           },
-          "prerequisites": ["How Forge Data Connects"],
-          "flow": ["Model the factory", "Organise products", "Define materials", "Design the route", "Assign starting Lines", "Create and release a Work Order", "Run, inspect, package, and trace"],
+          "prerequisites": ["How Fynd ERP Data Connects"],
+          "flow": [
+            "Model the factory",
+            "Organise products",
+            "Define materials",
+            "Design the route",
+            "Assign starting Lines",
+            "Create and release a Work Order",
+            "Run, inspect, package, and trace"
+          ],
           "steps": [
             "Review the Plant and create the required Sites.",
             "Create Lines, mark the correct initial Line as a Starting Line, and configure capacity.",
@@ -290,7 +320,7 @@
               },
               {
                 "title": "Follow the steps and rules",
-                "description": "Use 'What to do' for the sequence and 'Rules to remember' for the conditions that Forge enforces.",
+                "description": "Use 'What to do' for the sequence and 'Rules to remember' for the conditions that Fynd ERP enforces.",
                 "relation": "leads to the final",
                 "category": "Act"
               },
@@ -302,7 +332,13 @@
             ]
           },
           "prerequisites": [],
-          "flow": ["Choose a journey", "Check prerequisites", "Follow the steps", "Confirm readiness", "Continue to the next guide"],
+          "flow": [
+            "Choose a journey",
+            "Check prerequisites",
+            "Follow the steps",
+            "Confirm readiness",
+            "Continue to the next guide"
+          ],
           "steps": [
             "New users should follow the sections in the order shown in the navigation.",
             "Experienced users can use global search from any page to find a record or task.",
@@ -310,8 +346,8 @@
             "Use the readiness checklist at the end of each guide before continuing."
           ],
           "rules": [
-            "Required means Forge blocks or cannot reliably complete the downstream action without it.",
-            "Recommended means Forge may allow the action, but the setup improves organisation and control.",
+            "Required means Fynd ERP blocks or cannot reliably complete the downstream action without it.",
+            "Recommended means Fynd ERP may allow the action, but the setup improves organisation and control.",
             "Conditional means the setup is needed only when that manufacturing capability is used."
           ],
           "checklist": [
@@ -326,14 +362,14 @@
       "title": "Configure Your Factory",
       "label": "Configure the Factory",
       "slug": "configure-factory",
-      "description": "Create the physical structure Forge needs: Sites, Lines, Stations, Repair Stations, capacity, and Shifts.",
+      "description": "Create the physical structure Fynd ERP needs: Sites, Lines, Stations, Repair Stations, capacity, and Shifts.",
       "pages": [
         {
-          "title": "The Forge Factory Model",
+          "title": "The Fynd ERP Factory Model",
           "slug": "factory-model",
           "summary": "Understand how Plant, Site, Line, and Station represent a real manufacturing unit.",
           "importance": "Required",
-          "prerequisites": ["Complete Forge Setup Journey"],
+          "prerequisites": ["Complete Fynd ERP Setup Journey"],
           "flow": ["Plant", "Site", "Line", "Station", "Operation"],
           "steps": [
             "The Plant is the overall manufacturing context used to isolate records.",
@@ -357,18 +393,26 @@
           "slug": "sites",
           "summary": "Create the physical locations required before Stations can be configured.",
           "importance": "Required",
-          "prerequisites": ["The Forge Factory Model"],
-          "flow": ["Plant", "Create Site", "Add location details", "Use Site on Stations"],
+          "prerequisites": ["The Fynd ERP Factory Model"],
+          "flow": [
+            "Create Site",
+            "Required identity",
+            "Location details",
+            "Optional metadata",
+            "Use Site on Stations"
+          ],
           "steps": [
             "Create one Site for each physical manufacturing location that needs separate operational records.",
             "Give each Site a unique name and code within the Plant.",
-            "Add address and location information that will help users recognise the Site.",
+            "Add optional address details by selecting Country before State, and State before City.",
+            "Keep optional metadata within the 32 KB limit.",
             "Use the Site when creating Stations and, where useful, Lines and storage locations."
           ],
           "rules": [
+            "Site name and code are the required fields; the code accepts uppercase letters, numbers, and hyphens only.",
             "A Station cannot be created without a valid Site.",
-            "Do not create a separate Site for every room or workstation; use Stations for that detail.",
-            "Use globally understandable names rather than local abbreviations without explanation."
+            "Site names and codes must be unique within the Plant.",
+            "Do not create a separate Site for every room or workstation; use Stations for that detail."
           ],
           "checklist": [
             "Site names and codes are unique.",
@@ -381,19 +425,26 @@
           "slug": "lines",
           "summary": "Create the production lanes that will receive and balance unit-level Production Tasks.",
           "importance": "Required",
-          "prerequisites": ["The Forge Factory Model"],
-          "flow": ["Create Line", "Choose Line type", "Set capacity", "Mark Starting Line", "Assign Product"],
+          "prerequisites": ["The Fynd ERP Factory Model"],
+          "flow": [
+            "Create Line",
+            "Choose Line type",
+            "Set capacity",
+            "Mark Starting Line",
+            "Assign Product"
+          ],
           "steps": [
             "Create each real production lane with a unique name and code.",
             "Choose the Line type that best describes the manufacturing phase.",
-            "Configure task queue capacity and other capacity values instead of relying on defaults.",
+            "Set Capacity Per Shift above Capacity Per Hour and enter a whole-number Task Queue Capacity from 1 to 100,000.",
             "Mark the Line that receives newly released units as a Starting Line.",
             "Keep the Line active when it should be eligible for production."
           ],
           "rules": [
+            "Name, code, and Line type are required; the Line code has a maximum length of 50 characters.",
             "A Product needs at least one active Line assignment before a Work Order can be created.",
             "Normal initial release uses only eligible Lines marked as Starting Lines.",
-            "Forge can fall back to a queue capacity of 100, but explicit capacity is recommended."
+            "Use a downstream phase as a Starting Line only when production can genuinely begin there."
           ],
           "checklist": [
             "Every production lane has a unique Line.",
@@ -407,15 +458,23 @@
           "summary": "Create operational work points and the separate repair destinations required by Routings.",
           "importance": "Required",
           "prerequisites": ["Create Sites"],
-          "flow": ["Create operation Station", "Choose Station type", "Create Repair Station", "Use both in Routing"],
+          "flow": [
+            "Create operation Station",
+            "Required identity",
+            "Validate identity",
+            "Create Repair Station",
+            "Use both in Routing"
+          ],
           "steps": [
             "Create a Station for each operation that must be represented in a Routing.",
-            "Select the Site and choose the appropriate Station type.",
+            "Enter the required name, code, Site, and Station Category.",
+            "Use a name with at least two characters and a code containing only letters, numbers, and hyphens.",
             "Create dedicated Repair-type Stations for failure handling.",
             "Use a Repair Station different from the main operation Station in every Routing operation."
           ],
           "rules": [
-            "Station name, code, and Site are required.",
+            "Station name, code, Site, and Station Category are required.",
+            "Station names and codes must be unique within the Plant.",
             "Every operation node in the current Routing builder requires a Repair Station.",
             "The Repair Station cannot be the same Station as the operation itself.",
             "Automatic Stations are used for configured automation; regular Stations expect operator interaction."
@@ -431,18 +490,28 @@
           "slug": "shifts",
           "summary": "Define when production runs and make Shifts available for Work Order assignment.",
           "importance": "Required",
-          "prerequisites": ["The Forge Factory Model"],
-          "flow": ["Define Shift", "Set schedule", "Make Shift available", "Assign to Work Order"],
+          "prerequisites": ["The Fynd ERP Factory Model"],
+          "flow": [
+            "Define Shift",
+            "Required schedule",
+            "Valid times",
+            "Breaks",
+            "Schedule",
+            "Assign to Work Order"
+          ],
           "steps": [
             "Create Shift definitions that reflect the Plant's working periods.",
-            "Use clear names and start and end times that remain understandable across teams.",
+            "Enter the required name, unique code, Shift type, start time, and end time.",
+            "Use 24-hour HH:mm times; overnight Shifts are supported.",
+            "Give every break a name, type, and duration of at least one minute.",
             "Add schedule information when production varies by day or calendar.",
             "Select at least one valid Shift when creating each Work Order."
           ],
           "rules": [
+            "Shift codes use uppercase letters, numbers, and hyphens.",
+            "Unpaid breaks are deducted from net working time.",
             "A Work Order cannot be created or started without at least one Shift assignment.",
-            "Assigned Shifts must belong to the same Plant.",
-            "Shift information can be used in sequencing and identifier templates."
+            "Assigned Shifts must belong to the same Plant."
           ],
           "checklist": [
             "All active production periods are represented.",
@@ -455,10 +524,21 @@
           "slug": "factory-readiness",
           "summary": "Confirm the physical factory model is complete before creating production master data.",
           "importance": "Required",
-          "prerequisites": ["Create Sites", "Create Production Lines", "Create Stations and Repair Stations", "Create Shifts"],
-          "flow": ["Sites ready", "Lines ready", "Stations ready", "Shifts ready", "Factory model approved"],
+          "prerequisites": [
+            "Create Sites",
+            "Create Production Lines",
+            "Create Stations and Repair Stations",
+            "Create Shifts"
+          ],
+          "flow": [
+            "Sites ready",
+            "Lines ready",
+            "Stations ready",
+            "Shifts ready",
+            "Factory model approved"
+          ],
           "steps": [
-            "Walk through the physical production process and match each area to a Forge record.",
+            "Walk through the physical production process and match each area to a Fynd ERP record.",
             "Confirm which Line receives the first operation for every product type.",
             "Confirm Line capacities using a small realistic production quantity.",
             "Confirm every operation and failure path has a usable Station."
@@ -499,7 +579,7 @@
           ],
           "rules": [
             "A Product Family requires a Project.",
-            "Forge can create a Product without a Product Family, but the hierarchy improves organisation and reporting.",
+            "Fynd ERP can create a Product without a Product Family, but the hierarchy improves organisation and reporting.",
             "Use Variants for versions of the same Product, not for unrelated Products."
           ],
           "checklist": [
@@ -514,14 +594,24 @@
           "summary": "Create the material and part records that will be used in Product BOMs and shop-floor validation.",
           "importance": "Required",
           "prerequisites": ["Projects and Product Families"],
-          "flow": ["Define component", "Choose tracking type", "Add inventory", "Use in BOM", "Consume at Station"],
+          "flow": [
+            "Define component",
+            "Required identity",
+            "Choose tracking mode",
+            "Fixed Serial value",
+            "Stock thresholds",
+            "Add inventory"
+          ],
           "steps": [
             "Create a Component for every material or part that must be planned, scanned, consumed, or traced.",
-            "Choose serialised tracking when every individual component identity matters.",
-            "Choose quantity-based tracking for bulk, consumable, or non-serialised material.",
+            "Enter the required name, code, and unit; names and codes require at least two characters.",
+            "Choose one mutually exclusive mode: Serialized, Consumable, or Fixed Serial.",
+            "For Fixed Serial, enter the permanent barcode or QR value.",
+            "Set maximum stock above minimum stock and keep the reorder level between them.",
             "Load or receive inventory before the Component is needed for production."
           ],
           "rules": [
+            "Unit and tracking settings cannot be changed after creation.",
             "BOMs reference Component records, so Components must exist first.",
             "Serialised Components require a valid individual identifier during consumption.",
             "Quantity-based Components are validated against the required BOM quantity."
@@ -538,12 +628,20 @@
           "summary": "Create finished-product definitions and decide when Variants are useful.",
           "importance": "Required",
           "prerequisites": ["Create Components"],
-          "flow": ["Create Product", "Add optional Variants", "Add BOM entries", "Save draft BOM"],
+          "flow": [
+            "Create Product",
+            "Choose Product Family",
+            "Add optional Variants",
+            "Cover every Variant",
+            "Apply overrides",
+            "Configure serial format"
+          ],
           "steps": [
-            "Create the Product with a unique name and SKU.",
+            "Create the Product with a unique name of at least two characters and SKU of at least three characters.",
             "Assign the recommended Product Family when available.",
             "Add at least two Variants when the same Product has meaningful configurations.",
             "Add a shared BOM or provide BOM entries for every Variant.",
+            "Use shared BOM rows for every Variant and Variant rows only to override matching quantities.",
             "Configure a serial number template when a specific finished-unit format is needed."
           ],
           "rules": [
@@ -564,14 +662,22 @@
           "summary": "Define exactly which Components and quantities are required to build the Product.",
           "importance": "Required",
           "prerequisites": ["Create Products and Variants"],
-          "flow": ["Select Product", "Add Components", "Set quantities", "Review Variant overrides", "Approve and activate"],
+          "flow": [
+            "Select Product",
+            "Add Components",
+            "Set quantities",
+            "Review Variant overrides",
+            "Approve and activate"
+          ],
           "steps": [
             "Review the initial draft BOM created during Product setup.",
             "Confirm every required Component and quantity per finished unit.",
             "Use shared entries for common materials and Variant entries only where requirements differ.",
-            "Review units of measure and effective quantities before activation."
+            "Review units of measure and effective quantities before activation.",
+            "Resolve non-positive quantities and duplicate Components within the same scope."
           ],
           "rules": [
+            "BOM items can be edited only while the Version is Draft.",
             "Routing creation requires an active BOM belonging to the selected Product.",
             "The pre-start readiness check uses the active BOM to calculate material requirements.",
             "Changing an active BOM can change future production readiness and should be controlled."
@@ -588,16 +694,22 @@
           "summary": "Move the reviewed BOM from draft to the active production version required by Routing.",
           "importance": "Required",
           "prerequisites": ["Build the Bill of Materials"],
-          "flow": ["Draft BOM", "Review", "Approve", "Release", "Active BOM"],
+          "flow": [
+            "Open draft BOM",
+            "Review items",
+            "Release and lock",
+            "Verify Active status"
+          ],
           "steps": [
             "Open the Product's BOM Version and review its status and items.",
             "Confirm the BOM contains at least one item.",
-            "Complete the approval or release action required to make the version active.",
-            "Verify the active status before opening the Routing builder."
+            "Select Release BOM Version and confirm the edit-lock warning.",
+            "Verify the active status, removed editing controls, and enabled Create Routing action."
           ],
           "rules": [
             "Only reviewed draft or approved versions should be released.",
             "An empty BOM cannot be released as a meaningful production definition.",
+            "Releasing locks the BOM Version, and only one Version is active for the Product at a time.",
             "Routing must use an active BOM from the same Product."
           ],
           "checklist": [
@@ -609,10 +721,15 @@
         {
           "title": "Serial, Lot, and Mixed Material Tracking",
           "slug": "material-tracking",
-          "summary": "Choose how components are traced while keeping finished production aligned with Forge's unit-serial model.",
+          "summary": "Choose how components are traced while keeping finished production aligned with Fynd ERP's unit-serial model.",
           "importance": "Conditional",
           "prerequisites": ["Create Components", "Build the Bill of Materials"],
-          "flow": ["Lot-tracked input", "Serialised or quantity consumption", "Unit Production Task", "Finished-unit serial", "Genealogy"],
+          "flow": [
+            "Lot-tracked input",
+            "Serialised input",
+            "Quantity consumption",
+            "Mixed BOM genealogy"
+          ],
           "steps": [
             "Use lot or batch information to trace bulk input material back to its source.",
             "Use serialised Component tracking when each individual part must be bound to a finished unit.",
@@ -620,7 +737,7 @@
             "Combine both tracking types in one BOM when the Product uses mixed materials."
           ],
           "rules": [
-            "Normal Forge Work Orders still create one finished-unit serial and Production Task per output unit.",
+            "Normal Fynd ERP Work Orders still create one finished-unit serial and Production Task per output unit.",
             "A serial number batch groups finished-unit serials; it is not a quantity-only production mode.",
             "Material genealogy is strongest when lots, serials, and consumption events are captured at the correct Station."
           ],
@@ -641,10 +758,18 @@
         {
           "title": "Routing in Plain Language",
           "slug": "routing-basics",
-          "summary": "Understand how a Routing tells Forge where a unit goes and what happens at each operation.",
+          "summary": "Understand how a Routing tells Fynd ERP where a unit goes and what happens at each operation.",
           "importance": "Required",
-          "prerequisites": ["Activate a BOM Version", "Create Stations and Repair Stations"],
-          "flow": ["Start", "Operation Station", "Optional quality or packaging step", "End"],
+          "prerequisites": [
+            "Activate a BOM Version",
+            "Create Stations and Repair Stations"
+          ],
+          "flow": [
+            "Start",
+            "Operation Station",
+            "Optional quality or packaging step",
+            "End"
+          ],
           "steps": [
             "A Routing belongs to a Product and an active BOM Version.",
             "Each operation node points to a real Station.",
@@ -665,23 +790,33 @@
         {
           "title": "Create and Validate a Routing",
           "slug": "create-routing",
-          "summary": "Build a connected production workflow that passes Forge's Routing validation.",
+          "summary": "Build a connected production workflow that passes Fynd ERP's Routing validation.",
           "importance": "Required",
           "prerequisites": ["Routing in Plain Language"],
-          "flow": ["Select Product and active BOM", "Add Start", "Add operation Stations", "Add End", "Connect paths", "Validate and activate"],
+          "flow": [
+            "Select Product and active BOM",
+            "Add Start and End",
+            "Assign Stations",
+            "Connect paths",
+            "Cover BOM quantities",
+            "Configure optional controls",
+            "Validate and activate"
+          ],
           "steps": [
             "Select the Product, active BOM Version, name, and applicable Variants.",
             "Create one Start node and one End node.",
             "Add operation nodes and assign a main Station and separate Repair Station to each.",
             "Connect every intended operation so it is reachable from Start.",
-            "Add Components, tools, instructions, quality, or packaging configuration only where needed.",
+            "Assign every required Component and its full BOM quantity to the appropriate operation.",
+            "Add tools, instructions, quality, or packaging configuration only where needed.",
             "Resolve validation errors and save the Routing as active."
           ],
           "rules": [
+            "Product, applicable Variants, active BOM Version, and workflow name are required.",
             "A Routing needs at least one operation Station.",
             "Every operation requires a Repair Station different from its main Station.",
             "Disconnected operations are not a valid executable process.",
-            "Loops are allowed only when they have a clear exit condition."
+            "Operation names must be unique within the Routing, and Save remains unavailable until blocking validation passes."
           ],
           "checklist": [
             "Start and End are present.",
@@ -693,10 +828,18 @@
         {
           "title": "Assign Products to Lines",
           "slug": "product-line-assignment",
-          "summary": "Tell Forge which active Lines are allowed to receive tasks for a Product.",
+          "summary": "Tell Fynd ERP which active Lines are allowed to receive tasks for a Product.",
           "importance": "Required",
-          "prerequisites": ["Create Production Lines", "Create Products and Variants"],
-          "flow": ["Open Product", "Review assigned Lines", "Select eligible Line", "Activate assignment"],
+          "prerequisites": [
+            "Create Production Lines",
+            "Create Products and Variants"
+          ],
+          "flow": [
+            "Open Product",
+            "Review assigned Lines",
+            "Select eligible Line",
+            "Activate assignment"
+          ],
           "steps": [
             "Open the Product and locate its assigned Lines.",
             "Assign at least one active or occupied Line that can physically build the Product.",
@@ -717,10 +860,15 @@
         {
           "title": "Starting Lines and Capacity",
           "slug": "starting-lines-and-capacity",
-          "summary": "Configure where newly released units enter production and how Forge prevents Line overload.",
+          "summary": "Configure where newly released units enter production and how Fynd ERP prevents Line overload.",
           "importance": "Required",
           "prerequisites": ["Assign Products to Lines"],
-          "flow": ["Eligible Product Lines", "Starting Line filter", "Capacity check", "Task distribution"],
+          "flow": [
+            "Eligible Product Lines",
+            "Starting Line filter",
+            "Capacity check",
+            "Task distribution"
+          ],
           "steps": [
             "Mark only Lines that can receive the first task assignment as Starting Lines.",
             "Set task queue capacity to the number of active and waiting tasks the Line can safely hold.",
@@ -730,6 +878,7 @@
           "rules": [
             "Initial Work Orders normally require an assigned active Starting Line.",
             "Downstream Lines receive tasks as units progress; they should not all be Starting Lines.",
+            "Capacity Per Shift must exceed Capacity Per Hour, and Task Queue Capacity must be a whole number from 1 to 100,000.",
             "Manual capacity planning must cover every task sequence without gaps."
           ],
           "checklist": [
@@ -744,14 +893,24 @@
           "summary": "Prepare serial, range, template, or bundle identifiers that must be assigned when Production Tasks are created.",
           "importance": "Conditional",
           "prerequisites": ["Create Products and Variants"],
-          "flow": ["Define identifier mapping", "Choose source", "Load availability", "Assign on task creation"],
+          "flow": [
+            "Define mapping",
+            "Required fields",
+            "Validate key",
+            "Choose source",
+            "Choose timing",
+            "Enforce uniqueness"
+          ],
           "steps": [
             "Create an identifier mapping for each identity that must be attached to a finished unit.",
-            "Choose a template when identifiers can be generated dynamically.",
-            "Choose ranges or bundles when identifiers come from controlled preloaded values.",
-            "Ensure required mappings have at least one available value for every Work Order unit."
+            "Enter the required key, display name, and definition or range.",
+            "Use uppercase letters, numbers, and underscores in the key.",
+            "Use a Range for generated values; external identifiers disable automatic generation.",
+            "Choose generation on task creation, task start, or a configured Routing step.",
+            "Enable uniqueness when an identifier such as IMEI must never be assigned twice."
           ],
           "rules": [
+            "Identifier Management is under Process & Engineering, not Work Orders.",
             "Required task-creation mappings block release when availability is insufficient.",
             "Optional identifier shortages appear as warnings.",
             "The finished-unit serial batch is still required even when additional identifiers are configured."
@@ -775,8 +934,16 @@
           "slug": "production-order-vs-work-order",
           "summary": "Choose the right planning record and understand which one creates executable production.",
           "importance": "Required",
-          "prerequisites": ["Create and Validate a Routing", "Assign Products to Lines", "Create Shifts"],
-          "flow": ["Optional Production Order", "One or more Work Orders", "Production Tasks"],
+          "prerequisites": [
+            "Create and Validate a Routing",
+            "Assign Products to Lines",
+            "Create Shifts"
+          ],
+          "flow": [
+            "Optional Production Order",
+            "One or more Work Orders",
+            "Production Tasks"
+          ],
           "steps": [
             "Use a Production Order to group and monitor related Work Orders.",
             "Use a Work Order to define the Product, quantity, priority, due date, Variant, and Shifts.",
@@ -798,8 +965,19 @@
           "slug": "create-work-order",
           "summary": "Create an executable production instruction after all Product and factory dependencies are ready.",
           "importance": "Required",
-          "prerequisites": ["Production Order vs Work Order", "Create and Validate a Routing", "Assign Products to Lines", "Create Shifts"],
-          "flow": ["Select routed Product", "Select Variant if needed", "Enter quantity and due date", "Assign Shift", "Create Pending Work Order"],
+          "prerequisites": [
+            "Production Order vs Work Order",
+            "Create and Validate a Routing",
+            "Assign Products to Lines",
+            "Create Shifts"
+          ],
+          "flow": [
+            "Select routed Product",
+            "Select Variant if needed",
+            "Enter quantity and due date",
+            "Assign Shift",
+            "Create Pending Work Order"
+          ],
           "steps": [
             "Enter a unique Work Order name.",
             "Select a Product that already has a Routing and active Line assignment.",
@@ -808,10 +986,11 @@
             "Assign at least one valid Shift and create the Work Order."
           ],
           "rules": [
-            "Quantity must be at least one.",
+            "Quantity must be a positive whole number, and the due date cannot be in the past.",
             "The Product multiplier can increase the final unit quantity.",
             "A Product with no Routing or active Line assignment is rejected.",
-            "At least one Shift is mandatory."
+            "At least one active Shift is mandatory before the Work Order can start.",
+            "Component shortfalls allow creation but must be resolved before release."
           ],
           "checklist": [
             "Product, Variant, quantity, priority, and due date are correct.",
@@ -825,7 +1004,12 @@
           "summary": "Create exactly one finished-unit serial for every unit before releasing a normal Work Order.",
           "importance": "Required",
           "prerequisites": ["Create a Work Order"],
-          "flow": ["Pending Work Order", "Generate serial batch", "Review serials", "Confirm batch", "Exact quantity match"],
+          "flow": [
+            "Open start journey",
+            "Generate serials",
+            "Review and confirm",
+            "Match final quantity"
+          ],
           "steps": [
             "Open the Work Order start journey and generate its serial number batch.",
             "Use the configured Product template or the supported generation method.",
@@ -836,6 +1020,7 @@
             "No normal Work Order can start without a serial number batch.",
             "The batch must be confirmed.",
             "Serial count must exactly equal Work Order quantity.",
+            "Validate every proposed serial for uniqueness before creating and confirming the batch.",
             "A serial number batch groups unit serials; it does not replace unit-level identities."
           ],
           "checklist": [
@@ -849,13 +1034,23 @@
           "slug": "capacity-and-routing",
           "summary": "Confirm eligible Starting Lines have enough headroom and choose the active Product Routing.",
           "importance": "Required",
-          "prerequisites": ["Generate and Confirm Unit Serials", "Starting Lines and Capacity"],
-          "flow": ["Review eligible Lines", "Check headroom", "Plan task assignments", "Select active Routing"],
+          "prerequisites": [
+            "Generate and Confirm Unit Serials",
+            "Starting Lines and Capacity"
+          ],
+          "flow": [
+            "Open Capacity and Lines",
+            "Review eligible Lines",
+            "Plan task assignments",
+            "Select active Routing",
+            "Review blockers"
+          ],
           "steps": [
             "Open Capacity and Lines in the Work Order start journey.",
             "Review current task load and available capacity on eligible Starting Lines.",
             "Use automatic balancing or create complete manual assignments.",
-            "Select the active Routing that applies to the Product and Variant."
+            "Select the active Routing that applies to the Product and Variant.",
+            "Review the pre-start result for inventory, identifier, and Station blockers."
           ],
           "rules": [
             "Total available queue capacity must cover the Work Order quantity.",
@@ -871,10 +1066,16 @@
         {
           "title": "Pre-Start Validation and Release",
           "slug": "pre-start-validation",
-          "summary": "Use Forge's readiness checks to fix blockers before Production Tasks are created.",
+          "summary": "Use Fynd ERP's readiness checks to fix blockers before Production Tasks are created.",
           "importance": "Required",
           "prerequisites": ["Plan Capacity and Select Routing"],
-          "flow": ["Validate Product and serials", "Validate active BOM", "Validate inventory", "Validate Station material", "Validate identifiers", "Release"],
+          "flow": [
+            "Run validation",
+            "Resolve blockers",
+            "Transfer first-stage material",
+            "Review warnings",
+            "Release"
+          ],
           "steps": [
             "Run pre-start validation after serials, capacity, and Routing are ready.",
             "Resolve every blocker, beginning with Product, active BOM, serials, and global material shortages.",
@@ -908,9 +1109,14 @@
           "summary": "Understand the unit-level record operators execute after a Work Order is released.",
           "importance": "Required",
           "prerequisites": ["Pre-Start Validation and Release"],
-          "flow": ["Work Order release", "One task per finished unit", "Starting Line", "Routing operations", "Completed unit"],
+          "flow": [
+            "Create one task per serial",
+            "Assign initial Line",
+            "Follow Routing",
+            "Record status and Route Logs"
+          ],
           "steps": [
-            "Forge creates one Production Task for each confirmed finished-unit serial.",
+            "Fynd ERP creates one Production Task for each confirmed finished-unit serial.",
             "Each Task receives an initial Line assignment based on capacity planning.",
             "The selected Routing controls the next valid operation.",
             "Task status and Route Logs record progress until completion."
@@ -932,13 +1138,19 @@
           "summary": "Follow the normal sequence an operator uses to process a unit at a Station.",
           "importance": "Required",
           "prerequisites": ["Production Tasks"],
-          "flow": ["Identify Station", "Scan unit", "Review instructions", "Load material and tools", "Perform work", "Record result", "Complete step"],
+          "flow": [
+            "Identify unit",
+            "Review operation",
+            "Capture inputs",
+            "Record result",
+            "Complete step"
+          ],
           "steps": [
             "Open the Station work area and identify or scan the unit.",
             "Review the current operation, instructions, required inputs, and quality gates.",
             "Scan serialised Components or enter the exact quantity for quantity-based Components.",
             "Complete required checks and record the operation result.",
-            "Finish the step so Forge can move the unit to the next valid operation."
+            "Finish the step so Fynd ERP can move the unit to the next valid operation."
           ],
           "rules": [
             "Operators should work from the Station that matches the current Routing step.",
@@ -956,8 +1168,16 @@
           "slug": "material-consumption",
           "summary": "Capture the material used by each unit so inventory and genealogy remain accurate.",
           "importance": "Required",
-          "prerequisites": ["Operator Execution Flow", "Serial, Lot, and Mixed Material Tracking"],
-          "flow": ["Available inventory", "Station requirement", "Scan or enter quantity", "Consume", "Link to finished unit"],
+          "prerequisites": [
+            "Operator Execution Flow",
+            "Serial, Lot, and Mixed Material Tracking"
+          ],
+          "flow": [
+            "Make material available",
+            "Scan serialised material",
+            "Enter bulk quantity",
+            "Record genealogy"
+          ],
           "steps": [
             "Make required material available at the appropriate Station.",
             "Scan each serialised Component identity.",
@@ -978,10 +1198,15 @@
         {
           "title": "Statuses and Route Logs",
           "slug": "statuses-and-route-logs",
-          "summary": "Read the history Forge creates as Work Orders and units move through production.",
+          "summary": "Read the history Fynd ERP creates as Work Orders and units move through production.",
           "importance": "Recommended",
           "prerequisites": ["Production Tasks"],
-          "flow": ["Pending", "Starting", "In Progress", "Completed or exception state"],
+          "flow": [
+            "Pending",
+            "Starting",
+            "In Progress",
+            "Completed or exception state"
+          ],
           "steps": [
             "Use Work Order status for overall production progress.",
             "Use Production Task status for the current state of each finished unit.",
@@ -1013,14 +1238,20 @@
           "summary": "Decide where inspection, sampling, and verification belong in the manufacturing route.",
           "importance": "Conditional",
           "prerequisites": ["Create and Validate a Routing"],
-          "flow": ["Define requirement", "Choose trigger", "Attach to process", "Inspect", "Record disposition"],
+          "flow": [
+            "Identify quality gate",
+            "Create Control Point",
+            "Bind scope",
+            "Define outcomes"
+          ],
           "steps": [
             "Identify the operations where a quality decision is needed.",
-            "Create the required inspection or sampling configuration.",
-            "Connect the configuration to the relevant Product, Station, or Routing step.",
-            "Define the pass, fail, and escalation outcomes."
+            "Create a Control Point with the required control type, frequency, and failure action.",
+            "Bind the Control Point to the relevant Product, production Line, Station, or Routing step.",
+            "Define measurable pass criteria and the required fail, quarantine, or Hold outcome."
           ],
           "rules": [
+            "Control type, frequency, and failure action are required.",
             "Quality controls should be placed where evidence can be collected reliably.",
             "Sampling reduces inspection volume but does not remove traceability.",
             "A failed result needs a configured disposition path."
@@ -1037,13 +1268,19 @@
           "summary": "Understand the escalation path from a failed check to controlled corrective action.",
           "importance": "Conditional",
           "prerequisites": ["Configure Quality Controls"],
-          "flow": ["Inspection", "Defect", "NCR", "Disposition", "CAPA when systemic"],
+          "flow": [
+            "Inspection",
+            "Defect",
+            "NCR",
+            "Disposition",
+            "CAPA when systemic"
+          ],
           "steps": [
-            "Use an Inspection to record whether defined criteria passed or failed.",
-            "Create or link a Defect when a specific nonconformity is found.",
+            "Create an Inspection from a started Work Order or valid lot and enter the affected quantity.",
+            "Create or link a Defect with symptom, severity, source, and affected unit when a nonconformity is found.",
             "Use an NCR to control and investigate nonconforming output or material.",
             "Use a Disposition to decide what happens to the affected unit.",
-            "Use CAPA when the issue requires broader corrective or preventive action."
+            "Use CAPA when the issue requires broader corrective or preventive action, and track it through verification."
           ],
           "rules": [
             "A Defect describes the observed problem; an NCR controls the nonconforming case.",
@@ -1061,13 +1298,23 @@
           "slug": "repair-and-rework",
           "summary": "Return failed units to a controlled process without losing their production history.",
           "importance": "Conditional",
-          "prerequisites": ["Create Stations and Repair Stations", "Create and Validate a Routing"],
-          "flow": ["Failure", "Repair Station", "Diagnosis and repair", "Validation", "Return to route or rework"],
+          "prerequisites": [
+            "Create Stations and Repair Stations",
+            "Create and Validate a Routing"
+          ],
+          "flow": [
+            "Failure",
+            "Repair Station",
+            "Diagnosis and repair",
+            "Validation",
+            "Return to route or rework"
+          ],
           "steps": [
-            "Send operation failures to the configured Repair Station.",
+            "Record an explicit rationale and action in the affected Disposition.",
+            "Preserve the link between the original serial, Defect, and decision.",
+            "Create a tracked job or Work Order from the Rework Board.",
             "Record symptoms, diagnosis, actions, and replacement Components where applicable.",
-            "Validate the repaired unit before returning it to the allowed Routing point.",
-            "Use Rework when the unit must repeat controlled production operations."
+            "Complete reinspection before final closure or return to an allowed Routing point."
           ],
           "rules": [
             "Repair fixes the failed unit; Rework repeats or redirects manufacturing work.",
@@ -1086,12 +1333,19 @@
           "summary": "Choose the correct action when a unit must pause, terminate, or be disassembled.",
           "importance": "Conditional",
           "prerequisites": ["Statuses and Route Logs"],
-          "flow": ["Issue found", "Hold for decision", "Release, Scrap, or Teardown", "Record final state"],
+          "flow": [
+            "Hold",
+            "Release Hold",
+            "Approve and execute Scrap",
+            "Dispatch to Teardown",
+            "Record recovered Components"
+          ],
           "steps": [
             "Use Hold when work must pause while a decision or material issue is resolved.",
             "Release the Hold only after the blocking condition is cleared.",
-            "Use Scrap when the unit is permanently removed from usable production.",
-            "Use Teardown or disassembly when recoverable Components need controlled removal."
+            "Move Scrap through its approval and execution states when the unit is permanently removed from usable production.",
+            "After executed Scrap is dispatched, use Teardown when recoverable Components need controlled removal.",
+            "Record recovered Components with their donor-unit context."
           ],
           "rules": [
             "Hold is reversible; Scrap is a terminal production outcome.",
@@ -1113,17 +1367,24 @@
       "description": "Configure container operations, verify shipment readiness, and trace finished units and materials across their lifecycle.",
       "pages": [
         {
-          "title": "Packaging in Forge",
+          "title": "Packaging in Fynd ERP",
           "slug": "packaging",
           "summary": "Understand how unit, container, label, weight, and closure operations fit into a Routing.",
           "importance": "Conditional",
           "prerequisites": ["Create and Validate a Routing"],
-          "flow": ["Finished unit", "Create or select container", "Add units", "Verify weight and contents", "Print label", "Close container"],
+          "flow": [
+            "Choose packaging stage",
+            "Configure Container Type",
+            "Add units",
+            "Run checks",
+            "Keep open until complete"
+          ],
           "steps": [
             "Choose the Routing stage where packaging begins.",
             "Configure the Container Type and enabled packaging operations.",
             "Add finished units to the correct container.",
-            "Run required component, weight, and label checks before closing."
+            "Run required type, quantity, weight, declaration, and label checks before closing.",
+            "Keep the container open until every configured check is complete."
           ],
           "rules": [
             "Packaging operations are required only when the Product uses the configured container flow.",
@@ -1141,13 +1402,20 @@
           "slug": "containers-and-labels",
           "summary": "Create a clear packaging identity from individual units through cartons and pallets.",
           "importance": "Conditional",
-          "prerequisites": ["Packaging in Forge"],
-          "flow": ["Unit serial", "Inner container", "Carton", "Pallet", "Shipment"],
+          "prerequisites": ["Packaging in Fynd ERP"],
+          "flow": [
+            "Unit serial",
+            "Inner container",
+            "Carton",
+            "Pallet",
+            "Shipment"
+          ],
           "steps": [
             "Define the Container Types used by the Product.",
-            "Configure allowed parent and child relationships.",
-            "Create label templates with the identifiers required for scanning and shipment.",
-            "Test printer, label, and reprint behaviour before production volume increases."
+            "Configure the allowed leaf-to-parent sequence, such as unit, box, carton, and pallet.",
+            "Bind the finished-unit serial to the leaf container and accept only configured child UIDs in each parent.",
+            "Create label templates with the variables required for product, unit, container, quantity, and shipment scanning.",
+            "Test printing and confirm label history and reprints remain auditable."
           ],
           "rules": [
             "A container identity must remain unique and scannable.",
@@ -1166,14 +1434,22 @@
           "summary": "Verify that packaged output matches shipment requirements before dispatch.",
           "importance": "Conditional",
           "prerequisites": ["Containers and Labels"],
-          "flow": ["Closed containers", "Shipment stage", "Verify identities and status", "Create shipment record", "Dispatch"],
+          "flow": [
+            "Select Shipment",
+            "Select Container Type",
+            "Resolve verification counts",
+            "Check Shipment Rules",
+            "Check Shipping Gate and ASN"
+          ],
           "steps": [
-            "Configure the final Routing stage as a shipment stage when shipment handling is required.",
-            "Scan or select the containers and units included in the shipment.",
-            "Verify expected quantities, identities, and allowed statuses.",
-            "Complete the shipment record and preserve its connection to production history."
+            "Open Shipment Verification and select an existing Shipment first.",
+            "Select the Container Type after the Shipment enables it, then scan or select each expected container UID.",
+            "Review Verified, Mismatched, and Pending counts and resolve every difference.",
+            "Confirm active Shipment Rules allow the container count and weight.",
+            "Confirm the Shipping Gate has enough approved PO quantity and use the client-specific ASN template for exports."
           ],
           "rules": [
+            "Container verification cannot begin until a Shipment is selected.",
             "Shipment verification should use closed, valid containers.",
             "Abandoned packaging identities must not satisfy verification gates.",
             "Shipment records should remain linked to the Product and unit genealogy."
@@ -1189,13 +1465,23 @@
           "slug": "traceability-genealogy-recall",
           "summary": "Follow a finished unit back to its Work Order, operations, Components, material lots, containers, and shipment.",
           "importance": "Recommended",
-          "prerequisites": ["Material Consumption During Production", "Shipment Verification"],
-          "flow": ["Finished-unit serial", "Production Task", "Route Logs", "Consumed serials and lots", "Container", "Shipment"],
+          "prerequisites": [
+            "Material Consumption During Production",
+            "Shipment Verification"
+          ],
+          "flow": [
+            "Set dossier scope",
+            "Choose sheets",
+            "Export Stage Timeline",
+            "Search genealogy",
+            "Create Recall Notice"
+          ],
           "steps": [
-            "Search using a finished-unit serial, Component serial, material batch, or container identity.",
-            "Review the Work Order and Routing history for the unit.",
-            "Follow genealogy upstream to consumed material and downstream to packaging and shipment.",
-            "Use the result to identify all affected units during a recall investigation."
+            "In Master Traceability, combine scope filters or paste an identifier list; an identifier list overrides the other filters.",
+            "Select the required dossier sheets and generate the traceability report.",
+            "For Stage Timeline exports, enter start and end dates, select at least one Work Order, and choose 1–50 Operations.",
+            "Use Batch Genealogy to search upstream or downstream, or Find Affected Units by material lot or Component.",
+            "Create a Recall Notice with severity, status, reason, and the verified affected-unit scope."
           ],
           "rules": [
             "Traceability quality depends on accurate scanning and consumption during production.",
@@ -1222,12 +1508,19 @@
           "summary": "Choose the dashboard that answers the operational question instead of treating every metric as the same.",
           "importance": "Recommended",
           "prerequisites": ["Statuses and Route Logs"],
-          "flow": ["Live production data", "Dashboard metric", "Identify deviation", "Investigate record", "Take action"],
+          "flow": [
+            "Plant dashboard",
+            "Work Order risk",
+            "Production Task status",
+            "Route Log evidence",
+            "Investigate source record"
+          ],
           "steps": [
-            "Use production and Work Order dashboards for plan-versus-progress questions.",
-            "Use Station and operator views for live execution and queue questions.",
-            "Use quality, downtime, maintenance, and tool dashboards for specialised analysis.",
-            "Open the underlying record before taking corrective action."
+            "Use the Plant dashboard to review readiness, active Work Orders, Stations, master data, and production targets.",
+            "Use the Work Orders list to review status, priority, and due-date risk.",
+            "Use Production Tasks to review each serial's Product, Routing, Line, and unit status.",
+            "Use Route Logs to verify operator, Station, Line, timestamp, and quality result.",
+            "Open the underlying Work Order, Task, or Route Log before taking corrective action."
           ],
           "rules": [
             "A dashboard summarises records; the underlying records remain the source of evidence.",
@@ -1245,13 +1538,23 @@
           "slug": "shift-operations",
           "summary": "Maintain continuity when production responsibility moves from one Shift to another.",
           "importance": "Recommended",
-          "prerequisites": ["Create Shifts", "Dashboards and Production Monitoring"],
-          "flow": ["Review current Shift", "Record WIP and issues", "Handover", "Next Shift accepts", "Continue production"],
+          "prerequisites": [
+            "Create Shifts",
+            "Dashboards and Production Monitoring"
+          ],
+          "flow": [
+            "Review Shift Definitions",
+            "Activate Shift Schedule",
+            "Create Handover",
+            "Record WIP and issues",
+            "Review Break Compliance"
+          ],
           "steps": [
-            "Review active Work Orders, WIP, holds, downtime, material risks, and quality issues.",
-            "Record the information the next Shift needs to act safely.",
-            "Confirm ownership of unresolved actions.",
-            "Use the handover record with dashboards rather than relying on verbal memory."
+            "Review Shift Definitions, including timing, breaks, and calculated net working duration.",
+            "Configure Shift Schedules and activate them when ready; new Schedules remain Draft until activation.",
+            "Create a Shift Handover with date, Shift, Line, outgoing operator, incoming operator, status, and notes.",
+            "Record WIP, holds, downtime, material risks, quality issues, and unresolved actions.",
+            "Use Break Compliance to compare planned and actual duration, violations, and compliance."
           ],
           "rules": [
             "Handover information should be specific to records and Lines.",
@@ -1270,15 +1573,22 @@
           "summary": "Keep required production assets available, correctly located, and safe to use.",
           "importance": "Conditional",
           "prerequisites": ["Create Stations and Repair Stations"],
-          "flow": ["Register tool", "Assign location", "Use at Station", "Track cycles or calibration", "Maintain or remove from service"],
+          "flow": [
+            "Register Tool",
+            "Set Station and status",
+            "Review Maintenance Alerts",
+            "Track Maintenance Work Order",
+            "Protect production"
+          ],
           "steps": [
             "Create Tool records for assets that must be controlled or traced.",
-            "Move Tools from storage to the Station where they will be used.",
-            "Attach Tools to Routing operations only after they are available at a Station.",
-            "Use maintenance and calibration alerts to prevent unsuitable equipment from remaining in service."
+            "Record manufacturer/model, category, assigned Station, and availability status.",
+            "Review Maintenance Alerts for priority, owner, affected equipment, Line, and status.",
+            "Use Maintenance Work Orders to track type, priority, assignment, schedule, and completion.",
+            "Keep unavailable or overdue equipment out of production execution."
           ],
           "rules": [
-            "Tools in storage cannot be added to a Routing operation.",
+            "Each Tool should have a clear Station, category, and availability state.",
             "Tool use should be recorded where cycle, calibration, or traceability matters.",
             "Maintenance state should prevent unsafe or invalid production use."
           ],
@@ -1294,11 +1604,18 @@
           "summary": "Use reports and immutable history to explain production results and configuration changes.",
           "importance": "Recommended",
           "prerequisites": ["Dashboards and Production Monitoring"],
-          "flow": ["Operational record", "Report or export", "Review variance", "Audit change", "Correct process"],
+          "flow": [
+            "Set dossier scope",
+            "Generate evidence",
+            "Export Work Orders",
+            "View all changes",
+            "Return to source record"
+          ],
           "steps": [
-            "Use reports for repeatable operational and management views.",
-            "Use exports when controlled offline analysis or sharing is required.",
-            "Use the audit trail to see who changed configuration and when.",
+            "Use Master Traceability to set the scope and choose the dossier sheets required for the report.",
+            "Generate and review unit, route, quality, genealogy, identifier, tool, packaging, and shipment evidence as needed.",
+            "Use Export Work Orders with the intended production filters for an operational snapshot.",
+            "Open View all changes to review actor, action, entity, changed fields, and timestamp.",
             "Link findings back to the affected Product, Line, Work Order, Task, or quality record."
           ],
           "rules": [
@@ -1318,15 +1635,19 @@
       "title": "Help and Reference",
       "label": "Help and Reference",
       "slug": "help-reference",
-      "description": "Use checklists, requirement matrices, terminology, and decision trees when setting up or troubleshooting Forge.",
+      "description": "Use checklists, requirement matrices, terminology, and decision trees when setting up or troubleshooting Fynd ERP.",
       "pages": [
         {
           "title": "Required, Recommended, and Conditional Setup",
           "slug": "requirement-matrix",
           "summary": "Use one matrix to understand which records block production and which improve control.",
           "importance": "Required",
-          "prerequisites": ["Complete Forge Setup Journey"],
-          "flow": ["Required foundation", "Recommended organisation", "Conditional capabilities"],
+          "prerequisites": ["Complete Fynd ERP Setup Journey"],
+          "flow": [
+            "Required foundation",
+            "Recommended organisation",
+            "Conditional capabilities"
+          ],
           "steps": [
             "Required: Site for Stations; Lines; operation and Repair Stations; Shifts; Components; Product and BOM; active BOM; Routing; Product-to-Line assignment; confirmed unit serials.",
             "Recommended: Projects, Product Families, explicit capacity, Site assignment on Lines, dashboards, handovers, reporting, and trial production.",
@@ -1349,7 +1670,14 @@
           "summary": "Run a small controlled Work Order to validate the complete configuration before scaling volume.",
           "importance": "Required",
           "prerequisites": ["Pre-Start Validation and Release"],
-          "flow": ["Create small Work Order", "Release", "Execute every operation", "Test failure path", "Package and trace", "Review"],
+          "flow": [
+            "Create small Work Order",
+            "Release",
+            "Execute every operation",
+            "Test failure path",
+            "Package and trace",
+            "Review"
+          ],
           "steps": [
             "Use a small quantity that is large enough to test serials, capacity, and material consumption.",
             "Run at least one unit through the complete normal route.",
@@ -1375,8 +1703,15 @@
           "slug": "troubleshooting",
           "summary": "Start with the failing action and work backward through its dependencies.",
           "importance": "Recommended",
-          "prerequisites": ["How Forge Data Connects"],
-          "flow": ["Identify blocked action", "Read exact message", "Check immediate prerequisite", "Check status and Plant", "Correct", "Retry"],
+          "prerequisites": ["How Fynd ERP Data Connects"],
+          "flow": [
+            "Identify blocked action",
+            "Read exact message",
+            "Check immediate prerequisite",
+            "Check status and Plant",
+            "Correct",
+            "Retry"
+          ],
           "steps": [
             "If Product creation fails, check BOM coverage and Variant rules.",
             "If Routing creation fails, check active BOM, Stations, Repair Stations, and connectivity.",
@@ -1396,12 +1731,18 @@
           ]
         },
         {
-          "title": "Forge MES Glossary",
+          "title": "Fynd ERP Glossary",
           "slug": "glossary",
-          "summary": "Use globally neutral definitions for the core records and actions in Forge MES.",
+          "summary": "Use globally neutral definitions for the core records and actions in Fynd ERP.",
           "importance": "Recommended",
           "prerequisites": [],
-          "flow": ["Factory records", "Product records", "Process records", "Execution records", "Quality and trace records"],
+          "flow": [
+            "Factory records",
+            "Product records",
+            "Process records",
+            "Execution records",
+            "Quality and trace records"
+          ],
           "steps": [
             "Plant: the manufacturing context that owns and isolates operational data.",
             "Site: a physical location within the Plant.",
@@ -1420,7 +1761,7 @@
           ],
           "checklist": [
             "Terminology is used consistently in procedures and training.",
-            "Local factory terms are mapped to the Forge term.",
+            "Local factory terms are mapped to the Fynd ERP term.",
             "Users can distinguish similarly named records."
           ]
         },
@@ -1429,13 +1770,18 @@
           "slug": "capability-availability",
           "summary": "Recognise which capabilities are always part of the core flow and which appear only when configured.",
           "importance": "Recommended",
-          "prerequisites": ["Forge MES in Plain Language"],
-          "flow": ["Core execution", "Configured capability", "Product-specific use", "Plant-specific availability"],
+          "prerequisites": ["Fynd ERP in Plain Language"],
+          "flow": [
+            "Core execution",
+            "Configured capability",
+            "Product-specific use",
+            "Plant-specific availability"
+          ],
           "steps": [
             "Core flow includes factory records, Products, BOMs, Routings, Lines, Shifts, Work Orders, serials, Production Tasks, and history.",
             "Quality, repair, packaging, identifiers, tools, automations, and shipment depend on configuration.",
             "Some capabilities can be Product-specific, Variant-specific, Routing-specific, Station-specific, or Plant-specific.",
-            "Confirm availability in the current Forge environment before writing local procedures."
+            "Confirm availability in the current Fynd ERP environment before writing local procedures."
           ],
           "rules": [
             "Do not assume every menu item is required for every manufacturing process.",

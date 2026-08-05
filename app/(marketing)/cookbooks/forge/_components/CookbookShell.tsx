@@ -5,10 +5,12 @@ import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
 import { Section, Text } from "@fynd-design-engineering/fynd-one-ds";
 import { FORGE_COOKBOOK_BASE_PATH } from "@/lib/cookbooks/routes";
+import { cookbookUi, type CookbookLang } from "@/lib/cookbooks/forge-i18n";
 import {
   CookbookSearch,
   type CookbookSearchItem,
 } from "./CookbookSearch";
+import { LanguageToggle } from "./LanguageToggle";
 import styles from "./cookbook.module.css";
 
 type NavigationItem = {
@@ -24,9 +26,16 @@ type Props = {
   children: ReactNode;
   navigationItems: NavigationItem[];
   searchItems: CookbookSearchItem[];
+  lang?: CookbookLang;
 };
 
-export function CookbookShell({ children, navigationItems, searchItems }: Props) {
+export function CookbookShell({
+  children,
+  navigationItems,
+  searchItems,
+  lang = "en",
+}: Props) {
+  const t = cookbookUi(lang);
   const pathname = usePathname();
   const isCookbookHome = pathname === FORGE_COOKBOOK_BASE_PATH;
   const activeSectionHref = navigationItems.find(
@@ -43,7 +52,7 @@ export function CookbookShell({ children, navigationItems, searchItems }: Props)
 
   return (
     <div id="cookbook-shell">
-      <Section hideHeader title="Forge cookbook navigation" className={styles.bodySection}>
+      <Section hideHeader title={t.navRegionTitle} className={styles.bodySection}>
         <div
           className={
             isCookbookHome
@@ -55,17 +64,17 @@ export function CookbookShell({ children, navigationItems, searchItems }: Props)
             <Link
               href={FORGE_COOKBOOK_BASE_PATH}
               className={styles.sidebarBrand}
-              aria-label="Forge cookbook home"
+              aria-label="Fynd ERP cookbook home"
             >
               <Text variant="body-s" as="span" color="secondary">
-                Setup-to-shipment guide
+                {t.brandKicker}
               </Text>
               <Text variant="body-m" as="span" weight="semibold">
-                Forge MES Cookbook
+                {t.brandTitle}
               </Text>
             </Link>
-            <CookbookSearch items={searchItems} variant="compact" />
-            <nav aria-label="Forge cookbook sections" className={styles.sidebarNav}>
+            <CookbookSearch items={searchItems} variant="compact" lang={lang} />
+            <nav aria-label={t.navSectionsAria} className={styles.sidebarNav}>
               {navigationItems.map((item, index) => {
                 const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
                 const expanded = expandedHref === item.href;
@@ -118,7 +127,7 @@ export function CookbookShell({ children, navigationItems, searchItems }: Props)
                           ›
                         </span>
                         <span className={styles.visuallyHidden}>
-                          {expanded ? "Collapse" : "Expand"} {item.title}
+                          {expanded ? t.collapse : t.expand} {item.title}
                         </span>
                       </button>
                     </div>
@@ -161,6 +170,9 @@ export function CookbookShell({ children, navigationItems, searchItems }: Props)
                 : styles.shellContent
             }
           >
+            <div className={styles.languageBar}>
+              <LanguageToggle lang={lang} />
+            </div>
             {children}
           </div>
         </div>

@@ -8,6 +8,7 @@ import {
   SearchBar,
   Text,
 } from "@fynd-design-engineering/fynd-one-ds";
+import { cookbookUi, type CookbookLang } from "@/lib/cookbooks/forge-i18n";
 import { CookbookEntryIcon } from "./CookbookEntryIcon";
 import styles from "./cookbook.module.css";
 
@@ -21,9 +22,11 @@ export type CookbookSearchItem = {
 type Props = {
   items: CookbookSearchItem[];
   variant?: "cards" | "compact";
+  lang?: CookbookLang;
 };
 
-export function CookbookSearch({ items, variant = "cards" }: Props) {
+export function CookbookSearch({ items, variant = "cards", lang = "en" }: Props) {
+  const t = cookbookUi(lang);
   const [query, setQuery] = useState("");
   const isCompact = variant === "compact";
   const results = useMemo(() => {
@@ -42,15 +45,11 @@ export function CookbookSearch({ items, variant = "cards" }: Props) {
           : styles.searchArea
       }
     >
-      <SearchBar
-        value={query}
-        onChange={setQuery}
-        placeholder="Search the Forge cookbook"
-      />
+      <SearchBar value={query} onChange={setQuery} placeholder={t.searchPlaceholder} />
       {query.trim() ? (
         results.length > 0 ? (
           isCompact ? (
-            <ul className={styles.compactSearchResults} aria-label="Cookbook search results">
+            <ul className={styles.compactSearchResults} aria-label={t.searchResultsAria}>
               {results.map((item) => (
                 <li key={item.href} className={styles.compactSearchItem}>
                   <Link
@@ -85,7 +84,7 @@ export function CookbookSearch({ items, variant = "cards" }: Props) {
         ) : (
           <div className={isCompact ? styles.noResultsCompact : styles.noResults}>
             <Text variant="body-m" as="p" color="secondary">
-              No cookbook pages match “{query.trim()}”.
+              {t.noResults(query.trim())}
             </Text>
           </div>
         )

@@ -66,7 +66,7 @@ export default function CookbooksPage() {
             <Link href={FORGE_COOKBOOK_BASE_PATH} className={styles.cardLink}>
               <RichIconCard
                 title="Forge"
-                subtext="Product modules, recipes, implementation guidance, and troubleshooting references for Forge MES."
+                subtext="Product modules, recipes, implementation guidance, and troubleshooting references for Fynd ERP."
                 icon={
                   <Image
                     src="/brand/forge-dark.png"

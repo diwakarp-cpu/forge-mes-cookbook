@@ -470,6 +470,10 @@
   gap: 1.25rem;
 }
 
+.stageTopicCard :global(.fds-rich-icon__footer) {
+  margin-top: auto;
+}
+
 .supplementaryContent {
   border-top: 1px solid var(--fds-neutral-30);
   margin-top: 1.5rem;
@@ -734,6 +738,26 @@
   overflow: hidden;
 }
 
+/* Real recorded walkthrough GIF (replaces the placeholder once media exists). */
+.gifMedia {
+  background: var(--fds-neutral-10, #f7f7f7);
+  border: 1px solid var(--fds-neutral-30);
+  border-radius: 1rem;
+  margin: 0.5rem 0 1rem;
+  overflow: hidden;
+}
+
+.gifMediaImage {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.gifMediaCaption {
+  border-top: 1px solid var(--fds-neutral-20);
+  padding: 0.875rem 1.25rem;
+}
+
 .gifPlaceholderVisual {
   align-items: center;
   aspect-ratio: 16 / 9;
@@ -856,20 +880,12 @@
   white-space: nowrap;
 }
 
-.diagramStageHeader,
-.diagramStageIdentity {
+.diagramStageHeader {
   align-items: center;
   display: flex;
   min-width: 0;
-}
-
-.diagramStageHeader {
   gap: 0.75rem;
   justify-content: space-between;
-}
-
-.diagramStageIdentity {
-  gap: 0.5rem;
 }
 
 .diagramStageNumber {
@@ -882,22 +898,6 @@
   height: 2.25rem;
   justify-content: center;
   width: 2.25rem;
-}
-
-.diagramStageIcon {
-  align-items: center;
-  background: color-mix(in srgb, #fff 16%, transparent);
-  border-radius: 0.65rem;
-  display: inline-flex;
-  flex: 0 0 auto;
-  height: 2.25rem;
-  justify-content: center;
-  width: 2.25rem;
-}
-
-.diagramStageIcon svg {
-  height: 1.25rem;
-  width: 1.25rem;
 }
 
 .diagramCategory {
@@ -1296,4 +1296,65 @@
   .loadingLineShort {
     animation: none;
   }
+}
+
+/* Language toggle (EN / தமிழ்) — top-right of the cookbook content area */
+.languageBar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.75rem;
+}
+
+.langToggle {
+  align-items: center;
+  background: var(--fds-neutral-0);
+  border: 1px solid var(--fds-neutral-30);
+  border-radius: 999px;
+  display: inline-flex;
+  gap: 0.125rem;
+  padding: 0.1875rem;
+}
+
+.langToggle[data-pending="true"] {
+  opacity: 0.6;
+}
+
+.langToggleOption,
+.langToggleOptionActive {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  color: var(--fds-neutral-70, #454647);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 0.375rem 0.75rem;
+  transition:
+    background 120ms ease,
+    color 120ms ease;
+}
+
+/* Optical size normalization — Tamil letterforms read smaller than Latin caps
+   and Telugu at the same font-size, so nudge Tamil up to match the other two. */
+.langToggleOption[data-lang="ta"],
+.langToggleOptionActive[data-lang="ta"] {
+  font-size: 1.0625rem;
+}
+
+.langToggleOption:hover {
+  color: var(--fds-neutral-100);
+}
+
+.langToggleOptionActive {
+  background: var(--fds-neutral-100);
+  color: var(--fds-neutral-0);
+}
+
+.langToggleOption:focus-visible,
+.langToggleOptionActive:focus-visible {
+  outline: 2px solid var(--fds-neutral-100);
+  outline-offset: 2px;
 }

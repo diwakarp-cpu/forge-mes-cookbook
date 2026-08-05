@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import {
@@ -8,11 +9,13 @@ import {
   Text,
 } from "@fynd-design-engineering/fynd-one-ds";
 import { resolveForgeCookbookHref } from "@/lib/cookbooks/forge";
+import { cookbookUi, type CookbookLang } from "@/lib/cookbooks/forge-i18n";
 import { CookbookEntryIcon } from "./CookbookEntryIcon";
 import styles from "./cookbook.module.css";
 
 type Props = {
   content: string;
+  lang?: CookbookLang;
 };
 
 type DiagramSpec = {
@@ -28,6 +31,9 @@ type DiagramSpec = {
 type GifPlaceholderSpec = {
   title: string;
   description: string;
+  media?: string;
+  mediaWidth?: number;
+  mediaHeight?: number;
 };
 
 const BLOCK_START = /^(#{2,6}\s|```|<aside>|---+$|\|.*\|$|[-*]\s|[-*]\s+\[[ xX]\]|\d+\.\s)/;
@@ -148,13 +154,39 @@ function parseGifPlaceholder(value: string): GifPlaceholderSpec | undefined {
   }
 }
 
-function GifPlaceholderBlock({ placeholder }: { placeholder: GifPlaceholderSpec }) {
+function GifPlaceholderBlock({
+  placeholder,
+  lang,
+}: {
+  placeholder: GifPlaceholderSpec;
+  lang: CookbookLang;
+}) {
+  if (placeholder.media) {
+    return (
+      <figure className={styles.gifMedia}>
+        <Image
+          className={styles.gifMediaImage}
+          src={placeholder.media}
+          alt={placeholder.title}
+          width={placeholder.mediaWidth ?? 760}
+          height={placeholder.mediaHeight ?? 428}
+          unoptimized
+        />
+        <figcaption className={styles.gifMediaCaption}>
+          <Text variant="body-m" as="p" weight="semibold">
+            {placeholder.title}
+          </Text>
+        </figcaption>
+      </figure>
+    );
+  }
+
   return (
     <figure className={styles.gifPlaceholder}>
       <div className={styles.gifPlaceholderVisual} aria-hidden>
         <span className={styles.gifPlaceholderPlay}>▶</span>
         <Text variant="body-xs" as="span" weight="semibold">
-          GIF PLACEHOLDER
+          {cookbookUi(lang).gifPlaceholderLabel}
         </Text>
       </div>
       <figcaption className={styles.gifPlaceholderCaption}>
@@ -169,7 +201,8 @@ function GifPlaceholderBlock({ placeholder }: { placeholder: GifPlaceholderSpec 
   );
 }
 
-function DiagramBlock({ diagram }: { diagram: DiagramSpec }) {
+function DiagramBlock({ diagram, lang }: { diagram: DiagramSpec; lang: CookbookLang }) {
+  const t = cookbookUi(lang);
   const accessibleFlow = diagram.nodes
     .map((node, index) => `Step ${index + 1}: ${node.title}. ${node.description}`)
     .join(" ");
@@ -191,20 +224,15 @@ function DiagramBlock({ diagram }: { diagram: DiagramSpec }) {
             key={`${node.title}-${nodeIndex}`}
           >
             <span className={styles.diagramStageHeader}>
-              <span className={styles.diagramStageIdentity}>
-                <Text
-                  variant="body-s"
-                  as="span"
-                  weight="semibold"
-                  className={styles.diagramStageNumber}
-                  aria-label={`Step ${nodeIndex + 1}`}
-                >
-                  {String(nodeIndex + 1).padStart(2, "0")}
-                </Text>
-                <span className={styles.diagramStageIcon} aria-hidden>
-                  <CookbookEntryIcon title={node.title} />
-                </span>
-              </span>
+              <Text
+                variant="body-s"
+                as="span"
+                weight="semibold"
+                className={styles.diagramStageNumber}
+                aria-label={`Step ${nodeIndex + 1}`}
+              >
+                {String(nodeIndex + 1).padStart(2, "0")}
+              </Text>
               {node.category ? (
                 <Text
                   variant="body-xs"
@@ -234,7 +262,7 @@ function DiagramBlock({ diagram }: { diagram: DiagramSpec }) {
             </Text>
             {nodeIndex < diagram.nodes.length - 1 ? (
               <span className={styles.visuallyHidden}>
-                {node.relation || "Provides the information needed for the next step."}
+                {node.relation || t.diagramNextStepFallback}
               </span>
             ) : null}
           </li>
@@ -245,7 +273,7 @@ function DiagramBlock({ diagram }: { diagram: DiagramSpec }) {
           !
         </span>
         <Text variant="body-s" as="span" weight="semibold">
-          Complete each required stage before moving to the next.
+          {t.diagramStopNote}
         </Text>
       </span>
     </figure>
@@ -292,7 +320,8 @@ function parseFunctionalAreas(
   return { items: items.filter((item) => item.answer), nextIndex: cursor };
 }
 
-export function CookbookMarkdown({ content }: Props) {
+export function CookbookMarkdown({ content, lang = "en" }: Props) {
+  const t = cookbookUi(lang);
   const lines = content.replace(/\r\n/g, "\n").split("\n");
   const blocks: ReactNode[] = [];
   let index = 0;
@@ -322,14 +351,14 @@ export function CookbookMarkdown({ content }: Props) {
         .trim();
       const calloutTitle =
         asideLines.find((item, asideIndex) => asideIndex !== firstContentIndex && item.trim()) ||
-        "Important note";
+        t.importantNote;
       blocks.push(
         <aside className={styles.callout} key={`aside-${index}`}>
           <span className={styles.calloutIcon} aria-hidden>
             <CookbookEntryIcon title={plainText(calloutTitle)} />
           </span>
           <div className={styles.calloutBody}>
-            <CookbookMarkdown content={calloutBody} />
+            <CookbookMarkdown content={calloutBody} lang={lang} />
           </div>
         </aside>,
       );
@@ -348,7 +377,7 @@ export function CookbookMarkdown({ content }: Props) {
       if (language === "diagram") {
         const diagram = parseDiagram(code.join("\n"));
         if (diagram) {
-          blocks.push(<DiagramBlock diagram={diagram} key={`diagram-${index}`} />);
+          blocks.push(<DiagramBlock diagram={diagram} lang={lang} key={`diagram-${index}`} />);
           continue;
         }
       }
@@ -358,6 +387,7 @@ export function CookbookMarkdown({ content }: Props) {
           blocks.push(
             <GifPlaceholderBlock
               placeholder={placeholder}
+              lang={lang}
               key={`gif-placeholder-${index}`}
             />,
           );

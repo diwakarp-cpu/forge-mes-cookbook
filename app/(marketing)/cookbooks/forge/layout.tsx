@@ -5,31 +5,35 @@ import {
   getForgeCookbookTopLevelEntries,
   getVisibleForgeCookbookEntries,
 } from "@/lib/cookbooks/forge";
+import { getCookbookLang } from "@/lib/cookbooks/forge-locale";
+import { cookbookUi } from "@/lib/cookbooks/forge-i18n";
 import { CookbookShell } from "./_components/CookbookShell";
 
-export default function ForgeCookbookLayout({ children }: { children: ReactNode }) {
-  const navigationItems = getForgeCookbookTopLevelEntries().map((entry) => ({
+export default async function ForgeCookbookLayout({ children }: { children: ReactNode }) {
+  const lang = await getCookbookLang();
+  const t = cookbookUi(lang);
+  const navigationItems = getForgeCookbookTopLevelEntries(lang).map((entry) => ({
     href: entry.href,
     title: entry.title,
-    children: getForgeCookbookChildren(entry).map((child) => ({
+    children: getForgeCookbookChildren(entry, lang).map((child) => ({
       href: child.href,
       title: child.title,
     })),
   }));
-  const searchItems = getVisibleForgeCookbookEntries()
+  const searchItems = getVisibleForgeCookbookEntries(lang)
     .filter((entry) => entry.slug.length > 0)
     .map((entry) => ({
       title: entry.title,
       excerpt:
         entry.excerpt ||
-        getForgeCookbookSection(entry)?.description ||
-        "Explore the Forge MES product cookbook.",
+        getForgeCookbookSection(entry, lang)?.description ||
+        t.entryFallbackDesc,
       href: entry.href,
-      section: getForgeCookbookSection(entry)?.title || "Forge cookbook",
+      section: getForgeCookbookSection(entry, lang)?.title || t.brandTitle,
     }));
 
   return (
-    <CookbookShell navigationItems={navigationItems} searchItems={searchItems}>
+    <CookbookShell navigationItems={navigationItems} searchItems={searchItems} lang={lang}>
       {children}
     </CookbookShell>
   );

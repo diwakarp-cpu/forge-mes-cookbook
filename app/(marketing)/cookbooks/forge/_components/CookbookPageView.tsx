@@ -10,84 +10,39 @@ import {
 } from "@fynd-design-engineering/fynd-one-ds";
 import {
   FORGE_COOKBOOK_BASE_PATH,
-  FORGE_COOKBOOK_SECTIONS,
   type ForgeCookbookEntry,
   getForgeCookbookArticleNavigation,
   getForgeCookbookBreadcrumbs,
   getForgeCookbookChildren,
   getForgeCookbookSection,
+  getForgeCookbookSections,
   getForgeCookbookTopLevelEntries,
   getVisibleForgeCookbookEntries,
 } from "@/lib/cookbooks/forge";
+import { cookbookUi, type CookbookLang } from "@/lib/cookbooks/forge-i18n";
 import { JsonLd, buildGraph, webPageLd } from "@/app/components/seo/jsonld";
 import { CookbookMarkdown } from "./CookbookMarkdown";
 import { CookbookEntryIcon } from "./CookbookEntryIcon";
 import { CookbookSearch } from "./CookbookSearch";
 import styles from "./cookbook.module.css";
 
-const SETUP_STAGES = [
-  {
-    number: "01",
-    title: "Model the factory",
-    detail: "Create the Site, Lines, Stations, repair Stations, and Shifts.",
-    href: `${FORGE_COOKBOOK_BASE_PATH}/configure-factory`,
-  },
-  {
-    number: "02",
-    title: "Define what you make",
-    detail: "Create Components, Products, Variants, and an active BOM.",
-    href: `${FORGE_COOKBOOK_BASE_PATH}/define-products`,
-  },
-  {
-    number: "03",
-    title: "Design the process",
-    detail: "Build a Routing and connect the Product to an eligible starting Line.",
-    href: `${FORGE_COOKBOOK_BASE_PATH}/design-process`,
-  },
-  {
-    number: "04",
-    title: "Plan production",
-    detail: "Create a Work Order, confirm capacity, and generate every finished-unit serial.",
-    href: `${FORGE_COOKBOOK_BASE_PATH}/plan-production`,
-  },
-  {
-    number: "05",
-    title: "Run the work",
-    detail: "Release the Work Order and move its Production Tasks through the route.",
-    href: `${FORGE_COOKBOOK_BASE_PATH}/run-production`,
-  },
-  {
-    number: "06",
-    title: "Verify and trace",
-    detail: "Inspect, handle exceptions, package, ship, and preserve genealogy.",
-    href: `${FORGE_COOKBOOK_BASE_PATH}/quality-exceptions`,
-  },
+type Dict = ReturnType<typeof cookbookUi>;
+
+// Stage/blocker copy is language-driven; hrefs stay stable across languages.
+const SETUP_STAGE_HREFS = [
+  `${FORGE_COOKBOOK_BASE_PATH}/configure-factory`,
+  `${FORGE_COOKBOOK_BASE_PATH}/define-products`,
+  `${FORGE_COOKBOOK_BASE_PATH}/design-process`,
+  `${FORGE_COOKBOOK_BASE_PATH}/plan-production`,
+  `${FORGE_COOKBOOK_BASE_PATH}/run-production`,
+  `${FORGE_COOKBOOK_BASE_PATH}/quality-exceptions`,
 ];
 
-const PRODUCTION_BLOCKERS = [
-  {
-    title: "No Line",
-    detail: "The Product cannot be assigned to a starting Line, so production cannot be launched.",
-  },
-  {
-    title: "No active BOM",
-    detail: "The production recipe is not ready and a supported Routing cannot be prepared.",
-  },
-  {
-    title: "No Routing or Shift",
-    detail: "A Work Order is missing required process or scheduling information.",
-  },
-  {
-    title: "No capacity or serials",
-    detail: "The Work Order cannot release until a Line has room and every output unit is identified.",
-  },
-];
-
-function entryDescription(entry: ForgeCookbookEntry): string {
+function entryDescription(entry: ForgeCookbookEntry, lang: CookbookLang, t: Dict): string {
   return (
     entry.excerpt ||
-    getForgeCookbookSection(entry)?.description ||
-    "Explore the Forge MES product cookbook."
+    getForgeCookbookSection(entry, lang)?.description ||
+    t.entryFallbackDesc
   );
 }
 
@@ -126,7 +81,15 @@ function withoutIndexDuplication(entry: ForgeCookbookEntry, hasChildren: boolean
     .trim();
 }
 
-function StageSequence({ entries }: { entries: ForgeCookbookEntry[] }) {
+function StageSequence({
+  entries,
+  lang,
+  t,
+}: {
+  entries: ForgeCookbookEntry[];
+  lang: CookbookLang;
+  t: Dict;
+}) {
   if (entries.length === 0) return null;
 
   return (
@@ -136,55 +99,48 @@ function StageSequence({ entries }: { entries: ForgeCookbookEntry[] }) {
           key={child.href}
           className={styles.stageTopicCard}
           title={`${String(index + 1).padStart(2, "0")} · ${child.title}`}
-          subtext={entryDescription(child)}
-          icon={<CookbookEntryIcon title={child.title} />}
+          subtext={entryDescription(child, lang, t)}
           href={child.href}
-          overlayLabel={`Step ${index + 1}: ${child.title}`}
+          overlayLabel={`${t.stepWord} ${index + 1}: ${child.title}`}
           alwaysShowArrow
-          actions={
-            <Button
-              label="Open step"
-              href={child.href}
-              size="md"
-              showChevron
-            />
-          }
+          actions={<Button label={t.openStep} href={child.href} size="md" showChevron />}
         />
       ))}
     </Grid>
   );
 }
 
-function RootPage() {
-  const topLevel = getForgeCookbookTopLevelEntries();
-  const searchableItems = getVisibleForgeCookbookEntries()
+function RootPage({ lang, t }: { lang: CookbookLang; t: Dict }) {
+  const topLevel = getForgeCookbookTopLevelEntries(lang);
+  const sections = getForgeCookbookSections(lang);
+  // English labels keep section icons consistent regardless of display language.
+  const enSections = getForgeCookbookSections("en");
+  const searchableItems = getVisibleForgeCookbookEntries(lang)
     .filter((candidate) => candidate.slug.length > 0)
     .map((candidate) => ({
       title: candidate.title,
-      excerpt: entryDescription(candidate),
+      excerpt: entryDescription(candidate, lang, t),
       href: candidate.href,
-      section: getForgeCookbookSection(candidate)?.title || "Forge cookbook",
+      section: getForgeCookbookSection(candidate, lang)?.title || t.brandTitle,
     }));
 
   return (
     <>
       <div id="explore-cookbook">
-        <Section
-          title="Browse the cookbook"
-          subtext="Start with a card, follow the stages in order, or use global search to jump directly to a topic."
-        >
-          <CookbookSearch items={searchableItems} />
+        <Section title={t.browseTitle} subtext={t.browseSubtext}>
+          <CookbookSearch items={searchableItems} lang={lang} />
           <Grid columns={3} gap={24} className={styles.sectionGrid}>
             {topLevel.map((sectionEntry) => {
-              const section = FORGE_COOKBOOK_SECTIONS.find(
-                (item) => item.slug === sectionEntry.slug[0],
-              );
+              const section = sections.find((item) => item.slug === sectionEntry.slug[0]);
+              const iconKey =
+                enSections.find((item) => item.slug === sectionEntry.slug[0])?.label ||
+                sectionEntry.slug[0];
               return (
                 <Link key={sectionEntry.href} href={sectionEntry.href} className={styles.cardLink}>
                   <RichIconCard
                     title={section?.label || sectionEntry.title}
-                    subtext={section?.description || entryDescription(sectionEntry)}
-                    icon={<CookbookEntryIcon title={section?.label || sectionEntry.title} />}
+                    subtext={section?.description || entryDescription(sectionEntry, lang, t)}
+                    icon={<CookbookEntryIcon title={iconKey} />}
                     iconSize="icon-48"
                     showButton={false}
                   />
@@ -196,29 +152,18 @@ function RootPage() {
       </div>
 
       <div id="setup-journey">
-        <Section
-          title="Set up Forge in the right order"
-          subtext="Follow one connected path from an empty environment to a traceable finished unit. Each stage unlocks the next."
-        >
+        <Section title={t.setupTitle} subtext={t.setupSubtext}>
           <div className={styles.requirementLegend} aria-label="Requirement level legend">
-            <Chip label="Required — blocks the core flow" variant="outlined" showDot={false} />
-            <Chip
-              label="Recommended — improves control"
-              variant="outlined"
-              showDot={false}
-            />
-            <Chip
-              label="Conditional — use when the process needs it"
-              variant="outlined"
-              showDot={false}
-            />
+            <Chip label={t.legendRequired} variant="outlined" showDot={false} />
+            <Chip label={t.legendRecommended} variant="outlined" showDot={false} />
+            <Chip label={t.legendConditional} variant="outlined" showDot={false} />
           </div>
           <ol className={styles.setupFlow}>
-            {SETUP_STAGES.map((stage) => (
-              <li className={styles.setupStage} key={stage.title}>
-                <Link href={stage.href} className={styles.setupStageLink}>
+            {t.setupStages.map((stage, index) => (
+              <li className={styles.setupStage} key={SETUP_STAGE_HREFS[index]}>
+                <Link href={SETUP_STAGE_HREFS[index]} className={styles.setupStageLink}>
                   <Text variant="body-s" as="span" weight="semibold" color="secondary">
-                    {stage.number}
+                    {String(index + 1).padStart(2, "0")}
                   </Text>
                   <Text variant="heading-s" as="h3">
                     {stage.title}
@@ -227,7 +172,7 @@ function RootPage() {
                     {stage.detail}
                   </Text>
                   <Text variant="body-s" as="span" weight="semibold">
-                    Required
+                    {t.importance.Required}
                   </Text>
                 </Link>
               </li>
@@ -237,25 +182,21 @@ function RootPage() {
       </div>
 
       <div id="production-gates">
-        <Section
-          title="What stops production from starting?"
-          subtext="Forge protects production by checking that the required factory, product, process, and unit data are connected."
-          bg="subtle"
-        >
+        <Section title={t.gatesTitle} subtext={t.gatesSubtext} bg="subtle">
           <div className={styles.blockerFlow}>
             <div className={styles.blockerStart}>
               <Text variant="body-s" as="span" weight="semibold">
-                Setup check
+                {t.gatesSetupCheck}
               </Text>
               <Text variant="heading-s" as="p">
-                Can this Work Order run?
+                {t.gatesQuestion}
               </Text>
             </div>
             <div className={styles.blockerConnector} aria-hidden>
               →
             </div>
             <Grid columns={2} mobileColumns={1} gap={16} className={styles.blockerGrid}>
-              {PRODUCTION_BLOCKERS.map((blocker) => (
+              {t.blockers.map((blocker) => (
                 <div className={styles.blockerCard} key={blocker.title}>
                   <Text variant="body-m" as="h3" weight="semibold">
                     {blocker.title}
@@ -269,11 +210,10 @@ function RootPage() {
           </div>
           <div className={styles.blockerOutcome}>
             <Text variant="body-s" as="span" weight="semibold">
-              Ready to release
+              {t.gatesReady}
             </Text>
             <Text variant="body-m" as="p">
-              Active Product-Line assignment + eligible starting Line + Routing + Shift + capacity
-              + exact confirmed finished-unit serial count
+              {t.gatesReadyDetail}
             </Text>
           </div>
         </Section>
@@ -282,25 +222,25 @@ function RootPage() {
   );
 }
 
-function RootHero() {
+function RootHero({ t }: { t: Dict }) {
   return (
     <HeroSplit
       id="hero"
-      title="Set up and run Forge MES with confidence"
-      description="A visual, self-serve guide that explains manufacturing in plain language and walks you from factory setup to a traceable finished unit."
+      title={t.heroTitle}
+      description={t.heroDescription}
       actions={
         <div className={styles.rootHeroActions}>
           <Button
-            label="Start the guided setup"
+            label={t.ctaStart}
             href={`${FORGE_COOKBOOK_BASE_PATH}/start-here/forge-mes-in-plain-language`}
           />
           <Button
-            label="See the complete setup journey"
+            label={t.ctaJourney}
             href={`${FORGE_COOKBOOK_BASE_PATH}/start-here/complete-setup-journey`}
             variant="secondary"
           />
           <Button
-            label="Download complete cookbook (PDF)"
+            label={t.ctaDownload}
             href="/api/cookbooks/forge/download"
             variant="secondary"
           />
@@ -308,7 +248,7 @@ function RootHero() {
       }
       image={{
         src: "https://cdn.pixelbin.io/v2/nameless-waterfall-bf6e98/original/fynd-web/solutions/forge/forge-hero.png",
-        alt: "Forge MES manufacturing operations",
+        alt: "Fynd ERP manufacturing operations",
         width: 1272,
         height: 716,
       }}
@@ -319,16 +259,24 @@ function RootHero() {
   );
 }
 
-function DetailHeader({ entry }: { entry: ForgeCookbookEntry }) {
-  const breadcrumbs = getForgeCookbookBreadcrumbs(entry);
-  const description = entryDescription(entry);
+function DetailHeader({
+  entry,
+  lang,
+  t,
+}: {
+  entry: ForgeCookbookEntry;
+  lang: CookbookLang;
+  t: Dict;
+}) {
+  const breadcrumbs = getForgeCookbookBreadcrumbs(entry, lang);
+  const description = entryDescription(entry, lang, t);
 
   return (
     <header className={styles.detailHeader}>
       <nav aria-label="Breadcrumb" className={styles.breadcrumbs}>
         <Link href="/cookbooks">
           <Text variant="body-s" as="span" color="secondary">
-            Cookbooks
+            {t.breadcrumbCookbooks}
           </Text>
         </Link>
         {breadcrumbs.map((breadcrumb, index) => (
@@ -375,12 +323,20 @@ function DetailHeader({ entry }: { entry: ForgeCookbookEntry }) {
   );
 }
 
-function DetailPage({ entry }: { entry: ForgeCookbookEntry }) {
-  const children = getForgeCookbookChildren(entry);
+function DetailPage({
+  entry,
+  lang,
+  t,
+}: {
+  entry: ForgeCookbookEntry;
+  lang: CookbookLang;
+  t: Dict;
+}) {
+  const children = getForgeCookbookChildren(entry, lang);
   const body = withoutIndexDuplication(entry, children.length > 0);
   const childHeading =
-    entry.slug.length === 1 ? "Follow this stage in order" : "Pages in this section";
-  const articleNavigation = getForgeCookbookArticleNavigation(entry);
+    entry.slug.length === 1 ? t.childHeadingStage : t.childHeadingSection;
+  const articleNavigation = getForgeCookbookArticleNavigation(entry, lang);
   return (
     <div id="cookbook-body" className={styles.articleBody}>
       {children.length > 0 ? (
@@ -388,24 +344,24 @@ function DetailPage({ entry }: { entry: ForgeCookbookEntry }) {
           <Text variant="heading-m" as="h2">
             {childHeading}
           </Text>
-          <StageSequence entries={children} />
+          <StageSequence entries={children} lang={lang} t={t} />
         </div>
       ) : null}
 
       {body && children.length > 0 ? (
         <div className={styles.stageOverview}>
-          <CookbookMarkdown content={body} />
+          <CookbookMarkdown content={body} lang={lang} />
         </div>
       ) : null}
 
       {body && children.length === 0 ? (
         <div className={children.length > 0 ? styles.supplementaryContent : undefined}>
-          <CookbookMarkdown content={body} />
+          <CookbookMarkdown content={body} lang={lang} />
         </div>
       ) : children.length === 0 ? (
         <div className={styles.collectionIntro}>
           <Text variant="body-l" as="p" color="secondary">
-            {entryDescription(entry)}
+            {entryDescription(entry, lang, t)}
           </Text>
         </div>
       ) : null}
@@ -418,11 +374,11 @@ function DetailPage({ entry }: { entry: ForgeCookbookEntry }) {
                 {articleNavigation.stage.title}
               </Text>
               <Text variant="heading-s" as="h2">
-                Step {articleNavigation.stagePosition} of {articleNavigation.stageTotal}
+                {t.navStepOf(articleNavigation.stagePosition, articleNavigation.stageTotal)}
               </Text>
             </div>
             <Text variant="body-s" as="span" color="secondary">
-              Topic {articleNavigation.journeyPosition} of {articleNavigation.journeyTotal}
+              {t.navTopicOf(articleNavigation.journeyPosition, articleNavigation.journeyTotal)}
             </Text>
           </div>
 
@@ -430,24 +386,24 @@ function DetailPage({ entry }: { entry: ForgeCookbookEntry }) {
             className={styles.articleProgress}
             value={articleNavigation.stagePosition}
             max={articleNavigation.stageTotal}
-            aria-label={`${articleNavigation.stage.title}: step ${articleNavigation.stagePosition} of ${articleNavigation.stageTotal}`}
+            aria-label={`${articleNavigation.stage.title}: ${t.navStepOf(articleNavigation.stagePosition, articleNavigation.stageTotal)}`}
           />
 
           <Grid columns={2} mobileColumns={1} gap={16} className={styles.articleNavigationActions}>
             <div className={styles.articleNavigationAction}>
               <Text variant="body-xs" as="span" weight="semibold" color="secondary">
-                Previous
+                {t.navPrevious}
               </Text>
               <Text variant="body-m" as="span" weight="semibold">
                 {articleNavigation.previous?.title || articleNavigation.stage.title}
               </Text>
               <Button
-                label={articleNavigation.previous ? "Previous topic" : "Back to this stage"}
+                label={articleNavigation.previous ? t.navPreviousTopic : t.navBackToStage}
                 href={articleNavigation.previous?.href || articleNavigation.stage.href}
                 variant="secondary"
                 iconLeft={<span aria-hidden>←</span>}
                 showChevron={false}
-                aria-label={`${articleNavigation.previous ? "Previous topic" : "Back to this stage"}: ${articleNavigation.previous?.title || articleNavigation.stage.title}`}
+                aria-label={`${articleNavigation.previous ? t.navPreviousTopic : t.navBackToStage}: ${articleNavigation.previous?.title || articleNavigation.stage.title}`}
               />
             </div>
 
@@ -455,34 +411,40 @@ function DetailPage({ entry }: { entry: ForgeCookbookEntry }) {
               className={`${styles.articleNavigationAction} ${styles.articleNavigationNextAction}`}
             >
               <Text variant="body-xs" as="span" weight="semibold" color="secondary">
-                {articleNavigation.next ? "Up next" : "Journey complete"}
+                {articleNavigation.next ? t.navUpNext : t.navJourneyComplete}
               </Text>
               <Text variant="body-m" as="span" weight="semibold">
-                {articleNavigation.next?.title || "Return to the cookbook home"}
+                {articleNavigation.next?.title || t.navReturnHome}
               </Text>
               {articleNavigation.next &&
               articleNavigation.next.slug[0] !== entry.slug[0] ? (
                 <Text variant="body-xs" as="span" color="secondary">
-                  Next stage: {getForgeCookbookSection(articleNavigation.next)?.title}
+                  {t.navNextStage} {getForgeCookbookSection(articleNavigation.next, lang)?.title}
                 </Text>
               ) : null}
               <Button
-                label={articleNavigation.next ? "Next topic" : "Cookbook home"}
+                label={articleNavigation.next ? t.navNextTopic : t.navCookbookHome}
                 href={articleNavigation.next?.href || FORGE_COOKBOOK_BASE_PATH}
                 showChevron
-                aria-label={`${articleNavigation.next ? "Next topic" : "Cookbook home"}: ${articleNavigation.next?.title || "Return to the cookbook home"}`}
+                aria-label={`${articleNavigation.next ? t.navNextTopic : t.navCookbookHome}: ${articleNavigation.next?.title || t.navReturnHome}`}
               />
             </div>
           </Grid>
         </nav>
       ) : null}
-
     </div>
   );
 }
 
-export function CookbookPageView({ entry }: { entry: ForgeCookbookEntry }) {
-  const description = entryDescription(entry);
+export function CookbookPageView({
+  entry,
+  lang = "en",
+}: {
+  entry: ForgeCookbookEntry;
+  lang?: CookbookLang;
+}) {
+  const t = cookbookUi(lang);
+  const description = entryDescription(entry, lang, t);
   const isRoot = entry.slug.length === 0;
   const structuredData = (
     <JsonLd
@@ -496,8 +458,8 @@ export function CookbookPageView({ entry }: { entry: ForgeCookbookEntry }) {
     return (
       <main>
         {structuredData}
-        <RootHero />
-        <RootPage />
+        <RootHero t={t} />
+        <RootPage lang={lang} t={t} />
       </main>
     );
   }
@@ -505,8 +467,8 @@ export function CookbookPageView({ entry }: { entry: ForgeCookbookEntry }) {
   return (
     <article className={styles.article}>
       {structuredData}
-      <DetailHeader entry={entry} />
-      <DetailPage entry={entry} />
+      <DetailHeader entry={entry} lang={lang} t={t} />
+      <DetailPage entry={entry} lang={lang} t={t} />
     </article>
   );
 }
