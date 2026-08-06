@@ -27,7 +27,7 @@ const GUIDE_PATHS: Record<CookbookLang, string> = {
 // complete source frame at 760 px wide instead of center-cropping the app bar.
 type PageMedia = { url: string; width: number; height: number };
 const gif = (file: string, height = 357): PageMedia => ({
-  url: `/cookbooks/forge/${file}`,
+  url: `/cookbook-media/forge/${file}`,
   width: 760,
   height,
 });
