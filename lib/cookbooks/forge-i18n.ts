@@ -247,7 +247,7 @@ const en: CookbookDict = {
     rulesToRemember: "Rules to remember",
     readyWhen: "Ready when",
     diagramIntroDefault:
-      "Follow the arrows from left to right. Each stage prepares the information the next stage needs.",
+      "Follow the numbered steps in order. Each step prepares the information the next step needs.",
     diagramWhyDefault:
       "Imagine one physical product moving from raw material to a customer. These concepts describe what happens to it.",
     diagramProvidesRelation: "provides the information needed for",
@@ -394,7 +394,7 @@ const ta: CookbookDict = {
     rulesToRemember: "கவனத்தில் கொள்ள வேண்டியவை",
     readyWhen: "எப்போது முடிந்ததாகக் கொள்ளலாம்",
     diagramIntroDefault:
-      "அம்புக்குறிகளை இடமிருந்து வலமாகப் பின்பற்றுங்கள். ஒவ்வொரு படியும் அடுத்த படிக்குத் தேவையான தகவலைத் தயார் செய்கிறது.",
+      "எண்ணிட்ட படிகளை வரிசையாகப் பின்பற்றுங்கள். ஒவ்வொரு படியும் அடுத்த படிக்குத் தேவையான தகவலைத் தயார் செய்கிறது.",
     diagramWhyDefault:
       "ஒரு product, மூலப்பொருளிலிருந்து வாடிக்கையாளர் வரை எப்படி செல்கிறது என்று நினைத்துப் பாருங்கள். அந்தப் பயணத்தில் என்ன நடக்கிறது என்பதை இந்தக் கருத்துகள் விளக்குகின்றன.",
     diagramProvidesRelation: "இதற்குத் தேவையான தகவலை வழங்குகிறது",
@@ -541,7 +541,7 @@ const te: CookbookDict = {
     rulesToRemember: "గుర్తుంచుకోవాల్సిన విషయాలు",
     readyWhen: "ఎప్పుడు పూర్తైనట్టు",
     diagramIntroDefault:
-      "బాణాలను ఎడమ నుంచి కుడికి అనుసరించండి. ప్రతి దశ తర్వాతి దశకు కావాల్సిన సమాచారాన్ని సిద్ధం చేస్తుంది.",
+      "నంబర్ ఉన్న దశలను వరుసగా అనుసరించండి. ప్రతి దశ తర్వాతి దశకు కావాల్సిన సమాచారాన్ని సిద్ధం చేస్తుంది.",
     diagramWhyDefault:
       "ఒక product ముడి పదార్థం నుంచి కస్టమర్ వరకు ఎలా వెళ్తుందో ఊహించండి. ఆ ప్రయాణంలో ఏమి జరుగుతుందో ఇవి వివరిస్తాయి.",
     diagramProvidesRelation: "దీనికి అవసరమైన సమాచారాన్ని అందిస్తుంది",
