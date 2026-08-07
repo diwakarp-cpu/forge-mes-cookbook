@@ -27,10 +27,10 @@
 
 .setupStage:not(:nth-child(3n))::after {
   align-items: center;
-  background: var(--fds-neutral-100);
-  border: 4px solid var(--fds-neutral-0);
+  background: var(--fds-neutral-100, #17191c);
+  border: 4px solid var(--fds-neutral-0, #fff);
   border-radius: 50%;
-  color: var(--fds-neutral-0);
+  color: var(--fds-neutral-0, #fff);
   content: "→";
   display: flex;
   height: 2rem;
@@ -848,36 +848,43 @@
 }
 
 .diagramStage:not(:nth-child(3n)):not(:last-child)::after {
-  background: var(--fds-neutral-100);
-  clip-path: polygon(0 28%, 62% 28%, 62% 0, 100% 50%, 62% 100%, 62% 72%, 0 72%);
-  content: "";
-  height: 1.75rem;
+  align-items: center;
+  background: var(--fds-neutral-100, #17191c);
+  border: 4px solid var(--fds-neutral-0, #fff);
+  border-radius: 50%;
+  color: var(--fds-neutral-0, #fff);
+  content: "→";
+  display: flex;
+  font-size: 1rem;
+  font-weight: 700;
+  height: 2rem;
   inset-inline-end: -2.45rem;
+  justify-content: center;
+  line-height: 1;
   position: absolute;
-  top: calc(50% - 0.875rem);
-  width: 1.9rem;
+  top: calc(50% - 1rem);
+  width: 2rem;
   z-index: 2;
 }
 
 .diagramStage:nth-child(3n + 1):not(:first-child)::before {
   align-items: center;
-  background: var(--fds-neutral-100);
-  border: 4px solid var(--fds-neutral-0);
+  background: var(--fds-neutral-100, #17191c);
+  border: 4px solid var(--fds-neutral-0, #fff);
   border-radius: 999px;
-  color: var(--fds-neutral-0);
-  content: "Continue ↓";
+  color: var(--fds-neutral-0, #fff);
+  content: "↓";
   display: flex;
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   height: 2rem;
   justify-content: center;
   left: 50%;
-  letter-spacing: 0.02em;
-  padding-inline: 0.75rem;
+  line-height: 1;
   position: absolute;
   top: -3.25rem;
   transform: translateX(-50%);
-  white-space: nowrap;
+  width: 2rem;
 }
 
 .diagramStageHeader {
@@ -952,9 +959,9 @@
 
 .diagramStopNote {
   align-items: center;
-  background: var(--fds-neutral-100);
+  background: var(--fds-neutral-100, #17191c);
   border-radius: 0.85rem;
-  color: var(--fds-neutral-0);
+  color: var(--fds-neutral-0, #fff);
   display: grid;
   gap: 0.75rem;
   grid-template-columns: auto minmax(0, 1fr);
@@ -964,9 +971,9 @@
 
 .diagramStopIcon {
   align-items: center;
-  background: var(--fds-neutral-0);
+  background: var(--fds-neutral-0, #fff);
   border-radius: 50%;
-  color: var(--fds-neutral-100);
+  color: var(--fds-neutral-100, #17191c);
   display: flex;
   font-size: 0.8rem;
   font-weight: 700;
@@ -1105,10 +1112,10 @@
 
   .setupStage:nth-child(odd)::after {
     align-items: center;
-    background: var(--fds-neutral-100);
-    border: 4px solid var(--fds-neutral-0);
+    background: var(--fds-neutral-100, #17191c);
+    border: 4px solid var(--fds-neutral-0, #fff);
     border-radius: 50%;
-    color: var(--fds-neutral-0);
+    color: var(--fds-neutral-0, #fff);
     content: "→";
     display: flex;
     height: 2rem;
@@ -1197,11 +1204,11 @@
 
   .setupStage:nth-child(even):not(:last-child)::after {
     align-items: center;
-    background: var(--fds-neutral-100);
-    border: 4px solid var(--fds-neutral-0);
+    background: var(--fds-neutral-100, #17191c);
+    border: 4px solid var(--fds-neutral-0, #fff);
     border-radius: 50%;
     bottom: -1.625rem;
-    color: var(--fds-neutral-0);
+    color: var(--fds-neutral-0, #fff);
     content: "→";
     display: flex;
     height: 2rem;
@@ -1240,14 +1247,14 @@
   }
 
   .diagramStage:not(:last-child)::after {
-    clip-path: polygon(28% 0, 72% 0, 72% 62%, 100% 62%, 50% 100%, 0 62%, 28% 62%);
-    display: block;
-    height: 1.9rem;
+    content: "↓";
+    display: flex;
+    height: 2rem;
     inset-block-end: -2.45rem;
     inset-inline-end: auto;
-    left: calc(50% - 0.875rem);
+    left: calc(50% - 1rem);
     top: auto;
-    width: 1.75rem;
+    width: 2rem;
   }
 
   .breadcrumbs {
