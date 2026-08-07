@@ -33,7 +33,7 @@ const gif = (file: string, height = 357): PageMedia => ({
 });
 const PAGE_MEDIA: Record<string, PageMedia> = {
   // Configure your factory
-  sites: gif("forge-create-site.gif"),
+  sites: gif("forge-create-site-v3.gif"),
   lines: gif("forge-create-production-line.gif"),
   "stations-and-repair-stations": gif("forge-station-creation.gif"),
   shifts: gif("forge-create-shifts.gif", 368),
