@@ -791,14 +791,14 @@
             "End"
           ],
           "steps": [
-            "ఒక Routing ఒక Product మరియు ఒక యాక్టివ్ BOM Version‌కు చెందుతుంది.",
-            "ప్రతి operation నోడ్ ఒక నిజమైన Station‌ను సూచిస్తుంది.",
-            "కనెక్షన్‌లు ఏ operation మరొకదాని తర్వాత రావచ్చో నిర్ణయిస్తాయి.",
-            "వైఫల్య కాన్ఫిగరేషన్ ఒక యూనిట్‌ను Repair‌కు పంపి, తర్వాత దాన్ని చెల్లుబాటు అయ్యే ప్రక్రియకు తిరిగి ఇవ్వగలదు."
+            "ఒక Routing ఒక Product, ఒకటి లేదా ఎక్కువ Variants మరియు యాక్టివ్ BOM Version కోసం సృష్టించబడుతుంది.",
+            "ప్రతి operation నోడ్ ఒక నిజమైన Station‌ను సూచిస్తుంది; Repair Station తప్పనిసరి.",
+            "అమలు క్రమాన్ని నిర్వచించడానికి Start, ప్రతి operation stage మరియు End‌ను కనెక్ట్ చేయండి.",
+            "Conditional branch నాణ్యత ఫలితాన్ని ఉపయోగించవచ్చు; తక్కువ priority సంఖ్యలు ముందుగా పరిశీలించబడతాయి."
           ],
           "rules": [
-            "Routing లేని Product కోసం ఒక Work Order సృష్టించలేము.",
-            "సాధారణ Work Order ప్రారంభ ప్రయాణంలో యాక్టివ్ Routings మాత్రమే అందించబడతాయి.",
+            "కేటాయించిన Components మరియు పరిమాణాలు రెండూ 100% BOM coverage‌కు చేరాలి.",
+            "ఒకటి కంటే ఎక్కువ Routing Active‌గా ఉండవచ్చు; Work Order ప్రారంభమైనప్పుడు Routing నిర్ణయించబడుతుంది.",
             "Components మరియు tools వాటికి అవసరమైన operation‌కు జోడించవచ్చు."
           ],
           "checklist": [
@@ -814,33 +814,35 @@
           "importance": "Required",
           "prerequisites": ["Routing సరళమైన భాషలో"],
           "flow": [
-            "Routing తెరవండి",
-            "ఒక Routing ప్రారంభించండి",
-            "Flow ను నిర్మించండి",
-            "Stations ను assign చేయండి",
-            "కనెక్ట్ చేసి configure చేయండి",
-            "Validate చేసి activate చేయండి"
+            "Product తెరవండి",
+            "Variants ఎంచుకోండి",
+            "Active BOM ఎంచుకోండి",
+            "Operation stage జోడించండి",
+            "BOM quantities cover చేయండి",
+            "Workflow connect చేయండి",
+            "Confirm చేసి save చేయండి"
           ],
           "steps": [
-            "Process & Engineering తెరిచి Routing ఎంచుకోండి.",
-            "Create Routing ఎంచుకుని, Product, active BOM Version, name, మరియు వర్తించే Variants ఎంచుకోండి.",
-            "ఒక Start node, అవసరమైన operation nodes, మరియు ఒక End node జోడించండి.",
-            "విఫలం కాగల ప్రతి operation కోసం ఒక ప్రధాన Station మరియు వేరే Repair Station ఎంచుకోండి.",
-            "ప్రతి operation ను Start నుండి End వరకు connect చేసి, ప్రత్యేకమైన operation name ఉపయోగించి, అవసరమైన ప్రతి Component కు పూర్తి BOM quantity assign చేయండి.",
-            "Validate ఎంచుకుని అన్ని blocking errors పరిష్కరించండి. Validation pass అయ్యే వరకు Save అందుబాటులో ఉండదు; తరువాత save చేసి Active గా సెట్ చేయండి."
+            "Product detail తెరిచి Create Routing ఎంచుకోండి.",
+            "కనీసం ఒక Variant ఎంచుకుని కొనసాగండి; తరువాత Active BOM Version ఎంచుకోండి.",
+            "తప్పనిసరి Workflow Name నమోదు చేసి, optional description జోడించి, అవసరానికి అనుగుణంగా Active సెట్ చేయండి.",
+            "Add Stage మరియు Create Manually ఎంచుకుని main Station, unique Operation Name, మరియు వేరే Repair Station సెట్ చేయండి.",
+            "రెండు BOM coverage indicators 100% చేరే వరకు అవసరమైన Components మరియు quantities assign చేయండి.",
+            "Stage save చేసి Start‌ను ప్రతి stage ద్వారా End‌కు connect చేయండి. Workflow valid అయిన తర్వాత మాత్రమే Save అందుబాటులో ఉంటుంది.",
+            "Save ఎంచుకుని summary review చేసి Confirm & Save ఎంచుకొని Routing detail page verify చేయండి."
           ],
           "rules": [
-            "Product, applicable Variants, active BOM Version, మరియు workflow name అవసరం.",
+            "Product detail page Product‌ను అందిస్తుంది; కనీసం ఒక Variant, active BOM Version, మరియు Workflow Name తప్పనిసరి.",
             "Routing కు కనీసం ఒక operation Station అవసరం.",
             "ప్రతి operation కు main Station కంటే వేరైన Repair Station అవసరం.",
-            "Disconnected operations executable process కావు.",
-            "Operation names Routing లో unique గా ఉండాలి; blocking validation pass అయ్యే వరకు Save అందుబాటులో ఉండదు."
+            "Component మరియు quantity coverage రెండూ ఎంచుకున్న BOM‌లో 100% చేరాలి.",
+            "Start, ప్రతి operation stage, మరియు End connect కావాలి; automatic validation pass అయ్యే వరకు Save అందుబాటులో ఉండదు."
           ],
           "checklist": [
-            "Start మరియు End ఉన్నాయి.",
-            "ప్రతి operation Start నుండి చేరుకోగలది.",
-            "ప్రతి operation‌కు చెల్లుబాటు అయ్యే ప్రధాన మరియు Repair Stations ఉన్నాయి.",
-            "Routing యాక్టివ్‌గా ఉంది మరియు సరైన యాక్టివ్ BOM‑ను ఉపయోగిస్తుంది."
+            "సరైన Product Variants మరియు Active BOM ఎంచుకోబడ్డాయి.",
+            "ప్రతి operation‌కు చెల్లుబాటు అయ్యే main మరియు Repair Stations మరియు పూర్తి BOM coverage ఉన్నాయి.",
+            "Start, ప్రతి stage, మరియు End connect అయ్యి workflow valid‌గా ఉంది.",
+            "Routing detail page ఆశించిన status, Product, Variants, BOM, మరియు Workflow Preview చూపిస్తుంది."
           ]
         },
         {
@@ -854,25 +856,27 @@
           ],
           "flow": [
             "Product తెరవండి",
-            "కేటాయించిన Lines సమీక్షించండి",
-            "అర్హత గల Line ఎంచుకోండి",
-            "కేటాయింపును యాక్టివేట్ చేయండి"
+            "Assigned Lines తెరవండి",
+            "Line availability సమీక్షించండి",
+            "Eligible Line assign చేయండి",
+            "Assignment verify చేయండి"
           ],
           "steps": [
-            "Product‌ను తెరిచి, దాని కేటాయించిన Lines‑ను గుర్తించండి.",
-            "Product‑ను భౌతికంగా తయారు చేయగల కనీసం ఒక యాక్టివ్ లేదా ఆక్రమిత Line‑ను కేటాయించండి.",
-            "సామర్థ్య సమతుల్యత లేదా బహుళ లేన్‌లు ఉద్దేశించినప్పుడు మాత్రమే అదనపు అర్హత గల Lines‑ను కేటాయించండి.",
-            "తగిన ప్రారంభ Line ఒక Starting Line‌గా గుర్తించబడిందో నిర్ధారించండి."
+            "Product detail తెరిచి Assigned Lines విభాగానికి scroll చేయండి.",
+            "Assign Line ఎంచుకుని Select Line control తెరవండి.",
+            "Available Lines మరియు ఇతర Products‌కు assigned అయిన Lines‌ను వేరుగా review చేసి, code మరియు Site ద్వారా సరైన Line ఎంచుకోండి.",
+            "Assign ఎంచుకుని, అదే Product‌ను నిజంగా manufacture చేయగల ఇతర Lines కోసం మాత్రమే పునరావృతం చేయండి.",
+            "Table‌లో ప్రతి assigned Line name, code, status, capacity per hour, Site, మరియు actions నిర్ధారించండి."
           ],
           "rules": [
-            "Product‌కు యాక్టివ్ Line కేటాయింపు లేనప్పుడు Work Order సృష్టి అడ్డుకోబడుతుంది.",
-            "ప్రస్తుత కేటాయింపు ప్రవాహం ప్రతి Line‌కు ఒక యాక్టివ్ Product కేటాయింపును అనుమతిస్తుంది.",
-            "యాక్టివ్ Production Tasks ఆ Line‌ను ఉపయోగిస్తున్నప్పుడు ఒక కేటాయింపును తొలగించడం అడ్డుకోబడవచ్చు."
+            "Product‌కు multi-line Work Order execution enable చేయడానికి కనీసం ఒక Line assignment అవసరం.",
+            "Product‌ను నిజంగా manufacture చేయగల Lines‌ను మాత్రమే assign చేయండి.",
+            "Starting-Line eligibility Product assignment dialog‌లో కాదు; అది వేరుగా Line‌లో configure చేయబడుతుంది."
           ],
           "checklist": [
-            "Product‌కు కనీసం ఒక యాక్టివ్ Line ఉంది.",
-            "కేటాయించిన Lines భౌతిక ప్రక్రియకు సరిపోతాయి.",
-            "కేటాయించిన కనీసం ఒక ప్రారంభ Line ఒక Starting Line."
+            "Product‌కు కనీసం ఒక eligible assigned Line ఉంది.",
+            "Assigned Line codes మరియు Sites ఉద్దేశించిన physical process‌కు సరిపోతాయి.",
+            "ప్రతి assignment‌కు ఆశించిన status మరియు capacity table‌లో కనిపిస్తాయి."
           ]
         },
         {
@@ -882,29 +886,29 @@
           "importance": "Required",
           "prerequisites": ["Products‑ను Lines‌కు కేటాయించండి"],
           "flow": [
-            "Line తెరవండి",
-            "Starting eligibility సెట్ చేయండి",
-            "Queue capacity సెట్ చేయండి",
-            "Production capacity సెట్ చేయండి",
-            "Save చేసి పరీక్షించండి"
+            "Line detail తెరవండి",
+            "Throughput edit చేయండి",
+            "Task queue పరిమితం చేయండి",
+            "Starting Line సెట్ చేయండి",
+            "Save చేసి verify చేయండి"
           ],
           "steps": [
-            "Process & Engineering → Line తెరిచి, Line ను వెతికి, Edit ఎంచుకోండి.",
-            "Production Tasks అక్కడ ప్రారంభం కావచ్చు అనుకున్నప్పుడు మాత్రమే Is Starting Line ఆన్ చేయండి.",
-            "Task Queue Capacity 1 నుండి 100,000 మధ్య పూర్తి సంఖ్యగా ఉండాలి.",
-            "Capacity Per Shift, Capacity Per Hour కంటే ఎక్కువగా ఉండాలి; వాస్తవిక విలువలను నమోదు చేయండి.",
-            "Save ఎంచుకుని, తర్వాత Work Order capacity planning తెరిచి, Line ఆశించిన headroom చూపిస్తుందని నిర్ధారించండి."
+            "Process & Engineering → Line తెరిచి name లేదా code ద్వారా search చేసి, Line detail తెరిచి Edit ఎంచుకోండి.",
+            "Optional Capacity Per Hour మరియు Capacity Per Shift సెట్ చేయండి; రెండూ ఉంటే shift value hourly value కంటే ఎక్కువగా ఉండాలి.",
+            "Optional Task Queue Capacity‌ను Line‌లో అనుమతించే pending మరియు active tasks గరిష్ఠంగా సెట్ చేయండి.",
+            "Capacity planning‌లో Line initial task పొందవలసినప్పుడు మాత్రమే Is Starting Line ఆన్ చేయండి.",
+            "Save ఎంచుకుని Line detail‌లో status, Site, capacities, మరియు assigned Products నిర్ధారించండి."
           ],
           "rules": [
-            "Initial Work Orders కు సాధారణంగా assigned active Starting Line అవసరం.",
-            "Downstream Lines units ముందుకు సాగే కొద్దీ tasks అందుకుంటాయి; అన్నీ Starting Lines కాకూడదు.",
-            "Capacity Per Shift, Capacity Per Hour కంటే ఎక్కువగా మరియు Task Queue Capacity 1 నుండి 100,000 మధ్య పూర్తి సంఖ్యగా ఉండాలి.",
-            "Manual capacity planning ప్రతి task sequence ను gaps లేకుండా cover చేయాలి."
+            "Starting Line‌గా marked Lines మాత్రమే capacity planning‌లో initial task పొందగలవు.",
+            "UI manufacturing phase order‌ను SMT → BLT → ASSEMBLY → TESTING → PACKING గా చూపిస్తుంది.",
+            "రెండు optional values ఉన్నప్పుడు Capacity Per Shift, Capacity Per Hour కంటే ఎక్కువగా ఉండాలి.",
+            "Task Queue Capacity optional; విలువ ఇస్తే అది 1 నుండి 100,000 మధ్య whole number గా ఉండాలి."
           ],
           "checklist": [
-            "Starting Lines నిజమైన మొదటి తయారీ దశను ప్రతిబింబిస్తాయి.",
-            "Queue సామర్థ్యం స్పష్టంగా మరియు వాస్తవికంగా ఉంది.",
-            "కలిపిన హెడ్‌రూమ్ ట్రయల్ Work Order పరిమాణాన్ని స్వీకరించగలదు."
+            "Starting-Line status నిజమైన మొదటి manufacturing phase‌ను ప్రతిబింబిస్తుంది.",
+            "Hourly, shift, మరియు queue capacity values valid మరియు realistic గా ఉన్నాయి.",
+            "Line detail ఉద్దేశించిన Site, status, capacities, మరియు assigned Products చూపిస్తుంది."
           ]
         },
         {
@@ -914,31 +918,33 @@
           "importance": "Conditional",
           "prerequisites": ["Products మరియు Variants సృష్టించండి"],
           "flow": [
-            "Identifier Management తెరవండి",
-            "ఒక mapping సృష్టించండి",
-            "Key validate చేయండి",
-            "Source ఎంచుకోండి",
-            "Generation timing సెట్ చేయండి",
-            "Save చేసి availability verify చేయండి"
+            "Identifier definition సృష్టించండి",
+            "Source మరియు type ఎంచుకోండి",
+            "Identifier pool నిర్వచించండి",
+            "Product Identifiers తెరవండి",
+            "Product mapping configure చేయండి",
+            "Assignment behavior సెట్ చేయండి",
+            "Mapping verify చేయండి"
           ],
           "steps": [
-            "Process & Engineering తెరిచి Identifier Management ఎంచుకోండి.",
-            "అవసరమైన key, display name, మరియు definition లేదా range నమోదు చేయండి.",
-            "Uppercase అక్షరాలు, సంఖ్యలు, మరియు underscores మాత్రమే ఉపయోగించండి.",
-            "Generated values కోసం Range ఉపయోగించండి; external identifiers auto-generation ను disable చేస్తాయి.",
-            "Task creation, task start, లేదా configured Routing step వద్ద generate చేయండి; value మళ్లీ వాడకూడదంటే uniqueness enable చేయండి.",
-            "mapping ను save చేసి, ప్రణాళిక చేసిన Work Order quantity కు తగినన్ని ఉపయోగించని విలువలు ఉన్నాయని నిర్ధారించండి."
+            "Process & Engineering → Identifier Management తెరిచి Create Identifier Range → Create Manually ఎంచుకోండి.",
+            "తప్పనిసరి Name నమోదు చేసి Range, Template, External, లేదా Manual source ఎంచుకోండి.",
+            "Range source కోసం identifier Type మరియు Range లేదా File Upload ఎంచుకోండి. Generated range కోసం తప్పనిసరి Start మరియు End values నమోదు చేసి count review చేసి Create ఎంచుకోండి.",
+            "Production → Products లో Product detail తెరిచి Product Identifiers విభాగానికి scroll చేసి Add Identifier ఎంచుకోండి.",
+            "Identifier definition ఎంచుకుని తప్పనిసరి Identifier Key మరియు Display Name నమోదు చేసి Generated లేదా External ఎంచుకోండి.",
+            "On Task Creation, On Task Start, లేదా At Route Step ఎంచుకుని అవసరమైతే Auto-generate మరియు Must be Unique enable చేయండి.",
+            "Add Identifier ఎంచుకుని Product table‌లో expected source, timing, మరియు linked range నిర్ధారించండి."
           ],
           "rules": [
-            "Identifier Management, Work Orders లో కాదు; Process & Engineering లో ఉంది.",
-            "Required task-creation mappings కు availability సరిపోకపోతే release block అవుతుంది.",
-            "Optional identifier shortages warnings గా కనిపిస్తాయి.",
-            "Additional identifiers ఉన్నా finished-unit serial batch అవసరం."
+            "Identifier range Name తప్పనిసరి; ఒక operation‌లో 10,000 identifiers కంటే ఎక్కువ process చేయలేరు.",
+            "Generated identifiers‌ను system సృష్టిస్తుంది; External identifiers‌ను operator scan లేదా enter చేస్తారు.",
+            "Product Identifier Keys uppercase‌గా store చేయబడతాయి.",
+            "At Route Step timing‌కు Routing Editor configuration అవసరం."
           ],
           "checklist": [
-            "ప్రతి అవసరమైన గుర్తింపు మ్యాపింగ్‌కు ఒక చెల్లుబాటు అయ్యే మూలం ఉంది.",
-            "అందుబాటులో ఉన్న పరిమాణం Work Order‑ను కవర్ చేస్తుంది.",
-            "Templates మరియు ranges ఉద్దేశించిన ఫార్మాట్‌ను రూపొందిస్తాయి."
+            "Identifier definition Active‌గా ఉండి intended values మరియు availability చూపిస్తుంది.",
+            "Product mapping‌లో సరైన key, type, source, మరియు assignment timing ఉన్నాయి.",
+            "Auto-generation మరియు uniqueness identifier business rule‌కు సరిపోతాయి."
           ]
         }
       ]
@@ -965,19 +971,20 @@
             "Production Tasks"
           ],
           "steps": [
-            "సంబంధిత Work Orders‑ను సమూహపరచి పర్యవేక్షించడానికి ఒక Production Order‑ను ఉపయోగించండి.",
-            "Product, పరిమాణం, ప్రాధాన్యత, గడువు తేదీ, Variant మరియు Shifts‑ను నిర్వచించడానికి ఒక Work Order‑ను ఉపయోగించండి.",
-            "ఆపరేటర్‌లు అమలు చేసే యూనిట్‌స్థాయి Production Tasks‑ను సృష్టించడానికి Work Order‑ను విడుదల చేయండి."
+            "సంబంధిత Work Orders‌ను group చేసి monitor చేయడానికి Production Order ఉపయోగించండి. Name మరియు unique Order Number తప్పనిసరి; Client optional మరియు group చేయగల Work Orders‌ను పరిమితం చేస్తుంది.",
+            "Product with Routing, input quantity, priority, due date, మరియు Shifts ఉన్న executable manufacturing record‌గా Work Order ఉపయోగించండి.",
+            "Production-line setup లేదా workflow testing కోసం మాత్రమే Test Order ఉపయోగించండి; Test Orders analytics‌లో చేరవు."
           ],
           "rules": [
-            "ఒక Production Order ఐచ్ఛికం మరియు అది స్వయంగా ఉత్పత్తిని ప్రారంభించదు.",
-            "ఒక Work Order ఒక Production Order కింద సమూహపరచబడకుండా ఉండగలదు.",
-            "Production Order పూర్తి దాని Work Orders పూర్తిని అనుసరిస్తుంది."
+            "Production Order Work Orders‌ను group చేస్తుంది; అది executable quantity‌ను స్వయంగా నిర్వచించదు.",
+            "Work Order ఒక Production Order కింద group చేయబడకుండా ఉండవచ్చు.",
+            "Work Order ప్రారంభించే ముందు కనీసం ఒక Shift అవసరం.",
+            "Test Orders production analytics‌లో calculate చేయబడవు."
           ],
           "checklist": [
-            "ప్రణాళిక రికార్డు వ్యాపార అవసరానికి సరిపోతుంది.",
-            "ప్రతి అమలు చేయదగిన పరిమాణం ఒక Work Order ద్వారా సూచించబడింది.",
-            "నియంత్రణను మెరుగుపరిచే చోట మాత్రమే సమూహీకరణ ఉపయోగించబడింది."
+            "Grouped demand ఉద్దేశించిన client restriction ఉన్న Production Order‌ను ఉపయోగిస్తుంది.",
+            "ప్రతి executable quantity routed Work Order ద్వారా సూచించబడింది.",
+            "Non-analytics setup లేదా workflow testing కోసం మాత్రమే Test Order enabled గా ఉంది."
           ]
         },
         {
@@ -992,34 +999,30 @@
             "Shifts సృష్టించండి"
           ],
           "flow": [
-            "Work Orders తెరవండి",
-            "ఒక order ప్రారంభించండి",
-            "Demand ఎంచుకోండి",
-            "Execution వివరాలు నమోదు చేయండి",
-            "Schedule validate చేయండి",
-            "Readiness సమీక్షించండి",
-            "Order సృష్టించండి"
+            "అవసరమైన పేరు నమోదు చేయండి",
+            "Routed Product మరియు Variant ఎంచుకోండి",
+            "Quantity, Priority, Due Date నమోదు చేయండి",
+            "తెలిసినప్పుడు Shift కేటాయించండి",
+            "Pending Work Order సృష్టించండి"
           ],
           "steps": [
-            "Production తెరిచి Work Orders ఎంచుకోండి.",
-            "Create Work Order ఎంచుకోండి.",
-            "ఉపయోగించినప్పుడు Production Order ఎంచుకుని, తర్వాత Client, Product, మరియు Variant ఎంచుకోండి.",
-            "ప్రత్యేకమైన name, quantity, priority, భవిష్యత్ due date, మరియు కనీసం ఒక Shift పూర్తి చేయండి.",
-            "Quantity positive whole number గా, due date గతంలో కాకుండా ఉండాలి; start చేయడానికి కనీసం ఒక active Shift అవసరం.",
-            "Product కు active BOM, active Routing, మరియు eligible Line assignment ఉన్నాయని నిర్ధారించండి. Inventory shortfall ఉన్నా creation అనుమతిస్తుంది; release కు ముందు పరిష్కరించాలి.",
-            "Create Work Order ఎంచుకుని, start journey కొనసాగించడానికి కొత్త రికార్డు తెరవండి."
+            "ప్రత్యేకమైన Work Order Name నమోదు చేయండి.",
+            "Routing configure చేసిన Product ఎంచుకుని, అవసరమైన Product Variant ఎంచుకోండి; Project మరియు Product Family ఆటోమేటిక్‌గా derive అవుతాయి.",
+            "Positive Input Quantity, అవసరమైన Priority, మరియు గతంలో లేని Due Date నమోదు చేయండి.",
+            "Input Quantity × Product Multiplier గా లెక్కించే Total Computed Quantity ను సమీక్షించండి.",
+            "తెలిసినప్పుడు ఒకటి లేదా ఎక్కువ Shifts కేటాయించి, Component Availability చూసి Work Order సృష్టించండి."
           ],
           "rules": [
-            "Quantity positive whole number గా మరియు due date గతంలో కాకుండా ఉండాలి.",
-            "Product multiplier final unit quantity పెంచవచ్చు.",
-            "Routing లేదా active Line assignment లేని Product reject అవుతుంది.",
-            "Work Order start కావడానికి కనీసం ఒక active Shift అవసరం.",
-            "Component shortfalls creation ను అనుమతిస్తాయి; release కు ముందు పరిష్కరించాలి."
+            "Name, routed Product, Product Variant, Input Quantity, Priority, మరియు Due Date అవసరం.",
+            "Due Date గతంలో ఉండకూడదు; computed quantity = Input Quantity × Product Multiplier.",
+            "Creation సమయంలో Shift optional; కానీ Work Order start కావడానికి కనీసం ఒక Shift అవసరం.",
+            "Test Orders line setup లేదా workflow testing కోసం; అవి analytics లో చేరవు.",
+            "విజయవంతంగా సృష్టించిన Work Order PENDING status లో మొదలవుతుంది."
           ],
           "checklist": [
             "Product, Variant, పరిమాణం, ప్రాధాన్యత మరియు గడువు తేదీ సరైనవి.",
-            "కనీసం ఒక Shift ఎంచుకోబడింది.",
-            "ఫలిత చివరి పరిమాణం అర్థమైంది."
+            "Computed quantity మరియు Component Availability panel సమీక్షించబడ్డాయి.",
+            "Shift ఇప్పుడు కేటాయించబడింది లేదా start ముందు ప్లాన్ చేయబడింది; normal production కోసం Test Order off గా ఉంది."
           ]
         },
         {
@@ -1029,31 +1032,28 @@
           "importance": "Required",
           "prerequisites": ["ఒక Work Order సృష్టించండి"],
           "flow": [
-            "Work Order తెరవండి",
             "Start journey తెరవండి",
-            "Serials generate చేయండి",
-            "Batch సమీక్షించండి",
-            "Batch confirm చేయండి",
-            "Quantity ను సరిపోల్చండి"
+            "Generation method ఎంచుకోండి",
+            "Preview మరియు uniqueness validate చేయండి",
+            "Batch generate చేసి confirm చేయండి",
+            "Confirmed quantity verify చేయండి"
           ],
           "steps": [
-            "Work Orders జాబితా వెతికి draft Work Order ఎంచుకోండి.",
-            "Start, Prepare, లేదా అందుబాటులో ఉన్న production-start action ఎంచుకోండి.",
-            "Serial Numbers తెరిచి, configure చేసిన Product template లేదా మద్దతు ఉన్న method ఉపయోగించి Generate ఎంచుకోండి.",
-            "ప్రతి proposed value కు uniqueness validate చేసి invalid duplicates తొలగించి batch సృష్టించండి.",
-            "Generated serials, batch confirm అయ్యే వరకు ఉపయోగించలేరు.",
-            "నిర్ధారించిన serial count ఖచ్చితంగా చివరి Work Order quantity కు సమానమని verify చేయండి."
+            "Start Work Order ఎంచుకోండి; confirmed serials Work Order quantity కు సమానం అయ్యే వరకు Serial Numbers step progress ను block చేస్తుంది.",
+            "Generate Serial Numbers ఎంచుకుని, configure అయితే Product Template, మరో available Template, లేదా CSV/Excel కోసం Manual Upload ఉపయోగించండి.",
+            "Preview count verify చేసి, Validate Uniqueness ఎంచుకుని batch generate చేయండి.",
+            "Confirm & Complete ఎంచుకుని, start journey లో CONFIRMED మరియు ఖచ్చితమైన serial count ఉన్నాయని verify చేయండి."
           ],
           "rules": [
-            "Normal Work Order serial number batch లేకుండా start కాదు.",
-            "Batch confirm చేయాలి.",
-            "Serial count Work Order quantity కు ఖచ్చితంగా సమానం కావాలి.",
-            "Batch create మరియు confirm చేసే ముందు ప్రతి proposed serial ను uniqueness కోసం validate చేయండి.",
+            "తదుపరి start step enable కావడానికి confirmed serial count Work Order quantity కు ఖచ్చితంగా సమానం కావాలి.",
+            "Product కు template configure చేయనప్పుడు Product Template అందుబాటులో ఉండదు.",
+            "ప్రతి proposed serial uniqueness validation pass కావాలి.",
+            "GENERATED batch Confirm & Complete ద్వారా CONFIRMED అయ్యే వరకు production-ready కాదు.",
             "Serial number batch unit serials ను group చేస్తుంది; unit-level identities ను భర్తీ చేయదు."
           ],
           "checklist": [
-            "సీరియల్ బ్యాచ్ నిర్ధారించబడింది.",
-            "సీరియల్ సంఖ్య చివరి పరిమాణానికి సమానం.",
+            "Serial batch status CONFIRMED గా ఉంది.",
+            "Confirmed serial count Work Order quantity కు సమానం.",
             "సీరియల్ ఫార్మాట్ స్కానింగ్ మరియు ట్రేస్‌బిలిటీకి అనుకూలంగా ఉంది."
           ]
         },
@@ -1075,17 +1075,16 @@
             "Routing ఎంచుకోండి"
           ],
           "steps": [
-            "Line capacity allocate చేయడానికి లేదా Routing ఎంచుకోవడానికి ముందు unit-serial batch confirm చేయండి.",
-            "draft Work Order యొక్క start journey తెరిచి Capacity and Lines ఎంచుకోండి.",
-            "Starting Lines పై ప్రస్తుత task load మరియు అందుబాటులో ఉన్న headroom పోల్చండి.",
-            "automatic balancing ఎంచుకోండి లేదా manual assignment ఎంచుకోండి.",
-            "manual mode ఉపయోగించినప్పుడు, పూర్తి quantity కేటాయించే వరకు Add Line Assignment ఎంచుకోండి.",
-            "ఎంచుకున్న Product మరియు Variant ను cover చేసే active Routing ఎంచుకుని, plan save చేసి inventory, identifier, మరియు Station blockers సమీక్షించండి."
+            "Confirmed serials quantity కు సరిపోయిన తర్వాత Capacity & Lines తెరిచి Configure Capacity Planning ఎంచుకోండి.",
+            "Total Quantity, Available Capacity, Available Lines, మరియు eligible Starting Lines projected capacity సమీక్షించండి.",
+            "System-optimized distribution లేదా manual assignment ఉపయోగించండి; system mode లో Proceed with System Assignment ఎంచుకోండి.",
+            "Capacity planning completed అని నిర్ధారించి eligible active Production Route ఎంచుకోండి.",
+            "Route option BOM status, route type, item count, మరియు enabled Next action verify చేయండి."
           ],
           "rules": [
-            "మొత్తం అందుబాటులో ఉన్న queue సామర్థ్యం Work Order పరిమాణాన్ని కవర్ చేయాలి.",
-            "ప్రతి మాన్యువల్‌గా కేటాయించిన task ఒక అర్హత గల Line‑ను సూచించాలి.",
-            "ఎంచుకున్న Routing యాక్టివ్‌గా ఉండి, Product కాన్ఫిగరేషన్‌కు వర్తించాలి."
+            "పూర్తి Work Order quantity కోసం serials confirm అయ్యే వరకు capacity planning disabled గా ఉంటుంది.",
+            "Eligible Starting Lines available queue capacity Work Order quantity ను cover చేయాలి.",
+            "Production Route eligible గా ఉండి active associated BOM చూపాలి."
           ],
           "checklist": [
             "సామర్థ్య ప్రణాళిక పూర్తయింది.",
@@ -1108,17 +1107,16 @@
             "విడుదల"
           ],
           "steps": [
-            "serials, సామర్థ్యం మరియు Routing సిద్ధమైన తర్వాత ప్రారంభానికి ముందు ధృవీకరణను నడపండి.",
-            "Product, యాక్టివ్ BOM, serials మరియు గ్లోబల్ పదార్థ కొరతలతో ప్రారంభించి, ప్రతి అడ్డంకిని పరిష్కరించండి.",
-            "మొదటి‑దశ లభ్యత సరిపోనప్పుడు మొదటి Station‌కు పదార్థాన్ని బదిలీ చేయండి.",
-            "కొనసాగాలో వద్దో నిర్ణయించే ముందు తర్వాతి‑Station కొరతలు మరియు హెచ్చరికలను సమీక్షించండి.",
-            "ఫలితం ఉత్పత్తి ప్రారంభాన్ని అనుమతించినప్పుడు మాత్రమే Work Order‑ను విడుదల చేయండి."
+            "Serial Numbers, Capacity & Lines, మరియు Routing పూర్తయ్యాక Run Pre-Start Validation ఎంచుకోండి.",
+            "Product assignment, BOM, generated/confirmed serials, Component Inventory, Station-Level Inventory, మరియు Identifier Availability సమీక్షించండి.",
+            "First-stage Station shortages ను Transfer All లేదా component transfer తో పరిష్కరించి, exact remaining quantity కోసం Auto-Fill Shortage ఉపయోగించండి.",
+            "Validation PASS అయ్యే వరకు refresh చేసి, తర్వాత Proceed to Start ఎంచుకోండి."
           ],
           "rules": [
-            "మద్దతు గల విడుదల ప్రయాణంలో లేని యాక్టివ్ BOM ఒక అడ్డంకి.",
-            "సరిపోని మొదటి‑దశ పదార్థం విడుదలను అడ్డుకుంటుంది.",
-            "తర్వాతి‑దశ కొరతలు హెచ్చరికలు కావచ్చు, ఎందుకంటే యూనిట్ ఆ Station‌కు చేరకముందే పదార్థం రావచ్చు.",
-            "అవసరమైన గుర్తింపు కొరతలు విడుదలను అడ్డుకుంటాయి."
+            "Plant-level Component Inventory సరిపోతున్నా first-stage Station shortage start ను block చేస్తుంది.",
+            "Transfer All storage locations, తర్వాత non-routing Stations కు priority ఇచ్చి partial transfer చేయవచ్చు.",
+            "Proceed to Start వెంటనే release చేసి Production Tasks సృష్టించి Work Order ను IN PROGRESS కు మార్చుతుంది.",
+            "Proceed to Start enable కావడానికి validation PASS చూపాలి."
           ],
           "checklist": [
             "అన్ని అడ్డంకులు పరిష్కరించబడ్డాయి.",
@@ -1148,15 +1146,16 @@
             "పూర్తయిన యూనిట్"
           ],
           "steps": [
-            "ప్రతి నిర్ధారిత పూర్తయిన‑యూనిట్ సీరియల్ కోసం Fynd ERP ఒక Production Task‑ను సృష్టిస్తుంది.",
-            "ప్రతి Task సామర్థ్య ప్రణాళిక ఆధారంగా ఒక ప్రారంభ Line కేటాయింపును పొందుతుంది.",
-            "ఎంచుకున్న Routing తదుపరి చెల్లుబాటు అయ్యే operation‑ను నియంత్రిస్తుంది.",
-            "Task స్థితి మరియు Route Logs పూర్తయ్యే వరకు పురోగతిని నమోదు చేస్తాయి."
+            "Released Work Order లో Production Tasks తెరిచి ప్రతి confirmed serial కు ఒక Task ఉందని నిర్ధారించండి.",
+            "Line Type మరియు Line ఆధారంగా task distribution సమీక్షించి unit Task తెరవండి.",
+            "Task status, assigned serial, Work Order, Product, Line, మరియు Line Type verify చేయండి.",
+            "Stage Progress, Bound Identifiers, BOM Progress, మరియు Routing and Process Details సమీక్షించండి."
           ],
           "rules": [
-            "Production Tasks‌కు ఒక Line కేటాయింపు అవసరం.",
-            "Routing లేదా కాన్ఫిగర్ చేసిన ఆటో‑పాస్ ప్రవర్తన అనుమతించకపోతే ఒక Task ఒక operation‌ను దాటవేయలేదు.",
-            "యూనిట్ ఉత్పత్తి గుండా కదులుతున్నప్పుడు లైవ్ Task Line మారగలదు."
+            "Release ప్రతి confirmed finished-unit serial కు ఒక Production Task సృష్టిస్తుంది.",
+            "Capacity planning initial Line assignment ఇస్తుంది; selected Routing current Stage మరియు Station నిర్వచిస్తుంది.",
+            "Execution లో consume అయ్యే వరకు required BOM components Pending గా ఉంటాయి.",
+            "Execution ప్రారంభానికి ముందు generated Product identifiers Task కు bind కావచ్చు."
           ],
           "checklist": [
             "Task సంఖ్య Work Order పరిమాణానికి సరిపోతుంది.",
@@ -1171,30 +1170,29 @@
           "importance": "Required",
           "prerequisites": ["Production Tasks"],
           "flow": [
-            "Station గుర్తించండి",
-            "యూనిట్ స్కాన్ చేయండి",
-            "సూచనలను సమీక్షించండి",
-            "పదార్థం మరియు tools లోడ్ చేయండి",
-            "పని చేయండి",
-            "ఫలితాన్ని నమోదు చేయండి",
-            "దశను పూర్తి చేయండి"
+            "Mapped Station ఎంచుకోండి",
+            "Work Order మరియు Line ఎంచుకోండి",
+            "Production Task తెరవండి",
+            "Component identities ధృవీకరించండి",
+            "పూర్తి చేసి రికార్డ్ చేయండి"
           ],
           "steps": [
-            "Station పని ప్రాంతాన్ని తెరిచి, యూనిట్‌ను గుర్తించండి లేదా స్కాన్ చేయండి.",
-            "ప్రస్తుత operation, సూచనలు, అవసరమైన ఇన్‌పుట్‌లు మరియు నాణ్యత గేట్‌లను సమీక్షించండి.",
-            "సీరియలైజ్డ్ Components‑ను స్కాన్ చేయండి లేదా పరిమాణ‑ఆధారిత Components కోసం ఖచ్చితమైన పరిమాణాన్ని నమోదు చేయండి.",
-            "అవసరమైన తనిఖీలను పూర్తి చేసి, operation ఫలితాన్ని నమోదు చేయండి.",
-            "Fynd ERP యూనిట్‌ను తదుపరి చెల్లుబాటు అయ్యే operation‌కు తరలించేలా దశను పూర్తి చేయండి."
+            "Operator లో ముందుగా Product ఎంచుకుని Mapped ఎంచుకోండి; default Running view వల్ల Station కనిపించకపోతే Status filter ఉపయోగించండి.",
+            "Station తెరిచి active Work Order మరియు eligible Production Line ఎంచుకోండి.",
+            "Production Task ID లేదా confirmed finished-unit serial ను scan లేదా enter చేసి Start Task ఎంచుకోండి.",
+            "ప్రతి serialised BOM Component కు available serial నమోదు చేసి configured identifier validators అన్నింటినీ పూర్తి చేయండి.",
+            "Result నిర్ధారించి Complete & Next ఎంచుకోండి; execution మరియు Route progress రికార్డ్ అవుతాయి."
           ],
           "rules": [
-            "ఆపరేటర్‌లు ప్రస్తుత Routing దశకు సరిపోయే Station నుండి పని చేయాలి.",
-            "అవసరమైన Component మరియు ధృవీకరణ ఇన్‌పుట్‌లు లేనప్పుడు పూర్తి చేయడాన్ని అడ్డుకుంటాయి.",
-            "విఫలమైన ఫలితాలు కాన్ఫిగర్ చేసిన మినహాయింపు మార్గాన్ని అనుసరించాలి."
+            "Mapped Stations Product ఆధారంగా ఉంటాయి; Mapped filter ఉపయోగించే ముందు Product ఎంచుకోండి.",
+            "Selected Station కు active Work Orders మరియు eligible Production Lines మాత్రమే చూపబడతాయి.",
+            "Required Component identities available మరియు valid గా ఉండాలి; Battery Pack కు GS1 AI 01 మరియు AI 10 అవసరం.",
+            "Complete & Next operator, Station, material identities, result, timestamps, మరియు Route progress రికార్డ్ చేస్తుంది."
           ],
           "checklist": [
-            "సరైన యూనిట్ మరియు operation కనిపిస్తాయి.",
-            "అవసరమైన ఇన్‌పుట్‌లు విజయవంతంగా ధృవీకరించబడతాయి.",
-            "పూర్తయిన దశ యూనిట్ చరిత్రలో కనిపిస్తుంది."
+            "Product, Station, Work Order, Line, Task, మరియు Routing step సరిపోతాయి.",
+            "ప్రతి required Component identity విజయవంతంగా validate అవుతుంది.",
+            "Completion Task History మరియు Route history లో కనిపిస్తుంది."
           ]
         },
         {
@@ -1207,27 +1205,29 @@
             "Serial, Lot మరియు మిశ్రమ పదార్థ ట్రాకింగ్"
           ],
           "flow": [
-            "అందుబాటులో ఉన్న ఇన్వెంటరీ",
-            "Station అవసరం",
-            "స్కాన్ చేయండి లేదా పరిమాణం నమోదు చేయండి",
-            "వినియోగించండి",
-            "పూర్తయిన యూనిట్‌కు అనుసంధానించండి"
+            "Material ను Station కు transfer చేయండి",
+            "Production Task తెరవండి",
+            "Component identities validate చేయండి",
+            "Consumption పూర్తి చేయండి",
+            "Genealogy verify చేయండి"
           ],
           "steps": [
-            "అవసరమైన పదార్థాన్ని తగిన Station వద్ద అందుబాటులో ఉంచండి.",
-            "ప్రతి సీరియలైజ్డ్ Component గుర్తింపును స్కాన్ చేయండి.",
-            "సీరియలైజ్ చేయని Components కోసం అవసరమైన పరిమాణాన్ని నమోదు చేయండి లేదా ధృవీకరించండి.",
-            "వినియోగం మరియు genealogy నమోదయ్యేలా operation‑ను పూర్తి చేయండి."
+            "Required stock ను execution Station కు transfer చేసి Station inventory BOM requirement ను cover చేస్తుందని నిర్ధారించండి.",
+            "Station work area లో Production Task ID లేదా confirmed finished-unit serial ను scan లేదా enter చేయండి.",
+            "ప్రతి serialised BOM Component కు available, unconsumed serial నమోదు చేసి configured identifier validator పూర్తి చేయండి.",
+            "Required inputs అన్నీ validate అయిన తర్వాత Complete & Next ఎంచుకోండి.",
+            "Production Task COMPLETED గా ఉందని మరియు material identities consumption మరియు genealogy history లో కనిపిస్తున్నాయని verify చేయండి."
           ],
           "rules": [
-            "సీరియలైజ్డ్ Components‑ను పరిమాణం‑మాత్రమే ఎంట్రీతో భర్తీ చేయలేము.",
-            "పరిమాణ వినియోగం కాన్ఫిగర్ చేసిన అవసరానికి సరిపోవాలి.",
-            "యూనిట్ దాన్ని వినియోగించే Station‌కు చేరకముందే పదార్థాన్ని బదిలీ చేయాలి."
+            "Serialised Components కు unique available serial అవసరం; ఇప్పటికే consumed అయిన serial reject అవుతుంది.",
+            "Configured identifier validators execution లో వర్తిస్తాయి; Battery Pack కు GS1 AI 01 మరియు AI 10 అవసరం.",
+            "Unit material ను consume చేసే Station కు చేరుకునే ముందు stock transfer చేయాలి.",
+            "Completion material identities, inventory use, మరియు genealogy ను Production Task కు రికార్డ్ చేస్తుంది."
           ],
           "checklist": [
             "Station ఇన్వెంటరీ ప్రస్తుత ఉత్పత్తిని కవర్ చేస్తుంది.",
-            "సీరియలైజ్డ్ Components ప్రత్యేకంగా క్యాప్చర్ చేయబడ్డాయి.",
-            "వినియోగం పదార్థ ట్రేస్‌బిలిటీలో కనిపిస్తుంది."
+            "ప్రతి serialised Component identity unique, available, మరియు valid గా ఉంది.",
+            "Completed Task మరియు consumed identities production మరియు traceability history లో కనిపిస్తాయి."
           ]
         },
         {
@@ -1243,20 +1243,20 @@
             "Completed లేదా మినహాయింపు స్థితి"
           ],
           "steps": [
-            "మొత్తం ఉత్పత్తి పురోగతి కోసం Work Order స్థితిని ఉపయోగించండి.",
-            "ప్రతి పూర్తయిన యూనిట్ యొక్క ప్రస్తుత స్థితి కోసం Production Task స్థితిని ఉపయోగించండి.",
-            "ఏ Station ప్రతి operation‑ను ఎప్పుడు చేసిందో చూడటానికి Route Logs‑ను ఉపయోగించండి.",
-            "ఆలస్యాలు, వైఫల్యాలు లేదా ట్రేస్‌బిలిటీ ప్రశ్నలను దర్యాప్తు చేసేటప్పుడు చరిత్రను ఉపయోగించండి."
+            "Overall status, progress, Production Metrics, మరియు task distribution చూడటానికి Work Order తెరవండి.",
+            "Route Execution Logs తెరిచి Total Logs, Passed, Failed, మరియు In Progress పోల్చండి.",
+            "Status, date range, Work Order, Product, Routing, లేదా Station ద్వారా filter చేయండి.",
+            "ప్రతి log లో timestamp, production context, operator, quality result, మరియు execution status చూడండి."
           ],
           "rules": [
             "Work Order స్థితి మరియు Task స్థితి వేర్వేరు ప్రశ్నలకు సమాధానమిస్తాయి.",
-            "Route Logs ఏమి జరిగిందో operation‑స్థాయి సాక్ష్యం.",
-            "Hold, repair, rework మరియు scrap సాధారణ పురోగతిని అంతరాయం కలిగించగలవు."
+            "అన్ని Production Tasks పూర్తయ్యాక మాత్రమే Work Order **COMPLETED** అవుతుంది.",
+            "Route Execution Logs Station, operator, quality result, status, మరియు timestamp సహా operation-level evidence ను భద్రపరుస్తాయి."
           ],
           "checklist": [
-            "మొత్తం మరియు యూనిట్‌స్థాయి స్థితిని ఎక్కడ తనిఖీ చేయాలో వినియోగదారులకు తెలుసు.",
-            "పూర్తయిన operations Route Logs‌లో కనిపిస్తాయి.",
-            "మినహాయింపు స్థితులకు ఒక స్పష్టమైన తదుపరి చర్య ఉంది."
+            "Work Order progress మరియు task distribution సరిపోతున్నాయి.",
+            "పూర్తయిన operations Route Execution Logs‌లో కనిపిస్తాయి.",
+            "Filters ఆశించిన Work Order, Product, Routing, లేదా Station history చూపుతున్నాయి."
           ]
         }
       ]
@@ -1281,118 +1281,118 @@
             "Save చేసి పరీక్షించండి"
           ],
           "steps": [
-            "Quality తెరిచి Control Points ఎంచుకోండి.",
-            "Inspection name మరియు అవసరమైన Control Type, Frequency, Failure Action నమోదు చేయండి.",
-            "Control ను Product, production Line, Station, లేదా Routing operation కు bind చేయండి.",
-            "కొలవగల pass criteria మరియు quarantine లేదా automatic Hold వంటి failure behavior configure చేయండి.",
-            "control ను save చేసి, అది కనిపిస్తుందని నిర్ధారించడానికి operation ద్వారా ఒక చిన్న unit రన్ చేయండి."
+            "Quality → Control Points తెరిచి Create Control Point ఎంచుకోండి.",
+            "Unique Code మరియు Name నమోదు చేసి Control Type, Frequency, మరియు On Failure ఎంచుకోండి.",
+            "ముందుగా Production Line ఎంచుకుని, తరువాత అందుబాటులోకి వచ్చే Station ఎంచుకోండి.",
+            "Failure action ఎంచుకుని, అవసరమైతే Auto-hold failed units ఆన్ చేసి checklist questions జోడించండి.",
+            "Control సృష్టించి Configuration లో Active status, scope, failure action, మరియు checklist నిర్ధారించండి."
           ],
           "rules": [
-            "Control type, frequency, మరియు failure action అవసరం.",
-            "Evidence నమ్మదగిన విధంగా సేకరించగల చోట quality controls ఉంచాలి.",
-            "Sampling inspection volume తగ్గిస్తుంది; traceability తొలగించదు.",
-            "Failed result కు configured disposition path అవసరం."
+            "Code, Name, Control Type, Frequency, మరియు On Failure అవసరం.",
+            "Production Line ఎంచుకునే వరకు Station అందుబాటులో ఉండదు.",
+            "Failure action Stop Line, Quarantine, Hold Lot, Escalate, లేదా Alert Only కావచ్చు.",
+            "Checklist questions operators రికార్డ్ చేయవలసిన evidence ను నిర్వచిస్తాయి."
           ],
           "checklist": [
-            "తనిఖీ ప్రమాణాలు కొలవదగినవి.",
-            "ట్రిగర్‌లు మరియు శాంపిల్ పరిమాణాలు అర్థమయ్యాయి.",
-            "వైఫల్య ఫలితాలు ఉత్పత్తికి ముందు కాన్ఫిగర్ చేయబడ్డాయి."
+            "Control Point Active గా మరియు unique Code తో ఉంది.",
+            "Line మరియు Station scope సరైనవి.",
+            "Failure action, Auto-hold behavior, మరియు checklist questions production risk కు సరిపోతున్నాయి."
           ]
         },
         {
           "title": "Inspections, Defects, NCR మరియు CAPA",
           "slug": "inspection-to-capa",
-          "summary": "ఒక విఫలమైన తనిఖీ నుండి నియంత్రిత దిద్దుబాటు చర్య వరకు ఎస్కలేషన్ మార్గాన్ని అర్థం చేసుకోండి.",
+          "summary": "Configured inspection నడిపి, failed samples రికార్డ్ చేసి, ప్రస్తుత SIT NCR మరియు CAPA పరిమితులను అర్థం చేసుకోండి.",
           "importance": "Conditional",
           "prerequisites": ["నాణ్యత నియంత్రణలను కాన్ఫిగర్ చేయండి"],
           "flow": [
-            "Inspection సృష్టించండి",
-            "Valid production ఎంచుకోండి",
-            "సమస్యను సంగ్రహించండి",
-            "Output ను నియంత్రించండి",
-            "అవసరమైతే escalate చేయండి"
+            "Active inspection configuration",
+            "Work Order లేదా Lot inspection",
+            "Sample checks మరియు Defect",
+            "Rejected inspection మరియు hold scope",
+            "NCR మరియు CAPA పరిమితులు"
           ],
           "steps": [
-            "Quality Inspections తెరిచి production source నుండి Inspection ప్రారంభించండి.",
-            "Started Work Order లేదా valid lot ఎంచుకుని affected quantity నమోదు చేయండి.",
-            "Failure వచ్చినప్పుడు symptom, severity, source, evidence, మరియు affected unit తో Defect సృష్టించండి లేదా link చేయండి.",
-            "NCR Reports లో non-conformance నమోదు చేసి Disposition రికార్డు చేయండి.",
-            "CAPA లో corrective లేదా preventive action assign చేసి verification వరకు track చేయండి."
+            "Inspection ప్రారంభించే ముందు వర్తించే inspection configuration సృష్టించి activate చేయండి.",
+            "Work Order లేదా available, non-expired Lot—రెండింటిలో ఒకదాన్ని మాత్రమే ఎంచుకుని required total మరియు sample quantities నమోదు చేయండి.",
+            "ప్రతి sample మరియు checks రికార్డ్ చేయండి. Failed sample save చేయడానికి Defect code మరియు Severity అవసరం.",
+            "Inspection reject చేసి failed serials మాత్రమే లేదా మొత్తం lot ను hold చేయాలా ఎంచుకోండి. Inspection-local defects మరియు plant Defects వేర్వేరు records.",
+            "ప్రస్తుత SIT build లో ఈ screens నుండి NCR మరియు CAPA అందుబాటులో లేవు: Create NCR ‘NCR report not found’ తెరుస్తుంది; CAPA Management లో create action లేదు."
           ],
           "rules": [
-            "ఒక Defect గమనించిన సమస్యను వివరిస్తుంది; ఒక NCR అననుగుణ్య కేసును నియంత్రిస్తుంది.",
-            "ఒక Disposition నిర్ణయం, అయితే ఆమోదం దాన్ని ఎవరు అధికారం చేయగలరో నియంత్రిస్తుంది.",
-            "CAPA వ్యవస్థాగత దిద్దుబాటు కోసం, ప్రతి ఒంటరి వైఫల్యం కోసం కాదు."
+            "Active inspection configuration ఒక prerequisite; Plant scope fallback, మరింత specific scopes దానిని override చేస్తాయి.",
+            "Source అనేది Work Order లేదా Lot; total quantity required.",
+            "Defect details లేకుండా failed sample save చేయలేరు."
           ],
           "checklist": [
-            "సమస్యకు సరైన రికార్డు రకం ఉపయోగించబడింది.",
-            "ప్రభావిత యూనిట్‌లు మరియు పదార్థం ట్రేస్ చేయదగినవి.",
-            "విడుదలకు ముందు Disposition మరియు ఆమోదం పూర్తయ్యాయి."
+            "Inspection configuration Active గా ఉంది.",
+            "Source, quantities, sample serial, checks, మరియు Defect details పూర్తిగా ఉన్నాయి.",
+            "ఎంచుకున్న hold scope rejected output కు సరిపోతుంది."
           ]
         },
         {
           "title": "Repair మరియు Rework",
           "slug": "repair-and-rework",
-          "summary": "విఫలమైన యూనిట్‌లను వాటి ఉత్పత్తి చరిత్రను కోల్పోకుండా ఒక నియంత్రిత ప్రక్రియకు తిరిగి ఇవ్వండి.",
+          "summary": "Repair intake configure చేసి, rework evidence రికార్డ్ చేసి, ప్రస్తుత SIT completion పరిమితిని అర్థం చేసుకోండి.",
           "importance": "Conditional",
           "prerequisites": [
             "Stations మరియు Repair Stations సృష్టించండి",
             "ఒక Routing‑ను సృష్టించి ధృవీకరించండి"
           ],
           "flow": [
-            "Decision రికార్డు చేయండి",
-            "Source link కాపాడండి",
-            "Rework Board తెరవండి",
-            "Work రికార్డు చేయండి",
-            "Reinspect చేసి close చేయండి"
+            "Repair configuration",
+            "Debug Queue",
+            "Rework Board",
+            "Record work",
+            "Completion పరిమితి"
           ],
           "steps": [
-            "Quality → Dispositions తెరిచి affected record కు అవసరమైన rationale మరియు action నమోదు చేయండి.",
-            "Original serial, Defect, మరియు Disposition linked గా ఉన్నాయని నిర్ధారించండి.",
-            "Repair & Rework → Rework Board లో tracked Rework job లేదా Work Order సృష్టించండి.",
-            "Symptoms, diagnosis, repair/rework actions, మరియు అవసరమైన replacement Components నమోదు చేయండి.",
-            "Allowed Routing point కు పంపే ముందు లేదా job close చేసే ముందు required reinspection పూర్తి చేయండి."
+            "Automatic intake అవసరమైతే Repair Config లో Auto-create repair on failure enable చేసి Default Repair Station ఎంచుకోండి.",
+            "Incoming failures ను Debug Queue లో triage చేయండి. Rework Board jobs failure లేదా Disposition నుండి వస్తాయి; board లో create action లేదు.",
+            "Linked Work Order, serial, mechanism, attempt number, మరియు ప్రస్తుత board column సమీక్షించండి.",
+            "Record work ఎంచుకుని labor minutes, material cost, మరియు సంక్షిప్త work notes నమోదు చేసి Complete Work ఎంచుకోండి.",
+            "ప్రస్తుత SIT build లో Complete Work labor మరియు cost save చేస్తుంది; కానీ job In Progress లోనే ఉంటుంది, reopen చేసినప్పుడు notes clear అవుతాయి, re-inspection ప్రారంభం కాదు."
           ],
           "rules": [
-            "Repair విఫలమైన యూనిట్‌ను సరిచేస్తుంది; Rework తయారీ పనిని పునరావృతం చేస్తుంది లేదా మళ్లిస్తుంది.",
-            "రిపేర్ గమ్యస్థానం విఫలమైన operation Station కంటే భిన్నంగా ఉండాలి.",
-            "తిరిగి‑లక్ష్యాలు కాన్ఫిగర్ చేసిన మార్గం మరియు వైఫల్య తర్కం ద్వారా అనుమతించబడాలి."
+            "Auto-create repair మరియు Default Repair Station automatic queue intake ను నియంత్రిస్తాయి.",
+            "Attempt Limit rules Alerts లో configure చేయాలి; అవి alert, block లేదా block చేసి scrap propose చేయగలవు.",
+            "Total మరియు per-line repair WIP caps optional; cap empty గా వదిలితే ఆ limit disable అవుతుంది."
           ],
           "checklist": [
-            "Repair రికార్డులు అసలు యూనిట్ గుర్తింపును కాపాడతాయి.",
-            "రిప్లేస్‌మెంట్ పదార్థం ట్రేస్ చేయదగినది.",
-            "యూనిట్ ఒక అనుమతించబడిన operation‌కు మాత్రమే తిరిగి వస్తుంది."
+            "Job అసలు serial మరియు Work Order కు linked గా ఉంది.",
+            "Labor minutes, material cost, మరియు work notes నమోదు అయ్యాయి.",
+            "Re-inspection పై ఆధారపడే ముందు ప్రస్తుత SIT completion పరిమితి అర్థం చేసుకున్నారు."
           ]
         },
         {
           "title": "Hold, Scrap మరియు Teardown",
           "slug": "hold-scrap-teardown",
-          "summary": "ఒక యూనిట్ ఆగవలసినప్పుడు, ముగించవలసినప్పుడు లేదా విడదీయవలసినప్పుడు సరైన చర్యను ఎంచుకోండి.",
+          "summary": "Scoped holds సృష్టించి, controlled scrap dispatches track చేసి, eligible executed scrap నుండి మాత్రమే teardown ప్రారంభించండి.",
           "importance": "Conditional",
           "prerequisites": ["స్థితులు మరియు Route Logs"],
           "flow": [
-            "ప్రభావిత unit తెరవండి",
-            "Exception ఎంచుకోండి",
-            "కారణం నమోదు చేయండి",
-            "Action నిర్ధారించండి",
-            "Follow-up పూర్తి చేయండి"
+            "Hold Level ఎంచుకోండి",
+            "Target మరియు Reason ఎంచుకోండి",
+            "అవసరమైతే approval",
+            "Scrap dispatch track చేయండి",
+            "Executed Scrap ను Teardown కు పంపండి"
           ],
           "steps": [
-            "Production Task, quality రికార్డు, లేదా material రికార్డు కనుగొనండి.",
-            "ఆమోదించిన నిర్ణయం ప్రకారం Hold, Scrap, లేదా Teardown ఎంచుకోండి.",
-            "configure చేసిన కారణం ఎంచుకుని, notes, evidence, affected quantity, మరియు ownership జోడించండి.",
-            "తిరిగి మార్చలేని ప్రభావాన్ని సమీక్షించండి; Scrap approval మరియు execution states ద్వారా సాగుతుంది.",
-            "పరిష్కారం తర్వాత మాత్రమే Hold release చేయండి. Executed Scrap dispatch అయిన తర్వాత Teardown అందుబాటులో ఉంటుంది; recovered Components ను donor-unit context తో రికార్డు చేయండి."
+            "Quality → Hold Management → Create Hold తెరిచి target ఎంచుకునే ముందు Hold Level ఎంచుకోండి.",
+            "Required target మరియు Reason ఎంచుకోండి. Notes optional; Work Order hold కు optional expected release date జోడించవచ్చు.",
+            "Inventory lot, vendor, మరియు date-code holds ను approval కు submit చేయండి; Quality approve చేసే వరకు అవి inactive.",
+            "ముందుగా Scrap Reasons configure చేసి, Scrap Register లో Pending Approval, Approved, Executed, మరియు Rejected dispatches track చేయండి. Register లో create action లేదు.",
+            "Executed Scrap dispatch లో Send to teardown ఉపయోగించి donor serial మరియు recovered Components కు linked Teardown order సృష్టించండి."
           ],
           "rules": [
-            "Hold తిరిగి మార్చదగినది; Scrap ఒక టెర్మినల్ ఉత్పత్తి ఫలితం.",
-            "Scrap‌కు ఒక స్పష్టమైన కారణం మరియు కాపాడిన ట్రేస్‌బిలిటీ అవసరం.",
-            "పునరుద్ధరించిన సీరియలైజ్డ్ Components‌కు ఒక స్పష్టమైన ఇన్వెంటరీ మరియు genealogy ఫలితం అవసరం."
+            "Hold Level target మరియు impact ను నిర్ణయిస్తుంది; Work Order hold ఆ order మొత్తం production ను pause చేస్తుంది.",
+            "Inventory lot, vendor, మరియు date-code holds కు Quality approval అవసరం.",
+            "Scrap execute చేసి teardown కు స్పష్టంగా పంపే వరకు Teardown ప్రారంభం కాదు."
           ],
           "checklist": [
-            "ఎంచుకున్న చర్య భౌతిక ఫలితానికి సరిపోతుంది.",
-            "కారణ కోడ్‌లు మరియు గమనికలు పూర్తయ్యాయి.",
-            "ఇన్వెంటరీ మరియు ట్రేస్‌బిలిటీ చివరి నిర్ణయాన్ని ప్రతిబింబిస్తాయి."
+            "సరైన Hold Level కు target మరియు Reason ఎంచుకున్నారు.",
+            "Dispatch ముందు Scrap reason categories మరియు reason codes ఉన్నాయి.",
+            "Teardown order donor serial మరియు Scrap dispatch కు linked గా ఉంది."
           ]
         }
       ]
@@ -1411,27 +1411,30 @@
           "prerequisites": ["ఒక Routing‑ను సృష్టించి ధృవీకరించండి"],
           "flow": [
             "Packaging తెరవండి",
-            "ఒక container ప్రారంభించండి లేదా కనుగొనండి",
-            "Finished units జోడించండి",
-            "Checks రన్ చేయండి",
-            "Container మూసివేయండి"
+            "Product container hierarchy configure చేయండి",
+            "Work Order container సృష్టించండి",
+            "Generated UID సమీక్షించండి",
+            "Packaging checks పూర్తి చేయండి"
           ],
           "steps": [
             "Packaging & Shipping తెరిచి Packaging ఎంచుకోండి.",
-            "ఇప్పటికే ఉన్న container స్కాన్ చేయండి లేదా సరైన Container Type ఉపయోగించి ఒకటి సృష్టించే action ఎంచుకోండి.",
-            "ప్రతి eligible finished-unit serial ను container లోకి స్కాన్ చేయండి.",
-            "Configured Container Type, quantity, weight, declarations, మరియు label verification పూర్తి చేయండి.",
-            "అన్ని configured checks pass అయ్యే వరకు container open గా ఉంచి, తరువాత label print చేసి close లేదా complete action ఎంచుకోండి."
+            "Packing Configuration తెరిచి Product ఎంచుకుని దాని product-specific container type నిర్వచించండి. Product, Name, మరియు Code తప్పనిసరి; Code 2–10 alphanumeric characters ను అంగీకరిస్తుంది.",
+            "Finished-unit serials ను నేరుగా bind చేసే leaf కోసం Child Container Type ఖాళీగా ఉంచండి; లేకపోతే Device → Box → Carton → Pallet hierarchy కోసం child ను ఎంచుకోండి.",
+            "Packaging Dashboard కు తిరిగి వెళ్లి Create Container ఎంచుకుని Product, తప్పనిసరి Container Type, మరియు తప్పనిసరి Work Order ID ఎంచుకోండి.",
+            "Generated UID తెరిచి device count, weight and dimensions, linked Work Order, label state, మరియు History సమీక్షించండి."
           ],
           "rules": [
-            "Product కాన్ఫిగర్ చేసిన కంటైనర్ ప్రవాహాన్ని ఉపయోగించినప్పుడు మాత్రమే ప్యాకేజింగ్ operations అవసరం.",
-            "దశ ప్యాకేజింగ్ కాన్ఫిగర్ చేసినప్పుడు కనీసం ఒక ప్యాకేజింగ్ operation ప్రారంభించబడాలి.",
-            "ఆటో‑క్లోజ్ label ప్రింటింగ్‌పై ఆధారపడుతుంది; బరువు తర్వాత ఆటో‑ప్రింట్ బరువు ధృవీకరణపై ఆధారపడుతుంది."
+            "Packing configurations product-specific గా ఉంటాయి.",
+            "Leaf కు child container type ఉండదు; అది serial numbers ను నేరుగా bind చేస్తుంది. Parent configuration ఎంచుకున్న child type ను అంగీకరిస్తుంది.",
+            "Container Type మరియు Work Order ID ఎంచుకునే వరకు Create Container enable కాదు.",
+            "UID template optional; అది లేకపోతే Fynd ERP default UID format ఉపయోగిస్తుంది.",
+            "Pallets వేరుగా నిర్వహించే Shipments module లో Shipments కు జోడించబడతాయి."
           ],
           "checklist": [
-            "కంటైనర్ సోపానక్రమం భౌతిక ప్యాకేజింగ్ ప్రక్రియకు సరిపోతుంది.",
-            "అవసరమైన labels మరియు printers సిద్ధంగా ఉన్నాయి.",
-            "బరువు మరియు మూసివేత నియమాలు పరీక్షించదగినవి."
+            "Product-specific container configuration active గా ఉంది.",
+            "Device → Box → Carton → Pallet hierarchy భౌతిక flow కు సరిపోతుంది.",
+            "Container సరైన Work Order కు linked గా ఉంది.",
+            "Closure కు ముందు UID, device count, label state, మరియు History కనిపిస్తాయి."
           ]
         },
         {
@@ -1441,28 +1444,28 @@
           "importance": "Conditional",
           "prerequisites": ["Fynd ERP‌లో ప్యాకేజింగ్"],
           "flow": [
-            "Packaging configuration తెరవండి",
-            "Hierarchy నిర్మించండి",
-            "Identities bind చేయండి",
-            "Label సృష్టించండి",
-            "Test చేసి audit చేయండి"
+            "Leaf మరియు parent types configure చేయండి",
+            "UID మరియు physical limits సెట్ చేయండి",
+            "Parent container సృష్టించండి",
+            "Eligible identity pack చేయండి",
+            "Label print చేసి audit చేయండి"
           ],
           "steps": [
-            "Product కు సంబంధించిన Container Types, packaging rules, మరియు label templates తెరవండి.",
-            "Unit, box, carton, pallet వంటి అనుమతించిన leaf-to-parent క్రమాన్ని configure చేయండి.",
-            "Leaf container finished-unit serial ను bind చేస్తుంది; ప్రతి parent configured child UID ను మాత్రమే అంగీకరిస్తుంది.",
-            "Product, unit, container, quantity, మరియు shipment scanning కు అవసరమైన template variables జోడించండి.",
-            "Test label print చేసి label history మరియు reprints traceable గా ఉన్నాయని నిర్ధారించండి."
+            "Packing Configuration లో ముందుగా leaf సృష్టించి, తర్వాత ప్రతి parent కు అనుమతించిన Child Container Type ఎంచుకోండి; child ఎంచుకున్న వెంటనే Max child count తప్పనిసరి అవుతుంది.",
+            "Container-specific UID Template మరియు sequence reset scope ఎంచుకుని dimensions, weight range, మరియు tolerance configure చేయండి.",
+            "Packaging Dashboard లో Product, parent Container Type, మరియు completed Work Order ఎంచుకుని parent సృష్టించండి.",
+            "Pack by UID లో finished serial, device UID, child UID, identifier, లేదా task ID scan చేయండి; valid unit configured leaf ను స్వయంచాలకంగా సృష్టించి parent లో pack చేస్తుంది.",
+            "Carton label print చేసి carton UID, model, quantity, unit serial, QR codes, History, మరియు Reprint path తనిఖీ చేయండి."
           ],
           "rules": [
-            "ఒక కంటైనర్ గుర్తింపు ప్రత్యేకంగా మరియు స్కాన్ చేయదగినదిగా ఉండాలి.",
-            "మూసిన లేదా వదిలివేసిన కంటైనర్‌లు కొత్త యూనిట్‌లను స్వీకరించకూడదు.",
-            "Reprints ఆడిటబిలిటీని కాపాడి, కాన్ఫిగర్ చేసిన ఆమోద నియమాలను అనుసరించాలి."
+            "Generated container UID unit serial తో collide కాకుండా container-specific UID pattern ఉపయోగించండి.",
+            "Parent తన configured child type ను మాత్రమే అంగీకరిస్తుంది; maximum child count enforce అవుతుంది.",
+            "Eligible production identities మాత్రమే pack అవుతాయి; label కోసం source value లేకపోతే అది ఖాళీగా ఉంటుంది."
           ],
           "checklist": [
-            "కంటైనర్ స్థాయిలు భౌతిక ప్యాకేజింగ్‌ను ప్రతిబింబిస్తాయి.",
-            "Labels అవసరమైన గుర్తింపులను కలిగి ఉన్నాయి.",
-            "స్కాన్ మరియు reprint మార్గాలు పరీక్షించబడ్డాయి."
+            "Leaf మరియు parent types physical hierarchy కు సరిపోతాయి.",
+            "UID template, capacity, dimensions, weight, మరియు tolerance సరైనవి.",
+            "Packing, printed label content, History, మరియు Reprint తనిఖీ చేయబడ్డాయి."
           ]
         },
         {
@@ -1472,29 +1475,28 @@
           "importance": "Conditional",
           "prerequisites": ["Containers మరియు Labels"],
           "flow": [
-            "Shipment Verification తెరవండి",
             "ముందుగా Shipment ఎంచుకోండి",
-            "Container Type ఎంచుకుని verify చేయండి",
-            "నియమాలను సమీక్షించండి",
-            "తేడాలను పరిష్కరించండి"
+            "Active Shipment Rule తనిఖీ చేయండి",
+            "Shipping Gate balance నిర్ధారించండి",
+            "ASN export configure చేయండి",
+            "SIT prerequisites పరిష్కరించండి"
           ],
           "steps": [
-            "Packaging & Shipping తెరిచి Shipment Verification ఎంచుకోండి.",
-            "Shipment ఎంచుకునే వరకు verification ప్రారంభం కాదు; అప్పటి వరకు Container Type అందుబాటులో ఉండదు.",
-            "Expected container UIDs scan చేసి Verified, Mismatched, మరియు Pending counts సమీక్షించండి.",
-            "Active Shipment Rule container count మరియు weight ను అనుమతిస్తుందో, Shipping Gate లో తగిన approved PO quantity ఉందో నిర్ధారించండి.",
-            "Completion కు ముందు mismatches సరిచేసి, export అవసరమైతే client-specific ASN template ఉపయోగించండి."
+            "Shipment Verification తెరిచి existing Shipment ఎంచుకోండి; required Shipment ఎంచుకునే వరకు Container Type, counts, container rows, మరియు Export అందుబాటులో ఉండవు.",
+            "Active Shipment Rule selected container configuration ను కలిగి, దాని container-count మరియు maximum-weight limits ను అనుమతిస్తుందో నిర్ధారించండి.",
+            "Shipping Gate లో positive remaining approved Purchase Order quantity ఉందో తనిఖీ చేయండి; current active SIT gate balance 0 తో పూర్తిగా consumed అయింది.",
+            "Excel export కోసం client- లేదా product-scoped ASN template ఉపయోగించండి; ఈ SIT Plant లో ప్రస్తుతం ASN templates లేవు.",
+            "ప్రస్తుత SIT పరిమితి: Plant లో Shipments లేవు; Create Shipment backend-required lines మరియు warehouseRootLocationId పంపకపోవడంతో ఈ UI లో verification ప్రారంభించలేము."
           ],
           "rules": [
-            "Shipment ఎంచుకునే వరకు container verification ప్రారంభం కాదు.",
-            "Shipment verification closed, valid containers ఉపయోగించాలి.",
-            "Abandoned packaging identities verification gates ను satisfy చేయకూడదు.",
-            "Shipment records Product మరియు unit genealogy తో linked గా ఉండాలి."
+            "Container Type లేదా verification data అందుబాటులోకి రావడానికి ముందు Shipment selection తప్పనిసరి.",
+            "Governing Shipment Rule మరియు positive Shipping Gate balance prerequisites.",
+            "Template configure చేసినప్పుడు ASN output client- లేదా product-scoped గా ఉంటుంది."
           ],
           "checklist": [
-            "ఆశించిన మరియు స్కాన్ చేసిన shipment పరిమాణాలు సరిపోతాయి.",
-            "అన్ని చేర్చిన కంటైనర్‌లకు చెల్లుబాటు అయ్యే స్థితి ఉంది.",
-            "shipment‌ను Work Orders మరియు యూనిట్‌లకు తిరిగి ట్రేస్ చేయవచ్చు."
+            "Valid Shipment ఉండి select చేయగలగాలి.",
+            "Active rule container configuration, count, మరియు weight ను cover చేయాలి.",
+            "Shipping Gate balance positive గా ఉండి required ASN template ఉండాలి."
           ]
         },
         {
@@ -1507,30 +1509,32 @@
             "Shipment ధృవీకరణ"
           ],
           "flow": [
-            "Master Traceability తెరవండి",
             "Dossier scope సెట్ చేయండి",
             "Report sheets ఎంచుకోండి",
             "Stage Timeline సరిగ్గా ఉపయోగించండి",
             "Genealogy అనుసరించండి",
-            "అవసరమైతే containment ప్రారంభించండి"
+            "Affected units కనుగొనండి",
+            "Recall Notice సృష్టించండి"
           ],
           "steps": [
-            "Traceability తెరిచి Master Traceability ఎంచుకోండి.",
-            "Filters combine చేయండి లేదా identifier list paste చేయండి; identifier list ఇతర scope filters ను override చేస్తుంది.",
-            "అవసరమైన unit, route, quality, genealogy, packaging, shipment, లేదా audit sheets ఎంచుకుని dossier generate చేయండి.",
-            "Start/end dates, కనీసం ఒక Work Order, మరియు 1–50 Operations ఎంచుకోండి.",
-            "Batch Genealogy లో upstream/downstream search చేయండి లేదా material lot/Component కోసం Find Affected Units ఉపయోగించండి.",
-            "Recall Notices లో severity, status, reason, మరియు affected-unit population రికార్డు చేయండి."
+            "Master Traceability లో filters కలిపి పనిచేస్తాయి; parent selection తర్వాత dependent Product filters తెరుచుకుంటాయి. Specific identifier list ఇతర filters ను override చేస్తుంది; కనీసం ఒక scope ఎంచుకునే వరకు Generate Dossier disabled గా ఉంటుంది.",
+            "అవసరమైన dossier sheets మాత్రమే ఎంచుకోండి. Generation asynchronous; completed files Recent exports లో ఉంటాయి. Nova X1 Work Order రెండు-unit dossier రూపొందించింది.",
+            "Stage Timeline కు date range, కనీసం ఒక Work Order, మరియు 1–50 Operations అవసరం. ఈ SIT build date range కు asterisk చూపకపోయినా అది తప్పనిసరి.",
+            "Pallet, carton, box, device, product, Component, లేదా batch identifier తో full genealogy tree ఉపయోగించండి. Downstream finished identity నుండి Components/lots వరకు వెళుతుంది; Upstream lot నుండి finished units వైపు వెళుతుంది.",
+            "Find Affected Units లో Batch/Lot Number లేదా Component Serial ద్వారా వెతకండి. Nova X1 battery lot, NOVA-X1-PHONE-000002 ను affected finished serial గా చూపించింది.",
+            "Recall సృష్టించడానికి Title మరియు Severity తప్పనిసరి. ఈ SIT build లో By Batch production tasks కనుగొనదు; completed task direct assignment, productionTaskIds unused కావడంతో fail అవుతుంది. Authorized Nova X1 Recall Notice zero affected units తో Draft లోనే ఉంది."
           ],
           "rules": [
             "ట్రేస్‌బిలిటీ నాణ్యత ఉత్పత్తి సమయంలో ఖచ్చితమైన స్కానింగ్ మరియు వినియోగంపై ఆధారపడుతుంది.",
-            "Lot genealogy మరియు యూనిట్ genealogy వేర్వేరు కానీ అనుసంధాన ప్రశ్నలకు సమాధానమిస్తాయి.",
-            "ఒక recall నోటీసు ప్రతిస్పందనను నియంత్రిస్తుంది; ట్రేస్‌బిలిటీ ప్రభావిత పరిధిని గుర్తిస్తుంది."
+            "Specific identifier list ఇతర dossier scope filters ను override చేస్తుంది.",
+            "Stage Timeline కు date range, కనీసం ఒక Work Order, మరియు 1–50 Operations తప్పనిసరి.",
+            "Recall Notice response ను నియంత్రిస్తుంది; traceability affected scope ను గుర్తిస్తుంది. కానీ affected-unit assignment ప్రస్తుతం SIT లో blocked గా ఉంది."
           ],
           "checklist": [
-            "ఒక ట్రయల్ యూనిట్‌ను ఇన్‌పుట్ పదార్థం నుండి shipment వరకు ట్రేస్ చేయవచ్చు.",
-            "పదార్థ బ్యాచ్‌లు ప్రభావిత అన్ని పూర్తయిన యూనిట్‌లను గుర్తిస్తాయి.",
-            "Recall శోధనలు ఒక స్పష్టమైన, సమీక్షించదగిన పరిధిని అందిస్తాయి."
+            "Completed two-unit Nova X1 dossier Recent exports లో కనిపిస్తుంది.",
+            "Nova X1 serial దాని consumed display మరియు battery lots కు resolve అవుతుంది.",
+            "Battery lot, NOVA-X1-PHONE-000002 ను affected గా చూపిస్తుంది.",
+            "SIT assignment defect fix అయ్యే వరకు authorized Recall Notice zero affected units తో Draft లోనే ఉంటుంది."
           ]
         }
       ]
@@ -1550,26 +1554,30 @@
           "flow": [
             "Plant dashboard సమీక్షించండి",
             "Work Orders తెరవండి",
+            "Work Order metrics చూడండి",
+            "Live progress board ఉపయోగించండి",
             "Production Tasks తెరవండి",
-            "Route Logs తెరవండి",
-            "Source record పరిశీలించండి"
+            "Route Logs తెరవండి"
           ],
           "steps": [
-            "Current Plant కోసం readiness, active Work Orders, Stations, Products, మరియు targets చూడండి.",
-            "Schedule risk కనుగొనడానికి status, priority, మరియు due date సమీక్షించండి.",
-            "Serial ద్వారా వెతికి Product, Routing, assigned Line, మరియు task status సమీక్షించండి.",
-            "Operator, Station, Line, timestamp, మరియు quality result సహా execution evidence నిర్ధారించండి.",
-            "Corrective action తీసుకునే ముందు underlying Work Order, Task, లేదా Route Log తెరవండి."
+            "Selected Plant కోసం setup readiness, active Work Orders, production Stations, active Products, Clients, Projects, production completion, మరియు quality targets ను Dashboard లో చూడండి.",
+            "Work Orders లో Status, Priority, మరియు Due Date ను కలిపి సమీక్షించండి. Past-due active records Delayed గా గుర్తించబడతాయి; Nova X1 list completed original Work Order ను దాని in-progress repair Work Order నుండి వేరు చేస్తుంది.",
+            "Completed Nova X1 Work Order లో 2/2 tasks, 2.9 units/hour, 20m 56s takt/cycle time, 100% yield, మరియు 42m total execution time చూడండి. Yield అంటే passed quality steps ÷ completed steps; displayed target కనీసం 95%.",
+            "Live board కోసం Track Progress ఉపయోగించండి. Default auto-refresh 30 seconds; Station filters, completed highlighting, samples-only, sorting, మరియు fullscreen ఉన్నాయి.",
+            "Production Tasks లో Serial, task ID, grouping, Work Order, Line, Product/Routing, మరియు status ధృవీకరించండి. ఒకే serial కు later repair task సహా అనేక task records ఉండవచ్చు; చర్యకు ముందు Work Order మరియు Line నిర్ధారించండి.",
+            "Route Logs లో Work Order, Product, Routing, Line, Station, operator, timestamp, quality status, మరియు execution status ధృవీకరించండి. రెండు Nova X1 logs Passed మరియు Complete గా ఉన్నాయి."
           ],
           "rules": [
             "ఒక డాష్‌బోర్డ్ రికార్డులను సంగ్రహిస్తుంది; అంతర్లీన రికార్డులు సాక్ష్య మూలంగా ఉంటాయి.",
-            "మెట్రిక్‌లను పోల్చేటప్పుడు స్థిరమైన సమయం, Plant, Line, Product మరియు Shift ఫిల్టర్‌లను ఉపయోగించండి.",
-            "వేర్వేరు నిర్వచనాలు లేదా సమయ విండోలతో మెట్రిక్‌లను పోల్చవద్దు."
+            "Route Log summary totals current filters ను ప్రతిబింబిస్తాయి.",
+            "Takt/cycle metrics completed execution time ను ఉపయోగిస్తాయి; yield అంటే passed quality steps ÷ completed steps.",
+            "ఒకే serial కు అనేక task records ఉండవచ్చు; task status ను దాని Work Order మరియు Line తో అర్థం చేసుకోవాలి."
           ],
           "checklist": [
-            "ప్రతి operational సమావేశం అంగీకరించిన డాష్‌బోర్డ్‌లను ఉపయోగిస్తుంది.",
-            "మెట్రిక్ నిర్వచనాలు అర్థమయ్యాయి.",
-            "వినియోగదారులు ఒక డాష్‌బోర్డ్ మినహాయింపు నుండి అంతర్లీన రికార్డుకు వెళ్లగలరు."
+            "Plant-level counts మరియు targets selected Plant కు సరిపోతాయి.",
+            "Completed మరియు repair Nova X1 Work Orders సరిగ్గా వేరు చేయబడ్డాయి.",
+            "Live board రెండు completed Nova X1 tasks మరియు రెండు logs చూపిస్తుంది.",
+            "రెండు Nova X1 Route Logs operator/Station evidence తో Passed మరియు Complete చూపిస్తాయి."
           ]
         },
         {
@@ -1583,27 +1591,30 @@
           ],
           "flow": [
             "Shift Definitions సమీక్షించండి",
-            "Shift Schedules సమీక్షించండి",
+            "Schedule coverage ధృవీకరించండి",
             "Handover సృష్టించండి",
-            "ప్రస్తుత పరిస్థితులను రికార్డు చేయండి",
+            "Connected conditions రికార్డు చేయండి",
             "Break Compliance తనిఖీ చేయండి"
           ],
           "steps": [
-            "Timing, breaks, మరియు calculated net working duration నిర్ధారించండి.",
-            "Effective dates మరియు weekly pattern configure చేసి, సిద్ధమైనప్పుడు Schedule activate చేయండి; కొత్త Schedules మొదట Draft గా ఉంటాయి.",
-            "Shift Handovers లో date, Shift, Line, outgoing operator, incoming operator, status, మరియు notes నమోదు చేయండి.",
-            "WIP, holds, downtime, material risk, quality issues, మరియు unresolved actions జోడించండి.",
-            "Planned/actual duration, violations, మరియు compliance చూడండి; filtered results ఉన్నప్పుడు మాత్రమే export అందుబాటులో ఉంటుంది."
+            "Unpaid breaks తర్వాత net working time నిర్ధారించండి. Nova X1 Assembly Morning Shift 06:00–14:00; 15-minute unpaid tea break వల్ల 8 hours, 7h 45m net అవుతుంది.",
+            "Shift Schedule coverage ధృవీకరించండి. కొత్త Schedules activate వరకు Draft; కానీ status మాత్రమే coverage నిరూపించదు. Active Standard/Weekend సహా మూడు current SIT Schedules 0 shifts/week చూపిస్తున్నాయి.",
+            "Shift Handover సృష్టించండి. Shift మరియు Handover Date తప్పనిసరి; Line, outgoing/incoming operators, summaries, notes, pending tasks, మరియు checklist items optional.",
+            "Authorized Nova X1 Handover ను NOVA-X1-SHIFT-A మరియు NOVA_X1_LINE_01 తో కలిపి completed production, passed Route Logs, equipment state, safety, మరియు రెండు pending repair tasks రికార్డు చేయండి.",
+            "Complete ముందు Draft review చేయండి. Outgoing Supervisor current Plant Administrator గా default అవుతుంది; Incoming Supervisor blank గా ఉండవచ్చు.",
+            "Break Compliance జాగ్రత్తగా ఉపయోగించండి: zero Break Logs ఉన్నప్పుడు SIT 100% compliance మరియు 0 violations చూపిస్తుంది; filtered records వచ్చే వరకు Export CSV disabled."
           ],
           "rules": [
-            "హ్యాండోవర్ సమాచారం రికార్డులు మరియు Lines‌కు నిర్దిష్టంగా ఉండాలి.",
-            "తెరిచిన నాణ్యత, నిర్వహణ మరియు పదార్థ అడ్డంకులు కనిపించాలి.",
-            "ఒక కొత్త Shift ఇప్పటికే పురోగతిలో ఉన్న పనిని పునఃప్రారంభించకూడదు."
+            "Net working time లెక్కించినప్పుడు unpaid breaks Shift duration నుండి తీసివేయబడతాయి.",
+            "Active గా గుర్తించిన Schedule కు కూడా zero assigned shifts మరియు coverage లేకపోవచ్చు.",
+            "కొత్త Handover Draft; receiving Shift context review చేసిన తర్వాత మాత్రమే Complete చేయండి.",
+            "Zero Break Logs తో 100% Break Compliance rate, compliant breaks జరిగాయని నిరూపించదు."
           ],
           "checklist": [
-            "WIP మరియు అడ్డుకున్న యూనిట్‌లు గుర్తించబడ్డాయి.",
-            "తెరిచిన చర్యలకు స్పష్టమైన తదుపరి దశలు ఉన్నాయి.",
-            "మునుపటి Shift‑ను పునర్నిర్మించకుండా తదుపరి Shift కొనసాగగలదు."
+            "Nova X1 Shift net working time unpaid break తర్వాత 7h 45m.",
+            "Authorized Handover Nova X1 Shift మరియు Final Assembly Line కు అనుసంధానించబడింది.",
+            "Production, quality, equipment, safety, మరియు pending repair work రికార్డు చేయబడ్డాయి.",
+            "Complete ఎంచుకునే ముందు Draft review చేయబడుతుంది."
           ]
         },
         {
@@ -1613,30 +1624,28 @@
           "importance": "Conditional",
           "prerequisites": ["Stations మరియు Repair Stations సృష్టించండి"],
           "flow": [
-            "Tools తెరవండి",
-            "Tool సృష్టించండి లేదా కనుగొనండి",
-            "Control details సమీక్షించండి",
-            "Maintenance Alerts సమీక్షించండి",
-            "Maintenance Work Orders ఉపయోగించండి",
-            "Production రక్షించండి"
+            "Tool register చేయండి",
+            "Calibration governance సెట్ చేయండి",
+            "Calibration evidence రికార్డ్ చేయండి",
+            "Maintenance Alerts evaluate చేయండి",
+            "Maintenance Work Order approve చేయండి"
           ],
           "steps": [
-            "Process & Engineering → Tools and Equipments తెరిచి Tools ఎంచుకోండి.",
-            "create action ఎంచుకోండి లేదా ఇప్పటికే ఉన్న Tool రికార్డు వెతకండి.",
-            "Identity, manufacturer/model, category, assigned Station, మరియు availability status నిర్ధారించండి.",
-            "Priority, owner, affected Tool/equipment, Line, మరియు status చూసి అవసరమైతే maintenance check trigger చేయండి.",
-            "Maintenance type, priority, assigned owner, scheduled start, మరియు completion status track చేయండి.",
-            "Availability లేదా maintenance state అనుకూలంగా లేకపోతే Tool ను execution కు ఉపయోగించవద్దు."
+            "Child Tools and Equipments page తెరిచి required Tool Name, Tool Code, Tool Category, Manufacturer, Model, Station, మరియు Status నమోదు చేయండి.",
+            "Tool governed అయితే మాత్రమే Requires Calibration enable చేయండి; దీంతో interval మరియు provider fields కనిపిస్తాయి.",
+            "Calibration Date, Next Calibration Date, మరియు Result రికార్డ్ చేసి governed Tool ను Unknown నుండి current calibration state కు మార్చండి.",
+            "Configured rules evaluate చేయడానికి Trigger Maintenance Check ఉపయోగించండి; matching rule లేకపోతే 0 alerts వస్తాయి, rows లేనప్పుడు Export disabled గా ఉంటుంది.",
+            "Required Tool మరియు Title తో Maintenance Work Order సృష్టించి, Start అందుబాటులోకి రావడానికి ముందు Draft, Submitted, Approved స్థితుల ద్వారా తరలించండి."
           ],
           "rules": [
-            "ప్రతి Tool కు స్పష్టమైన Station, category, మరియు availability state ఉండాలి.",
-            "Cycle, calibration, లేదా traceability ముఖ్యమైన చోట Tool use రికార్డు చేయాలి.",
-            "Maintenance state unsafe లేదా invalid production use ను నిరోధించాలి."
+            "Tool Name, Tool Code, Tool Category, Manufacturer, Model, Station, మరియు Status required.",
+            "Calibration-governed Tool కు result మరియు next due date ఉన్న record వచ్చే వరకు అది Unknown; overrides auditable గా ఉంటాయి.",
+            "Maintenance Work Orders కు Tool మరియు Title required; Medium మరియు Corrective defaults; approval ముందు Start చేయలేరు."
           ],
           "checklist": [
-            "అవసరమైన Tools నమోదు చేయబడ్డాయి మరియు సరిగ్గా ఉంచబడ్డాయి.",
-            "Calibration మరియు నిర్వహణ తేదీలు ప్రస్తుతంగా ఉన్నాయి.",
-            "Routing అవసరాలు అందుబాటులో ఉన్న ఆస్తులకు సరిపోతాయి."
+            "Tool intended Nova X1 Station కు assigned అయి సరైన status కలిగి ఉంది.",
+            "అవసరమైతే calibration evidence, certificate, మరియు next due date current గా ఉన్నాయి.",
+            "Approved maintenance window scheduled అయి, order ముందుగానే start కాలేదు."
           ]
         },
         {
@@ -1646,28 +1655,28 @@
           "importance": "Recommended",
           "prerequisites": ["డాష్‌బోర్డ్‌లు మరియు ఉత్పత్తి పర్యవేక్షణ"],
           "flow": [
-            "Traceability report నిర్మించండి",
-            "Dossier generate చేయండి",
-            "Operational records export చేయండి",
-            "Change history తెరవండి",
-            "Evidence సమీక్షించండి"
+            "Combined dossier scope సెట్ చేయండి",
+            "Report sheets ఎంచుకోండి",
+            "XLSX generate చేసి verify చేయండి",
+            "Filtered Work Order export సృష్టించండి",
+            "అందుబాటులో ఉన్న change history సమీక్షించండి"
           ],
           "steps": [
-            "Master Traceability లో required scope మరియు investigation కు అవసరమైన dossier sheets ఎంచుకోండి.",
-            "Unit, route, quality, genealogy, identifier, tool, packaging, మరియు shipment evidence సమీక్షించండి.",
-            "Work Orders లో filters ఉంచి Export Work Orders ఎంచుకోండి.",
-            "Entity Recent Changes history కోసం View all changes ఎంచుకోండి.",
-            "Actor, action, entity, changed fields, మరియు timestamp నిర్ధారించి affected record కు తిరిగి వెళ్ళండి."
+            "Master Traceability లో optional scope filters combine చేయండి లేదా మిగతా scope filters ను override చేసే pasted/uploaded serial-number list ఉపయోగించండి.",
+            "అవసరమైన dossier sheets ఎంచుకుని report generate చేసి, Recent exports లో Completed, unit count, మరియు XLSX filename కనిపించే వరకు వేచి ఉండండి.",
+            "Work Orders లో Export Work Orders తెరిచి, list filters inherit కావు కాబట్టి వేరే Create Data Export dialog లో Search, Status, Priority ను మళ్లీ apply చేయండి.",
+            "Download ముందు Export Details లో type, format, state, file size, applied filters, processed rows, మరియు progress నిర్ధారించండి.",
+            "Actor, action, affected Work Order, మరియు timestamp కోసం View all changes ఉపయోగించండి; current View All History destination SIT లో error ఇస్తుంది."
           ],
           "rules": [
-            "ఎగుమతులు స్నాప్‌షాట్‌లు మరియు అవి కాలం చెల్లినవి కావచ్చు.",
-            "ఆడిట్ చరిత్ర ఒక మార్పును వివరిస్తుంది కానీ కాన్ఫిగరేషన్ సమీక్షను భర్తీ చేయదు.",
-            "సున్నితమైన లేదా అంతర్గత ఫీల్డ్‌లను పబ్లిక్ కుక్‌బుక్‌కు జోడించకూడదు."
+            "Serial-number list మిగతా Master Traceability scope filters ను override చేస్తుంది.",
+            "Completed export మాత్రమే సరిపడ evidence కాదు; processed rows, progress, file size, applied filters, మరియు file contents verify చేయండి.",
+            "Recent Changes ప్రస్తుతం usable; View All History SIT లో unavailable."
           ],
           "checklist": [
-            "ముఖ్య రిపోర్ట్‌లకు అంగీకరించిన ఫిల్టర్‌లు మరియు నిర్వచనాలు ఉన్నాయి.",
-            "ఎగుమతులు డేటా విధానం ప్రకారం నిర్వహించబడతాయి.",
-            "కాన్ఫిగరేషన్ మార్పులను ఆడిట్ చరిత్ర నుండి పునర్నిర్మించవచ్చు."
+            "Dossier scope మరియు selected sheets investigation question కు సరిపోతాయి.",
+            "Operational export intended filtered records ను కలిగి ఉంది.",
+            "Nova X1 Work Order ను ఎవరు ఎప్పుడు మార్చారో Recent Changes చూపిస్తుంది."
           ]
         }
       ]

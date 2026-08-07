@@ -771,14 +771,14 @@
             "End"
           ],
           "steps": [
-            "A Routing belongs to a Product and an active BOM Version.",
-            "Each operation node points to a real Station.",
-            "Connections determine which operation can follow another.",
-            "Failure configuration can send a unit to Repair and later return it to the valid process."
+            "A Routing is created for a Product, one or more Variants, and an active BOM Version.",
+            "Each operation node points to a real Station and includes a mandatory Repair Station.",
+            "Connect Start, every operation stage, and End to define the execution order.",
+            "Conditional branches can use a quality result; lower priority numbers are evaluated first."
           ],
           "rules": [
-            "A Work Order cannot be created for a Product with no Routing.",
-            "Only active Routings are offered in the normal Work Order start journey.",
+            "Assigned Components and quantities must both reach 100% BOM coverage.",
+            "More than one Routing can be Active; the Routing is determined when the Work Order starts.",
             "Components and tools can be attached to the operation where they are needed."
           ],
           "checklist": [
@@ -794,35 +794,35 @@
           "importance": "Required",
           "prerequisites": ["Routing in Plain Language"],
           "flow": [
-            "Select Product and active BOM",
-            "Add Start and End",
-            "Assign Stations",
-            "Connect paths",
+            "Open Product",
+            "Select Variants",
+            "Select Active BOM",
+            "Add operation stage",
             "Cover BOM quantities",
-            "Configure optional controls",
-            "Validate and activate"
+            "Connect the workflow",
+            "Confirm and save"
           ],
           "steps": [
-            "Select the Product, active BOM Version, name, and applicable Variants.",
-            "Create one Start node and one End node.",
-            "Add operation nodes and assign a main Station and separate Repair Station to each.",
-            "Connect every intended operation so it is reachable from Start.",
-            "Assign every required Component and its full BOM quantity to the appropriate operation.",
-            "Add tools, instructions, quality, or packaging configuration only where needed.",
-            "Resolve validation errors and save the Routing as active."
+            "Open the Product detail and select Create Routing.",
+            "Select at least one Variant, continue, and select an Active BOM Version.",
+            "Enter the required Workflow Name, add an optional description, and set Active as needed.",
+            "Select Add Stage and Create Manually; choose the main Station, enter a unique Operation Name, and select a different Repair Station.",
+            "Assign the required Components and quantities until both BOM coverage indicators reach 100%.",
+            "Save the stage and connect Start to every stage and then End. Save becomes available when the workflow is valid.",
+            "Select Save, review the summary, select Confirm & Save, and verify the Routing detail page."
           ],
           "rules": [
-            "Product, applicable Variants, active BOM Version, and workflow name are required.",
+            "The Product is supplied by the Product detail page; at least one Variant, an active BOM Version, and a Workflow Name are required.",
             "A Routing needs at least one operation Station.",
             "Every operation requires a Repair Station different from its main Station.",
-            "Disconnected operations are not a valid executable process.",
-            "Operation names must be unique within the Routing, and Save remains unavailable until blocking validation passes."
+            "Component and quantity coverage must both reach 100% of the selected BOM.",
+            "Start, every operation stage, and End must be connected; Save remains unavailable until automatic validation passes."
           ],
           "checklist": [
-            "Start and End are present.",
-            "Every operation is reachable from Start.",
-            "Every operation has valid main and Repair Stations.",
-            "The Routing is active and uses the correct active BOM."
+            "The intended Product Variants and Active BOM are selected.",
+            "Every operation has valid main and Repair Stations and full BOM coverage.",
+            "Start, every stage, and End are connected and the workflow is valid.",
+            "The Routing detail page shows the expected status, Product, Variants, BOM, and Workflow Preview."
           ]
         },
         {
@@ -836,25 +836,27 @@
           ],
           "flow": [
             "Open Product",
-            "Review assigned Lines",
-            "Select eligible Line",
-            "Activate assignment"
+            "Open Assigned Lines",
+            "Review Line availability",
+            "Assign eligible Line",
+            "Verify assignment"
           ],
           "steps": [
-            "Open the Product and locate its assigned Lines.",
-            "Assign at least one active or occupied Line that can physically build the Product.",
-            "Assign additional eligible Lines only when capacity balancing or multiple lanes are intended.",
-            "Confirm the appropriate initial Line is marked as a Starting Line."
+            "Open the Product detail and scroll to Assigned Lines.",
+            "Select Assign Line and open the Select Line control.",
+            "Review Available Lines separately from Lines assigned to other Products; use the code and Site to choose the correct Line.",
+            "Select Assign, then repeat only for other Lines that can physically manufacture the same Product.",
+            "Verify each assigned Line's name, code, status, capacity per hour, Site, and actions in the table."
           ],
           "rules": [
-            "Work Order creation is blocked when the Product has no active Line assignment.",
-            "The current assignment flow allows one active Product assignment per Line.",
-            "Removing an assignment can be blocked while active Production Tasks use that Line."
+            "At least one Line assignment is needed to enable multi-line Work Order execution for the Product.",
+            "Assign only Lines that can physically manufacture the Product.",
+            "Starting-Line eligibility is configured separately on the Line, not in the Product assignment dialog."
           ],
           "checklist": [
-            "The Product has at least one active Line.",
-            "Assigned Lines match the physical process.",
-            "At least one assigned initial Line is a Starting Line."
+            "The Product has at least one eligible assigned Line.",
+            "Assigned Line codes and Sites match the intended physical process.",
+            "The table shows the expected status and capacity for every assignment."
           ]
         },
         {
@@ -864,27 +866,29 @@
           "importance": "Required",
           "prerequisites": ["Assign Products to Lines"],
           "flow": [
-            "Eligible Product Lines",
-            "Starting Line filter",
-            "Capacity check",
-            "Task distribution"
+            "Open Line detail",
+            "Edit throughput",
+            "Limit task queue",
+            "Set Starting Line",
+            "Save and verify"
           ],
           "steps": [
-            "Mark only Lines that can receive the first task assignment as Starting Lines.",
-            "Set task queue capacity to the number of active and waiting tasks the Line can safely hold.",
-            "Use capacity planning to review automatic distribution or set complete manual assignments.",
-            "Reduce quantity or increase available capacity when the combined headroom is insufficient."
+            "Open Process & Engineering → Line, search by name or code, open the Line detail, and select Edit.",
+            "Optionally set Capacity Per Hour and Capacity Per Shift; when both are supplied, the shift value must be greater than the hourly value.",
+            "Optionally set Task Queue Capacity to the maximum pending and active tasks allowed on the Line.",
+            "Turn on Is Starting Line only when the Line may receive the initial task during capacity planning.",
+            "Select Save and verify the status, Site, capacity values, and assigned Products on the Line detail."
           ],
           "rules": [
-            "Initial Work Orders normally require an assigned active Starting Line.",
-            "Downstream Lines receive tasks as units progress; they should not all be Starting Lines.",
-            "Capacity Per Shift must exceed Capacity Per Hour, and Task Queue Capacity must be a whole number from 1 to 100,000.",
-            "Manual capacity planning must cover every task sequence without gaps."
+            "Only Lines marked as Starting Lines can receive the initial task during capacity planning.",
+            "The UI identifies the manufacturing phase order as SMT → BLT → ASSEMBLY → TESTING → PACKING.",
+            "Capacity Per Shift must be greater than Capacity Per Hour when both optional values are supplied.",
+            "Task Queue Capacity is optional; when supplied, it must be a whole number from 1 to 100,000."
           ],
           "checklist": [
-            "Starting Lines reflect the real first manufacturing phase.",
-            "Queue capacity is explicit and realistic.",
-            "Combined headroom can accept the trial Work Order quantity."
+            "Starting-Line status reflects the real first manufacturing phase.",
+            "Hourly, shift, and queue capacity values are valid and realistic.",
+            "The Line detail shows the intended Site, status, capacities, and assigned Products."
           ]
         },
         {
@@ -894,31 +898,33 @@
           "importance": "Conditional",
           "prerequisites": ["Create Products and Variants"],
           "flow": [
-            "Define mapping",
-            "Required fields",
-            "Validate key",
-            "Choose source",
-            "Choose timing",
-            "Enforce uniqueness"
+            "Create identifier definition",
+            "Choose source and type",
+            "Define identifier pool",
+            "Open Product Identifiers",
+            "Configure Product mapping",
+            "Set assignment behavior",
+            "Verify mapping"
           ],
           "steps": [
-            "Create an identifier mapping for each identity that must be attached to a finished unit.",
-            "Enter the required key, display name, and definition or range.",
-            "Use uppercase letters, numbers, and underscores in the key.",
-            "Use a Range for generated values; external identifiers disable automatic generation.",
-            "Choose generation on task creation, task start, or a configured Routing step.",
-            "Enable uniqueness when an identifier such as IMEI must never be assigned twice."
+            "Open Process & Engineering → Identifier Management and select Create Identifier Range → Create Manually.",
+            "Enter the required Name and choose Range, Template, External, or Manual as the source.",
+            "For a Range source, select the identifier Type and Range or File Upload. Enter required Start and End values for a generated range, review its count, and select Create.",
+            "Open Production → Products, open the Product detail, scroll to Product Identifiers, and select Add Identifier.",
+            "Select the identifier definition, enter the required Identifier Key and Display Name, and choose Generated or External.",
+            "Choose On Task Creation, On Task Start, or At Route Step; enable Auto-generate and Must be Unique when required.",
+            "Select Add Identifier and verify the Product table shows the expected source, timing, and linked range."
           ],
           "rules": [
-            "Identifier Management is under Process & Engineering, not Work Orders.",
-            "Required task-creation mappings block release when availability is insufficient.",
-            "Optional identifier shortages appear as warnings.",
-            "The finished-unit serial batch is still required even when additional identifiers are configured."
+            "Identifier range Name is required, and a single operation can process no more than 10,000 identifiers.",
+            "Generated identifiers are created by the system; External identifiers are scanned or entered by an operator.",
+            "Product Identifier Keys are stored in uppercase.",
+            "At Route Step timing requires configuration in the Routing Editor."
           ],
           "checklist": [
-            "Every required identifier mapping has a valid source.",
-            "Available quantity covers the Work Order.",
-            "Templates and ranges generate the intended format."
+            "The identifier definition is Active and exposes the intended values and availability.",
+            "The Product mapping has the correct key, type, source, and assignment timing.",
+            "Auto-generation and uniqueness match the identifier's business rule."
           ]
         }
       ]
@@ -945,19 +951,20 @@
             "Production Tasks"
           ],
           "steps": [
-            "Use a Production Order to group and monitor related Work Orders.",
-            "Use a Work Order to define the Product, quantity, priority, due date, Variant, and Shifts.",
-            "Release the Work Order to create the unit-level Production Tasks that operators execute."
+            "Use a Production Order to group and monitor related Work Orders. Name and a unique Order Number are required; Client is optional and restricts the Work Orders that can be grouped.",
+            "Use a Work Order as the executable manufacturing record for a Product with Routing, input quantity, priority, due date, and Shifts.",
+            "Use Test Order only for production-line setup or workflow testing because Test Orders are excluded from analytics."
           ],
           "rules": [
-            "A Production Order is optional and does not start production by itself.",
+            "A Production Order groups Work Orders and does not define executable quantity by itself.",
             "A Work Order can exist without being grouped under a Production Order.",
-            "Production Order completion follows the completion of its Work Orders."
+            "At least one Shift is required before a Work Order can be started.",
+            "Test Orders are not calculated in production analytics."
           ],
           "checklist": [
-            "The planning record matches the business need.",
-            "Every executable quantity is represented by a Work Order.",
-            "Grouping is used only where it improves control."
+            "Grouping demand uses a Production Order with the intended client restriction.",
+            "Every executable quantity is represented by a routed Work Order.",
+            "Test Order is enabled only for non-analytics setup or workflow testing."
           ]
         },
         {
@@ -972,30 +979,30 @@
             "Create Shifts"
           ],
           "flow": [
-            "Select routed Product",
-            "Select Variant if needed",
-            "Enter quantity and due date",
-            "Assign Shift",
+            "Enter required name",
+            "Select routed Product and Variant",
+            "Enter quantity, priority, and due date",
+            "Assign Shift when known",
             "Create Pending Work Order"
           ],
           "steps": [
             "Enter a unique Work Order name.",
-            "Select a Product that already has a Routing and active Line assignment.",
-            "Select the Variant when the Product uses Variants.",
-            "Enter input quantity, priority, and a future due date.",
-            "Assign at least one valid Shift and create the Work Order."
+            "Select a Product with a configured Routing, then select the required Product Variant; Project and Product Family are derived automatically.",
+            "Enter a positive Input Quantity, choose the required Priority, and select a Due Date that is not in the past.",
+            "Review Total Computed Quantity, which equals Input Quantity multiplied by the Product Multiplier.",
+            "Assign one or more Shifts when known, review Component Availability, and create the Work Order."
           ],
           "rules": [
-            "Quantity must be a positive whole number, and the due date cannot be in the past.",
-            "The Product multiplier can increase the final unit quantity.",
-            "A Product with no Routing or active Line assignment is rejected.",
-            "At least one active Shift is mandatory before the Work Order can start.",
-            "Component shortfalls allow creation but must be resolved before release."
+            "Name, routed Product, Product Variant, Input Quantity, Priority, and Due Date are required.",
+            "The Due Date cannot be in the past, and computed quantity equals Input Quantity × Product Multiplier.",
+            "Shift is optional at creation, but at least one Shift is required before the Work Order can start.",
+            "Test Orders are intended for line setup or workflow testing and are excluded from analytics.",
+            "A successfully created Work Order begins in PENDING status."
           ],
           "checklist": [
             "Product, Variant, quantity, priority, and due date are correct.",
-            "At least one Shift is selected.",
-            "The resulting final quantity is understood."
+            "The computed quantity and Component Availability panel are reviewed.",
+            "A Shift is assigned now or planned before start, and Test Order is off for normal production."
           ]
         },
         {
@@ -1006,26 +1013,27 @@
           "prerequisites": ["Create a Work Order"],
           "flow": [
             "Open start journey",
-            "Generate serials",
-            "Review and confirm",
-            "Match final quantity"
+            "Choose generation method",
+            "Preview and validate uniqueness",
+            "Generate and confirm batch",
+            "Verify confirmed quantity"
           ],
           "steps": [
-            "Open the Work Order start journey and generate its serial number batch.",
-            "Use the configured Product template or the supported generation method.",
-            "Review the generated values and confirm the batch.",
-            "Verify the confirmed serial count exactly matches the final Work Order quantity."
+            "Select Start Work Order; the Serial Numbers step blocks progress until confirmed serials equal the Work Order quantity.",
+            "Select Generate Serial Numbers and use the Product Template when configured, another available Template, or Manual Upload for CSV or Excel.",
+            "Verify the preview count, select Validate Uniqueness, and generate the batch.",
+            "Select Confirm & Complete, then verify CONFIRMED and the exact serial count in the start journey."
           ],
           "rules": [
-            "No normal Work Order can start without a serial number batch.",
-            "The batch must be confirmed.",
-            "Serial count must exactly equal Work Order quantity.",
-            "Validate every proposed serial for uniqueness before creating and confirming the batch.",
+            "Confirmed serial count must exactly equal the Work Order quantity before the next start step is enabled.",
+            "Product Template is unavailable when no template is configured for the Product.",
+            "Every proposed serial must pass uniqueness validation.",
+            "A GENERATED batch is not production-ready until Confirm & Complete changes it to CONFIRMED.",
             "A serial number batch groups unit serials; it does not replace unit-level identities."
           ],
           "checklist": [
-            "The serial batch is confirmed.",
-            "Serial count equals final quantity.",
+            "The serial batch status is CONFIRMED.",
+            "The confirmed serial count equals Work Order quantity.",
             "Serial format is suitable for scanning and traceability."
           ]
         },
@@ -1046,16 +1054,16 @@
             "Review blockers"
           ],
           "steps": [
-            "Open Capacity and Lines in the Work Order start journey.",
-            "Review current task load and available capacity on eligible Starting Lines.",
-            "Use automatic balancing or create complete manual assignments.",
-            "Select the active Routing that applies to the Product and Variant.",
-            "Review the pre-start result for inventory, identifier, and Station blockers."
+            "After confirmed serials match quantity, open Capacity & Lines and select Configure Capacity Planning.",
+            "Review Total Quantity, Available Capacity, Available Lines, and projected capacity on eligible Starting Lines.",
+            "Use system-optimized distribution or manual assignment; in system mode, select Proceed with System Assignment.",
+            "Confirm capacity planning completed, then select the eligible active Production Route.",
+            "Verify the route option's BOM status, route type, item count, and enabled Next action."
           ],
           "rules": [
-            "Total available queue capacity must cover the Work Order quantity.",
-            "Every manually assigned task must reference an eligible Line.",
-            "The selected Routing must be active and applicable to the Product configuration."
+            "Capacity planning is disabled until serials are confirmed for the full Work Order quantity.",
+            "Available queue capacity on eligible Starting Lines must cover the Work Order quantity.",
+            "The selected Production Route must be eligible and show an active associated BOM."
           ],
           "checklist": [
             "Capacity planning is complete.",
@@ -1077,17 +1085,16 @@
             "Release"
           ],
           "steps": [
-            "Run pre-start validation after serials, capacity, and Routing are ready.",
-            "Resolve every blocker, beginning with Product, active BOM, serials, and global material shortages.",
-            "Transfer material to the first Station when first-stage availability is insufficient.",
-            "Review later-Station shortages and warnings before deciding whether to proceed.",
-            "Release the Work Order only when the result allows production to start."
+            "After Serial Numbers, Capacity & Lines, and Routing are complete, select Run Pre-Start Validation.",
+            "Review Product assignment, BOM, generated and confirmed serials, Component Inventory, Station-Level Inventory, and Identifier Availability.",
+            "Resolve first-stage Station shortages with Transfer All or a component transfer; use Auto-Fill Shortage for the exact remaining quantity.",
+            "Refresh until validation shows PASS, then select Proceed to Start."
           ],
           "rules": [
-            "A missing active BOM is a blocker in the supported release journey.",
-            "Insufficient first-stage material blocks release.",
-            "Later-stage shortages can be warnings because material may arrive before the unit reaches that Station.",
-            "Required identifier shortages block release."
+            "A first-stage Station shortage blocks start even when plant-level Component Inventory is sufficient.",
+            "Transfer All prioritizes storage locations, then non-routing Stations, and may perform partial transfers.",
+            "Proceed to Start releases immediately, creates Production Tasks, and changes the Work Order to IN PROGRESS.",
+            "Validation must show PASS before Proceed to Start is enabled."
           ],
           "checklist": [
             "All blockers are resolved.",
@@ -1116,15 +1123,16 @@
             "Record status and Route Logs"
           ],
           "steps": [
-            "Fynd ERP creates one Production Task for each confirmed finished-unit serial.",
-            "Each Task receives an initial Line assignment based on capacity planning.",
-            "The selected Routing controls the next valid operation.",
-            "Task status and Route Logs record progress until completion."
+            "Open Production Tasks on the released Work Order and verify one Task exists for each confirmed serial.",
+            "Review task distribution by Line Type and Line, then open a unit Task.",
+            "Confirm Task status, assigned serial, Work Order, Product, Line, and Line Type.",
+            "Review Stage Progress, Bound Identifiers, BOM Progress, and Routing and Process Details."
           ],
           "rules": [
-            "Production Tasks require a Line assignment.",
-            "A Task cannot skip an operation unless Routing or configured auto-pass behaviour allows it.",
-            "The live Task Line can change as the unit moves through production."
+            "Release creates one Production Task per confirmed finished-unit serial.",
+            "Capacity planning provides the initial Line assignment, and the selected Routing defines the current Stage and Station.",
+            "Required BOM components remain Pending until consumed during execution.",
+            "Generated Product identifiers can be bound to the Task before execution begins."
           ],
           "checklist": [
             "Task count matches Work Order quantity.",
@@ -1139,28 +1147,29 @@
           "importance": "Required",
           "prerequisites": ["Production Tasks"],
           "flow": [
-            "Identify unit",
-            "Review operation",
-            "Capture inputs",
-            "Record result",
-            "Complete step"
+            "Select mapped Station",
+            "Choose Work Order and Line",
+            "Open Production Task",
+            "Validate Component identities",
+            "Complete and record"
           ],
           "steps": [
-            "Open the Station work area and identify or scan the unit.",
-            "Review the current operation, instructions, required inputs, and quality gates.",
-            "Scan serialised Components or enter the exact quantity for quantity-based Components.",
-            "Complete required checks and record the operation result.",
-            "Finish the step so Fynd ERP can move the unit to the next valid operation."
+            "In Operator, select the Product first, choose Mapped, and use the Status filter if the Station is hidden by the default Running view.",
+            "Open the Station, select an active Work Order, and choose an eligible Production Line.",
+            "Scan or enter the Production Task ID or confirmed finished-unit serial, then select Start Task.",
+            "Enter an available serial for every serialised BOM Component and satisfy each configured identifier validator.",
+            "Confirm the result and select Complete & Next so Fynd ERP records execution and Route progress."
           ],
           "rules": [
-            "Operators should work from the Station that matches the current Routing step.",
-            "Required Component and verification inputs block completion when missing.",
-            "Failed results must follow the configured exception path."
+            "Mapped Stations are product-aware; select the Product before using the Mapped filter.",
+            "Only active Work Orders and eligible Production Lines are offered for the selected Station.",
+            "Required Component identities must be available and valid; the Battery Pack validator requires GS1 AI 01 and AI 10.",
+            "Complete & Next records the operator, Station, material identities, result, timestamps, and Route progress."
           ],
           "checklist": [
-            "The correct unit and operation are visible.",
-            "Required inputs validate successfully.",
-            "The completed step appears in the unit history."
+            "The Product, Station, Work Order, Line, Task, and Routing step match.",
+            "Every required Component identity validates successfully.",
+            "The completion is visible in Task History and Route history."
           ]
         },
         {
@@ -1173,26 +1182,29 @@
             "Serial, Lot, and Mixed Material Tracking"
           ],
           "flow": [
-            "Make material available",
-            "Scan serialised material",
-            "Enter bulk quantity",
-            "Record genealogy"
+            "Transfer material to Station",
+            "Open Production Task",
+            "Validate Component identities",
+            "Complete consumption",
+            "Verify genealogy"
           ],
           "steps": [
-            "Make required material available at the appropriate Station.",
-            "Scan each serialised Component identity.",
-            "Enter or validate the required quantity for non-serialised Components.",
-            "Complete the operation so consumption and genealogy are recorded."
+            "Transfer required stock to the execution Station and confirm the Station inventory covers the BOM requirement.",
+            "Scan or enter the Production Task ID or confirmed finished-unit serial in the Station work area.",
+            "Enter one available, unconsumed serial for every serialised BOM Component and satisfy its configured identifier validator.",
+            "Select Complete & Next after all required inputs validate.",
+            "Verify the Production Task is COMPLETED and the material identities appear in consumption and genealogy history."
           ],
           "rules": [
-            "Serialised Components cannot be substituted with a quantity-only entry.",
-            "Quantity consumption must match the configured requirement.",
-            "Material should be transferred before the unit reaches the Station that consumes it."
+            "Serialised Components require a unique available serial; an already consumed serial is rejected.",
+            "Configured identifier validators apply during execution; the Battery Pack requires GS1 AI 01 and AI 10.",
+            "Material should be transferred before the unit reaches the Station that consumes it.",
+            "Completion records material identities, inventory use, and genealogy against the Production Task."
           ],
           "checklist": [
             "Station inventory covers current production.",
-            "Serialised Components are uniquely captured.",
-            "Consumption is visible in material traceability."
+            "Every serialised Component identity is unique, available, and valid.",
+            "The completed Task and consumed identities are visible in production and traceability history."
           ]
         },
         {
@@ -1208,20 +1220,20 @@
             "Completed or exception state"
           ],
           "steps": [
-            "Use Work Order status for overall production progress.",
-            "Use Production Task status for the current state of each finished unit.",
-            "Use Route Logs to see which Station performed each operation and when.",
-            "Use the history when investigating delays, failures, or traceability questions."
+            "Open the Work Order to review overall status, progress, Production Metrics, and task distribution.",
+            "Open Route Execution Logs and compare Total Logs, Passed, Failed, and In Progress.",
+            "Filter by status, date range, Work Order, Product, Routing, or Station.",
+            "Review the timestamp, production context, operator, quality result, and execution status in each log."
           ],
           "rules": [
             "Work Order status and Task status answer different questions.",
-            "Route Logs are the operation-level evidence of what happened.",
-            "Hold, repair, rework, and scrap can interrupt the normal progression."
+            "A Work Order becomes COMPLETED only after every Production Task finishes.",
+            "Route Execution Logs preserve operation-level evidence, including the Station, operator, quality result, status, and timestamp."
           ],
           "checklist": [
-            "Users know where to check overall and unit-level status.",
-            "Completed operations appear in Route Logs.",
-            "Exception states have a clear next action."
+            "Work Order progress and task distribution agree.",
+            "Completed operations appear in Route Execution Logs.",
+            "Filters return the expected Work Order, Product, Routing, or Station history."
           ]
         }
       ]
@@ -1245,117 +1257,118 @@
             "Define outcomes"
           ],
           "steps": [
-            "Identify the operations where a quality decision is needed.",
-            "Create a Control Point with the required control type, frequency, and failure action.",
-            "Bind the Control Point to the relevant Product, production Line, Station, or Routing step.",
-            "Define measurable pass criteria and the required fail, quarantine, or Hold outcome."
+            "Open Quality → Control Points and select Create Control Point.",
+            "Enter the unique Code and Name, then select Control Type, Frequency, and On Failure.",
+            "Select the Production Line first, then choose the Station that becomes available.",
+            "Choose the failure action, enable Auto-hold failed units when required, and add checklist questions.",
+            "Create the control and verify its Active status, scope, failure action, and checklist on Configuration."
           ],
           "rules": [
-            "Control type, frequency, and failure action are required.",
-            "Quality controls should be placed where evidence can be collected reliably.",
-            "Sampling reduces inspection volume but does not remove traceability.",
-            "A failed result needs a configured disposition path."
+            "Code, Name, Control Type, Frequency, and On Failure are required.",
+            "Station remains unavailable until a Production Line is selected.",
+            "Failure action can Stop Line, Quarantine, Hold Lot, Escalate, or Alert Only.",
+            "Checklist questions define the evidence operators must record."
           ],
           "checklist": [
-            "Inspection criteria are measurable.",
-            "Triggers and sample sizes are understood.",
-            "Failure outcomes are configured before production."
+            "The Control Point is Active and has a unique Code.",
+            "Line and Station scope are correct.",
+            "Failure action, Auto-hold behavior, and checklist questions match the production risk."
           ]
         },
         {
           "title": "Inspections, Defects, NCR, and CAPA",
           "slug": "inspection-to-capa",
-          "summary": "Understand the escalation path from a failed check to controlled corrective action.",
+          "summary": "Run a configured inspection, record failed samples, and understand the current NCR and CAPA limitations in SIT.",
           "importance": "Conditional",
           "prerequisites": ["Configure Quality Controls"],
           "flow": [
-            "Inspection",
-            "Defect",
-            "NCR",
-            "Disposition",
-            "CAPA when systemic"
+            "Active inspection configuration",
+            "Work Order or Lot inspection",
+            "Sample checks and Defect",
+            "Rejected inspection and hold scope",
+            "NCR and CAPA limitations"
           ],
           "steps": [
-            "Create an Inspection from a started Work Order or valid lot and enter the affected quantity.",
-            "Create or link a Defect with symptom, severity, source, and affected unit when a nonconformity is found.",
-            "Use an NCR to control and investigate nonconforming output or material.",
-            "Use a Disposition to decide what happens to the affected unit.",
-            "Use CAPA when the issue requires broader corrective or preventive action, and track it through verification."
+            "Create and activate the applicable inspection configuration before starting an inspection.",
+            "Choose either a Work Order or an available, non-expired Lot—never both—and enter the required total and sample quantities.",
+            "Record each sample and its checks. A failed sample requires a Defect code and Severity before it can be saved.",
+            "Reject the inspection and choose whether to hold only failed serials or the entire lot. Inspection-local defects and plant Defects are separate records.",
+            "Treat NCR and CAPA as unavailable from these screens in the current SIT build: Create NCR opens ‘NCR report not found’, and CAPA Management has no create action."
           ],
           "rules": [
-            "A Defect describes the observed problem; an NCR controls the nonconforming case.",
-            "A Disposition is the decision, while approval controls who can authorise it.",
-            "CAPA is for systemic correction, not every isolated failure."
+            "An active inspection configuration is a prerequisite; Plant scope is the fallback and more specific scopes override it.",
+            "A source is either a Work Order or a Lot, and total quantity is required.",
+            "A failed sample cannot be saved without Defect details."
           ],
           "checklist": [
-            "The correct record type is used for the issue.",
-            "Affected units and material are traceable.",
-            "Disposition and approval are complete before release."
+            "The inspection configuration is Active.",
+            "The source, quantities, sample serial, checks, and Defect details are complete.",
+            "The selected hold scope matches the rejected output."
           ]
         },
         {
           "title": "Repair and Rework",
           "slug": "repair-and-rework",
-          "summary": "Return failed units to a controlled process without losing their production history.",
+          "summary": "Configure repair intake, record rework evidence, and understand the current SIT completion limitation.",
           "importance": "Conditional",
           "prerequisites": [
             "Create Stations and Repair Stations",
             "Create and Validate a Routing"
           ],
           "flow": [
-            "Failure",
-            "Repair Station",
-            "Diagnosis and repair",
-            "Validation",
-            "Return to route or rework"
+            "Repair configuration",
+            "Debug Queue",
+            "Rework Board",
+            "Record work",
+            "Completion limitation"
           ],
           "steps": [
-            "Record an explicit rationale and action in the affected Disposition.",
-            "Preserve the link between the original serial, Defect, and decision.",
-            "Create a tracked job or Work Order from the Rework Board.",
-            "Record symptoms, diagnosis, actions, and replacement Components where applicable.",
-            "Complete reinspection before final closure or return to an allowed Routing point."
+            "In Repair Config, enable Auto-create repair on failure and select a Default Repair Station when automatic intake is required.",
+            "Use Debug Queue to triage incoming failures. Rework Board jobs originate from a failure or Disposition; the board has no create action.",
+            "Review the linked Work Order, serial, mechanism, attempt number, and current board column.",
+            "Select Record work and enter labor minutes, material cost, and concise work notes before selecting Complete Work.",
+            "In the current SIT build, Complete Work saves labor and cost but leaves the job In Progress; notes clear on reopen and re-inspection does not start."
           ],
           "rules": [
-            "Repair fixes the failed unit; Rework repeats or redirects manufacturing work.",
-            "The repair destination must be different from the failed operation Station.",
-            "Return targets must be allowed by the configured route and failure logic."
+            "Auto-create repair and the Default Repair Station control automatic queue intake.",
+            "Attempt Limit rules are configured under Alerts and can alert, block, or block and propose scrap.",
+            "Total and per-line repair WIP caps are optional; leaving a cap empty disables that limit."
           ],
           "checklist": [
-            "Repair records preserve the original unit identity.",
-            "Replacement material is traceable.",
-            "The unit returns only to an allowed operation."
+            "The job remains linked to the original serial and Work Order.",
+            "Labor minutes, material cost, and work notes are entered.",
+            "The current SIT completion limitation is understood before relying on re-inspection."
           ]
         },
         {
           "title": "Hold, Scrap, and Teardown",
           "slug": "hold-scrap-teardown",
-          "summary": "Choose the correct action when a unit must pause, terminate, or be disassembled.",
+          "summary": "Create scoped holds, track controlled scrap dispatches, and start teardown only from eligible executed scrap.",
           "importance": "Conditional",
           "prerequisites": ["Statuses and Route Logs"],
           "flow": [
-            "Hold",
-            "Release Hold",
-            "Approve and execute Scrap",
-            "Dispatch to Teardown",
-            "Record recovered Components"
+            "Choose Hold Level",
+            "Select target and Reason",
+            "Approval when required",
+            "Track Scrap dispatch",
+            "Send executed Scrap to Teardown"
           ],
           "steps": [
-            "Use Hold when work must pause while a decision or material issue is resolved.",
-            "Release the Hold only after the blocking condition is cleared.",
-            "Move Scrap through its approval and execution states when the unit is permanently removed from usable production.",
-            "After executed Scrap is dispatched, use Teardown when recoverable Components need controlled removal.",
-            "Record recovered Components with their donor-unit context."
+            "Open Quality → Hold Management → Create Hold and choose the Hold Level before selecting a target.",
+            "Select the required target and Reason. Notes are optional, and a Work Order hold can include an optional expected release date.",
+            "Submit inventory lot, vendor, and date-code holds for approval; they remain inactive until Quality approves them.",
+            "Configure Scrap Reasons first, then use Scrap Register to track Pending Approval, Approved, Executed, and Rejected dispatches. The register has no create action.",
+            "Use Send to teardown on an executed Scrap dispatch to create a Teardown order linked to the donor serial and recovered Components."
           ],
           "rules": [
-            "Hold is reversible; Scrap is a terminal production outcome.",
-            "Scrap requires a clear reason and preserved traceability.",
-            "Recovered serialised Components need an explicit inventory and genealogy outcome."
+            "Hold Level determines the target and impact; a Work Order hold pauses all production for that order.",
+            "Inventory lot, vendor, and date-code holds require Quality approval.",
+            "Teardown cannot begin until Scrap is executed and explicitly sent to teardown."
           ],
           "checklist": [
-            "The chosen action matches the physical outcome.",
-            "Reason codes and notes are complete.",
-            "Inventory and traceability reflect the final decision."
+            "The target and Reason are selected for the correct Hold Level.",
+            "Scrap reason categories and reason codes exist before dispatch.",
+            "The teardown order remains linked to its donor serial and Scrap dispatch."
           ]
         }
       ]
@@ -1373,28 +1386,31 @@
           "importance": "Conditional",
           "prerequisites": ["Create and Validate a Routing"],
           "flow": [
-            "Choose packaging stage",
-            "Configure Container Type",
-            "Add units",
-            "Run checks",
-            "Keep open until complete"
+            "Open Packaging",
+            "Configure product container hierarchy",
+            "Create a work-order container",
+            "Review the generated UID",
+            "Complete packaging checks"
           ],
           "steps": [
-            "Choose the Routing stage where packaging begins.",
-            "Configure the Container Type and enabled packaging operations.",
-            "Add finished units to the correct container.",
-            "Run required type, quantity, weight, declaration, and label checks before closing.",
-            "Keep the container open until every configured check is complete."
+            "Open Packaging & Shipping and select Packaging.",
+            "Open Packing Configuration, select the Product, and define its product-specific container type. Product, Name, and Code are required; Code accepts 2–10 alphanumeric characters.",
+            "Leave Child Container Type empty for a leaf that binds finished-unit serials directly, or select a child to build the Device → Box → Carton → Pallet hierarchy.",
+            "Return to the Packaging Dashboard, select Create Container, and choose the Product, required Container Type, and required Work Order ID.",
+            "Open the generated UID to review device count, weight and dimensions, linked Work Order, label state, and History."
           ],
           "rules": [
-            "Packaging operations are required only when the Product uses the configured container flow.",
-            "At least one packaging operation must be enabled when stage packaging is configured.",
-            "Auto-close depends on label printing; auto-print after weight depends on weight validation."
+            "Packing configurations are product-specific.",
+            "A leaf has no child container type and binds serial numbers directly; parent configurations accept the selected child type.",
+            "Create Container remains disabled until Container Type and Work Order ID are selected.",
+            "A UID template is optional; when omitted, Fynd ERP uses the default UID format.",
+            "Pallets are added to Shipments, which are managed separately in the Shipments module."
           ],
           "checklist": [
-            "Container hierarchy matches the physical packaging process.",
-            "Required labels and printers are ready.",
-            "Weight and closure rules are testable."
+            "Product-specific container configuration is active.",
+            "Device → Box → Carton → Pallet hierarchy matches the physical flow.",
+            "Container is linked to the correct Work Order.",
+            "UID, device count, label state, and History are visible before closure."
           ]
         },
         {
@@ -1404,28 +1420,28 @@
           "importance": "Conditional",
           "prerequisites": ["Packaging in Fynd ERP"],
           "flow": [
-            "Unit serial",
-            "Inner container",
-            "Carton",
-            "Pallet",
-            "Shipment"
+            "Configure leaf and parent types",
+            "Set UID and physical limits",
+            "Create the parent container",
+            "Pack an eligible identity",
+            "Print and audit the label"
           ],
           "steps": [
-            "Define the Container Types used by the Product.",
-            "Configure the allowed leaf-to-parent sequence, such as unit, box, carton, and pallet.",
-            "Bind the finished-unit serial to the leaf container and accept only configured child UIDs in each parent.",
-            "Create label templates with the variables required for product, unit, container, quantity, and shipment scanning.",
-            "Test printing and confirm label history and reprints remain auditable."
+            "In Packing Configuration, create the leaf first, then create each parent with its allowed Child Container Type; selecting a child makes Max child count required.",
+            "Choose a container-specific UID Template and sequence reset scope, then configure dimensions, weight range, and tolerance.",
+            "Create the parent from the Packaging Dashboard by selecting the Product, parent Container Type, and completed Work Order.",
+            "In Pack by UID, scan a finished serial, device UID, child UID, identifier, or task ID; a valid unit automatically creates the configured leaf and packs it into the parent.",
+            "Print the carton label and verify carton UID, model, quantity, unit serial, QR codes, History, and the Reprint path."
           ],
           "rules": [
-            "A container identity must remain unique and scannable.",
-            "Closed or abandoned containers should not accept new units.",
-            "Reprints should preserve auditability and follow configured approval rules."
+            "Use a container-specific UID pattern so generated container identities do not collide with unit serials.",
+            "A parent accepts only its configured child type, and its maximum child count is enforced.",
+            "Only eligible production identities can be packed; source values unavailable to the label remain blank."
           ],
           "checklist": [
-            "Container levels mirror physical packaging.",
-            "Labels include the required identifiers.",
-            "Scan and reprint paths have been tested."
+            "Leaf and parent types mirror the physical hierarchy.",
+            "UID template, capacity, dimensions, weight, and tolerance are correct.",
+            "Packing, printed label content, History, and Reprint have been checked."
           ]
         },
         {
@@ -1435,29 +1451,28 @@
           "importance": "Conditional",
           "prerequisites": ["Containers and Labels"],
           "flow": [
-            "Select Shipment",
-            "Select Container Type",
-            "Resolve verification counts",
-            "Check Shipment Rules",
-            "Check Shipping Gate and ASN"
+            "Select the Shipment first",
+            "Check the active Shipment Rule",
+            "Confirm Shipping Gate balance",
+            "Configure ASN export",
+            "Resolve SIT prerequisites"
           ],
           "steps": [
-            "Open Shipment Verification and select an existing Shipment first.",
-            "Select the Container Type after the Shipment enables it, then scan or select each expected container UID.",
-            "Review Verified, Mismatched, and Pending counts and resolve every difference.",
-            "Confirm active Shipment Rules allow the container count and weight.",
-            "Confirm the Shipping Gate has enough approved PO quantity and use the client-specific ASN template for exports."
+            "Open Shipment Verification and select an existing Shipment; Container Type, counts, container rows, and Export remain unavailable until the required Shipment is selected.",
+            "Confirm an active Shipment Rule includes the selected container configuration and permits its container-count and maximum-weight limits.",
+            "Confirm the Shipping Gate has positive remaining approved Purchase Order quantity; the current active SIT gate is fully consumed with balance 0.",
+            "Use a client- or product-scoped ASN template for the Excel export; this SIT Plant currently has no ASN templates.",
+            "Current SIT limitation: the Plant has no Shipments, and Create Shipment omits backend-required lines and warehouseRootLocationId, so verification cannot begin from this UI."
           ],
           "rules": [
-            "Container verification cannot begin until a Shipment is selected.",
-            "Shipment verification should use closed, valid containers.",
-            "Abandoned packaging identities must not satisfy verification gates.",
-            "Shipment records should remain linked to the Product and unit genealogy."
+            "Shipment selection is mandatory before Container Type or verification data becomes available.",
+            "The governing Shipment Rule and a positive Shipping Gate balance are prerequisites.",
+            "ASN output is client- or product-scoped when a template is configured."
           ],
           "checklist": [
-            "Expected and scanned shipment quantities match.",
-            "All included containers have valid status.",
-            "The shipment can be traced back to Work Orders and units."
+            "A valid Shipment exists and can be selected.",
+            "The active rule covers the container configuration, count, and weight.",
+            "Shipping Gate balance is positive and the required ASN template exists."
           ]
         },
         {
@@ -1474,24 +1489,28 @@
             "Choose sheets",
             "Export Stage Timeline",
             "Search genealogy",
+            "Find affected units",
             "Create Recall Notice"
           ],
           "steps": [
-            "In Master Traceability, combine scope filters or paste an identifier list; an identifier list overrides the other filters.",
-            "Select the required dossier sheets and generate the traceability report.",
-            "For Stage Timeline exports, enter start and end dates, select at least one Work Order, and choose 1–50 Operations.",
-            "Use Batch Genealogy to search upstream or downstream, or Find Affected Units by material lot or Component.",
-            "Create a Recall Notice with severity, status, reason, and the verified affected-unit scope."
+            "In Master Traceability, combine filters and unlock dependent Product filters from their parent selection. A specific identifier list overrides the other filters, and Generate Dossier remains disabled until at least one scope is selected.",
+            "Select only the required dossier sheets. Generation is asynchronous and completed files remain in Recent exports; the Nova X1 Work Order produced a two-unit dossier.",
+            "For Stage Timeline, select a date range, at least one Work Order, and 1–50 Operations. The date range is required even though this SIT build does not mark it with an asterisk.",
+            "Use the full genealogy tree with a pallet, carton, box, device, product, Component, or batch identifier. Downstream follows a finished identity to Components and lots; Upstream follows a lot toward finished units.",
+            "Use Find Affected Units with a Batch/Lot Number or Component Serial. The Nova X1 battery lot returned NOVA-X1-PHONE-000002 as an affected finished serial.",
+            "Recall creation requires Title and Severity. In this SIT build, By Batch finds no production tasks and direct completed-task assignment fails because productionTaskIds is unused, so the authorized Nova X1 Recall Notice remains Draft with zero affected units."
           ],
           "rules": [
             "Traceability quality depends on accurate scanning and consumption during production.",
-            "Lot genealogy and unit genealogy answer different but connected questions.",
-            "A recall notice controls the response; traceability identifies the affected scope."
+            "A specific identifier list overrides the other dossier scope filters.",
+            "Stage Timeline requires a date range, at least one Work Order, and 1–50 Operations.",
+            "A recall notice controls the response; traceability identifies the affected scope, but affected-unit assignment is currently blocked in SIT."
           ],
           "checklist": [
-            "A trial unit can be traced from input material to shipment.",
-            "Material batches identify all affected finished units.",
-            "Recall searches return a clear, reviewable scope."
+            "The completed two-unit Nova X1 dossier appears in Recent exports.",
+            "The Nova X1 serial resolves to its consumed display and battery lots.",
+            "The battery lot returns NOVA-X1-PHONE-000002 as affected.",
+            "The authorized Recall Notice remains Draft with zero affected units until the SIT assignment defect is fixed."
           ]
         }
       ]
@@ -1511,26 +1530,30 @@
           "flow": [
             "Plant dashboard",
             "Work Order risk",
+            "Work Order metrics",
+            "Live progress board",
             "Production Task status",
-            "Route Log evidence",
-            "Investigate source record"
+            "Route Log evidence"
           ],
           "steps": [
-            "Use the Plant dashboard to review readiness, active Work Orders, Stations, master data, and production targets.",
-            "Use the Work Orders list to review status, priority, and due-date risk.",
-            "Use Production Tasks to review each serial's Product, Routing, Line, and unit status.",
-            "Use Route Logs to verify operator, Station, Line, timestamp, and quality result.",
-            "Open the underlying Work Order, Task, or Route Log before taking corrective action."
+            "Use the Dashboard to review setup readiness, active Work Orders, production Stations, active Products, Clients, Projects, production completion, and quality targets for the selected Plant.",
+            "In Work Orders, evaluate Status, Priority, and Due Date together. Past-due active records are marked Delayed; the Nova X1 list separates the completed original Work Order from its in-progress repair Work Order.",
+            "Open the completed Nova X1 Work Order to review 2/2 tasks, 2.9 units/hour, 20m 56s takt and cycle time, 100% yield, and 42m total execution time. Yield is passed quality steps divided by completed steps, with a displayed target of at least 95%.",
+            "Use Track Progress for the live board. It auto-refreshes every 30 seconds by default and supports Station filters, completed highlighting, samples-only, sorting, and fullscreen.",
+            "Use Production Tasks to verify Serial, task ID, grouping, Work Order, Line, Product/Routing, and status. A serial can have multiple task records, including a later repair task, so confirm the Work Order and Line before acting.",
+            "Use Route Logs to verify the Work Order, Product, Routing, Line, Station, operator, timestamp, quality status, and execution status. The two Nova X1 logs are Passed and Complete."
           ],
           "rules": [
             "A dashboard summarises records; the underlying records remain the source of evidence.",
-            "Use consistent time, Plant, Line, Product, and Shift filters when comparing metrics.",
-            "Do not compare metrics with different definitions or time windows."
+            "Route Log summary totals reflect the current filters.",
+            "Takt and cycle metrics use completed execution time; yield is passed quality steps divided by completed steps.",
+            "The same serial can have multiple task records, so task status must be interpreted with its Work Order and Line."
           ],
           "checklist": [
-            "Each operational meeting uses agreed dashboards.",
-            "Metric definitions are understood.",
-            "Users can move from a dashboard exception to the underlying record."
+            "Plant-level counts and targets match the selected Plant.",
+            "The completed and repair Nova X1 Work Orders are distinguished correctly.",
+            "The live board shows two completed Nova X1 tasks and two logs.",
+            "Both Nova X1 Route Logs show Passed and Complete with operator and Station evidence."
           ]
         },
         {
@@ -1544,27 +1567,30 @@
           ],
           "flow": [
             "Review Shift Definitions",
-            "Activate Shift Schedule",
+            "Verify Schedule coverage",
             "Create Handover",
-            "Record WIP and issues",
+            "Record connected conditions",
             "Review Break Compliance"
           ],
           "steps": [
-            "Review Shift Definitions, including timing, breaks, and calculated net working duration.",
-            "Configure Shift Schedules and activate them when ready; new Schedules remain Draft until activation.",
-            "Create a Shift Handover with date, Shift, Line, outgoing operator, incoming operator, status, and notes.",
-            "Record WIP, holds, downtime, material risks, quality issues, and unresolved actions.",
-            "Use Break Compliance to compare planned and actual duration, violations, and compliance."
+            "Confirm net working time after unpaid breaks. Nova X1 Assembly Morning Shift runs 06:00–14:00; its 15-minute unpaid tea break reduces 8 hours to 7h 45m net.",
+            "Verify Shift Schedule coverage. New Schedules remain Draft until activated, but status alone does not prove coverage: all three current SIT Schedules show 0 shifts/week, including the Active Standard and Weekend Schedules.",
+            "Create a Shift Handover. Shift and Handover Date are required; Line, outgoing/incoming operators, summaries, notes, pending tasks, and checklist items are optional.",
+            "Connect the authorized Nova X1 Handover to NOVA-X1-SHIFT-A and NOVA_X1_LINE_01, then record completed production, passed Route Logs, equipment state, safety, and two pending repair tasks.",
+            "Review the Draft before completion. Outgoing Supervisor defaults to the current Plant Administrator, Incoming Supervisor may remain blank, and Complete should be used only after the next Shift reviews the record.",
+            "Use Break Compliance carefully: with zero Break Logs, SIT displays 100% compliance and 0 violations, while Export CSV remains disabled until filtered records exist."
           ],
           "rules": [
-            "Handover information should be specific to records and Lines.",
-            "Open quality, maintenance, and material blockers must be visible.",
-            "A new Shift should not restart work that is already in progress."
+            "Unpaid breaks are deducted from Shift duration when net working time is calculated.",
+            "A Schedule marked Active can still have zero assigned shifts and no effective coverage.",
+            "A new Handover is Draft; Complete it only after the receiving Shift reviews the recorded context.",
+            "A 100% Break Compliance rate with zero Break Logs does not prove compliant breaks occurred."
           ],
           "checklist": [
-            "WIP and blocked units are identified.",
-            "Open actions have clear next steps.",
-            "The next Shift can continue without reconstructing the previous Shift."
+            "Nova X1 Shift net working time is 7h 45m after its unpaid break.",
+            "The authorized Handover is connected to the Nova X1 Shift and Final Assembly Line.",
+            "Production, quality, equipment, safety, and pending repair work are recorded.",
+            "The Draft is reviewed before Complete is selected."
           ]
         },
         {
@@ -1574,28 +1600,28 @@
           "importance": "Conditional",
           "prerequisites": ["Create Stations and Repair Stations"],
           "flow": [
-            "Register Tool",
-            "Set Station and status",
-            "Review Maintenance Alerts",
-            "Track Maintenance Work Order",
-            "Protect production"
+            "Register the Tool",
+            "Set calibration governance",
+            "Record calibration evidence",
+            "Evaluate Maintenance Alerts",
+            "Approve the Maintenance Work Order"
           ],
           "steps": [
-            "Create Tool records for assets that must be controlled or traced.",
-            "Record manufacturer/model, category, assigned Station, and availability status.",
-            "Review Maintenance Alerts for priority, owner, affected equipment, Line, and status.",
-            "Use Maintenance Work Orders to track type, priority, assignment, schedule, and completion.",
-            "Keep unavailable or overdue equipment out of production execution."
+            "Open the child Tools and Equipments page and supply the required Tool Name, Tool Code, Tool Category, Manufacturer, Model, Station, and Status.",
+            "Enable Requires Calibration only when the Tool is governed; this reveals interval and provider fields.",
+            "Record Calibration Date, Next Calibration Date, and Result so a governed Tool moves from Unknown to a current calibration state.",
+            "Use Trigger Maintenance Check to evaluate configured rules; no matching rules returns 0 alerts and leaves Export disabled when there are no rows.",
+            "Create a Maintenance Work Order with the required Tool and Title, then move it through Draft, Submitted, and Approved before Start is available."
           ],
           "rules": [
-            "Each Tool should have a clear Station, category, and availability state.",
-            "Tool use should be recorded where cycle, calibration, or traceability matters.",
-            "Maintenance state should prevent unsafe or invalid production use."
+            "Tool Name, Tool Code, Tool Category, Manufacturer, Model, Station, and Status are required.",
+            "A calibration-governed Tool remains Unknown until a calibration record defines its result and next due date; overrides remain auditable.",
+            "Maintenance Work Orders require Tool and Title, default to Medium and Corrective, and cannot be started before approval."
           ],
           "checklist": [
-            "Required Tools are registered and located correctly.",
-            "Calibration and maintenance dates are current.",
-            "Routing requirements match available assets."
+            "The Tool is assigned to the intended Nova X1 Station and has the correct status.",
+            "Calibration evidence, certificate, and next due date are current when required.",
+            "The approved maintenance window is scheduled and the order has not been started early."
           ]
         },
         {
@@ -1605,28 +1631,28 @@
           "importance": "Recommended",
           "prerequisites": ["Dashboards and Production Monitoring"],
           "flow": [
-            "Set dossier scope",
-            "Generate evidence",
-            "Export Work Orders",
-            "View all changes",
-            "Return to source record"
+            "Set combined dossier scope",
+            "Choose report sheets",
+            "Generate and verify the XLSX",
+            "Create a filtered Work Order export",
+            "Review available change history"
           ],
           "steps": [
-            "Use Master Traceability to set the scope and choose the dossier sheets required for the report.",
-            "Generate and review unit, route, quality, genealogy, identifier, tool, packaging, and shipment evidence as needed.",
-            "Use Export Work Orders with the intended production filters for an operational snapshot.",
-            "Open View all changes to review actor, action, entity, changed fields, and timestamp.",
-            "Link findings back to the affected Product, Line, Work Order, Task, or quality record."
+            "In Master Traceability, combine optional scope filters or use a pasted/uploaded serial-number list, which overrides the other scope filters.",
+            "Select the required dossier sheets, generate the report, and wait for Recent exports to show Completed, the unit count, and the XLSX filename.",
+            "From Work Orders, open Export Work Orders and re-apply Search, Status, and Priority in the separate Create Data Export dialog because list filters are not inherited.",
+            "Open Export Details to confirm type, format, state, file size, applied filters, processed rows, and progress before downloading.",
+            "Use View all changes for actor, action, affected Work Order, and timestamp; the current View All History destination returns an error in SIT."
           ],
           "rules": [
-            "Exports are snapshots and can become outdated.",
-            "Audit history explains a change but does not replace configuration review.",
-            "Sensitive or internal fields should not be added to the public cookbook."
+            "A serial-number list overrides the other Master Traceability scope filters.",
+            "A Completed export is not sufficient evidence by itself; verify processed rows, progress, file size, applied filters, and file contents.",
+            "Recent Changes is currently usable, while View All History is unavailable in SIT."
           ],
           "checklist": [
-            "Key reports have agreed filters and definitions.",
-            "Exports are handled according to data policy.",
-            "Configuration changes can be reconstructed from audit history."
+            "The dossier scope and selected sheets match the investigation question.",
+            "The operational export contains the intended filtered records.",
+            "Recent Changes identifies who changed the Nova X1 Work Order and when."
           ]
         }
       ]

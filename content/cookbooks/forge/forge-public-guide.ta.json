@@ -791,14 +791,14 @@
             "End"
           ],
           "steps": [
-            "ஒரு Routing ஒரு Product மற்றும் ஒரு செயலில் உள்ள BOM பதிப்புக்கு சொந்தமானது.",
-            "ஒவ்வொரு operation node-ம் ஒரு உண்மையான Station-ஐ சுட்டிக்காட்டுகிறது.",
-            "இணைப்புகள் எந்த operation மற்றொன்றைத் தொடரலாம் என்பதைத் தீர்மானிக்கின்றன.",
-            "தோல்வி கட்டமைப்பு ஒரு அலகை Repair-க்கு அனுப்பி பின்னர் அதை செல்லுபடியாகும் செயல்முறைக்குத் திருப்பியனுப்பலாம்."
+            "ஒரு Routing ஒரு Product, ஒன்று அல்லது அதற்கு மேற்பட்ட Variants, மற்றும் செயலில் உள்ள BOM பதிப்புக்காக உருவாக்கப்படுகிறது.",
+            "ஒவ்வொரு operation node-ம் ஒரு உண்மையான Station-ஐ சுட்டிக்காட்டுகிறது; மேலும் ஒரு Repair Station கட்டாயம்.",
+            "செயல்படுத்தும் வரிசையை வரையறுக்க Start, ஒவ்வொரு operation stage, மற்றும் End-ஐ இணைக்கவும்.",
+            "Conditional branch தர முடிவைப் பயன்படுத்தலாம்; குறைந்த priority எண்கள் முதலில் மதிப்பிடப்படும்."
           ],
           "rules": [
-            "Routing இல்லாத ஒரு Product-க்கு ஒரு Work Order-ஐ உருவாக்க முடியாது.",
-            "சாதாரண Work Order தொடக்கப் பயணத்தில் செயலில் உள்ள Routings மட்டுமே வழங்கப்படுகின்றன.",
+            "ஒதுக்கப்பட்ட Components மற்றும் அளவுகள் இரண்டும் 100% BOM coverage-ஐ அடைய வேண்டும்.",
+            "ஒன்றுக்கு மேற்பட்ட Routing Active ஆக இருக்கலாம்; Work Order தொடங்கும்போது Routing தீர்மானிக்கப்படுகிறது.",
             "Components மற்றும் tools அவை தேவைப்படும் operation-இல் இணைக்கப்படலாம்."
           ],
           "checklist": [
@@ -814,33 +814,35 @@
           "importance": "Required",
           "prerequisites": ["எளிய மொழியில் Routing"],
           "flow": [
-            "Routing-ஐத் திறங்கள்",
-            "ஒரு Routing-ஐத் தொடங்குங்கள்",
-            "flow-ஐ கட்டமையுங்கள்",
-            "Stations-ஐ ஒதுக்குங்கள்",
-            "இணைத்து கட்டமையுங்கள்",
-            "சரிபார்த்து செயலில் ஆக்குங்கள்"
+            "Product-ஐத் திறங்கள்",
+            "Variants-ஐத் தேர்ந்தெடுங்கள்",
+            "Active BOM-ஐத் தேர்ந்தெடுங்கள்",
+            "Operation stage-ஐச் சேர்க்குங்கள்",
+            "BOM quantities-ஐ cover செய்யுங்கள்",
+            "Workflow-ஐ இணைக்குங்கள்",
+            "உறுதிப்படுத்தி save செய்யுங்கள்"
           ],
           "steps": [
-            "Process & Engineering-ஐத் திறந்து Routing-ஐத் தேர்ந்தெடுங்கள்.",
-            "Create Routing-ஐத் தேர்ந்தெடுத்து, பின்னர் Product, செயலில் உள்ள BOM Version, பெயர், மற்றும் பொருந்தக்கூடிய Variants-ஐத் தேர்வுசெய்யுங்கள்.",
-            "ஒரு Start node, தேவையான operation nodes, மற்றும் ஒரு End node-ஐச் சேர்க்குங்கள்.",
-            "தோல்வியடையக்கூடிய ஒவ்வொரு operation-க்கும் ஒரு முக்கிய Station மற்றும் வேறுபட்ட Repair Station-ஐத் தேர்ந்தெடுங்கள்.",
-            "ஒவ்வொரு operation-ஐயும் Start முதல் End வரை இணைத்து, தனித்துவமான operation name-ஐப் பயன்படுத்தி, தேவையான ஒவ்வொரு Component-க்கும் முழு BOM quantity-ஐ ஒதுக்குங்கள்.",
-            "Validate-ஐத் தேர்ந்தெடுத்து எல்லா blocking errors-ஐயும் தீர்க்குங்கள். Validation pass ஆகும் வரை Save கிடைக்காது; பின்னர் save செய்து Active ஆக அமைக்குங்கள்."
+            "Product detail-ஐத் திறந்து Create Routing-ஐத் தேர்ந்தெடுங்கள்.",
+            "குறைந்தது ஒரு Variant-ஐத் தேர்ந்தெடுத்து தொடருங்கள்; பின்னர் Active BOM Version-ஐத் தேர்ந்தெடுங்கள்.",
+            "கட்டாய Workflow Name-ஐ உள்ளிட்டு, optional description-ஐச் சேர்த்து, தேவைக்கேற்ப Active-ஐ அமைக்குங்கள்.",
+            "Add Stage மற்றும் Create Manually-ஐத் தேர்ந்தெடுத்து main Station, unique Operation Name, மற்றும் வேறுபட்ட Repair Station-ஐ அமைக்குங்கள்.",
+            "இரு BOM coverage indicators-மும் 100% அடையும் வரை தேவையான Components மற்றும் quantities-ஐ ஒதுக்குங்கள்.",
+            "Stage-ஐ save செய்து Start-ஐ ஒவ்வொரு stage வழியாக End-க்கு இணைக்குங்கள். Workflow valid ஆன பிறகே Save கிடைக்கும்.",
+            "Save-ஐத் தேர்ந்தெடுத்து summary-ஐப் பரிசீலித்து Confirm & Save-ஐத் தேர்ந்தெடுத்து Routing detail page-ஐ உறுதிப்படுத்துங்கள்."
           ],
           "rules": [
-            "Product, applicable Variants, active BOM Version, மற்றும் workflow name தேவை.",
+            "Product detail page Product-ஐ வழங்குகிறது; குறைந்தது ஒரு Variant, active BOM Version, மற்றும் Workflow Name கட்டாயம்.",
             "Routing-க்கு குறைந்தது ஒரு operation Station தேவை.",
             "ஒவ்வொரு operation-க்கும் main Station-இலிருந்து வேறான Repair Station தேவை.",
-            "Disconnected operations executable process அல்ல.",
-            "Operation names Routing-க்குள் unique ஆக வேண்டும்; blocking validation pass ஆகும் வரை Save கிடைக்காது."
+            "Component மற்றும் quantity coverage இரண்டும் தேர்ந்தெடுக்கப்பட்ட BOM-இன் 100% அடைய வேண்டும்.",
+            "Start, ஒவ்வொரு operation stage, மற்றும் End இணைக்கப்பட வேண்டும்; automatic validation pass ஆகும் வரை Save கிடைக்காது."
           ],
           "checklist": [
-            "Start மற்றும் End உள்ளன.",
-            "ஒவ்வொரு operation-ம் Start-இலிருந்து அடையக்கூடியது.",
-            "ஒவ்வொரு operation-க்கும் செல்லுபடியாகும் முக்கிய மற்றும் Repair Stations உள்ளன.",
-            "Routing செயலில் உள்ளது மற்றும் சரியான செயலில் உள்ள BOM-ஐப் பயன்படுத்துகிறது."
+            "சரியான Product Variants மற்றும் Active BOM தேர்ந்தெடுக்கப்பட்டுள்ளன.",
+            "ஒவ்வொரு operation-க்கும் செல்லுபடியாகும் main மற்றும் Repair Stations மற்றும் முழு BOM coverage உள்ளன.",
+            "Start, ஒவ்வொரு stage, மற்றும் End இணைக்கப்பட்டு workflow valid ஆக உள்ளது.",
+            "Routing detail page எதிர்பார்த்த status, Product, Variants, BOM, மற்றும் Workflow Preview-ஐக் காட்டுகிறது."
           ]
         },
         {
@@ -854,25 +856,27 @@
           ],
           "flow": [
             "Product-ஐத் திறக்குங்கள்",
-            "ஒதுக்கப்பட்ட Lines-ஐ மதிப்பாய்வு செய்யுங்கள்",
-            "தகுதியான Line-ஐத் தேர்ந்தெடுங்கள்",
-            "ஒதுக்கீட்டைச் செயலில் ஆக்குங்கள்"
+            "Assigned Lines-ஐத் திறக்குங்கள்",
+            "Line availability-ஐ மதிப்பாய்வு செய்யுங்கள்",
+            "தகுதியான Line-ஐ assign செய்யுங்கள்",
+            "Assignment-ஐச் சரிபார்க்குங்கள்"
           ],
           "steps": [
-            "Product-ஐத் திறந்து அதன் ஒதுக்கப்பட்ட Lines-ஐக் கண்டறியுங்கள்.",
-            "Product-ஐ இயற்பியல் ரீதியாகக் கட்டமைக்கக்கூடிய குறைந்தது ஒரு செயலில் உள்ள அல்லது ஆக்கிரமிக்கப்பட்ட Line-ஐ ஒதுக்குங்கள்.",
-            "திறன் சமநிலைப்படுத்தல் அல்லது பல பாதைகள் நோக்கம் கொள்ளப்படும்போது மட்டும் கூடுதல் தகுதியான Lines-ஐ ஒதுக்குங்கள்.",
-            "பொருத்தமான ஆரம்ப Line ஒரு Starting Line ஆகக் குறிக்கப்பட்டுள்ளதை உறுதிப்படுத்துங்கள்."
+            "Product detail-ஐத் திறந்து Assigned Lines பகுதிக்கு scroll செய்யுங்கள்.",
+            "Assign Line-ஐத் தேர்ந்தெடுத்து Select Line control-ஐத் திறக்குங்கள்.",
+            "Available Lines மற்றும் மற்ற Products-க்கு assigned ஆன Lines-ஐ தனித்தனியாக மதிப்பாய்வு செய்து, சரியான Line-ஐ code மற்றும் Site மூலம் தேர்ந்தெடுங்கள்.",
+            "Assign-ஐத் தேர்ந்தெடுத்து, அதே Product-ஐ உண்மையாக manufacture செய்யக்கூடிய மற்ற Lines-க்கு மட்டும் மீண்டும் செய்யுங்கள்.",
+            "Table-இல் ஒவ்வொரு assigned Line-இன் name, code, status, capacity per hour, Site, மற்றும் actions-ஐ உறுதிப்படுத்துங்கள்."
           ],
           "rules": [
-            "Product-க்கு செயலில் உள்ள Line ஒதுக்கீடு இல்லாதபோது Work Order உருவாக்கம் தடுக்கப்படுகிறது.",
-            "தற்போதைய ஒதுக்கீட்டு flow ஒரு Line-க்கு ஒரு செயலில் உள்ள Product ஒதுக்கீட்டை அனுமதிக்கிறது.",
-            "செயலில் உள்ள Production Tasks அந்த Line-ஐப் பயன்படுத்தும்போது ஒரு ஒதுக்கீட்டை அகற்றுவது தடுக்கப்படலாம்."
+            "Product-க்கு multi-line Work Order execution-ஐ இயலுமைப்படுத்த குறைந்தது ஒரு Line assignment தேவை.",
+            "Product-ஐ உண்மையாக manufacture செய்யக்கூடிய Lines-ஐ மட்டும் assign செய்யுங்கள்.",
+            "Starting-Line eligibility Product assignment dialog-இல் அல்ல; அது தனியாக Line-இல் configure செய்யப்படுகிறது."
           ],
           "checklist": [
-            "Product-க்கு குறைந்தது ஒரு செயலில் உள்ள Line உள்ளது.",
-            "ஒதுக்கப்பட்ட Lines இயற்பியல் செயல்முறைக்குப் பொருந்துகின்றன.",
-            "ஒதுக்கப்பட்ட குறைந்தது ஒரு ஆரம்ப Line ஒரு Starting Line ஆகும்."
+            "Product-க்கு குறைந்தது ஒரு தகுதியான assigned Line உள்ளது.",
+            "Assigned Line codes மற்றும் Sites நோக்கமிட்ட இயற்பியல் செயல்முறைக்குப் பொருந்துகின்றன.",
+            "ஒவ்வொரு assignment-க்கும் எதிர்பார்த்த status மற்றும் capacity table-இல் காட்டப்படுகிறது."
           ]
         },
         {
@@ -882,29 +886,29 @@
           "importance": "Required",
           "prerequisites": ["Products-ஐ Lines-க்கு ஒதுக்குங்கள்"],
           "flow": [
-            "Line-ஐத் திறங்கள்",
-            "தொடக்கத் தகுதியை அமைக்குங்கள்",
-            "queue திறனை அமைக்குங்கள்",
-            "உற்பத்தித் திறனை அமைக்குங்கள்",
-            "சேமித்து சோதியுங்கள்"
+            "Line detail-ஐத் திறங்கள்",
+            "Throughput-ஐ edit செய்யுங்கள்",
+            "Task queue-ஐ வரையறுக்குங்கள்",
+            "Starting Line-ஐ அமைக்குங்கள்",
+            "Save செய்து verify செய்யுங்கள்"
           ],
           "steps": [
-            "Process & Engineering → Line-ஐத் திறந்து, Line-ஐத் தேடி, Edit-ஐத் தேர்ந்தெடுங்கள்.",
-            "Production Tasks அங்கே தொடங்கக்கூடியபோது மட்டுமே Is Starting Line-ஐ இயக்குங்கள்.",
-            "Task Queue Capacity 1 முதல் 100,000 வரையிலான முழு எண்ணாக இருக்க வேண்டும்.",
-            "Capacity Per Shift, Capacity Per Hour-ஐ விட அதிகமாக இருக்க வேண்டும்; யதார்த்தமான மதிப்புகளை உள்ளிடுங்கள்.",
-            "Save-ஐத் தேர்ந்தெடுத்து, பின்னர் Work Order திறன் திட்டமிடலைத் திறந்து Line எதிர்பார்க்கப்பட்ட இடத்தைக் காட்டுவதை உறுதிப்படுத்துங்கள்."
+            "Process & Engineering → Line-ஐத் திறந்து name அல்லது code மூலம் தேடி, Line detail-ஐத் திறந்து Edit-ஐத் தேர்ந்தெடுங்கள்.",
+            "Optional Capacity Per Hour மற்றும் Capacity Per Shift-ஐ அமைக்குங்கள்; இரண்டும் இருந்தால் shift value hourly value-ஐ விட அதிகமாக இருக்க வேண்டும்.",
+            "Optional Task Queue Capacity-ஐ Line-இல் அனுமதிக்கப்படும் pending மற்றும் active tasks-இன் அதிகபட்சமாக அமைக்குங்கள்.",
+            "Capacity planning-இல் Line initial task-ஐப் பெற வேண்டியபோது மட்டும் Is Starting Line-ஐ இயக்குங்கள்.",
+            "Save-ஐத் தேர்ந்தெடுத்து Line detail-இல் status, Site, capacities, மற்றும் assigned Products-ஐ உறுதிப்படுத்துங்கள்."
           ],
           "rules": [
-            "Initial Work Orders-க்கு பொதுவாக assigned active Starting Line தேவை.",
-            "Downstream Lines, units முன்னேறும் போது tasks பெறும்; அவை அனைத்தும் Starting Lines ஆக இருக்கக்கூடாது.",
-            "Capacity Per Shift, Capacity Per Hour-ஐ விட அதிகமாகவும் Task Queue Capacity 1 முதல் 100,000 வரையிலான முழு எண்ணாகவும் இருக்க வேண்டும்.",
-            "Manual capacity planning ஒவ்வொரு task sequence-ஐயும் gaps இல்லாமல் cover செய்ய வேண்டும்."
+            "Starting Line ஆகக் குறிக்கப்பட்ட Lines மட்டுமே capacity planning-இல் initial task-ஐப் பெறலாம்.",
+            "UI manufacturing phase order-ஐ SMT → BLT → ASSEMBLY → TESTING → PACKING எனக் காட்டுகிறது.",
+            "இரு optional values-மும் இருந்தால் Capacity Per Shift, Capacity Per Hour-ஐ விட அதிகமாக இருக்க வேண்டும்.",
+            "Task Queue Capacity optional; மதிப்பு இருந்தால் அது 1 முதல் 100,000 வரையிலான முழு எண்ணாக இருக்க வேண்டும்."
           ],
           "checklist": [
-            "Starting Lines உண்மையான முதல் உற்பத்தி கட்டத்தைப் பிரதிபலிக்கின்றன.",
-            "Queue திறன் வெளிப்படையானதும் யதார்த்தமானதும் ஆகும்.",
-            "இணைந்த இடம் சோதனை Work Order அளவை ஏற்க முடியும்."
+            "Starting-Line status உண்மையான முதல் manufacturing phase-ஐப் பிரதிபலிக்கிறது.",
+            "Hourly, shift, மற்றும் queue capacity values valid மற்றும் realistic ஆக உள்ளன.",
+            "Line detail நோக்கமிட்ட Site, status, capacities, மற்றும் assigned Products-ஐக் காட்டுகிறது."
           ]
         },
         {
@@ -914,31 +918,33 @@
           "importance": "Conditional",
           "prerequisites": ["Products மற்றும் Variants-ஐ உருவாக்குங்கள்"],
           "flow": [
-            "Identifier Management-ஐத் திறங்கள்",
-            "ஒரு mapping-ஐ உருவாக்குங்கள்",
-            "Key-ஐச் சரிபார்க்குங்கள்",
-            "மூலத்தைத் தேர்வுசெய்யுங்கள்",
-            "உருவாக்க நேரத்தை அமைக்குங்கள்",
-            "சேமித்து கிடைக்கும் தன்மையைச் சரிபார்க்குங்கள்"
+            "Identifier definition-ஐ உருவாக்குங்கள்",
+            "Source மற்றும் type-ஐத் தேர்ந்தெடுங்கள்",
+            "Identifier pool-ஐ வரையறுக்குங்கள்",
+            "Product Identifiers-ஐத் திறங்கள்",
+            "Product mapping-ஐ configure செய்யுங்கள்",
+            "Assignment behavior-ஐ அமைக்குங்கள்",
+            "Mapping-ஐச் சரிபார்க்குங்கள்"
           ],
           "steps": [
-            "Process & Engineering-ஐத் திறந்து Identifier Management-ஐத் தேர்ந்தெடுங்கள்.",
-            "தேவையான key, display name, மற்றும் definition அல்லது range-ஐ உள்ளிடுங்கள்.",
-            "Uppercase எழுத்துகள், எண்கள், மற்றும் underscores மட்டுமே பயன்படுத்துங்கள்.",
-            "உருவாக்கப்படும் values-க்கு Range பயன்படுத்துங்கள்; external identifiers auto-generation-ஐ முடக்கும்.",
-            "Task creation, task start, அல்லது கட்டமைக்கப்பட்ட Routing step-இல் generate செய்யுங்கள்; value மீண்டும் பயன்படுத்தக்கூடாதபோது uniqueness-ஐ இயக்குங்கள்.",
-            "வரைபடத்தைச் சேமித்து, திட்டமிடப்பட்ட Work Order அளவுக்குப் போதுமான பயன்படுத்தப்படாத மதிப்புகள் உள்ளன என்பதை உறுதிப்படுத்துங்கள்."
+            "Process & Engineering → Identifier Management-ஐத் திறந்து Create Identifier Range → Create Manually-ஐத் தேர்ந்தெடுங்கள்.",
+            "கட்டாய Name-ஐ உள்ளிட்டு Range, Template, External, அல்லது Manual source-ஐத் தேர்ந்தெடுங்கள்.",
+            "Range source-க்கு identifier Type மற்றும் Range அல்லது File Upload-ஐத் தேர்ந்தெடுங்கள். Generated range-க்கு கட்டாய Start மற்றும் End values-ஐ உள்ளிட்டு count-ஐப் பரிசீலித்து Create-ஐத் தேர்ந்தெடுங்கள்.",
+            "Production → Products-இல் Product detail-ஐத் திறந்து Product Identifiers பகுதிக்கு scroll செய்து Add Identifier-ஐத் தேர்ந்தெடுங்கள்.",
+            "Identifier definition-ஐத் தேர்ந்தெடுத்து கட்டாய Identifier Key மற்றும் Display Name-ஐ உள்ளிட்டு Generated அல்லது External-ஐத் தேர்ந்தெடுங்கள்.",
+            "On Task Creation, On Task Start, அல்லது At Route Step-ஐத் தேர்ந்தெடுத்து தேவையானால் Auto-generate மற்றும் Must be Unique-ஐ இயக்குங்கள்.",
+            "Add Identifier-ஐத் தேர்ந்தெடுத்து Product table-இல் expected source, timing, மற்றும் linked range-ஐ உறுதிப்படுத்துங்கள்."
           ],
           "rules": [
-            "Identifier Management, Work Orders-இல் அல்ல; Process & Engineering-இல் உள்ளது.",
-            "Required task-creation mappings-க்கு availability போதாவிட்டால் release block ஆகும்.",
-            "Optional identifier shortages warnings ஆக காட்டப்படும்.",
-            "Additional identifiers இருந்தாலும் finished-unit serial batch தேவை."
+            "Identifier range Name கட்டாயம்; ஒரே operation-இல் 10,000 identifiers-க்கு மேல் process செய்ய முடியாது.",
+            "Generated identifiers-ஐ system உருவாக்கும்; External identifiers-ஐ operator scan அல்லது enter செய்வார்.",
+            "Product Identifier Keys uppercase-ஆக store செய்யப்படும்.",
+            "At Route Step timing-க்கு Routing Editor configuration தேவை."
           ],
           "checklist": [
-            "தேவையான ஒவ்வொரு அடையாளங்காட்டி வரைபடத்திற்கும் ஒரு செல்லுபடியாகும் மூலம் உள்ளது.",
-            "கிடைக்கும் அளவு Work Order-ஐ உள்ளடக்குகிறது.",
-            "Templates மற்றும் ranges நோக்கம் கொண்ட வடிவத்தை உருவாக்குகின்றன."
+            "Identifier definition Active ஆகவும் intended values மற்றும் availability-ஐக் காட்டுவதாகவும் உள்ளது.",
+            "Product mapping-இல் சரியான key, type, source, மற்றும் assignment timing உள்ளது.",
+            "Auto-generation மற்றும் uniqueness identifier business rule-க்கு பொருந்துகின்றன."
           ]
         }
       ]
@@ -965,19 +971,20 @@
             "Production Tasks"
           ],
           "steps": [
-            "தொடர்புடைய Work Orders-ஐ தொகுக்கவும் கண்காணிக்கவும் ஒரு Production Order-ஐப் பயன்படுத்துங்கள்.",
-            "Product, அளவு, முன்னுரிமை, நிறைவு தேதி, Variant, மற்றும் Shifts-ஐ வரையறுக்க ஒரு Work Order-ஐப் பயன்படுத்துங்கள்.",
-            "operators செயல்படுத்தும் அலகு-நிலை Production Tasks-ஐ உருவாக்க Work Order-ஐ வெளியிடுங்கள்."
+            "தொடர்புடைய Work Orders-ஐ group செய்து monitor செய்ய Production Order-ஐப் பயன்படுத்துங்கள். Name மற்றும் unique Order Number கட்டாயம்; Client optional மற்றும் group செய்யக்கூடிய Work Orders-ஐக் கட்டுப்படுத்தும்.",
+            "Product with Routing, input quantity, priority, due date, மற்றும் Shifts கொண்ட executable manufacturing record-ஆக Work Order-ஐப் பயன்படுத்துங்கள்.",
+            "Production-line setup அல்லது workflow testing-க்கு மட்டும் Test Order-ஐப் பயன்படுத்துங்கள்; Test Orders analytics-இல் சேர்க்கப்படாது."
           ],
           "rules": [
-            "ஒரு Production Order விருப்பமானது மற்றும் தானாக உற்பத்தியைத் தொடங்காது.",
-            "ஒரு Work Order ஒரு Production Order-க்குள் தொகுக்கப்படாமல் இருக்கலாம்.",
-            "Production Order நிறைவு அதன் Work Orders-இன் நிறைவைப் பின்பற்றுகிறது."
+            "Production Order Work Orders-ஐ group செய்யும்; அது executable quantity-ஐ தனியாக வரையறுக்காது.",
+            "Work Order ஒரு Production Order-க்குள் group செய்யப்படாமல் இருக்கலாம்.",
+            "Work Order-ஐ start செய்வதற்கு முன் குறைந்தது ஒரு Shift தேவை.",
+            "Test Orders production analytics-இல் calculate செய்யப்படாது."
           ],
           "checklist": [
-            "திட்டமிடல் பதிவு வணிகத் தேவைக்குப் பொருந்துகிறது.",
-            "ஒவ்வொரு செயல்படுத்தக்கூடிய அளவும் ஒரு Work Order மூலம் பிரதிநிதித்துவப்படுத்தப்படுகிறது.",
-            "தொகுத்தல் கட்டுப்பாட்டை மேம்படுத்தும் இடங்களில் மட்டுமே பயன்படுத்தப்படுகிறது."
+            "Grouped demand நோக்கமிட்ட client restriction கொண்ட Production Order-ஐப் பயன்படுத்துகிறது.",
+            "ஒவ்வொரு executable quantity-யும் routed Work Order மூலம் பிரதிநிதித்துவப்படுத்தப்படுகிறது.",
+            "Non-analytics setup அல்லது workflow testing-க்கு மட்டும் Test Order இயக்கப்பட்டுள்ளது."
           ]
         },
         {
@@ -992,34 +999,30 @@
             "Shifts-ஐ உருவாக்குங்கள்"
           ],
           "flow": [
-            "Work Orders-ஐத் திறங்கள்",
-            "ஒரு ஆர்டரைத் தொடங்குங்கள்",
-            "தேவையைத் தேர்ந்தெடுங்கள்",
-            "செயலாக்க விவரங்களை உள்ளிடுங்கள்",
-            "அட்டவணையைச் சரிபார்க்குங்கள்",
-            "தயார்நிலையை மதிப்பாய்வு செய்யுங்கள்",
-            "ஆர்டரை உருவாக்குங்கள்"
+            "தேவையான பெயரை உள்ளிடுங்கள்",
+            "Routed Product மற்றும் Variant-ஐத் தேர்ந்தெடுங்கள்",
+            "Quantity, Priority, Due Date-ஐ உள்ளிடுங்கள்",
+            "தெரிந்திருந்தால் Shift-ஐ ஒதுக்குங்கள்",
+            "Pending Work Order-ஐ உருவாக்குங்கள்"
           ],
           "steps": [
-            "Production-ஐத் திறந்து Work Orders-ஐத் தேர்ந்தெடுங்கள்.",
-            "Create Work Order-ஐத் தேர்ந்தெடுங்கள்.",
-            "பயன்படுத்தப்படும்போது Production Order-ஐத் தேர்ந்தெடுத்து, பின்னர் Client, Product, மற்றும் Variant-ஐத் தேர்ந்தெடுங்கள்.",
-            "தனித்துவமான பெயர், அளவு, முன்னுரிமை, எதிர்கால நிறைவு தேதி, மற்றும் குறைந்தது ஒரு Shift-ஐ முடிக்குங்கள்.",
-            "Quantity positive whole number ஆகவும் due date கடந்த காலத்தில் இல்லாமலும் இருக்க வேண்டும்; start செய்வதற்கு குறைந்தது ஒரு active Shift தேவை.",
-            "Product-க்கு active BOM, active Routing, மற்றும் eligible Line assignment உள்ளதை உறுதிப்படுத்துங்கள். Inventory shortfall இருந்தாலும் creation அனுமதிக்கப்படும்; release-க்கு முன் தீர்க்க வேண்டும்.",
-            "Create Work Order-ஐத் தேர்ந்தெடுத்து, தொடக்கப் பயணத்தைத் தொடர புதிய பதிவைத் திறங்கள்."
+            "தனித்துவமான Work Order Name-ஐ உள்ளிடுங்கள்.",
+            "Routing configure செய்யப்பட்ட Product-ஐத் தேர்ந்தெடுத்து, தேவையான Product Variant-ஐத் தேர்ந்தெடுங்கள்; Project மற்றும் Product Family தானாக பெறப்படும்.",
+            "Positive Input Quantity, தேவையான Priority, மற்றும் கடந்த காலத்தில் இல்லாத Due Date-ஐ உள்ளிடுங்கள்.",
+            "Input Quantity × Product Multiplier ஆக கணக்கிடப்படும் Total Computed Quantity-ஐ மதிப்பாய்வு செய்யுங்கள்.",
+            "தெரிந்திருந்தால் ஒன்று அல்லது அதற்கு மேற்பட்ட Shifts-ஐ ஒதுக்கி, Component Availability-ஐப் பார்த்து Work Order-ஐ உருவாக்குங்கள்."
           ],
           "rules": [
-            "Quantity positive whole number ஆகவும் due date கடந்த காலத்தில் இல்லாமலும் இருக்க வேண்டும்.",
-            "Product multiplier final unit quantity-ஐ அதிகரிக்கலாம்.",
-            "Routing அல்லது active Line assignment இல்லாத Product reject செய்யப்படும்.",
-            "Work Order start ஆக குறைந்தது ஒரு active Shift தேவை.",
-            "Component shortfalls creation-ஐ அனுமதிக்கும்; release-க்கு முன் தீர்க்க வேண்டும்."
+            "Name, routed Product, Product Variant, Input Quantity, Priority, மற்றும் Due Date தேவை.",
+            "Due Date கடந்த காலத்தில் இருக்கக்கூடாது; computed quantity = Input Quantity × Product Multiplier.",
+            "Creation போது Shift optional; ஆனால் Work Order start ஆக குறைந்தது ஒரு Shift தேவை.",
+            "Test Orders line setup அல்லது workflow testing-க்கானவை; அவை analytics-இல் சேர்க்கப்படாது.",
+            "வெற்றிகரமாக உருவாக்கப்பட்ட Work Order PENDING status-ல் தொடங்கும்."
           ],
           "checklist": [
             "Product, Variant, அளவு, முன்னுரிமை, மற்றும் நிறைவு தேதி சரியானவை.",
-            "குறைந்தது ஒரு Shift தேர்ந்தெடுக்கப்பட்டுள்ளது.",
-            "இதன் விளைவாக வரும் இறுதி அளவு புரிந்துகொள்ளப்பட்டுள்ளது."
+            "Computed quantity மற்றும் Component Availability panel மதிப்பாய்வு செய்யப்பட்டுள்ளன.",
+            "Shift இப்போது ஒதுக்கப்பட்டுள்ளது அல்லது start-க்கு முன் திட்டமிடப்பட்டுள்ளது; normal production-க்கு Test Order off ஆக உள்ளது."
           ]
         },
         {
@@ -1029,31 +1032,28 @@
           "importance": "Required",
           "prerequisites": ["ஒரு Work Order-ஐ உருவாக்குங்கள்"],
           "flow": [
-            "Work Order-ஐத் திறங்கள்",
             "தொடக்கப் பயணத்தைத் திறங்கள்",
-            "சீரியல்களை உருவாக்குங்கள்",
-            "batch-ஐ மதிப்பாய்வு செய்யுங்கள்",
-            "batch-ஐ உறுதிப்படுத்துங்கள்",
-            "அளவைப் பொருத்துங்கள்"
+            "Generation முறையைத் தேர்ந்தெடுங்கள்",
+            "Preview மற்றும் uniqueness-ஐ validate செய்யுங்கள்",
+            "Batch-ஐ generate செய்து confirm செய்யுங்கள்",
+            "Confirmed quantity-ஐச் சரிபார்க்குங்கள்"
           ],
           "steps": [
-            "Work Orders பட்டியலைத் தேடி வரைவு Work Order-ஐத் தேர்ந்தெடுங்கள்.",
-            "Start, Prepare, அல்லது கிடைக்கும் உற்பத்தி-தொடக்கச் செயலைத் தேர்ந்தெடுங்கள்.",
-            "Serial Numbers-ஐத் திறந்து, கட்டமைக்கப்பட்ட Product template அல்லது ஆதரிக்கப்படும் முறையைப் பயன்படுத்தி Generate-ஐத் தேர்ந்தெடுங்கள்.",
-            "ஒவ்வொரு proposed value-க்கும் uniqueness validation செய்து invalid duplicates-ஐ அகற்றி batch-ஐ உருவாக்குங்கள்.",
-            "Generated serials batch confirm செய்யப்படும் வரை பயன்படுத்த முடியாது.",
-            "உறுதிப்படுத்தப்பட்ட சீரியல் எண்ணிக்கை இறுதி Work Order அளவுக்கு சரியாகச் சமமாக இருப்பதைச் சரிபார்க்குங்கள்."
+            "Start Work Order-ஐத் தேர்ந்தெடுங்கள்; confirmed serials Work Order quantity-க்கு சமமாகும் வரை Serial Numbers படி progress-ஐத் தடுக்கும்.",
+            "Generate Serial Numbers-ஐத் தேர்ந்தெடுத்து, configure செய்யப்பட்டால் Product Template, வேறு available Template, அல்லது CSV/Excel-க்கு Manual Upload பயன்படுத்துங்கள்.",
+            "Preview count-ஐச் சரிபார்த்து, Validate Uniqueness-ஐத் தேர்ந்தெடுத்து batch-ஐ generate செய்யுங்கள்.",
+            "Confirm & Complete-ஐத் தேர்ந்தெடுத்து, start journey-ல் CONFIRMED மற்றும் சரியான serial count இருப்பதைச் சரிபார்க்குங்கள்."
           ],
           "rules": [
-            "Normal Work Order serial number batch இல்லாமல் start ஆகாது.",
-            "Batch confirm செய்யப்பட வேண்டும்.",
-            "Serial count Work Order quantity-க்கு சரியாக சமமாக இருக்க வேண்டும்.",
-            "Batch create மற்றும் confirm செய்வதற்கு முன் proposed serial ஒவ்வொன்றையும் uniqueness-க்கு validate செய்யுங்கள்.",
+            "அடுத்த start படி enable ஆக confirmed serial count Work Order quantity-க்கு சரியாக சமமாக இருக்க வேண்டும்.",
+            "Product-க்கு template configure செய்யப்படாதபோது Product Template கிடைக்காது.",
+            "ஒவ்வொரு proposed serial-உம் uniqueness validation pass செய்ய வேண்டும்.",
+            "GENERATED batch Confirm & Complete மூலம் CONFIRMED ஆகும் வரை production-ready அல்ல.",
             "Serial number batch unit serials-ஐ group செய்கிறது; unit-level identities-ஐ மாற்றாது."
           ],
           "checklist": [
-            "serial batch உறுதிப்படுத்தப்பட்டுள்ளது.",
-            "சீரியல் எண்ணிக்கை இறுதி அளவுக்கு சமம்.",
+            "Serial batch status CONFIRMED ஆக உள்ளது.",
+            "Confirmed serial count Work Order quantity-க்கு சமம்.",
             "சீரியல் வடிவம் ஸ்கேனிங் மற்றும் கண்காணிப்புக்கு ஏற்றது."
           ]
         },
@@ -1075,17 +1075,16 @@
             "Routing-ஐத் தேர்ந்தெடுங்கள்"
           ],
           "steps": [
-            "Line capacity allocation அல்லது Routing selection-க்கு முன் unit-serial batch-ஐ confirm செய்யுங்கள்.",
-            "வரைவு Work Order-இன் தொடக்கப் பயணத்தைத் திறந்து Capacity and Lines-ஐத் தேர்ந்தெடுங்கள்.",
-            "Starting Lines-இல் தற்போதைய task சுமையையும் கிடைக்கும் இடத்தையும் ஒப்பிடுங்கள்.",
-            "தானியங்கு சமநிலைப்படுத்தலைத் தேர்ந்தெடுங்கள் அல்லது கைமுறை ஒதுக்கீட்டைத் தேர்வுசெய்யுங்கள்.",
-            "கைமுறை முறை பயன்படுத்தப்படும்போது, முழு அளவும் ஒதுக்கப்படும் வரை Add Line Assignment-ஐத் தேர்ந்தெடுங்கள்.",
-            "தேர்ந்தெடுக்கப்பட்ட Product மற்றும் Variant-ஐ cover செய்யும் active Routing-ஐத் தேர்ந்தெடுத்து, plan-ஐ save செய்து inventory, identifier, மற்றும் Station blockers-ஐ மதிப்பாய்வு செய்யுங்கள்."
+            "Confirmed serials quantity-க்கு பொருந்திய பிறகு Capacity & Lines-ஐத் திறந்து Configure Capacity Planning-ஐத் தேர்ந்தெடுங்கள்.",
+            "Total Quantity, Available Capacity, Available Lines, மற்றும் eligible Starting Lines projected capacity-ஐப் பாருங்கள்.",
+            "System-optimized distribution அல்லது manual assignment பயன்படுத்துங்கள்; system mode-ல் Proceed with System Assignment-ஐத் தேர்ந்தெடுங்கள்.",
+            "Capacity planning completed என்பதை உறுதிப்படுத்தி eligible active Production Route-ஐத் தேர்ந்தெடுங்கள்.",
+            "Route option-ன் BOM status, route type, item count, மற்றும் enabled Next action-ஐச் சரிபார்க்குங்கள்."
           ],
           "rules": [
-            "மொத்த கிடைக்கும் queue திறன் Work Order அளவை உள்ளடக்க வேண்டும்.",
-            "கைமுறையாக ஒதுக்கப்பட்ட ஒவ்வொரு task-ம் ஒரு தகுதியான Line-ஐக் குறிப்பிட வேண்டும்.",
-            "தேர்ந்தெடுக்கப்பட்ட Routing செயலில் இருக்க வேண்டும் மற்றும் Product கட்டமைப்புக்குப் பொருந்த வேண்டும்."
+            "முழு Work Order quantity-க்கும் serials confirm ஆகும் வரை capacity planning disabled ஆகும்.",
+            "Eligible Starting Lines-ன் available queue capacity Work Order quantity-ஐ cover செய்ய வேண்டும்.",
+            "Production Route eligible ஆகவும் active associated BOM-ஐக் காட்டவும் வேண்டும்."
           ],
           "checklist": [
             "திறன் திட்டமிடல் முழுமையானது.",
@@ -1108,17 +1107,16 @@
             "வெளியிடுங்கள்"
           ],
           "steps": [
-            "சீரியல்கள், திறன், மற்றும் Routing தயாரான பிறகு தொடங்குவதற்கு முந்தைய சரிபார்ப்பை இயக்குங்கள்.",
-            "Product, செயலில் உள்ள BOM, சீரியல்கள், மற்றும் உலகளாவிய பொருள் பற்றாக்குறைகளுடன் தொடங்கி, ஒவ்வொரு தடையையும் தீர்க்குங்கள்.",
-            "முதல்-கட்ட கிடைக்கும் தன்மை போதுமானதாக இல்லாதபோது முதல் Station-க்குப் பொருளை மாற்றுங்கள்.",
-            "தொடர வேண்டுமா என்பதைத் தீர்மானிப்பதற்கு முன் பிற்பகுதி-Station பற்றாக்குறைகளையும் எச்சரிக்கைகளையும் மதிப்பாய்வு செய்யுங்கள்.",
-            "உற்பத்தி தொடங்க முடிவு அனுமதிக்கும்போது மட்டுமே Work Order-ஐ வெளியிடுங்கள்."
+            "Serial Numbers, Capacity & Lines, மற்றும் Routing முடிந்ததும் Run Pre-Start Validation-ஐத் தேர்ந்தெடுங்கள்.",
+            "Product assignment, BOM, generated/confirmed serials, Component Inventory, Station-Level Inventory, மற்றும் Identifier Availability-ஐ மதிப்பாய்வு செய்யுங்கள்.",
+            "First-stage Station shortages-ஐ Transfer All அல்லது component transfer மூலம் தீர்த்து, exact remaining quantity-க்கு Auto-Fill Shortage பயன்படுத்துங்கள்.",
+            "Validation PASS ஆகும் வரை refresh செய்து, பின்னர் Proceed to Start-ஐத் தேர்ந்தெடுங்கள்."
           ],
           "rules": [
-            "ஆதரிக்கப்படும் வெளியீட்டுப் பயணத்தில் ஒரு இல்லாத செயலில் உள்ள BOM ஒரு தடை.",
-            "போதுமான முதல்-கட்டப் பொருள் இல்லாதது வெளியீட்டைத் தடுக்கிறது.",
-            "பிற்-கட்ட பற்றாக்குறைகள் எச்சரிக்கைகளாக இருக்கலாம், ஏனெனில் அலகு அந்த Station-ஐ அடைவதற்கு முன் பொருள் வரக்கூடும்.",
-            "தேவையான அடையாளங்காட்டி பற்றாக்குறைகள் வெளியீட்டைத் தடுக்கின்றன."
+            "Plant-level Component Inventory போதுமானதாக இருந்தாலும் first-stage Station shortage start-ஐத் தடுக்கும்.",
+            "Transfer All storage locations, பின்னர் non-routing Stations-க்கு priority கொடுத்து partial transfer செய்யலாம்.",
+            "Proceed to Start உடனடியாக release செய்து Production Tasks உருவாக்கி Work Order-ஐ IN PROGRESS-க்கு மாற்றும்.",
+            "Proceed to Start enable ஆக validation PASS காட்ட வேண்டும்."
           ],
           "checklist": [
             "அனைத்து தடைகளும் தீர்க்கப்பட்டுள்ளன.",
@@ -1150,15 +1148,16 @@
             "முடிக்கப்பட்ட அலகு"
           ],
           "steps": [
-            "உறுதிப்படுத்தப்பட்ட ஒவ்வொரு முடிக்கப்பட்ட-அலகு சீரியலுக்கும் Fynd ERP ஒரு Production Task-ஐ உருவாக்குகிறது.",
-            "ஒவ்வொரு Task-ம் திறன் திட்டமிடலின் அடிப்படையில் ஒரு ஆரம்ப Line ஒதுக்கீட்டைப் பெறுகிறது.",
-            "தேர்ந்தெடுக்கப்பட்ட Routing அடுத்த செல்லுபடியாகும் operation-ஐக் கட்டுப்படுத்துகிறது.",
-            "Task நிலையும் Route Logs-ம் நிறைவு வரை முன்னேற்றத்தைப் பதிவு செய்கின்றன."
+            "Released Work Order-ன் Production Tasks-ஐத் திறந்து confirmed serial ஒவ்வொன்றுக்கும் ஒரு Task இருப்பதை உறுதிப்படுத்துங்கள்.",
+            "Line Type மற்றும் Line அடிப்படையில் task distribution-ஐப் பார்த்து unit Task-ஐத் திறங்கள்.",
+            "Task status, assigned serial, Work Order, Product, Line, மற்றும் Line Type-ஐ உறுதிப்படுத்துங்கள்.",
+            "Stage Progress, Bound Identifiers, BOM Progress, மற்றும் Routing and Process Details-ஐ மதிப்பாய்வு செய்யுங்கள்."
           ],
           "rules": [
-            "Production Tasks-க்கு ஒரு Line ஒதுக்கீடு தேவை.",
-            "Routing அல்லது கட்டமைக்கப்பட்ட auto-pass நடத்தை அனுமதிக்காவிட்டால் ஒரு Task ஒரு operation-ஐ தவிர்க்க முடியாது.",
-            "அலகு உற்பத்தி வழியாக நகரும்போது நேரடி Task Line மாறலாம்."
+            "Release confirmed finished-unit serial ஒவ்வொன்றுக்கும் ஒரு Production Task உருவாக்கும்.",
+            "Capacity planning initial Line assignment-ஐ வழங்கும்; selected Routing current Stage மற்றும் Station-ஐ வரையறுக்கும்.",
+            "Execution-ல் consume ஆகும் வரை required BOM components Pending ஆக இருக்கும்.",
+            "Execution தொடங்குவதற்கு முன் generated Product identifiers Task-க்கு bind ஆகலாம்."
           ],
           "checklist": [
             "Task எண்ணிக்கை Work Order அளவுக்குப் பொருந்துகிறது.",
@@ -1173,30 +1172,29 @@
           "importance": "Required",
           "prerequisites": ["Production Tasks"],
           "flow": [
-            "Station-ஐ அடையாளம் காணுங்கள்",
-            "அலகை ஸ்கேன் செய்யுங்கள்",
-            "வழிமுறைகளை மதிப்பாய்வு செய்யுங்கள்",
-            "பொருளையும் tools-ஐயும் ஏற்றுங்கள்",
-            "வேலை செய்யுங்கள்",
-            "முடிவைப் பதிவு செய்யுங்கள்",
-            "படியை முடியுங்கள்"
+            "Mapped Station-ஐத் தேர்ந்தெடுங்கள்",
+            "Work Order மற்றும் Line-ஐத் தேர்ந்தெடுங்கள்",
+            "Production Task-ஐத் திறங்கள்",
+            "Component அடையாளங்களைச் சரிபார்க்குங்கள்",
+            "முடித்து பதிவு செய்யுங்கள்"
           ],
           "steps": [
-            "Station வேலைப் பகுதியைத் திறந்து அலகை அடையாளம் காணுங்கள் அல்லது ஸ்கேன் செய்யுங்கள்.",
-            "தற்போதைய operation, வழிமுறைகள், தேவையான உள்ளீடுகள், மற்றும் தர gates-ஐ மதிப்பாய்வு செய்யுங்கள்.",
-            "serialised Components-ஐ ஸ்கேன் செய்யுங்கள் அல்லது அளவு-அடிப்படையிலான Components-க்கு சரியான அளவை உள்ளிடுங்கள்.",
-            "தேவையான சரிபார்ப்புகளை முடித்து operation முடிவைப் பதிவு செய்யுங்கள்.",
-            "Fynd ERP அலகை அடுத்த செல்லுபடியாகும் operation-க்கு நகர்த்தும் வகையில் படியை முடியுங்கள்."
+            "Operator-ல் முதலில் Product-ஐத் தேர்ந்தெடுத்து Mapped-ஐ அழுத்துங்கள்; default Running view-ல் Station மறைந்திருந்தால் Status filter-ஐ பயன்படுத்துங்கள்.",
+            "Station-ஐத் திறந்து active Work Order மற்றும் eligible Production Line-ஐத் தேர்ந்தெடுங்கள்.",
+            "Production Task ID அல்லது confirmed finished-unit serial-ஐ scan அல்லது enter செய்து Start Task-ஐத் தேர்ந்தெடுங்கள்.",
+            "ஒவ்வொரு serialised BOM Component-க்கும் available serial-ஐ உள்ளிட்டு configured identifier validator அனைத்தையும் பூர்த்தி செய்யுங்கள்.",
+            "Result-ஐ உறுதிப்படுத்தி Complete & Next-ஐத் தேர்ந்தெடுக்குங்கள்; execution மற்றும் Route progress பதிவு செய்யப்படும்."
           ],
           "rules": [
-            "operators தற்போதைய Routing படிக்குப் பொருந்தும் Station-இலிருந்து வேலை செய்ய வேண்டும்.",
-            "தேவையான Component மற்றும் சரிபார்ப்பு உள்ளீடுகள் இல்லாதபோது நிறைவைத் தடுக்கின்றன.",
-            "தோல்வியுற்ற முடிவுகள் கட்டமைக்கப்பட்ட விதிவிலக்குப் பாதையைப் பின்பற்ற வேண்டும்."
+            "Mapped Stations Product-ஐப் பொறுத்தவை; Mapped filter-ஐப் பயன்படுத்தும் முன் Product-ஐத் தேர்ந்தெடுங்கள்.",
+            "Selected Station-க்கு active Work Orders மற்றும் eligible Production Lines மட்டுமே காட்டப்படும்.",
+            "Required Component identities available மற்றும் valid ஆக இருக்க வேண்டும்; Battery Pack-க்கு GS1 AI 01 மற்றும் AI 10 தேவை.",
+            "Complete & Next operator, Station, material identities, result, timestamps, மற்றும் Route progress-ஐப் பதிவு செய்யும்."
           ],
           "checklist": [
-            "சரியான அலகும் operation-ம் காணப்படுகின்றன.",
-            "தேவையான உள்ளீடுகள் வெற்றிகரமாக சரிபார்க்கப்படுகின்றன.",
-            "முடிக்கப்பட்ட படி அலகு வரலாற்றில் தோன்றுகிறது."
+            "Product, Station, Work Order, Line, Task, மற்றும் Routing step பொருந்துகின்றன.",
+            "ஒவ்வொரு required Component identity-யும் வெற்றிகரமாக validate ஆகிறது.",
+            "Completion Task History மற்றும் Route history-ல் காணப்படுகிறது."
           ]
         },
         {
@@ -1209,27 +1207,29 @@
             "Serial, Lot, மற்றும் கலப்புப் பொருள் கண்காணிப்பு"
           ],
           "flow": [
-            "கிடைக்கும் இருப்பு",
-            "Station தேவை",
-            "ஸ்கேன் செய்யுங்கள் அல்லது அளவை உள்ளிடுங்கள்",
-            "நுகருங்கள்",
-            "முடிக்கப்பட்ட அலகுடன் இணைக்குங்கள்"
+            "Material-ஐ Station-க்கு transfer செய்யுங்கள்",
+            "Production Task-ஐத் திறங்கள்",
+            "Component identities-ஐ validate செய்யுங்கள்",
+            "Consumption-ஐ முடிக்குங்கள்",
+            "Genealogy-ஐ சரிபார்க்குங்கள்"
           ],
           "steps": [
-            "தேவையான பொருளை பொருத்தமான Station-இல் கிடைக்கச் செய்யுங்கள்.",
-            "ஒவ்வொரு serialised Component அடையாளத்தையும் ஸ்கேன் செய்யுங்கள்.",
-            "serialised அல்லாத Components-க்கு தேவையான அளவை உள்ளிடுங்கள் அல்லது சரிபார்க்குங்கள்.",
-            "நுகர்வும் genealogy-ம் பதிவாகும் வகையில் operation-ஐ முடியுங்கள்."
+            "Required stock-ஐ execution Station-க்கு transfer செய்து Station inventory BOM requirement-ஐ cover செய்வதை உறுதிப்படுத்துங்கள்.",
+            "Station work area-ல் Production Task ID அல்லது confirmed finished-unit serial-ஐ scan அல்லது enter செய்யுங்கள்.",
+            "ஒவ்வொரு serialised BOM Component-க்கும் available, unconsumed serial-ஐ உள்ளிட்டு configured identifier validator-ஐ பூர்த்தி செய்யுங்கள்.",
+            "Required inputs அனைத்தும் validate ஆன பிறகு Complete & Next-ஐத் தேர்ந்தெடுங்கள்.",
+            "Production Task COMPLETED ஆக இருப்பதையும் material identities consumption மற்றும் genealogy history-ல் தோன்றுவதையும் சரிபார்க்குங்கள்."
           ],
           "rules": [
-            "serialised Components-ஐ அளவு-மட்டும் உள்ளீட்டால் மாற்ற முடியாது.",
-            "அளவு நுகர்வு கட்டமைக்கப்பட்ட தேவைக்குப் பொருந்த வேண்டும்.",
-            "அலகு அதை நுகரும் Station-ஐ அடைவதற்கு முன் பொருள் மாற்றப்பட வேண்டும்."
+            "Serialised Components-க்கு unique available serial தேவை; ஏற்கனவே consumed ஆன serial நிராகரிக்கப்படும்.",
+            "Configured identifier validators execution-ல் பொருந்தும்; Battery Pack-க்கு GS1 AI 01 மற்றும் AI 10 தேவை.",
+            "அலகு material-ஐ consume செய்யும் Station-ஐ அடைவதற்கு முன் stock transfer செய்யப்பட வேண்டும்.",
+            "Completion material identities, inventory use, மற்றும் genealogy-ஐ Production Task-க்கு எதிராகப் பதிவு செய்யும்."
           ],
           "checklist": [
             "Station இருப்பு தற்போதைய உற்பத்தியை உள்ளடக்குகிறது.",
-            "serialised Components தனித்துவமாகப் பிடிக்கப்படுகின்றன.",
-            "நுகர்வு பொருள் கண்காணிப்பில் தெரியும்."
+            "ஒவ்வொரு serialised Component identity-யும் unique, available, மற்றும் valid ஆக உள்ளது.",
+            "Completed Task மற்றும் consumed identities production மற்றும் traceability history-ல் தெரிகின்றன."
           ]
         },
         {
@@ -1245,20 +1245,20 @@
             "Completed அல்லது விதிவிலக்கு நிலை"
           ],
           "steps": [
-            "ஒட்டுமொத்த உற்பத்தி முன்னேற்றத்திற்கு Work Order நிலையைப் பயன்படுத்துங்கள்.",
-            "ஒவ்வொரு முடிக்கப்பட்ட அலகின் தற்போதைய நிலைக்கு Production Task நிலையைப் பயன்படுத்துங்கள்.",
-            "எந்த Station ஒவ்வொரு operation-ஐயும் எப்போது செய்தது என்பதைப் பார்க்க Route Logs-ஐப் பயன்படுத்துங்கள்.",
-            "தாமதங்கள், தோல்விகள், அல்லது கண்காணிப்பு கேள்விகளை விசாரிக்கும்போது வரலாற்றைப் பயன்படுத்துங்கள்."
+            "Overall status, progress, Production Metrics, மற்றும் task distribution-ஐப் பார்க்க Work Order-ஐத் திறங்கள்.",
+            "Route Execution Logs-ஐத் திறந்து Total Logs, Passed, Failed, மற்றும் In Progress-ஐ ஒப்பிடுங்கள்.",
+            "Status, date range, Work Order, Product, Routing, அல்லது Station மூலம் filter செய்யுங்கள்.",
+            "ஒவ்வொரு log-லும் timestamp, production context, operator, quality result, மற்றும் execution status-ஐப் பாருங்கள்."
           ],
           "rules": [
             "Work Order நிலையும் Task நிலையும் வெவ்வேறு கேள்விகளுக்குப் பதிலளிக்கின்றன.",
-            "Route Logs என்ன நடந்தது என்பதற்கான operation-நிலை சான்று.",
-            "Hold, repair, rework, மற்றும் scrap சாதாரண முன்னேற்றத்தைத் தடைசெய்யலாம்."
+            "எல்லா Production Tasks-மும் முடிந்த பிறகே Work Order **COMPLETED** ஆகும்.",
+            "Route Execution Logs Station, operator, quality result, status, மற்றும் timestamp உட்பட operation-level evidence-ஐப் பாதுகாக்கிறது."
           ],
           "checklist": [
-            "ஒட்டுமொத்த மற்றும் அலகு-நிலை நிலையை எங்கே சரிபார்க்க வேண்டும் என்பதை பயனர்கள் அறிவார்கள்.",
-            "முடிக்கப்பட்ட operations Route Logs-இல் தோன்றுகின்றன.",
-            "விதிவிலக்கு நிலைகளுக்கு ஒரு தெளிவான அடுத்த நடவடிக்கை உள்ளது."
+            "Work Order progress மற்றும் task distribution பொருந்துகின்றன.",
+            "முடிக்கப்பட்ட operations Route Execution Logs-இல் தோன்றுகின்றன.",
+            "Filters எதிர்பார்த்த Work Order, Product, Routing, அல்லது Station history-ஐக் காட்டுகின்றன."
           ]
         }
       ]
@@ -1283,118 +1283,118 @@
             "சேமித்து சோதியுங்கள்"
           ],
           "steps": [
-            "Quality-ஐத் திறந்து Control Points-ஐத் தேர்ந்தெடுங்கள்.",
-            "Inspection name மற்றும் தேவையான Control Type, Frequency, Failure Action-ஐ உள்ளிடுங்கள்.",
-            "Control-ஐ Product, production Line, Station, அல்லது Routing operation-உடன் இணைக்குங்கள்.",
-            "அளவிடக்கூடிய pass criteria மற்றும் quarantine அல்லது automatic Hold போன்ற failure behavior-ஐ அமைக்குங்கள்.",
-            "கட்டுப்பாட்டைச் சேமித்து, அது தோன்றுவதை உறுதிப்படுத்த operation வழியாக ஒரு சிறிய அலகை இயக்குங்கள்."
+            "Quality → Control Points-ஐத் திறந்து Create Control Point-ஐத் தேர்ந்தெடுங்கள்.",
+            "Unique Code மற்றும் Name-ஐ உள்ளிட்டு Control Type, Frequency, மற்றும் On Failure-ஐத் தேர்ந்தெடுங்கள்.",
+            "முதலில் Production Line-ஐத் தேர்ந்தெடுத்து, பின்னர் கிடைக்கும் Station-ஐத் தேர்ந்தெடுங்கள்.",
+            "Failure action-ஐத் தேர்ந்தெடுத்து, தேவைப்பட்டால் Auto-hold failed units-ஐ இயக்கி checklist questions-ஐச் சேருங்கள்.",
+            "Control-ஐ உருவாக்கி Configuration-ல் Active status, scope, failure action, மற்றும் checklist-ஐ உறுதிப்படுத்துங்கள்."
           ],
           "rules": [
-            "Control type, frequency, மற்றும் failure action தேவை.",
-            "Evidence நம்பகமாகப் பெறக்கூடிய இடத்தில் quality controls வைக்க வேண்டும்.",
-            "Sampling inspection volume-ஐ குறைக்கும்; traceability-ஐ அகற்றாது.",
-            "Failed result-க்கு configured disposition path தேவை."
+            "Code, Name, Control Type, Frequency, மற்றும் On Failure தேவை.",
+            "Production Line தேர்ந்தெடுக்கப்படும் வரை Station கிடைக்காது.",
+            "Failure action Stop Line, Quarantine, Hold Lot, Escalate, அல்லது Alert Only ஆக இருக்கலாம்.",
+            "Checklist questions operators பதிவு செய்ய வேண்டிய evidence-ஐ வரையறுக்கின்றன."
           ],
           "checklist": [
-            "ஆய்வு அளவுகோல்கள் அளவிடக்கூடியவை.",
-            "தூண்டிகளும் மாதிரி அளவுகளும் புரிந்துகொள்ளப்பட்டுள்ளன.",
-            "தோல்வி விளைவுகள் உற்பத்திக்கு முன் கட்டமைக்கப்பட்டுள்ளன."
+            "Control Point Active ஆகவும் unique Code உடனும் உள்ளது.",
+            "Line மற்றும் Station scope சரியாக உள்ளது.",
+            "Failure action, Auto-hold behavior, மற்றும் checklist questions production risk-க்கு பொருந்துகின்றன."
           ]
         },
         {
           "title": "ஆய்வுகள், Defects, NCR, மற்றும் CAPA",
           "slug": "inspection-to-capa",
-          "summary": "ஒரு தோல்வியுற்ற சரிபார்ப்பிலிருந்து கட்டுப்படுத்தப்பட்ட திருத்த நடவடிக்கை வரையிலான அதிகரிப்புப் பாதையைப் புரிந்துகொள்ளுங்கள்.",
+          "summary": "Configured inspection-ஐ இயக்கி, failed samples-ஐ பதிவு செய்து, தற்போதைய SIT NCR மற்றும் CAPA வரம்புகளைப் புரிந்துகொள்ளுங்கள்.",
           "importance": "Conditional",
           "prerequisites": ["தரக் கட்டுப்பாடுகளைக் கட்டமையுங்கள்"],
           "flow": [
-            "Inspection-ஐ உருவாக்குங்கள்",
-            "செல்லுபடியாகும் production-ஐத் தேர்ந்தெடுங்கள்",
-            "பிரச்சினையைப் பதிவு செய்யுங்கள்",
-            "வெளியீட்டைக் கட்டுப்படுத்துங்கள்",
-            "தேவைப்பட்டால் escalate செய்யுங்கள்"
+            "Active inspection configuration",
+            "Work Order அல்லது Lot inspection",
+            "Sample checks மற்றும் Defect",
+            "Rejected inspection மற்றும் hold scope",
+            "NCR மற்றும் CAPA வரம்புகள்"
           ],
           "steps": [
-            "Quality Inspections-ஐத் திறந்து production source-இலிருந்து Inspection-ஐத் தொடங்குங்கள்.",
-            "Started Work Order அல்லது valid lot-ஐத் தேர்ந்தெடுத்து affected quantity-ஐ உள்ளிடுங்கள்.",
-            "Failure-இல் symptom, severity, source, evidence, மற்றும் affected unit உடன் Defect-ஐ உருவாக்குங்கள் அல்லது இணைக்குங்கள்.",
-            "NCR Reports-இல் non-conformance-ஐ பதிவு செய்து Disposition-ஐ நிர்ணயிக்குங்கள்.",
-            "CAPA-இல் corrective அல்லது preventive action-ஐ assign செய்து verification வரை track செய்யுங்கள்."
+            "Inspection-ஐத் தொடங்குவதற்கு முன் பொருந்தும் inspection configuration-ஐ உருவாக்கி activate செய்யுங்கள்.",
+            "Work Order அல்லது available, non-expired Lot—இரண்டில் ஒன்றை மட்டும் தேர்ந்தெடுத்து required total மற்றும் sample quantities-ஐ உள்ளிடுங்கள்.",
+            "ஒவ்வொரு sample மற்றும் checks-ஐ பதிவு செய்யுங்கள். Failed sample-ஐ save செய்வதற்கு Defect code மற்றும் Severity தேவை.",
+            "Inspection-ஐ reject செய்து failed serials மட்டும் அல்லது முழு lot-ஐ hold செய்வதைத் தேர்ந்தெடுங்கள். Inspection-local defects மற்றும் plant Defects தனித்தனி records.",
+            "தற்போதைய SIT build-இல் இத்திரைகளிலிருந்து NCR மற்றும் CAPA கிடைக்கவில்லை: Create NCR ‘NCR report not found’ என்பதைத் திறக்கிறது; CAPA Management-இல் create action இல்லை."
           ],
           "rules": [
-            "ஒரு Defect கவனிக்கப்பட்ட பிரச்சினையை விவரிக்கிறது; ஒரு NCR பொருந்தாத வழக்கைக் கட்டுப்படுத்துகிறது.",
-            "ஒரு தீர்வு என்பது முடிவு, அதே வேளையில் அங்கீகாரம் யார் அதை அங்கீகரிக்க முடியும் என்பதைக் கட்டுப்படுத்துகிறது.",
-            "CAPA முறையான திருத்தத்திற்கானது, ஒவ்வொரு தனிமைப்படுத்தப்பட்ட தோல்விக்கும் அல்ல."
+            "Active inspection configuration ஒரு prerequisite; Plant scope fallback ஆகும், மேலும் specific scopes அதை override செய்யும்.",
+            "Source என்பது Work Order அல்லது Lot; total quantity required.",
+            "Defect details இல்லாமல் failed sample-ஐ save செய்ய முடியாது."
           ],
           "checklist": [
-            "பிரச்சினைக்கு சரியான பதிவு வகை பயன்படுத்தப்படுகிறது.",
-            "பாதிக்கப்பட்ட அலகுகளும் பொருளும் கண்காணிக்கக்கூடியவை.",
-            "வெளியீட்டுக்கு முன் தீர்வும் அங்கீகாரமும் முழுமையானவை."
+            "Inspection configuration Active ஆக உள்ளது.",
+            "Source, quantities, sample serial, checks, மற்றும் Defect details முழுமையாக உள்ளன.",
+            "தேர்ந்தெடுத்த hold scope rejected output-க்கு பொருந்துகிறது."
           ]
         },
         {
           "title": "Repair மற்றும் Rework",
           "slug": "repair-and-rework",
-          "summary": "தோல்வியுற்ற அலகுகளை அவற்றின் உற்பத்தி வரலாற்றை இழக்காமல் ஒரு கட்டுப்படுத்தப்பட்ட செயல்முறைக்குத் திருப்பியனுப்புங்கள்.",
+          "summary": "Repair intake-ஐ configure செய்து, rework evidence-ஐ பதிவு செய்து, தற்போதைய SIT completion வரம்பைப் புரிந்துகொள்ளுங்கள்.",
           "importance": "Conditional",
           "prerequisites": [
             "Stations மற்றும் Repair Stations-ஐ உருவாக்குங்கள்",
             "ஒரு Routing-ஐ உருவாக்கி சரிபார்க்குங்கள்"
           ],
           "flow": [
-            "முடிவைப் பதிவு செய்யுங்கள்",
-            "மூல இணைப்பைப் பாதுகாக்குங்கள்",
-            "Rework Board-ஐத் திறங்கள்",
-            "வேலையைப் பதிவு செய்யுங்கள்",
-            "மீண்டும் ஆய்வு செய்து மூடுங்கள்"
+            "Repair configuration",
+            "Debug Queue",
+            "Rework Board",
+            "Record work",
+            "Completion வரம்பு"
           ],
           "steps": [
-            "Quality → Dispositions-ஐத் திறந்து affected record-க்கு தேவையான rationale மற்றும் action-ஐ உள்ளிடுங்கள்.",
-            "Original serial, Defect, மற்றும் Disposition ஒன்றோடொன்று இணைந்திருப்பதை உறுதிப்படுத்துங்கள்.",
-            "Repair & Rework → Rework Board-இல் tracked Rework job அல்லது Work Order-ஐ உருவாக்குங்கள்.",
-            "Symptoms, diagnosis, repair/rework actions, மற்றும் தேவையான replacement Components-ஐ உள்ளிடுங்கள்.",
-            "Allowed Routing point-க்கு அனுப்புவதற்கு அல்லது job-ஐ close செய்வதற்கு முன் required reinspection-ஐ முடிக்குங்கள்."
+            "Automatic intake தேவைப்பட்டால் Repair Config-இல் Auto-create repair on failure-ஐ enable செய்து Default Repair Station-ஐத் தேர்ந்தெடுங்கள்.",
+            "Incoming failures-ஐ Debug Queue-இல் triage செய்யுங்கள். Rework Board jobs failure அல்லது Disposition-இலிருந்து உருவாகும்; board-இல் create action இல்லை.",
+            "Linked Work Order, serial, mechanism, attempt number, மற்றும் தற்போதைய board column-ஐ மதிப்பாய்வு செய்யுங்கள்.",
+            "Record work-ஐத் தேர்ந்தெடுத்து labor minutes, material cost, மற்றும் சுருக்கமான work notes-ஐ உள்ளிட்டு Complete Work-ஐத் தேர்ந்தெடுங்கள்.",
+            "தற்போதைய SIT build-இல் Complete Work labor மற்றும் cost-ஐ save செய்கிறது; ஆனால் job In Progress-லேயே உள்ளது, reopen செய்யும் போது notes clear ஆகின்றன, re-inspection தொடங்கவில்லை."
           ],
           "rules": [
-            "Repair தோல்வியுற்ற அலகைச் சரிசெய்கிறது; Rework உற்பத்தி வேலையை மீண்டும் செய்கிறது அல்லது திசைதிருப்புகிறது.",
-            "repair இலக்கு தோல்வியுற்ற operation Station-இலிருந்து வேறுபட்டதாக இருக்க வேண்டும்.",
-            "திரும்பும் இலக்குகள் கட்டமைக்கப்பட்ட route மற்றும் தோல்வி தர்க்கத்தால் அனுமதிக்கப்பட வேண்டும்."
+            "Auto-create repair மற்றும் Default Repair Station automatic queue intake-ஐக் கட்டுப்படுத்துகின்றன.",
+            "Attempt Limit rules Alerts-இல் configure செய்யப்படுகின்றன; அவை alert, block அல்லது block செய்து scrap-ஐ propose செய்யலாம்.",
+            "Total மற்றும் per-line repair WIP caps optional; cap-ஐ empty ஆக விட்டால் அந்த limit disable ஆகும்."
           ],
           "checklist": [
-            "Repair பதிவுகள் அசல் அலகு அடையாளத்தைப் பாதுகாக்கின்றன.",
-            "மாற்றுப் பொருள் கண்காணிக்கக்கூடியது.",
-            "அலகு அனுமதிக்கப்பட்ட operation-க்கு மட்டுமே திரும்புகிறது."
+            "Job அசல் serial மற்றும் Work Order உடன் linked ஆக உள்ளது.",
+            "Labor minutes, material cost, மற்றும் work notes உள்ளிடப்பட்டுள்ளன.",
+            "Re-inspection-ஐ நம்புவதற்கு முன் தற்போதைய SIT completion வரம்பு புரிந்துகொள்ளப்பட்டுள்ளது."
           ]
         },
         {
           "title": "Hold, Scrap, மற்றும் Teardown",
           "slug": "hold-scrap-teardown",
-          "summary": "ஒரு அலகு இடைநிறுத்தப்பட, முடிக்கப்பட, அல்லது பிரிக்கப்பட வேண்டியபோது சரியான நடவடிக்கையைத் தேர்வுசெய்யுங்கள்.",
+          "summary": "Scoped holds-ஐ உருவாக்கி, controlled scrap dispatches-ஐ track செய்து, eligible executed scrap-இலிருந்து மட்டும் teardown-ஐத் தொடங்குங்கள்.",
           "importance": "Conditional",
           "prerequisites": ["நிலைகள் மற்றும் Route Logs"],
           "flow": [
-            "பாதிக்கப்பட்ட அலகைத் திறங்கள்",
-            "விதிவிலக்கைத் தேர்வுசெய்யுங்கள்",
-            "காரணத்தை உள்ளிடுங்கள்",
-            "செயலை உறுதிப்படுத்துங்கள்",
-            "தொடர்நடவடிக்கையை முடிக்குங்கள்"
+            "Hold Level-ஐத் தேர்ந்தெடுங்கள்",
+            "Target மற்றும் Reason-ஐத் தேர்ந்தெடுங்கள்",
+            "தேவைப்பட்டால் approval",
+            "Scrap dispatch-ஐ track செய்யுங்கள்",
+            "Executed Scrap-ஐ Teardown-க்கு அனுப்புங்கள்"
           ],
           "steps": [
-            "Production Task, தரப் பதிவு, அல்லது பொருள் பதிவைக் கண்டறியுங்கள்.",
-            "அங்கீகரிக்கப்பட்ட முடிவின்படி Hold, Scrap, அல்லது Teardown-ஐத் தேர்ந்தெடுங்கள்.",
-            "கட்டமைக்கப்பட்ட காரணத்தைத் தேர்ந்தெடுத்து குறிப்புகள், சான்று, பாதிக்கப்பட்ட அளவு, மற்றும் உரிமையைச் சேர்க்குங்கள்.",
-            "மீளமுடியாத தாக்கத்தை மதிப்பாய்வு செய்யுங்கள்; Scrap approval மற்றும் execution states வழியாக நகரும்.",
-            "தீர்வுக்குப் பிறகே Hold-ஐ Release செய்யுங்கள். Executed Scrap dispatch ஆன பின் Teardown கிடைக்கும்; recovered Components-ஐ donor-unit context உடன் பதிவு செய்யுங்கள்."
+            "Quality → Hold Management → Create Hold-ஐத் திறந்து target-ஐத் தேர்ந்தெடுப்பதற்கு முன் Hold Level-ஐத் தேர்ந்தெடுங்கள்.",
+            "Required target மற்றும் Reason-ஐத் தேர்ந்தெடுங்கள். Notes optional; Work Order hold-க்கு optional expected release date சேர்க்கலாம்.",
+            "Inventory lot, vendor, மற்றும் date-code holds-ஐ approval-க்கு submit செய்யுங்கள்; Quality approve செய்யும் வரை அவை inactive.",
+            "முதலில் Scrap Reasons-ஐ configure செய்து, Scrap Register-இல் Pending Approval, Approved, Executed, மற்றும் Rejected dispatches-ஐ track செய்யுங்கள். Register-இல் create action இல்லை.",
+            "Executed Scrap dispatch-இல் Send to teardown-ஐப் பயன்படுத்தி donor serial மற்றும் recovered Components உடன் linked Teardown order-ஐ உருவாக்குங்கள்."
           ],
           "rules": [
-            "Hold மீளக்கூடியது; Scrap ஒரு இறுதி உற்பத்தி விளைவு.",
-            "Scrap-க்கு ஒரு தெளிவான காரணமும் பாதுகாக்கப்பட்ட கண்காணிப்பும் தேவை.",
-            "மீட்கப்பட்ட serialised Components-க்கு ஒரு வெளிப்படையான இருப்பு மற்றும் genealogy விளைவு தேவை."
+            "Hold Level target மற்றும் impact-ஐ நிர்ணயிக்கிறது; Work Order hold அந்த order-இன் முழு production-ஐ pause செய்கிறது.",
+            "Inventory lot, vendor, மற்றும் date-code holds-க்கு Quality approval தேவை.",
+            "Scrap execute செய்யப்பட்டு teardown-க்கு தெளிவாக அனுப்பப்படும் வரை Teardown தொடங்க முடியாது."
           ],
           "checklist": [
-            "தேர்ந்தெடுக்கப்பட்ட நடவடிக்கை இயற்பியல் விளைவுக்குப் பொருந்துகிறது.",
-            "காரணக் குறியீடுகளும் குறிப்புகளும் முழுமையானவை.",
-            "இருப்பும் கண்காணிப்பும் இறுதி முடிவைப் பிரதிபலிக்கின்றன."
+            "சரியான Hold Level-க்கு target மற்றும் Reason தேர்ந்தெடுக்கப்பட்டுள்ளன.",
+            "Dispatch-க்கு முன் Scrap reason categories மற்றும் reason codes உள்ளன.",
+            "Teardown order donor serial மற்றும் Scrap dispatch உடன் linked ஆக உள்ளது."
           ]
         }
       ]
@@ -1413,27 +1413,30 @@
           "prerequisites": ["ஒரு Routing-ஐ உருவாக்கி சரிபார்க்குங்கள்"],
           "flow": [
             "Packaging-ஐத் திறங்கள்",
-            "ஒரு கொள்கலனைத் தொடங்குங்கள் அல்லது கண்டறியுங்கள்",
-            "முடிக்கப்பட்ட அலகுகளைச் சேர்க்குங்கள்",
-            "சரிபார்ப்புகளை இயக்குங்கள்",
-            "கொள்கலனை மூடுங்கள்"
+            "Product container hierarchy-ஐ கட்டமைக்குங்கள்",
+            "Work Order container-ஐ உருவாக்குங்கள்",
+            "உருவாக்கப்பட்ட UID-ஐ மதிப்பாய்வு செய்யுங்கள்",
+            "Packaging checks-ஐ முடிக்குங்கள்"
           ],
           "steps": [
             "Packaging & Shipping-ஐத் திறந்து Packaging-ஐத் தேர்ந்தெடுங்கள்.",
-            "ஏற்கனவே உள்ள ஒரு கொள்கலனை ஸ்கேன் செய்யுங்கள் அல்லது சரியான Container Type-ஐப் பயன்படுத்தி ஒன்றை உருவாக்கும் செயலைத் தேர்ந்தெடுங்கள்.",
-            "தகுதியான ஒவ்வொரு முடிக்கப்பட்ட-அலகு சீரியலையும் கொள்கலனுக்குள் ஸ்கேன் செய்யுங்கள்.",
-            "Configured Container Type, quantity, weight, declarations, மற்றும் label verification-ஐ முடிக்குங்கள்.",
-            "எல்லா configured checks pass ஆகும் வரை container-ஐ open ஆக வைத்திருந்து, பின்னர் label print செய்து close அல்லது complete action-ஐத் தேர்ந்தெடுங்கள்."
+            "Packing Configuration-ஐத் திறந்து Product-ஐத் தேர்ந்தெடுத்து அதன் product-specific container type-ஐ வரையறுக்குங்கள். Product, Name, மற்றும் Code கட்டாயம்; Code 2–10 alphanumeric எழுத்துகளை ஏற்கும்.",
+            "Finished-unit serial-களை நேரடியாக bind செய்யும் leaf-க்கு Child Container Type-ஐ காலியாக விடுங்கள்; இல்லையெனில் Device → Box → Carton → Pallet hierarchy-க்கான child-ஐத் தேர்ந்தெடுங்கள்.",
+            "Packaging Dashboard-க்கு திரும்பி Create Container-ஐத் தேர்ந்தெடுத்து Product, கட்டாயமான Container Type, மற்றும் கட்டாயமான Work Order ID-ஐத் தேர்ந்தெடுங்கள்.",
+            "உருவாக்கப்பட்ட UID-ஐத் திறந்து device count, weight and dimensions, linked Work Order, label state, மற்றும் History-ஐ மதிப்பாய்வு செய்யுங்கள்."
           ],
           "rules": [
-            "Product கட்டமைக்கப்பட்ட கொள்கலன் flow-ஐப் பயன்படுத்தும்போது மட்டுமே packaging operations தேவை.",
-            "கட்ட packaging கட்டமைக்கப்பட்டிருக்கும்போது குறைந்தது ஒரு packaging operation இயக்கப்பட வேண்டும்.",
-            "Auto-close லேபிள் அச்சிடுதலைச் சார்ந்துள்ளது; எடைக்குப் பிந்தைய auto-print எடை சரிபார்ப்பைச் சார்ந்துள்ளது."
+            "Packing configurations product-specific ஆகும்.",
+            "Leaf-க்கு child container type இருக்காது; அது serial numbers-ஐ நேரடியாக bind செய்யும். Parent configuration தேர்ந்தெடுக்கப்பட்ட child type-ஐ ஏற்கும்.",
+            "Container Type மற்றும் Work Order ID தேர்ந்தெடுக்கப்படும் வரை Create Container enable ஆகாது.",
+            "UID template optional; அது இல்லையெனில் Fynd ERP default UID format-ஐப் பயன்படுத்தும்.",
+            "Pallets தனியாக நிர்வகிக்கப்படும் Shipments module-இல் Shipments-க்கு சேர்க்கப்படுகின்றன."
           ],
           "checklist": [
-            "கொள்கலன் படிநிலை இயற்பியல் packaging செயல்முறைக்குப் பொருந்துகிறது.",
-            "தேவையான லேபிள்களும் அச்சுப்பொறிகளும் தயாராக உள்ளன.",
-            "எடை மற்றும் மூடல் விதிகள் சோதிக்கக்கூடியவை."
+            "Product-specific container configuration active ஆக உள்ளது.",
+            "Device → Box → Carton → Pallet hierarchy இயற்பியல் flow-க்கு பொருந்துகிறது.",
+            "Container சரியான Work Order-க்கு linked ஆக உள்ளது.",
+            "Closure-க்கு முன் UID, device count, label state, மற்றும் History தெரிகின்றன."
           ]
         },
         {
@@ -1443,28 +1446,28 @@
           "importance": "Conditional",
           "prerequisites": ["Fynd ERP-இல் Packaging"],
           "flow": [
-            "Packaging configuration-ஐத் திறங்கள்",
-            "Hierarchy-ஐ அமைக்குங்கள்",
-            "அடையாளங்களை இணைக்குங்கள்",
-            "Label-ஐ உருவாக்குங்கள்",
-            "சோதித்து audit செய்யுங்கள்"
+            "Leaf மற்றும் parent types-ஐ configure செய்யுங்கள்",
+            "UID மற்றும் physical limits-ஐ அமைக்குங்கள்",
+            "Parent container-ஐ உருவாக்குங்கள்",
+            "Eligible identity-ஐ pack செய்யுங்கள்",
+            "Label-ஐ print செய்து audit செய்யுங்கள்"
           ],
           "steps": [
-            "Product-க்கான Container Types, packaging rules, மற்றும் label templates-ஐத் திறங்கள்.",
-            "Unit, box, carton, pallet போன்ற அனுமதிக்கப்பட்ட leaf-to-parent வரிசையை அமைக்குங்கள்.",
-            "Leaf container finished-unit serial-ஐ bind செய்யும்; ஒவ்வொரு parent-மும் configured child UID-ஐ மட்டுமே ஏற்கும்.",
-            "Product, unit, container, quantity, மற்றும் shipment scanning-க்கு தேவையான template variables-ஐச் சேர்க்குங்கள்.",
-            "Test label print செய்து label history மற்றும் reprints traceable ஆக இருப்பதை உறுதிப்படுத்துங்கள்."
+            "Packing Configuration-இல் முதலில் leaf-ஐ உருவாக்கி, பின்னர் ஒவ்வொரு parent-க்கும் அனுமதிக்கப்பட்ட Child Container Type-ஐத் தேர்ந்தெடுங்கள்; child தேர்ந்தெடுத்ததும் Max child count கட்டாயமாகும்.",
+            "Container-specific UID Template மற்றும் sequence reset scope-ஐத் தேர்ந்தெடுத்து dimensions, weight range, மற்றும் tolerance-ஐ configure செய்யுங்கள்.",
+            "Packaging Dashboard-இல் Product, parent Container Type, மற்றும் completed Work Order-ஐத் தேர்ந்தெடுத்து parent-ஐ உருவாக்குங்கள்.",
+            "Pack by UID-இல் finished serial, device UID, child UID, identifier, அல்லது task ID-ஐ scan செய்யுங்கள்; valid unit configured leaf-ஐ தானாக உருவாக்கி parent-இல் pack செய்யும்.",
+            "Carton label-ஐ print செய்து carton UID, model, quantity, unit serial, QR codes, History, மற்றும் Reprint path-ஐச் சரிபாருங்கள்."
           ],
           "rules": [
-            "ஒரு கொள்கலன் அடையாளம் தனித்துவமாகவும் ஸ்கேன் செய்யக்கூடியதாகவும் இருக்க வேண்டும்.",
-            "மூடப்பட்ட அல்லது கைவிடப்பட்ட கொள்கலன்கள் புதிய அலகுகளை ஏற்கக்கூடாது.",
-            "மறு-அச்சிடுதல்கள் தணிக்கைத்தன்மையைப் பாதுகாத்து கட்டமைக்கப்பட்ட அங்கீகார விதிகளைப் பின்பற்ற வேண்டும்."
+            "Generated container UID, unit serial உடன் மோதாமல் இருக்க container-specific UID pattern-ஐப் பயன்படுத்துங்கள்.",
+            "Parent அதன் configured child type-ஐ மட்டுமே ஏற்கும்; maximum child count enforce செய்யப்படும்.",
+            "Eligible production identities மட்டுமே pack செய்யப்படும்; label-க்கான source value இல்லையெனில் அது காலியாக இருக்கும்."
           ],
           "checklist": [
-            "கொள்கலன் நிலைகள் இயற்பியல் packaging-ஐ பிரதிபலிக்கின்றன.",
-            "லேபிள்கள் தேவையான அடையாளங்காட்டிகளை உள்ளடக்குகின்றன.",
-            "ஸ்கேன் மற்றும் மறு-அச்சிடல் பாதைகள் சோதிக்கப்பட்டுள்ளன."
+            "Leaf மற்றும் parent types physical hierarchy-க்கு பொருந்துகின்றன.",
+            "UID template, capacity, dimensions, weight, மற்றும் tolerance சரியாக உள்ளன.",
+            "Packing, printed label content, History, மற்றும் Reprint சரிபார்க்கப்பட்டுள்ளன."
           ]
         },
         {
@@ -1474,29 +1477,28 @@
           "importance": "Conditional",
           "prerequisites": ["Containers மற்றும் Labels"],
           "flow": [
-            "Shipment Verification-ஐத் திறங்கள்",
             "முதலில் Shipment-ஐத் தேர்ந்தெடுங்கள்",
-            "Container Type-ஐத் தேர்ந்தெடுத்து verify செய்யுங்கள்",
-            "விதிகளை மதிப்பாய்வு செய்யுங்கள்",
-            "வேறுபாடுகளைத் தீர்க்குங்கள்"
+            "Active Shipment Rule-ஐச் சரிபாருங்கள்",
+            "Shipping Gate balance-ஐ உறுதிப்படுத்துங்கள்",
+            "ASN export-ஐ configure செய்யுங்கள்",
+            "SIT prerequisites-ஐத் தீர்க்குங்கள்"
           ],
           "steps": [
-            "Packaging & Shipping-ஐத் திறந்து Shipment Verification-ஐத் தேர்ந்தெடுங்கள்.",
-            "Shipment தேர்ந்தெடுக்கப்படும் வரை verification தொடங்காது; அதுவரை Container Type கிடைக்காது.",
-            "Expected container UID-களை scan செய்து Verified, Mismatched, Pending counts-ஐ மதிப்பாய்வு செய்யுங்கள்.",
-            "Active Shipment Rule container count மற்றும் weight-ஐ அனுமதிக்கிறதா, Shipping Gate-இல் போதுமான approved PO quantity உள்ளதா என உறுதிப்படுத்துங்கள்.",
-            "Completion-க்கு முன் mismatches-ஐ சரிசெய்து, export தேவைப்பட்டால் client-specific ASN template-ஐப் பயன்படுத்துங்கள்."
+            "Shipment Verification-ஐத் திறந்து existing Shipment-ஐத் தேர்ந்தெடுங்கள்; required Shipment தேர்ந்தெடுக்கப்படும் வரை Container Type, counts, container rows, மற்றும் Export கிடைக்காது.",
+            "Active Shipment Rule selected container configuration-ஐ கொண்டிருந்து அதன் container-count மற்றும் maximum-weight limits-ஐ அனுமதிக்கிறதா என உறுதிப்படுத்துங்கள்.",
+            "Shipping Gate-இல் positive remaining approved Purchase Order quantity உள்ளதா எனச் சரிபாருங்கள்; current active SIT gate balance 0 உடன் முழுமையாக consumed ஆகிவிட்டது.",
+            "Excel export-க்கு client- அல்லது product-scoped ASN template-ஐப் பயன்படுத்துங்கள்; இந்த SIT Plant-இல் தற்போது ASN templates இல்லை.",
+            "தற்போதைய SIT வரம்பு: Plant-இல் Shipments இல்லை; Create Shipment backend-required lines மற்றும் warehouseRootLocationId-ஐ அனுப்பாததால் இந்த UI-இல் verification தொடங்க முடியாது."
           ],
           "rules": [
-            "Shipment தேர்ந்தெடுக்கப்படும் வரை container verification தொடங்க முடியாது.",
-            "Shipment verification closed, valid containers-ஐப் பயன்படுத்த வேண்டும்.",
-            "Abandoned packaging identities verification gates-ஐ பூர்த்தி செய்யக்கூடாது.",
-            "Shipment records Product மற்றும் unit genealogy-உடன் இணைந்திருக்க வேண்டும்."
+            "Container Type அல்லது verification data கிடைக்கும் முன் Shipment selection கட்டாயம்.",
+            "Governing Shipment Rule மற்றும் positive Shipping Gate balance முன்நிபந்தனைகள்.",
+            "Template configure செய்யப்பட்டிருந்தால் ASN output client- அல்லது product-scoped ஆகும்."
           ],
           "checklist": [
-            "எதிர்பார்க்கப்பட்ட மற்றும் ஸ்கேன் செய்யப்பட்ட shipment அளவுகள் பொருந்துகின்றன.",
-            "சேர்க்கப்பட்ட அனைத்து கொள்கலன்களுக்கும் செல்லுபடியாகும் நிலை உள்ளது.",
-            "shipment-ஐ Work Orders மற்றும் அலகுகளுக்குக் கண்காணிக்க முடியும்."
+            "Valid Shipment உருவாக்கப்பட்டு select செய்ய முடிகிறது.",
+            "Active rule container configuration, count, மற்றும் weight-ஐ cover செய்கிறது.",
+            "Shipping Gate balance positive ஆகவும் required ASN template இருக்கவும் வேண்டும்."
           ]
         },
         {
@@ -1509,30 +1511,32 @@
             "Shipment சரிபார்ப்பு"
           ],
           "flow": [
-            "Master Traceability-ஐத் திறங்கள்",
             "Dossier scope-ஐ அமைக்குங்கள்",
             "Report sheets-ஐத் தேர்ந்தெடுங்கள்",
             "Stage Timeline-ஐ சரியாகப் பயன்படுத்துங்கள்",
             "Genealogy-ஐப் பின்தொடருங்கள்",
-            "தேவைப்பட்டால் containment தொடங்குங்கள்"
+            "Affected units-ஐக் கண்டறியுங்கள்",
+            "Recall Notice-ஐ உருவாக்குங்கள்"
           ],
           "steps": [
-            "Traceability-ஐத் திறந்து Master Traceability-ஐத் தேர்ந்தெடுங்கள்.",
-            "Filters-ஐ combine செய்யுங்கள் அல்லது identifier list paste செய்யுங்கள்; identifier list மற்ற scope filters-ஐ override செய்யும்.",
-            "தேவையான unit, route, quality, genealogy, packaging, shipment, அல்லது audit sheets-ஐத் தேர்ந்தெடுத்து dossier-ஐ generate செய்யுங்கள்.",
-            "Start/end dates, குறைந்தது ஒரு Work Order, மற்றும் 1–50 Operations-ஐத் தேர்ந்தெடுங்கள்.",
-            "Batch Genealogy-இல் upstream/downstream search செய்யுங்கள் அல்லது material lot/Component-க்கு Find Affected Units பயன்படுத்துங்கள்.",
-            "Recall Notices-இல் severity, status, reason, மற்றும் affected-unit population-ஐப் பதிவு செய்யுங்கள்."
+            "Master Traceability-இல் filters ஒன்றாகச் செயல்படும்; parent selection பின் dependent Product filters திறக்கும். Specific identifier list மற்ற filters-ஐ override செய்யும்; குறைந்தது ஒரு scope தேர்ந்தெடுக்கப்படும் வரை Generate Dossier disabled ஆக இருக்கும்.",
+            "தேவையான dossier sheets மட்டும் தேர்ந்தெடுங்கள். Generation asynchronous; completed files Recent exports-இல் இருக்கும். Nova X1 Work Order இரண்டு-unit dossier-ஐ உருவாக்கியது.",
+            "Stage Timeline-க்கு date range, குறைந்தது ஒரு Work Order, மற்றும் 1–50 Operations தேவை. இந்த SIT build date range-க்கு asterisk காட்டாவிட்டாலும் அது கட்டாயம்.",
+            "Pallet, carton, box, device, product, Component, அல்லது batch identifier மூலம் full genealogy tree-ஐ பயன்படுத்துங்கள். Downstream finished identity-யிலிருந்து Components/lots-க்கு செல்கிறது; Upstream lot-இலிருந்து finished units-க்கு செல்கிறது.",
+            "Find Affected Units-இல் Batch/Lot Number அல்லது Component Serial மூலம் தேடுங்கள். Nova X1 battery lot, NOVA-X1-PHONE-000002-ஐ affected finished serial ஆகக் காட்டியது.",
+            "Recall உருவாக்க Title மற்றும் Severity கட்டாயம். இந்த SIT build-இல் By Batch production tasks-ஐக் கண்டுபிடிக்கவில்லை; completed task direct assignment, productionTaskIds unused என்பதால் fail ஆகிறது. Authorized Nova X1 Recall Notice zero affected units உடன் Draft-ஆகவே உள்ளது."
           ],
           "rules": [
             "கண்காணிப்பு தரம் உற்பத்தியின் போது துல்லியமான ஸ்கேனிங் மற்றும் நுகர்வைச் சார்ந்துள்ளது.",
-            "Lot genealogy-ம் அலகு genealogy-ம் வெவ்வேறு ஆனால் இணைந்த கேள்விகளுக்குப் பதிலளிக்கின்றன.",
-            "ஒரு recall அறிவிப்பு பதிலைக் கட்டுப்படுத்துகிறது; கண்காணிப்பு பாதிக்கப்பட்ட எல்லையை அடையாளம் காட்டுகிறது."
+            "Specific identifier list மற்ற dossier scope filters-ஐ override செய்கிறது.",
+            "Stage Timeline-க்கு date range, குறைந்தது ஒரு Work Order, மற்றும் 1–50 Operations கட்டாயம்.",
+            "Recall Notice response-ஐக் கட்டுப்படுத்தும்; traceability affected scope-ஐக் கண்டறியும். ஆனால் affected-unit assignment தற்போது SIT-இல் blocked ஆக உள்ளது."
           ],
           "checklist": [
-            "ஒரு சோதனை அலகை உள்ளீட்டுப் பொருளிலிருந்து shipment வரை கண்காணிக்க முடியும்.",
-            "பொருள் batches பாதிக்கப்பட்ட அனைத்து முடிக்கப்பட்ட அலகுகளையும் அடையாளம் காட்டுகின்றன.",
-            "Recall தேடல்கள் ஒரு தெளிவான, மதிப்பாய்வு செய்யக்கூடிய எல்லையை வழங்குகின்றன."
+            "Completed two-unit Nova X1 dossier Recent exports-இல் தெரிகிறது.",
+            "Nova X1 serial அதன் consumed display மற்றும் battery lots-க்கு resolve ஆகிறது.",
+            "Battery lot, NOVA-X1-PHONE-000002-ஐ affected ஆகக் காட்டுகிறது.",
+            "SIT assignment defect fix ஆகும் வரை authorized Recall Notice zero affected units உடன் Draft-ஆகவே இருக்கும்."
           ]
         }
       ]
@@ -1552,26 +1556,30 @@
           "flow": [
             "Plant dashboard-ஐ மதிப்பாய்வு செய்யுங்கள்",
             "Work Orders-ஐத் திறங்கள்",
+            "Work Order metrics-ஐப் பாருங்கள்",
+            "Live progress board-ஐப் பயன்படுத்துங்கள்",
             "Production Tasks-ஐத் திறங்கள்",
-            "Route Logs-ஐத் திறங்கள்",
-            "Source record-ஐ விசாரியுங்கள்"
+            "Route Logs-ஐத் திறங்கள்"
           ],
           "steps": [
-            "Current Plant-க்கான readiness, active Work Orders, Stations, Products, மற்றும் targets-ஐப் பாருங்கள்.",
-            "Schedule risk-ஐ கண்டறிய status, priority, மற்றும் due date-ஐ மதிப்பாய்வு செய்யுங்கள்.",
-            "Serial மூலம் தேடி Product, Routing, assigned Line, மற்றும் task status-ஐப் பாருங்கள்.",
-            "Operator, Station, Line, timestamp, மற்றும் quality result உட்பட execution evidence-ஐ உறுதிப்படுத்துங்கள்.",
-            "Corrective action-க்கு முன் underlying Work Order, Task, அல்லது Route Log-ஐத் திறங்கள்."
+            "Selected Plant-க்கான setup readiness, active Work Orders, production Stations, active Products, Clients, Projects, production completion, மற்றும் quality targets-ஐ Dashboard-இல் பாருங்கள்.",
+            "Work Orders-இல் Status, Priority, மற்றும் Due Date-ஐ ஒன்றாக மதிப்பாய்வு செய்யுங்கள். Past-due active records Delayed எனக் குறிக்கப்படும்; Nova X1 list completed original Work Order-ஐ அதன் in-progress repair Work Order-இலிருந்து பிரிக்கிறது.",
+            "Completed Nova X1 Work Order-இல் 2/2 tasks, 2.9 units/hour, 20m 56s takt/cycle time, 100% yield, மற்றும் 42m total execution time-ஐப் பாருங்கள். Yield என்பது passed quality steps ÷ completed steps; displayed target குறைந்தது 95%.",
+            "Live board-க்கு Track Progress-ஐப் பயன்படுத்துங்கள். Default auto-refresh 30 seconds; Station filters, completed highlighting, samples-only, sorting, மற்றும் fullscreen உள்ளன.",
+            "Production Tasks-இல் Serial, task ID, grouping, Work Order, Line, Product/Routing, மற்றும் status-ஐச் சரிபாருங்கள். ஒரே serial-க்கு later repair task உட்பட பல task records இருக்கலாம்; செயல்படுவதற்கு முன் Work Order மற்றும் Line-ஐ உறுதிப்படுத்துங்கள்.",
+            "Route Logs-இல் Work Order, Product, Routing, Line, Station, operator, timestamp, quality status, மற்றும் execution status-ஐச் சரிபாருங்கள். இரண்டு Nova X1 logs-மும் Passed மற்றும் Complete."
           ],
           "rules": [
             "ஒரு dashboard பதிவுகளைச் சுருக்குகிறது; அடிப்படைப் பதிவுகள் சான்றின் மூலமாகவே இருக்கின்றன.",
-            "அளவீடுகளை ஒப்பிடும்போது நிலையான நேரம், Plant, Line, Product, மற்றும் Shift வடிகட்டிகளைப் பயன்படுத்துங்கள்.",
-            "வெவ்வேறு வரையறைகள் அல்லது நேர சாளரங்களுடன் அளவீடுகளை ஒப்பிடாதீர்கள்."
+            "Route Log summary totals current filters-ஐப் பிரதிபலிக்கும்.",
+            "Takt/cycle metrics completed execution time-ஐப் பயன்படுத்தும்; yield என்பது passed quality steps ÷ completed steps.",
+            "ஒரே serial-க்கு பல task records இருக்கலாம்; task status-ஐ அதன் Work Order மற்றும் Line உடன் புரிந்துகொள்ள வேண்டும்."
           ],
           "checklist": [
-            "ஒவ்வொரு செயல்பாட்டுக் கூட்டமும் ஒப்புக்கொள்ளப்பட்ட dashboards-ஐப் பயன்படுத்துகிறது.",
-            "அளவீட்டு வரையறைகள் புரிந்துகொள்ளப்பட்டுள்ளன.",
-            "பயனர்கள் ஒரு dashboard விதிவிலக்கிலிருந்து அடிப்படைப் பதிவுக்கு நகர முடியும்."
+            "Plant-level counts மற்றும் targets selected Plant-க்கு பொருந்துகின்றன.",
+            "Completed மற்றும் repair Nova X1 Work Orders சரியாக வேறுபடுத்தப்படுகின்றன.",
+            "Live board இரண்டு completed Nova X1 tasks மற்றும் இரண்டு logs-ஐக் காட்டுகிறது.",
+            "இரண்டு Nova X1 Route Logs-மும் operator/Station evidence உடன் Passed மற்றும் Complete காட்டுகின்றன."
           ]
         },
         {
@@ -1585,27 +1593,30 @@
           ],
           "flow": [
             "Shift Definitions-ஐ மதிப்பாய்வு செய்யுங்கள்",
-            "Shift Schedules-ஐ மதிப்பாய்வு செய்யுங்கள்",
+            "Schedule coverage-ஐச் சரிபார்க்குங்கள்",
             "Handover-ஐ உருவாக்குங்கள்",
-            "தற்போதைய நிலையைப் பதிவு செய்யுங்கள்",
+            "Connected conditions-ஐப் பதிவு செய்யுங்கள்",
             "Break Compliance-ஐச் சரிபார்க்குங்கள்"
           ],
           "steps": [
-            "Timing, breaks, மற்றும் calculated net working duration-ஐ உறுதிப்படுத்துங்கள்.",
-            "Effective dates மற்றும் weekly pattern-ஐ அமைத்து, தயாரானபோது Schedule-ஐ activate செய்யுங்கள்; புதிய Schedules முதலில் Draft ஆக இருக்கும்.",
-            "Shift Handovers-இல் date, Shift, Line, outgoing operator, incoming operator, status, மற்றும் notes-ஐ உள்ளிடுங்கள்.",
-            "WIP, holds, downtime, material risk, quality issues, மற்றும் unresolved actions-ஐச் சேர்க்குங்கள்.",
-            "Planned/actual duration, violations, மற்றும் compliance-ஐ பாருங்கள்; filtered results இருந்தால் மட்டுமே export கிடைக்கும்."
+            "Unpaid breaks கழித்த net working time-ஐ உறுதிப்படுத்துங்கள். Nova X1 Assembly Morning Shift 06:00–14:00; 15-minute unpaid tea break காரணமாக 8 hours, 7h 45m net ஆகிறது.",
+            "Shift Schedule coverage-ஐச் சரிபார்க்குங்கள். புதிய Schedules activate செய்யப்படும் வரை Draft; ஆனால் status மட்டும் coverage-ஐ நிரூபிக்காது. Active Standard/Weekend உட்பட மூன்று current SIT Schedules-மும் 0 shifts/week காட்டுகின்றன.",
+            "Shift Handover உருவாக்குங்கள். Shift மற்றும் Handover Date கட்டாயம்; Line, outgoing/incoming operators, summaries, notes, pending tasks, மற்றும் checklist items optional.",
+            "Authorized Nova X1 Handover-ஐ NOVA-X1-SHIFT-A மற்றும் NOVA_X1_LINE_01 உடன் இணைத்து completed production, passed Route Logs, equipment state, safety, மற்றும் இரண்டு pending repair tasks-ஐப் பதிவு செய்யுங்கள்.",
+            "Complete செய்வதற்கு முன் Draft-ஐ review செய்யுங்கள். Outgoing Supervisor current Plant Administrator ஆக default ஆகும்; Incoming Supervisor blank ஆக இருக்கலாம்.",
+            "Break Compliance-ஐ கவனமாகப் பயன்படுத்துங்கள்: zero Break Logs இருந்தால் SIT 100% compliance மற்றும் 0 violations காட்டும்; filtered records வரும் வரை Export CSV disabled."
           ],
           "rules": [
-            "ஒப்படைப்புத் தகவல் பதிவுகள் மற்றும் Lines-க்கு குறிப்பிட்டதாக இருக்க வேண்டும்.",
-            "திறந்த தர, பராமரிப்பு, மற்றும் பொருள் தடைகள் தெரியும்படி இருக்க வேண்டும்.",
-            "ஏற்கனவே நடந்துகொண்டிருக்கும் வேலையை ஒரு புதிய Shift மீண்டும் தொடங்கக்கூடாது."
+            "Net working time கணக்கிடும்போது unpaid breaks Shift duration-இலிருந்து கழிக்கப்படும்.",
+            "Active எனக் குறிக்கப்பட்ட Schedule-க்கும் zero assigned shifts மற்றும் coverage இல்லாமை இருக்கலாம்.",
+            "புதிய Handover Draft; receiving Shift context-ஐ review செய்த பின் மட்டுமே Complete செய்யுங்கள்.",
+            "Zero Break Logs உடன் 100% Break Compliance rate, compliant breaks நடந்ததை நிரூபிக்காது."
           ],
           "checklist": [
-            "WIP மற்றும் தடுக்கப்பட்ட அலகுகள் அடையாளம் காணப்படுகின்றன.",
-            "திறந்த நடவடிக்கைகளுக்கு தெளிவான அடுத்த படிகள் உள்ளன.",
-            "முந்தைய Shift-ஐ மீண்டும் அமைக்காமல் அடுத்த Shift தொடர முடியும்."
+            "Nova X1 Shift net working time unpaid break பின் 7h 45m.",
+            "Authorized Handover Nova X1 Shift மற்றும் Final Assembly Line உடன் இணைக்கப்பட்டுள்ளது.",
+            "Production, quality, equipment, safety, மற்றும் pending repair work பதிவு செய்யப்பட்டுள்ளன.",
+            "Complete தேர்ந்தெடுக்கும் முன் Draft review செய்யப்படுகிறது."
           ]
         },
         {
@@ -1617,30 +1628,28 @@
             "Stations மற்றும் Repair Stations-ஐ உருவாக்குங்கள்"
           ],
           "flow": [
-            "Tools-ஐத் திறங்கள்",
-            "Tool-ஐ உருவாக்குங்கள் அல்லது கண்டறியுங்கள்",
-            "Control details-ஐ மதிப்பாய்வு செய்யுங்கள்",
-            "Maintenance Alerts-ஐ மதிப்பாய்வு செய்யுங்கள்",
-            "Maintenance Work Orders-ஐப் பயன்படுத்துங்கள்",
-            "Production-ஐ பாதுகாக்குங்கள்"
+            "Tool-ஐ register செய்யுங்கள்",
+            "Calibration governance-ஐ அமைக்குங்கள்",
+            "Calibration evidence-ஐப் பதிவு செய்யுங்கள்",
+            "Maintenance Alerts-ஐ evaluate செய்யுங்கள்",
+            "Maintenance Work Order-ஐ approve செய்யுங்கள்"
           ],
           "steps": [
-            "Process & Engineering → Tools and Equipments-ஐத் திறந்து Tools-ஐத் தேர்ந்தெடுங்கள்.",
-            "உருவாக்கச் செயலைத் தேர்ந்தெடுங்கள் அல்லது ஏற்கனவே உள்ள Tool பதிவைத் தேடுங்கள்.",
-            "Identity, manufacturer/model, category, assigned Station, மற்றும் availability status-ஐ உறுதிப்படுத்துங்கள்.",
-            "Priority, owner, affected Tool/equipment, Line, மற்றும் status-ஐப் பார்த்து தேவைப்பட்டால் maintenance check trigger செய்யுங்கள்.",
-            "Maintenance type, priority, assigned owner, scheduled start, மற்றும் completion status-ஐ track செய்யுங்கள்.",
-            "Availability அல்லது maintenance state பொருத்தமில்லாதபோது Tool-ஐ execution-க்கு பயன்படுத்தாதீர்கள்."
+            "Child Tools and Equipments page-ஐத் திறந்து required Tool Name, Tool Code, Tool Category, Manufacturer, Model, Station, மற்றும் Status-ஐ உள்ளிடுங்கள்.",
+            "Tool governed ஆக இருந்தால் மட்டுமே Requires Calibration-ஐ enable செய்யுங்கள்; இதனால் interval மற்றும் provider fields தோன்றும்.",
+            "Calibration Date, Next Calibration Date, மற்றும் Result-ஐப் பதிவு செய்து governed Tool-ஐ Unknown-இலிருந்து current calibration state-க்கு மாற்றுங்கள்.",
+            "Configured rules-ஐ evaluate செய்ய Trigger Maintenance Check-ஐப் பயன்படுத்துங்கள்; matching rule இல்லையெனில் 0 alerts வரும், rows இல்லாதபோது Export disabled ஆகும்.",
+            "Required Tool மற்றும் Title கொண்டு Maintenance Work Order உருவாக்கி, Start கிடைக்கும் முன் Draft, Submitted, Approved நிலைகளில் நகர்த்துங்கள்."
           ],
           "rules": [
-            "ஒவ்வொரு Tool-க்கும் தெளிவான Station, category, மற்றும் availability state இருக்க வேண்டும்.",
-            "Cycle, calibration, அல்லது traceability முக்கியமான இடத்தில் Tool use பதிவு செய்ய வேண்டும்.",
-            "Maintenance state unsafe அல்லது invalid production use-ஐத் தடுக்க வேண்டும்."
+            "Tool Name, Tool Code, Tool Category, Manufacturer, Model, Station, மற்றும் Status required.",
+            "Calibration-governed Tool-க்கு result மற்றும் next due date உள்ள record வரும் வரை அது Unknown; overrides auditable ஆக இருக்கும்.",
+            "Maintenance Work Orders-க்கு Tool மற்றும் Title required; Medium மற்றும் Corrective defaults; approval முன் Start செய்ய முடியாது."
           ],
           "checklist": [
-            "தேவையான Tools பதிவு செய்யப்பட்டு சரியாக இடம்படுத்தப்பட்டுள்ளன.",
-            "calibration மற்றும் பராமரிப்புத் தேதிகள் தற்போதையவை.",
-            "Routing தேவைகள் கிடைக்கும் சொத்துகளுக்குப் பொருந்துகின்றன."
+            "Tool intended Nova X1 Station-க்கு assigned ஆகி சரியான status கொண்டுள்ளது.",
+            "தேவைப்பட்டால் calibration evidence, certificate, மற்றும் next due date current ஆக உள்ளன.",
+            "Approved maintenance window scheduled ஆகி, order முன்கூட்டியே start செய்யப்படவில்லை."
           ]
         },
         {
@@ -1650,28 +1659,28 @@
           "importance": "Recommended",
           "prerequisites": ["Dashboards மற்றும் உற்பத்தி கண்காணிப்பு"],
           "flow": [
-            "Traceability report-ஐ உருவாக்குங்கள்",
-            "Dossier-ஐ generate செய்யுங்கள்",
-            "Operational records-ஐ export செய்யுங்கள்",
-            "Change history-ஐத் திறங்கள்",
-            "Evidence-ஐ மதிப்பாய்வு செய்யுங்கள்"
+            "Combined dossier scope-ஐ அமைக்குங்கள்",
+            "Report sheets-ஐத் தேர்ந்தெடுங்கள்",
+            "XLSX-ஐ generate செய்து verify செய்யுங்கள்",
+            "Filtered Work Order export உருவாக்குங்கள்",
+            "கிடைக்கும் change history-ஐ மதிப்பாய்வு செய்யுங்கள்"
           ],
           "steps": [
-            "Master Traceability-இல் required scope மற்றும் investigation-க்கு தேவையான dossier sheets-ஐத் தேர்ந்தெடுங்கள்.",
-            "Unit, route, quality, genealogy, identifier, tool, packaging, மற்றும் shipment evidence-ஐ மதிப்பாய்வு செய்யுங்கள்.",
-            "Work Orders-இல் filters-ஐ வைத்திருந்து Export Work Orders-ஐத் தேர்ந்தெடுங்கள்.",
-            "Entity-இன் Recent Changes history-ஐ பார்க்க View all changes-ஐத் தேர்ந்தெடுங்கள்.",
-            "Actor, action, entity, changed fields, மற்றும் timestamp-ஐ உறுதிப்படுத்தி affected record-க்கு திரும்புங்கள்."
+            "Master Traceability-இல் optional scope filters-ஐ combine செய்யுங்கள் அல்லது மற்ற scope filters-ஐ override செய்யும் pasted/uploaded serial-number list-ஐப் பயன்படுத்துங்கள்.",
+            "தேவையான dossier sheets-ஐத் தேர்ந்தெடுத்து report-ஐ generate செய்து, Recent exports-இல் Completed, unit count, மற்றும் XLSX filename வரும்வரை காத்திருங்கள்.",
+            "Work Orders-இல் Export Work Orders-ஐத் திறந்து, list filters inherit ஆகாததால் தனி Create Data Export dialog-இல் Search, Status, Priority-ஐ மீண்டும் apply செய்யுங்கள்.",
+            "Download செய்வதற்கு முன் Export Details-இல் type, format, state, file size, applied filters, processed rows, மற்றும் progress-ஐ உறுதிப்படுத்துங்கள்.",
+            "Actor, action, affected Work Order, மற்றும் timestamp-க்கு View all changes-ஐப் பயன்படுத்துங்கள்; current View All History destination SIT-இல் error தருகிறது."
           ],
           "rules": [
-            "Exports snapshots ஆகும் மற்றும் காலாவதியாகலாம்.",
-            "தணிக்கை வரலாறு ஒரு மாற்றத்தை விளக்குகிறது ஆனால் கட்டமைப்பு மதிப்பாய்வுக்கு பதிலாக வராது.",
-            "உணர்திறன் அல்லது உள் புலங்கள் பொது சமையல் புத்தகத்தில் சேர்க்கப்படக்கூடாது."
+            "Serial-number list மற்ற Master Traceability scope filters-ஐ override செய்கிறது.",
+            "Completed export மட்டும் போதுமான evidence அல்ல; processed rows, progress, file size, applied filters, மற்றும் file contents-ஐ verify செய்யுங்கள்.",
+            "Recent Changes தற்போது usable; View All History SIT-இல் unavailable."
           ],
           "checklist": [
-            "முக்கிய அறிக்கைகளுக்கு ஒப்புக்கொள்ளப்பட்ட வடிகட்டிகளும் வரையறைகளும் உள்ளன.",
-            "Exports தரவுக் கொள்கையின்படி கையாளப்படுகின்றன.",
-            "கட்டமைப்பு மாற்றங்களை தணிக்கை வரலாற்றிலிருந்து மீண்டும் உருவாக்க முடியும்."
+            "Dossier scope மற்றும் selected sheets investigation question-க்கு பொருந்துகின்றன.",
+            "Operational export intended filtered records-ஐ கொண்டுள்ளது.",
+            "Nova X1 Work Order-ஐ யார் எப்போது மாற்றினார் என்பதை Recent Changes காட்டுகிறது."
           ]
         }
       ]
