@@ -826,7 +826,7 @@
           ]
         },
         {
-          "title": "Assign Products to Lines",
+          "title": "Assign Lines to Product",
           "slug": "product-line-assignment",
           "summary": "Tell Fynd ERP which active Lines are allowed to receive tasks for a Product.",
           "importance": "Required",
@@ -864,7 +864,7 @@
           "slug": "starting-lines-and-capacity",
           "summary": "Configure where newly released units enter production and how Fynd ERP prevents Line overload.",
           "importance": "Required",
-          "prerequisites": ["Assign Products to Lines"],
+          "prerequisites": ["Assign Lines to Product"],
           "flow": [
             "Open Line detail",
             "Edit throughput",
@@ -942,7 +942,7 @@
           "importance": "Required",
           "prerequisites": [
             "Create and Validate a Routing",
-            "Assign Products to Lines",
+            "Assign Lines to Product",
             "Create Shifts"
           ],
           "flow": [
@@ -975,7 +975,7 @@
           "prerequisites": [
             "Production Order vs Work Order",
             "Create and Validate a Routing",
-            "Assign Products to Lines",
+            "Assign Lines to Product",
             "Create Shifts"
           ],
           "flow": [
