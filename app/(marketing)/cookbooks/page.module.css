@@ -40,10 +40,23 @@
   border-color: var(--fds-neutral-50);
 }
 
-.forgeLogo {
+.fyndErpLogo {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.5rem;
+  width: 10.5rem;
+}
+
+.fyndWordmark {
   display: block;
   height: auto;
-  width: 10.5rem;
+  min-width: 0;
+  width: 6.75rem;
+}
+
+.erpLabel {
+  line-height: 1;
+  white-space: nowrap;
 }
 
 @media (max-width: 767px) {

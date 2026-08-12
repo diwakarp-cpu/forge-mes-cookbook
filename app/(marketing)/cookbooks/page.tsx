@@ -65,17 +65,22 @@ export default function CookbooksPage() {
           <Grid columns={3} gap={24} className={styles.grid}>
             <Link href={FORGE_COOKBOOK_BASE_PATH} className={styles.cardLink}>
               <RichIconCard
-                title="Forge"
+                title="Fynd ERP"
                 subtext="Product modules, recipes, implementation guidance, and troubleshooting references for Fynd ERP."
                 icon={
-                  <Image
-                    src="/brand/forge-dark.png"
-                    alt="Forge"
-                    width={168}
-                    height={51}
-                    unoptimized
-                    className={styles.forgeLogo}
-                  />
+                  <span className={styles.fyndErpLogo} aria-label="Fynd ERP">
+                    <Image
+                      src="/brand/fynd-horizontal-dark.svg"
+                      alt=""
+                      width={148}
+                      height={50}
+                      unoptimized
+                      className={styles.fyndWordmark}
+                    />
+                    <Text variant="heading-m" as="span" className={styles.erpLabel}>
+                      ERP
+                    </Text>
+                  </span>
                 }
                 iconSize="logo-horizontal"
                 iconBordered={false}
