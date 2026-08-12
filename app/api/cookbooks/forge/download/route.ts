@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 
-const FILENAME = "forge-mes-product-cookbook.pdf";
+const FILENAME = "fynd-erp-product-cookbook.pdf";
 const PDF_PATH = path.join(process.cwd(), "public", "downloads", FILENAME);
 
 export async function GET() {
@@ -14,7 +14,7 @@ export async function GET() {
 
   return new Response(new Uint8Array(pdf), {
     headers: {
-      "Cache-Control": "public, max-age=86400",
+      "Cache-Control": "no-store, max-age=0",
       "Content-Disposition": `attachment; filename="${FILENAME}"`,
       "Content-Length": String(pdf.byteLength),
       "Content-Type": "application/pdf",
