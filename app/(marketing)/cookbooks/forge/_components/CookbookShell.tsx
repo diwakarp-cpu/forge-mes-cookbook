@@ -11,6 +11,7 @@ import {
   type CookbookSearchItem,
 } from "./CookbookSearch";
 import { LanguageToggle } from "./LanguageToggle";
+import { CookbookEntryIcon } from "./CookbookEntryIcon";
 import styles from "./cookbook.module.css";
 
 type NavigationItem = {
@@ -82,7 +83,13 @@ export function CookbookShell({
 
                 return (
                   <div className={styles.sidebarGroup} key={item.href}>
-                    <div className={styles.sidebarGroupHeader}>
+                    <div
+                      className={
+                        active
+                          ? `${styles.sidebarGroupHeader} ${styles.sidebarGroupHeaderActive}`
+                          : styles.sidebarGroupHeader
+                      }
+                    >
                       <Link
                         href={item.href}
                         className={active ? styles.sidebarLinkActive : styles.sidebarLink}
@@ -96,6 +103,9 @@ export function CookbookShell({
                           })
                         }
                       >
+                        <span className={styles.sidebarModuleIcon} aria-hidden>
+                          <CookbookEntryIcon title={item.title} />
+                        </span>
                         <Text
                           variant="body-s"
                           as="span"

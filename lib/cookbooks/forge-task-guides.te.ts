@@ -7,7 +7,7 @@ const guide = (navigationPath: string, steps: string[]): ForgeTaskGuide => ({
 
 export const TASK_GUIDES_TE: Record<string, ForgeTaskGuide> = {
   "complete-setup-journey": guide("Fynd ERP Dashboard", [
-    "**Setup journey తెరవండి:** Setup, Process & Engineering, Production, మరియు Traceability విభాగాలను వరుసగా పూర్తి చేయడానికి ఎడమ నావిగేషన్‌ను ఉపయోగించండి.",
+    "**Manufacturing journey తెరవండి:** మీ process‌కు అవసరమైన క్రమంలో Production, Process & Engineering, Quality, మరియు తరువాతి manufacturing modules ద్వారా పని చేయడానికి ఎడమ navigation ఉపయోగించండి.",
     "**Factory రికార్డులను సృష్టించండి:** Sites, Lines, operation Stations, Repair Stations, మరియు Shift Definitions సృష్టించండి.",
     "**Product రికార్డులను సృష్టించండి:** Project, Product Family, Components, Product, Variants, మరియు BOM Version సృష్టించండి.",
     "**Execution కోసం సిద్ధం చేయండి:** BOM ను activate చేసి, Routing ను సృష్టించి validate చేసి, Product ను eligible Lines కు assign చేయండి.",
@@ -20,7 +20,7 @@ export const TASK_GUIDES_TE: Record<string, ForgeTaskGuide> = {
     "**అవసరమైన identity నమోదు చేయండి:** **Name** మరియు **Code** తప్పనిసరి. Code లో అక్షరాలు, సంఖ్యలు, మరియు hyphen మాత్రమే అనుమతించబడతాయి.",
     "**అవసరమైతే location వివరాలు జోడించండి:** Address fields optional. **State / Province / Region** కంటే ముందు **Country** ఎంచుకోండి; ఎంచుకున్న location ఆధారంగా City values filter అవుతాయి.",
     "**Optional metadata జాగ్రత్తగా జోడించండి:** Metadata 32 KB పరిమితిలో ఉండాలి; search లేదా grouping కు ఉపయోగపడితే మాత్రమే tags జోడించండి.",
-    "**ప్రస్తుత SIT limitation ను సమీక్షించండి:** Request లోని **DIGIPIN** ను SIT API reject చేయడం వల్ల manual creation ప్రస్తుతం విఫలమవుతోంది. తప్పు success state చూపకుండా video నిజమైన error ను ఉంచుతుంది.",
+    "**సృష్టించి తనిఖీ చేయండి:** **Create** ఎంచుకుని, కొత్త Site జాబితాలో కనిపిస్తోందని మరియు Station సృష్టించేటప్పుడు దాన్ని ఎంచుకోగలమని నిర్ధారించండి.",
   ]),
   lines: guide("Mfg → Process & Engineering → Line", [
     "**Lines తెరవండి:** **Mfg** తెరిచి, **Process & Engineering** విస్తరించి, **Line** ఎంచుకోండి.",
@@ -62,14 +62,13 @@ export const TASK_GUIDES_TE: Record<string, ForgeTaskGuide> = {
       "**ఒక చిన్న validation రన్ చేయండి:** factory model, Production Tasks ను స్వీకరించి route చేయగలదని నిర్ధారించడానికి ఒక చిన్న Work Order quantity ఉపయోగించండి.",
     ],
   ),
-  "projects-and-product-families": guide("Mfg → Setup → Projects", [
-    "**Projects తెరవండి:** **Mfg** తెరిచి, **Setup** విస్తరించి, **Projects** ఎంచుకోండి.",
-    "**Project ప్రారంభించండి:** **Create Project** ఎంచుకుని **Create Manually** ఎంచుకోండి; AI-assisted option కూడా ఉపయోగించవచ్చు.",
-    "**Project requirements నమోదు చేయండి:** **Project Name**, **Code**, మరియు **Status** తప్పనిసరి. Code లో అక్షరాలు, సంఖ్యలు, hyphen, మరియు underscore అనుమతించబడతాయి; Client Company optional.",
-    "**Project create చేసి తెరవండి:** **Create Project** ఎంచుకుని success summary ను review చేసి **View Details** ఎంచుకోండి.",
-    "**Product Families తెరవండి:** Project లో **Product Families** tab ఎంచుకుని **Create Product Family** ఎంచుకోండి. Project ముందే select అయి ఉంటుంది; ఈ dialog లో మార్చలేరు.",
-    "**Family requirements నమోదు చేయండి:** **Name** మరియు **Code** తప్పనిసరి. Type optional; ODM, OEM, Custom, Standard, లేదా Other support అవుతాయి. Status default గా Active ఉంటుంది.",
-    "**Hierarchy verify చేయండి:** **Create** ఎంచుకుని Product Family దాని code, status, type, మరియు product count తో Project కింద కనిపిస్తుందని నిర్ధారించండి.",
+  "projects-and-product-families": guide("Mfg → Production → Product Families", [
+    "**Product Families తెరవండి:** **Mfg** తెరిచి, **Production** విస్తరించి, **Product Families** ఎంచుకోండి.",
+    "**List‌ను review చేయండి:** కొత్త Family సృష్టించే ముందు search మరియు filters‌తో ఇప్పటికే ఉందో చూడండి.",
+    "**Product Family ప్రారంభించండి:** Available create action ఎంచుకుని required **Name** మరియు **Code** నమోదు చేయండి.",
+    "**Classification జోడించండి:** Product group‌కు వర్తిస్తే మాత్రమే Type, Status, Project, లేదా ఇతర context ఎంచుకోండి.",
+    "**Create చేసి verify చేయండి:** Product Family‌ను save చేసి code, status, type, Project context, మరియు product count list‌లో సరైందో చూడండి.",
+    "**Recorded SIT navigation:** Verification సమయంలో **Mfg → Production** కింద Projects ప్రత్యేక option‌గా లేదు. Product Family screen‌లో Project field లేదా linked Project context ఉన్నప్పుడు మాత్రమే ఉపయోగించి, client demo ముందు target environment‌ను మళ్లీ తనిఖీ చేయండి.",
   ]),
   components: guide("Masters → Item Master", [
     "**Item Master తెరవండి:** **Masters** తెరిచి **Item Master** ఎంచుకుని, తర్వాత **Add Item** ఎంచుకోండి.",
@@ -78,6 +77,8 @@ export const TASK_GUIDES_TE: Record<string, ForgeTaskGuide> = {
     "**Tracking configure చేయండి:** **Track by Serial Number** enable చేస్తే Consumable మరియు Fixed Serial disable అవుతాయి. Mixed serial మరియు lot tracking కోసం **Track by Non-Serialized** అదే సమయంలో enabled గా ఉండవచ్చు.",
     "**Stock limits సెట్ చేయండి:** Reorder point maximum stock ను మించకూడదు; minimum stock ను reorder point కు సమంగా లేదా తక్కువగా ఉంచండి.",
     "**Create చేసి verify చేయండి:** **Create Component/Part** ఎంచుకుని code, unit, serialized status, మరియు non-serialized tracking ఉన్న success summary ను సమీక్షించండి.",
+    "**మార్చగల details update చేయండి:** **Item Master**-లో material‌ను మళ్లీ తెరిచి, అనుమతించిన identity, stock, supplier, లేదా description fields‌ను అవసరానికి అనుగుణంగా edit చేయండి. Unit మరియు permanent tracking controls creation తర్వాత locked‌గా ఉంటాయి.",
+    "**Inventory activity track చేయండి:** Inventory Lots, Serials, Usage History, మరియు సంబంధిత inventory views ద్వారా stock receive చేసి, lot, serial, quantity, మరియు consumption history‌ను అనుసరించండి.",
   ]),
   "products-and-variants": guide("Mfg → Production → Products", [
     "**Products తెరవండి:** **Mfg** తెరిచి **Production** విస్తరించి **Products** ఎంచుకోండి.",
@@ -92,7 +93,7 @@ export const TASK_GUIDES_TE: Record<string, ForgeTaskGuide> = {
     "Mfg → Production → Products → Product detail → BOM Versions",
     [
       "**Product తెరవండి:** **Mfg → Production → Products** తెరిచి Product ను కనుగొని **View** ద్వారా details తెరవండి.",
-      "**Draft version తెరవండి:** **BOM Versions** కింద **View Version Details** ద్వారా **Initial Version (V1)** తెరవండి. Product create సమయంలో ఇచ్చిన BOM నుంచి SIT ఈ Draft ను స్వయంచాలకంగా సృష్టిస్తుంది.",
+      "**Draft version తెరవండి:** **BOM Versions** కింద **View Version Details** ద్వారా **Initial Version (V1)** తెరవండి. Recorded SIT flowలో Product creation ఇచ్చిన BOM నుంచి ఈ Draft ను సృష్టించింది; target environmentలో కూడా అలాగే జరుగుతుందో verify చేయండి.",
       "**BOM item జోడించండి:** **Add Item** ఎంచుకోండి. Version Draft లో ఉన్నప్పుడు items జోడించవచ్చు.",
       "**Scope ఎంచుకోండి:** అన్ని Variants ఉపయోగించే material కు **Shared** వాడండి. Configuration-specific material కు మాత్రమే Variant BOM ఎంచుకోండి.",
       "**Quantity మరియు unit సెట్ చేయండి:** Quantity కనీసం 1. Production వేరే compatible unit ఉపయోగించినప్పుడు మాత్రమే optional **Unit Override** వాడండి.",
@@ -152,6 +153,15 @@ export const TASK_GUIDES_TE: Record<string, ForgeTaskGuide> = {
       "**Save చేసి verify చేయండి:** **Save** ఎంచుకుని Line detail‌లో status, Site, Capacity Per Hour, Capacity Per Shift, మరియు assigned Products సరైనవని నిర్ధారించండి.",
     ],
   ),
+  templates: guide("Mfg → Process & Engineering → Templates", [
+    "**Templates తెరవండి:** **Mfg** తెరిచి, **Process & Engineering** విస్తరించి, **Templates** ఎంచుకోండి.",
+    "**Template ప్రారంభించండి:** **Create Template** ఎంచుకుని, **Create Manually** ఎంచుకోండి లేదా AI-assisted option ద్వారా draft సిద్ధం చేయండి.",
+    "**అవసరమైన identity నమోదు చేయండి:** **Template Name** మరియు **Template Type** తప్పనిసరి. Description optional.",
+    "**Data scope ఎంచుకోండి:** **Context Type** optional; ఏ data sources variables‌గా అందుబాటులో ఉంటాయో ఇది నియంత్రిస్తుంది. ఎక్కువ flexibility అవసరమైనప్పుడు మాత్రమే ఖాళీగా ఉంచండి.",
+    "**Template నిర్మించండి:** ఎంచుకున్న type‌కు అవసరమైన content, pattern, parser లేదా validation rule జోడించండి. PDF/HTML, HTML, CSS మరియు Nunjucks variables‌ను support చేస్తుంది; starter ఉపయోగకరమైతే **Load Sample** వాడండి.",
+    "**Activate చేసే ముందు preview చేయండి:** Editor, Variables మరియు Data Preview ద్వారా realistic dataతో output‌ను verify చేయండి. Template ఉపయోగానికి సిద్ధంగా ఉన్నప్పుడే **Active** on‌లో ఉంచండి.",
+    "**Save చేసి verify చేయండి:** **Save** ఎంచుకుని Templates list‌లో సరైన name, type, status, creator మరియు creation date ఉన్నాయని నిర్ధారించండి. Governance ఉంటే **My Approvals** మరియు change history వాడండి.",
+  ]),
   "product-identifiers": guide(
     "Manufacturing → Process & Engineering → Identifier Management; Production → Products → Product detail → Product Identifiers",
     [
@@ -162,6 +172,18 @@ export const TASK_GUIDES_TE: Record<string, ForgeTaskGuide> = {
       "**Mapping configure చేయండి:** Identifier definition ఎంచుకుని తప్పనిసరి Identifier Key మరియు Display Name నమోదు చేసి **Generated** లేదా **External** ఎంచుకోండి. Keys uppercase‌గా store చేయబడతాయి.",
       "**Assignment behavior సెట్ చేయండి:** **On Task Creation**, **On Task Start**, లేదా **At Route Step** ఎంచుకోండి. Generated IMEI కోసం అవసరానికి అనుగుణంగా **Auto-generate** మరియు **Must be Unique** enable చేయండి.",
       "**Save చేసి verify చేయండి:** **Add Identifier** ఎంచుకుని Product table‌లో key, display name, type, source, assignment timing, మరియు linked range నిర్ధారించండి.",
+    ],
+  ),
+  "create-production-order": guide(
+    "Mfg → Production → Production Orders",
+    [
+      "**Production Orders తెరవండి:** **Mfg** తెరిచి, **Production** విస్తరించి, **Production Orders** ఎంచుకోండి.",
+      "**Order ప్రారంభించండి:** **Create Production Order** ఎంచుకుని, **Create Manually** ఎంచుకోండి లేదా AI-assisted option ద్వారా draft సిద్ధం చేయండి.",
+      "**అవసరమైన identity నమోదు చేయండి:** **Name** మరియు **Order Number** తప్పనిసరి. ఈ grouping record‌ను ప్రత్యేకంగా గుర్తించే Order Number వాడండి.",
+      "**Optional Client scope సెట్ చేయండి:** ఈ Production Order ఒక Client Work Orders‌కే పరిమితం కావాలంటే **Client** ఎంచుకోండి. Client ఎంపిక eligible Work Orders‌ను పరిమితం చేస్తుంది.",
+      "**Planning context జోడించండి:** Description, Start Date, End Date మరియు metadata optional. Scheduling, search లేదా reporting‌కు ఉపయోగపడితే జోడించండి.",
+      "**Grouping record సృష్టించండి:** Fields review చేసి **Create Production Order** ఎంచుకోండి. Production Order work‌ను group చేస్తుంది; అది ఒంటరిగా executable quantity లేదా Production Tasks సృష్టించదు.",
+      "**Work Orders link చేసి monitor చేయండి:** Production Order తెరిచి, అర్హమైన సంబంధిత Work Orders‌ను link చేసి, combined progress, status మరియు planned date range‌ను monitor చేయండి.",
     ],
   ),
   "create-work-order": guide("Manufacturing → Production → Work Orders", [
@@ -254,15 +276,23 @@ export const TASK_GUIDES_TE: Record<string, ForgeTaskGuide> = {
     "**ఒకే production source ఎంచుకోండి:** **Work Order** లేదా available, non-expired **Lot**—రెండింటిలో ఒకదాని నుంచే inspection సృష్టించండి. Required total quantity మరియు sampling quantity నమోదు చేయండి.",
     "**ప్రతి sample రికార్డు చేయండి:** Serial లేదా lot sample నమోదు చేసి checks పూర్తి చేయండి. Failed sample save చేయడానికి **Defect code** మరియు **Severity** అవసరం.",
     "**Hold scope ఎంచుకోండి:** Inspection reject చేసినప్పుడు failed serials మాత్రమే లేదా మొత్తం lot ను hold చేయండి. Inspection-local defects మరియు plant **Defects** list records వేర్వేరు.",
-    "**ప్రస్తుత SIT పరిమితులు:** **Create NCR** ప్రస్తుతం “NCR report not found” తెరుస్తుంది. ఈ build లో **CAPA Management** create action లేదు; కాబట్టి ఈ screens నుండి NCR మరియు CAPA creation పూర్తి చేయలేరు.",
+    "**Deployment availability నిర్ధారించండి:** NCR మరియు CAPA actions deployment మరియు permission‌పై ఆధారపడవచ్చు. Working create action లేకపోతే workflow available అని చెప్పకుండా implementation owner‌తో enablement నిర్ధారించండి.",
   ]),
-  "repair-and-rework": guide("Manufacturing → Repair & Rework", [
-    "**ముందుగా intake configure చేయండి:** **Repair Config** తెరవండి. Failed units స్వయంచాలకంగా repair queue లోకి రావాలంటే **Auto-create repair on failure** enable చేసి **Default Repair Station** ఎంచుకోండి.",
-    "**Failed units triage చేయండి:** Incoming failures కోసం **Debug Queue** ఉపయోగించండి. **Rework Board** jobs failure లేదా Disposition నుండి వస్తాయి; board లో create action లేదు.",
-    "**Job track చేయండి:** Linked Work Order, serial number, rework mechanism, attempt number, మరియు Pending, In Progress, Pending Re-inspection లేదా Failed column సమీక్షించండి.",
-    "**Repair evidence రికార్డు చేయండి:** **Record work** ఎంచుకుని labor minutes, material cost, మరియు సంక్షిప్త work notes నమోదు చేసి **Complete Work** ఎంచుకోండి.",
-    "**ప్రస్తుత SIT పరిమితి:** Complete Work labor మరియు material cost save చేస్తుంది; కానీ job **In Progress** లోనే ఉంటుంది, reopen చేసినప్పుడు notes clear అవుతాయి, re-inspection ప్రారంభం కాదు. Attempt limits విడిగా **Alerts** లో configure చేయాలి.",
-  ]),
+  "repair-and-rework": guide(
+    "Mfg → Repair & Rework → Debug Queue, Repair Queue, Repair Out, మరియు Rework Board",
+    [
+      "**Failed RSN‌ను Repair‌కు పంపండి:** **Debug Queue**లో RSN తెరిచి failure evidence, route context, మరియు previous attempts review చేయండి. Forge **Send to Repair** చూపినప్పుడు మాత్రమే ఎంచుకుని Repair Level, available 4M cause details, diagnosis notes నమోదు చేసి submit చేయండి; status **Queued for Repair** అయిందో చూడండి.",
+      "**Repair ప్రారంభించండి:** **Repair Queue**లో అదే RSN తెరిచి failure evidence, Repair Station, attempt history, మరియు status తనిఖీ చేయండి. **Start Repair** ఎంచుకుని prompted fields పూర్తి చేసి job **In Repair** అయిందో నిర్ధారించండి.",
+      "**Repair complete చేయండి:** Work పూర్తయిన తర్వాత మాత్రమే **Complete Repair** ఎంచుకోండి. **Repair Successful** లేదా **No Fault Found**, confirmed 4M category, repair minutes, cost, notes, మరియు evidence నమోదు చేయండి. Submit చేసి **Pending QC** అయిందో చూడండి. Verified flowలో ఇదే QC handoff; వేరే Send to QC action లేదు.",
+      "**QCలో approve చేయండి:** **Repair Out**లో **Pending QC** RSN తెరిచి timeline, result, costs, notes, మరియు evidence review చేయండి. Forge చూపినప్పుడు **QC Pass** ఎంచుకుని required notes జోడించండి; refresh తర్వాత **QC Passed** status మరియు timelineలో ఉందో చూడండి.",
+      "**QC తర్వాత release చేయండి:** QC-passed recordకు Forge **Release** చూపినప్పుడు మాత్రమే ఉపయోగించండి. Destination లేదా next step నిర్ధారించి ఒక్కసారి submit చేసి resulting status verify చేయండి.",
+      "**QCలో reject చేయండి:** Verification fail అయితే available **QC Reject** action ఉపయోగించి required reason మరియు notes నమోదు చేయండి. Refresh చేసి resulting status మరియు timeline చూడండి; RSN Repair లేదా Reworkకు తిరిగిందని assume చేయవద్దు.",
+      "**Repairకు తిరిగిన RSN:** Post-rejection status లేదా displayed action Repairకు పంపితే **Repair Queue**లో new attempt ప్రారంభించి issue సరిచేసి new evidence నమోదు చేసి complete చేయండి; మళ్లీ **Pending QC** చేరిందో చూడండి.",
+      "**Reworkకు పంపి complete చేయండి:** Approved RSNకు Forge చూపే Rework disposition మాత్రమే ఉపయోగించండి. Controlled symptom, reason, మరియు routing information నమోదు చేసి **Rework Board**లో card track చేయండి. **Record work** ద్వారా attempt మరియు evidence నమోదు చేసి displayed result column చేరిందో verify చేయండి.",
+      "**Approved dispositionకు మాత్రమే Scrap:** **Report Scrap** లేదా Scrap action available మరియు approved అయినప్పుడు మాత్రమే controlled reason, evidence, మరియు approval trail నమోదు చేయండి; Scrap Register status verify చేయండి.",
+      "**Forge error వస్తే ఆపండి:** State-changing actionను repeat చేయవద్దు; success అని assume చేయవద్దు. RSN మరియు visible status ఉంచి error report చేయండి.",
+    ],
+  ),
   "hold-scrap-teardown": guide("Manufacturing → Quality or Scrap & Teardown", [
     "**సరైన hold సృష్టించండి:** **Quality → Hold Management → Create Hold** తెరవండి. ముందుగా Hold Level ఎంచుకోండి; ఇది required target మరియు operational impact ను మారుస్తుంది.",
     "**Required hold fields పూర్తి చేయండి:** Target మరియు **Reason** ఎంచుకోండి. Notes optional; Work Order hold కు optional expected release date జోడించవచ్చు.",
@@ -270,12 +300,33 @@ export const TASK_GUIDES_TE: Record<string, ForgeTaskGuide> = {
     "**Scrap ను upstream లో track చేయండి:** ముందుగా **Scrap Reasons** configure చేయండి. **Scrap Register** Pending Approval, Approved, Executed, మరియు Rejected dispatches track చేస్తుంది; ఇందులో create action లేదు.",
     "**Teardown సరిగ్గా ప్రారంభించండి:** Executed Scrap dispatch ను **Send to teardown** తో పంపిన తర్వాత మాత్రమే Teardown order కనిపిస్తుంది. Donor serial మరియు scrap dispatch recovered Components కు linked గా ఉంటాయి.",
   ]),
+  "scrap-register": guide("Mfg → Scrap & Teardown → Scrap Register", [
+    "**Register తెరవండి:** **Scrap & Teardown** తెరిచి **Scrap Register** ఎంచుకోండి. ఇది review queue; create action లేదు.",
+    "**Status view ఎంచుకోండి:** సరైన dispatch state కోసం **All**, **Pending Approval**, **Approved**, **Executed**, లేదా **Rejected** ఉపయోగించండి.",
+    "**Scope సెట్ చేయండి:** Source, Category, Reason, Line, Station, Work Order, Product, లేదా Date Range ద్వారా filter చేసి, source data మారితే **Refresh** ఉపయోగించండి.",
+    "**Dispatch evidence review చేయండి:** Action తీసుకునే ముందు dispatch number, source, unit లేదా quantity, Product, Work Order, Station, reason, proposer, status, మరియు age సరైనవో చూడండి.",
+    "**Approval flow కాపాడండి:** Record eligible state‌లో ఉండి required evidence review చేసినప్పుడు మాత్రమే approve, execute, reject, లేదా teardown‌కు పంపండి. Recorded SIT walkthrough read-only.",
+  ]),
+  "scrap-reasons": guide("Mfg → Scrap & Teardown → Scrap Reasons", [
+    "**Scrap Reasons తెరవండి:** **Scrap & Teardown → Scrap Reasons** తెరవండి. Obsolete categories లేదా reasons చూడాల్సినప్పుడు మాత్రమే **Show inactive** ఉపయోగించండి.",
+    "**Taxonomy ప్రారంభించే విధానం ఎంచుకోండి:** Standard categories కోసం **Seed industry defaults**, manual category కోసం **Add category** ఎంచుకోండి.",
+    "**Manual category నమోదు చేయండి:** **Code** మరియు **Name** required. Description optional; Sort Order category స్థానం నిర్ణయిస్తుంది.",
+    "**Category కింద reason codes నిర్వహించండి:** స్పష్టమైన, duplicate కాని reasons జోడించి, ప్రస్తుతం selectable entries మాత్రమే active‌గా ఉంచండి.",
+    "**Recorded SIT state:** Verified walkthrough‌లో scrap-reason categories లేవు. Existing data మారకుండా seed లేదా save చేయలేదు; empty state ఇంకా current అని client‌కు చూపే ముందు target Plant‌ను మళ్లీ తనిఖీ చేయండి.",
+  ]),
   packaging: guide("Manufacturing → Packaging & Shipping → Packaging", [
     "**Packaging తెరవండి:** **Packaging & Shipping** తెరిచి **Packaging** ఎంచుకోండి.",
     "**Product hierarchy configure చేయండి:** **Packing Configuration** తెరిచి Product ఎంచుకుని product-specific container type నిర్వచించండి. **Product**, **Name**, మరియు **Code** తప్పనిసరి; Code 2–10 alphanumeric characters ను అంగీకరిస్తుంది.",
     "**Leaf లేదా parent behavior ఎంచుకోండి:** Finished-unit serials ను నేరుగా bind చేసే leaf కోసం **Child Container Type** ఖాళీగా ఉంచండి; లేకపోతే Device → Box → Carton → Pallet hierarchy కోసం అనుమతించిన child ను ఎంచుకోండి.",
     "**Container సృష్టించండి:** Packaging Dashboard కు తిరిగి వెళ్లి **Create Container** ఎంచుకోండి. Product ఎంచుకుని, తప్పనిసరి **Container Type** మరియు **Work Order ID** ఎంచుకోండి; రెండూ ఉండే వరకు Create enable కాదు.",
     "**Packaging సమీక్షించి పూర్తి చేయండి:** Generated UID తెరిచి device count, weight and dimensions, linked Work Order, label state, మరియు History చూడండి. UID template optional; లేకపోతే Fynd ERP default format ఉపయోగిస్తుంది.",
+  ]),
+  shipments: guide("Mfg → Packaging & Shipping → Shipments", [
+    "**Shipments తెరవండి:** **Packaging & Shipping** తెరిచి **Shipments** ఎంచుకోండి.",
+    "**Existing shipment వెతకండి:** ASN లేదా destination ద్వారా search చేయండి; Work Order, Product, Status, మరియు Date Range filters ఉపయోగించండి. List‌లో ASN, Work Order, destination, contents, carrier, status, dates, మరియు actions కనిపిస్తాయి.",
+    "**Valid source data ఉన్నప్పుడు మాత్రమే shipment ప్రారంభించండి:** **New Shipment** ఎంచుకోండి. Work Order optional; **Product** మరియు **Address line 1** required. Destination, carrier, optional invoice లేదా vendor-lot details, మరియు notes పూర్తి చేయండి.",
+    "**Created record verify చేయండి:** Shipment verification‌కు వెళ్లే ముందు కొత్త record expected destination, contents, carrier, status, మరియు dates‌తో list‌లో ఉందో చూడండి.",
+    "**Recorded SIT state:** Verified walkthrough‌లో Shipments లేవు; client data సృష్టించకుండా ఉండేందుకు form submit చేయలేదు. Target environment‌లో approved source records‌తో test చేసే వరకు shipment creation మరియు verification handoff unverified.",
   ]),
   "containers-and-labels": guide("Manufacturing → Packaging & Shipping", [
     "**Container hierarchy నిర్మించండి:** **Packing Configuration** లో ముందుగా leaf సృష్టించి, తర్వాత ప్రతి parent కు అనుమతించిన **Child Container Type** ఎంచుకోండి. Child ఎంచుకున్న వెంటనే **Max child count** తప్పనిసరి అవుతుంది.",
@@ -289,9 +340,9 @@ export const TASK_GUIDES_TE: Record<string, ForgeTaskGuide> = {
     [
       "**ముందుగా Shipment ఎంచుకోండి:** **Shipment Verification** తెరవండి. **Shipment** తప్పనిసరి; Shipment ఎంచుకునే వరకు **Container Type**, verification counts, container rows, మరియు Export అందుబాటులో ఉండవు.",
       "**Governing rule పాటించండి:** Active **Shipment Rule** selected container configuration ను కలిగి ఉండి, container count మరియు maximum-weight limits ను అనుమతించాలి. ఏ rule apply అవుతుందో priority నిర్ణయిస్తుంది.",
-      "**Shipping Gate తనిఖీ చేయండి:** Approved Purchase Order quantity కు positive remaining balance అవసరం. SIT లోని ఏకైక active gate పూర్తిగా consumed అయింది: approved 5, consumed 5, balance 0.",
-      "**అవసరమైతే ASN export configure చేయండి:** ASN Excel columns client- లేదా product-scoped template నుండి వస్తాయి. ఈ SIT Plant లో ప్రస్తుతం ASN templates లేవు.",
-      "**ప్రస్తుత SIT పరిమితి:** ఈ Plant లో Shipments లేవు. **Create Shipment** backend-required `lines` మరియు `warehouseRootLocationId` values ను పంపదు; submission fail కావడంతో current SIT UI లో verification ప్రారంభించలేము.",
+      "**Shipping Gate తనిఖీ చేయండి:** Verification ముందు applicable approved Purchase Order quantity‌కు positive remaining balance ఉందో నిర్ధారించండి.",
+      "**అవసరమైతే ASN export configure చేయండి:** ASN Excel columns client- లేదా product-scoped template నుండి వస్తాయి. Export‌పై ఆధారపడే ముందు target environment‌లో required template ఉందో నిర్ధారించండి.",
+      "**Prerequisite path verify చేయండి:** Recorded SIT walkthrough‌లో selectable Shipment లేదు; container verification మరియు export exercise చేయలేదు. Client demo ముందు approved records‌తో shipment creation, rule matching, gate balance, మరియు ASN output retest చేయండి.",
     ],
   ),
   "traceability-genealogy-recall": guide(
@@ -299,10 +350,10 @@ export const TASK_GUIDES_TE: Record<string, ForgeTaskGuide> = {
     [
       "**తప్పనిసరి dossier scope సెట్ చేయండి:** **Master Traceability** లో filters కలిపి పనిచేస్తాయి; parent selection చేసిన తర్వాత dependent Product filters తెరుచుకుంటాయి. Specific identifier list ఇతర filters ను override చేస్తుంది; కనీసం ఒక scope ఎంచుకునే వరకు **Generate Dossier** disabled గా ఉంటుంది.",
       "**Report output ఎంచుకోండి:** అవసరమైన unit, route, quality, genealogy, identifier, tool, checklist, packaging, లేదా shipment sheets మాత్రమే ఎంచుకోండి. Generation asynchronous; completed files **Recent exports** లో ఉంటాయి. Nova X1 Work Order రెండు-unit dossier రూపొందించింది.",
-      "**Stage Timeline requirements అన్నీ పూర్తి చేయండి:** Date range, కనీసం ఒక Work Order, మరియు 1–50 Operations అవసరం. ఈ SIT build date range కు asterisk చూపకపోయినా అది తప్పనిసరి.",
+      "**Stage Timeline requirements అన్నీ పూర్తి చేయండి:** Date range, కనీసం ఒక Work Order, మరియు 1–50 Operations అవసరం. Recorded SIT form date range‌కు asterisk చూపకపోయినా అది తప్పనిసరి; form మారితే target environment‌ను మళ్లీ తనిఖీ చేయండి.",
       "**సరైన దిశలో genealogy అనుసరించండి:** Full tree pallet, carton, box, device, product, Component, లేదా batch identifiers స్వీకరిస్తుంది. **Downstream** finished identity నుండి Components/lots వరకు వెళుతుంది; **Upstream** lot నుండి finished units వైపు వెళుతుంది.",
       "**Affected population కనుగొనండి:** **Find Affected Units** లో Batch/Lot Number లేదా Component Serial ద్వారా వెతకండి. Nova X1 battery lot, `NOVA-X1-PHONE-000002` ను affected finished serial గా చూపించింది.",
-      "**ప్రస్తుత SIT recall పరిమితి:** Recall సృష్టించడానికి Title మరియు Severity తప్పనిసరి. **By Batch** production tasks కనుగొనదు; completed task ను నేరుగా జోడిస్తే `productionTaskIds` unused కావడంతో fail అవుతుంది. అందువల్ల authorized Nova X1 Recall Notice zero affected units తో Draft లోనే ఉంది.",
+      "**Recall assignment‌పై ఆధారపడే ముందు verify చేయండి:** Recall సృష్టించడానికి Title మరియు Severity తప్పనిసరి. Selected batch లేదా tasks affected units‌ను populate చేస్తున్నాయా, saved notice వాటిని record చేస్తున్నదా నిర్ధారించండి; recorded SIT exercise affected-unit assignment పూర్తి చేయలేదు.",
     ],
   ),
   dashboards: guide(
@@ -318,11 +369,11 @@ export const TASK_GUIDES_TE: Record<string, ForgeTaskGuide> = {
   ),
   "shift-operations": guide("Manufacturing → Shifts & Labor", [
     "**Net working time నిర్ధారించండి:** Unpaid breaks Shift duration నుండి తీసివేయబడతాయి. **Nova X1 Assembly Morning Shift** 06:00–14:00; 15-minute unpaid tea break వల్ల 8 hours, 7h 45m net అవుతుంది.",
-    "**Schedule coverage ధృవీకరించండి:** కొత్త Shift Schedules activate చేసే వరకు Draft గా ఉంటాయి. Status మాత్రమే coverage నిరూపించదు; Active Standard/Weekend సహా మూడు current SIT Schedules 0 shifts/week చూపిస్తున్నాయి.",
+    "**Schedule coverage ధృవీకరించండి:** కొత్త Shift Schedules activate చేసే వరకు Draft‌గా ఉంటాయి. Status మాత్రమే coverage నిరూపించదు; target environment‌లో generated shifts per week మరియు calendar coverage నిర్ధారించండి.",
     "**Required Handover fields పూర్తి చేయండి:** **Shift** మరియు **Handover Date** తప్పనిసరి. Line, outgoing/incoming operators, production/quality/equipment summaries, notes, pending tasks, మరియు checklist items optional.",
     "**Connected operating context రికార్డు చేయండి:** Authorized Nova X1 Handover, `NOVA-X1-SHIFT-A` ను `NOVA_X1_LINE_01` తో కలిపి completed production, passed Route Logs, equipment state, safety, మరియు రెండు pending repair tasks రికార్డు చేస్తుంది.",
-    "**Complete ముందు review చేయండి:** కొత్త Handover **Draft**. Outgoing Supervisor current Plant Administrator గా default అవుతుంది; Incoming Supervisor blank గా ఉండవచ్చు. తదుపరి Shift review చేసిన తర్వాత మాత్రమే **Complete** ఉపయోగించండి.",
-    "**Break Compliance జాగ్రత్తగా అర్థం చేసుకోండి:** Zero Break Logs ఉన్నప్పుడు SIT 100% compliance మరియు 0 violations చూపిస్తుంది. Filtered records వచ్చే వరకు **Export CSV** disabled గా ఉంటుంది.",
+    "**Complete ముందు review చేయండి:** కొత్త Handover **Draft**. Outgoing మరియు Incoming Supervisors‌ను explicit‌గా నిర్ధారించి, తదుపరి Shift review చేసిన తర్వాత మాత్రమే **Complete** ఉపయోగించండి.",
+    "**Break Compliance జాగ్రత్తగా అర్థం చేసుకోండి:** Zero Break Logs ఉన్న recorded SIT view 100% compliance మరియు 0 violations చూపించింది; అయితే ఆ percentage compliant breaks జరిగాయనే evidence కాదు. Target environmentలో underlying logs నిర్ధారించండి; export చేయగల records ఉన్నప్పుడే **Export CSV** అందుబాటులో ఉంటుంది.",
   ]),
   "tools-and-maintenance": guide(
     "Manufacturing → Process & Engineering → Tools and Equipments",
@@ -331,7 +382,7 @@ export const TASK_GUIDES_TE: Record<string, ForgeTaskGuide> = {
       "**అవసరమైన identity పూర్తి చేయండి:** **Tool Name, Tool Code, Tool Category, Manufacturer, Model, Station, మరియు Status** required. Authorized SIT example `NOVA-X1-TORQUE-01`, **Nova X1 Smartphone SMT Placement Station** కు assigned.",
       "**Governed Tool కు మాత్రమే calibration సెట్ చేయండి:** **Requires Calibration** enable చేస్తే optional interval మరియు provider fields కనిపిస్తాయి. Required **Calibration Date, Next Calibration Date, మరియు Result** ఉన్న record వచ్చేవరకు governed Tool **Unknown** గా ఉంటుంది.",
       "**Readiness evidence రికార్డ్ చేయండి:** Nova X1 Tool కు Initial, Passed calibration, certificate `NOVA-X1-CAL-2026-001`, మరియు next due date ఉన్నాయి. Override ఉపయోగిస్తే calibration override history లో కనిపిస్తుంది.",
-      "**Maintenance Alerts evaluate చేయండి:** **Trigger Maintenance Check** configured maintenance rules ను evaluate చేస్తుంది. Matching rule లేకపోతే SIT 0 alerts చూపిస్తుంది; rows లేనందున **Export** disabled గా ఉంటుంది.",
+      "**Maintenance Alerts evaluate చేయండి:** **Trigger Maintenance Check** configured maintenance rules ను evaluate చేస్తుంది. 0 alerts అంటే rule match కాలేదని లేదా required rules/source data లేవని అర్థం కావచ్చు; result‌పై ఆధారపడే ముందు రెండింటినీ verify చేయండి. Alert rows ఉన్నప్పుడే **Export** అందుబాటులో ఉంటుంది.",
       "**Maintenance Work Order ను control చేయండి:** **Tool** మరియు **Title** మాత్రమే required; Priority **Medium**, Maintenance Type **Corrective** గా default అవుతాయి. Connected preventive order **Draft → Submitted → Approved** గా మారి, తర్వాత **Start** అందుబాటులోకి వస్తుంది.",
       "**Production timing రక్షించండి:** Tool status, calibration, మరియు maintenance readiness current గా ఉంచండి. Future approved maintenance order ను planned window కు ముందు start చేయవద్దు.",
     ],
@@ -342,9 +393,9 @@ export const TASK_GUIDES_TE: Record<string, ForgeTaskGuide> = {
       "**Dossier scope సెట్ చేయండి:** **Traceability → Master Traceability → Dossier** తెరవండి. Scope filters optional గా combine అవుతాయి; **Specific identifiers** లో paste లేదా upload చేసే serial-number list మిగతా scope filters ను override చేస్తుంది.",
       "**Report sheets ఎంచుకోండి:** అవసరమైన Unit Summary, Route Detail, tests, sampling, NCR/defects, repair, genealogy, identifiers, Tool Usage, checklist, packaging, మరియు shipment sheets ఎంచుకోండి. Completed Nova X1 Work Order 2 units కు match అవుతుంది.",
       "**Dossier generate చేసి verify చేయండి:** **Generate Dossier** ఎంచుకుని, download ముందు **Recent exports** లో **COMPLETED**, unit count, మరియు XLSX filename ఉన్నాయో నిర్ధారించండి.",
-      "**Work Order export సృష్టించండి:** **Production → Work Orders** లో **Export Work Orders** ఎంచుకోండి. SIT వేరుగా **Settings → Files & Data → Exports** మరియు **Create Data Export** dialog తెరుస్తుంది; list-page filters inherit కావు కాబట్టి Search, Status, Priority ను అక్కడ మళ్లీ apply చేయండి.",
+      "**Work Order export సృష్టించండి:** **Production → Work Orders** లో **Export Work Orders** ఎంచుకోండి. Recorded SIT flowలో ఇది **Settings → Files & Data → Exports** మరియు వేరే **Create Data Export** dialog తెరిచింది. Target environmentలో route verify చేసి, list-page filters inherit కానప్పుడు Search, Status, Priority మళ్లీ apply చేయండి.",
       "**Export evidence verify చేయండి:** Export Details type, format, status, file size, మరియు applied filters ను నిల్వ చేస్తుంది. Job **COMPLETED** అయినా Processed మరియు Progress 0 గా ఉండవచ్చు; ఆధారపడే ముందు processed count మరియు file contents నిర్ధారించండి.",
-      "**అందుబాటులో ఉన్న audit history ఉపయోగించండి:** **View all changes** actor, action, affected Work Order, మరియు timestamp చూపిస్తుంది. Current SIT లో **View All History** error page తెరుస్తుంది; full audit-trail route restore అయ్యే వరకు **Recent Changes** ఉపయోగించండి.",
+      "**అందుబాటులో ఉన్న audit history ఉపయోగించండి:** **View all changes** మరియు **Recent Changes** అందుబాటులో ఉన్న actor, action, affected record, మరియు timestamp evidence చూపిస్తాయి. Separate full-history route‌పై ఆధారపడే ముందు target environment‌లో అది పనిచేస్తుందో నిర్ధారించండి.",
     ],
   ),
   "first-production-run": guide("Manufacturing → Production → Work Orders", [

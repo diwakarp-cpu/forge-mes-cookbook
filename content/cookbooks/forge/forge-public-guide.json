@@ -589,9 +589,9 @@
           ]
         },
         {
-          "title": "Create Components",
+          "title": "Create and Update Materials in Item Master",
           "slug": "components",
-          "summary": "Create the material and part records that will be used in Product BOMs and shop-floor validation.",
+          "summary": "Create material and part records in Item Master, update allowed details, and open their inventory tracking history.",
           "importance": "Required",
           "prerequisites": ["Projects and Product Families"],
           "flow": [
@@ -627,7 +627,7 @@
           "slug": "products-and-variants",
           "summary": "Create finished-product definitions and decide when Variants are useful.",
           "importance": "Required",
-          "prerequisites": ["Create Components"],
+          "prerequisites": ["Create and Update Materials in Item Master"],
           "flow": [
             "Create Product",
             "Choose Product Family",
@@ -719,11 +719,11 @@
           ]
         },
         {
-          "title": "Serial, Lot, and Mixed Material Tracking",
+          "title": "Track Serial, Lot, and Mixed Materials in Item Master",
           "slug": "material-tracking",
-          "summary": "Choose how components are traced while keeping finished production aligned with Fynd ERP's unit-serial model.",
+          "summary": "Receive and trace Item Master materials by lot, serial, quantity, or a mixed tracking model.",
           "importance": "Conditional",
-          "prerequisites": ["Create Components", "Build the Bill of Materials"],
+          "prerequisites": ["Create and Update Materials in Item Master", "Build the Bill of Materials"],
           "flow": [
             "Lot-tracked input",
             "Serialised input",
@@ -1179,7 +1179,7 @@
           "importance": "Required",
           "prerequisites": [
             "Operator Execution Flow",
-            "Serial, Lot, and Mixed Material Tracking"
+            "Track Serial, Lot, and Mixed Materials in Item Master"
           ],
           "flow": [
             "Transfer material to Station",
@@ -1278,7 +1278,7 @@
         {
           "title": "Inspections, Defects, NCR, and CAPA",
           "slug": "inspection-to-capa",
-          "summary": "Run a configured inspection, record failed samples, and understand the current NCR and CAPA limitations in SIT.",
+          "summary": "Run a configured inspection, record failed samples, and confirm whether NCR and CAPA actions are enabled in the target deployment.",
           "importance": "Conditional",
           "prerequisites": ["Configure Quality Controls"],
           "flow": [
@@ -1286,14 +1286,14 @@
             "Work Order or Lot inspection",
             "Sample checks and Defect",
             "Rejected inspection and hold scope",
-            "NCR and CAPA limitations"
+            "Confirm NCR and CAPA availability"
           ],
           "steps": [
             "Create and activate the applicable inspection configuration before starting an inspection.",
             "Choose either a Work Order or an available, non-expired Lot—never both—and enter the required total and sample quantities.",
             "Record each sample and its checks. A failed sample requires a Defect code and Severity before it can be saved.",
             "Reject the inspection and choose whether to hold only failed serials or the entire lot. Inspection-local defects and plant Defects are separate records.",
-            "Treat NCR and CAPA as unavailable from these screens in the current SIT build: Create NCR opens ‘NCR report not found’, and CAPA Management has no create action."
+            "Confirm NCR and CAPA availability in the target deployment and for the signed-in role. If a working create action is not present, confirm enablement with the implementation owner instead of presenting the workflow as available."
           ],
           "rules": [
             "An active inspection configuration is a prerequisite; Plant scope is the fallback and more specific scopes override it.",
@@ -1309,7 +1309,7 @@
         {
           "title": "Repair and Rework",
           "slug": "repair-and-rework",
-          "summary": "Configure repair intake, record rework evidence, and understand the current SIT completion limitation.",
+          "summary": "Configure repair intake, record rework evidence, and verify the resulting repair or re-inspection state.",
           "importance": "Conditional",
           "prerequisites": [
             "Create Stations and Repair Stations",
@@ -1320,24 +1320,24 @@
             "Debug Queue",
             "Rework Board",
             "Record work",
-            "Completion limitation"
+            "Verify the result"
           ],
           "steps": [
-            "In Repair Config, enable Auto-create repair on failure and select a Default Repair Station when automatic intake is required.",
+            "In Repair Config, enable Auto-create repair on failure only when automatic intake is required. Set a Default Repair Station when automatically created tickets must be routed to that Station.",
             "Use Debug Queue to triage incoming failures. Rework Board jobs originate from a failure or Disposition; the board has no create action.",
             "Review the linked Work Order, serial, mechanism, attempt number, and current board column.",
             "Select Record work and enter labor minutes, material cost, and concise work notes before selecting Complete Work.",
-            "In the current SIT build, Complete Work saves labor and cost but leaves the job In Progress; notes clear on reopen and re-inspection does not start."
+            "After Complete Work, refresh the job and confirm that its status, notes, labor, costs, timeline, and any required re-inspection state were recorded before treating the handoff as successful."
           ],
           "rules": [
-            "Auto-create repair and the Default Repair Station control automatic queue intake.",
+            "Auto-create repair controls automatic queue intake; Default Repair Station controls station routing when that routing is required.",
             "Attempt Limit rules are configured under Alerts and can alert, block, or block and propose scrap.",
             "Total and per-line repair WIP caps are optional; leaving a cap empty disables that limit."
           ],
           "checklist": [
             "The job remains linked to the original serial and Work Order.",
             "Labor minutes, material cost, and work notes are entered.",
-            "The current SIT completion limitation is understood before relying on re-inspection."
+            "The completed work and any required re-inspection state are visible before the handoff is accepted."
           ]
         },
         {
@@ -1455,14 +1455,14 @@
             "Check the active Shipment Rule",
             "Confirm Shipping Gate balance",
             "Configure ASN export",
-            "Resolve SIT prerequisites"
+            "Verify deployment prerequisites"
           ],
           "steps": [
             "Open Shipment Verification and select an existing Shipment; Container Type, counts, container rows, and Export remain unavailable until the required Shipment is selected.",
             "Confirm an active Shipment Rule includes the selected container configuration and permits its container-count and maximum-weight limits.",
-            "Confirm the Shipping Gate has positive remaining approved Purchase Order quantity; the current active SIT gate is fully consumed with balance 0.",
-            "Use a client- or product-scoped ASN template for the Excel export; this SIT Plant currently has no ASN templates.",
-            "Current SIT limitation: the Plant has no Shipments, and Create Shipment omits backend-required lines and warehouseRootLocationId, so verification cannot begin from this UI."
+            "Confirm the Shipping Gate has positive remaining approved Purchase Order quantity.",
+            "Use a client- or product-scoped ASN template for the Excel export, and confirm that the required template exists in the target environment.",
+            "The recorded SIT walkthrough had no selectable Shipment, so container verification and export were not exercised. Retest the full prerequisite path with approved records before the client demonstration."
           ],
           "rules": [
             "Shipment selection is mandatory before Container Type or verification data becomes available.",
@@ -1495,22 +1495,22 @@
           "steps": [
             "In Master Traceability, combine filters and unlock dependent Product filters from their parent selection. A specific identifier list overrides the other filters, and Generate Dossier remains disabled until at least one scope is selected.",
             "Select only the required dossier sheets. Generation is asynchronous and completed files remain in Recent exports; the Nova X1 Work Order produced a two-unit dossier.",
-            "For Stage Timeline, select a date range, at least one Work Order, and 1–50 Operations. The date range is required even though this SIT build does not mark it with an asterisk.",
+            "For Stage Timeline, select a date range, at least one Work Order, and 1–50 Operations. The recorded SIT form required the date range even though it was not marked with an asterisk; recheck the target environment if the form changes.",
             "Use the full genealogy tree with a pallet, carton, box, device, product, Component, or batch identifier. Downstream follows a finished identity to Components and lots; Upstream follows a lot toward finished units.",
             "Use Find Affected Units with a Batch/Lot Number or Component Serial. The Nova X1 battery lot returned NOVA-X1-PHONE-000002 as an affected finished serial.",
-            "Recall creation requires Title and Severity. In this SIT build, By Batch finds no production tasks and direct completed-task assignment fails because productionTaskIds is unused, so the authorized Nova X1 Recall Notice remains Draft with zero affected units."
+            "Recall creation requires Title and Severity. Confirm that the selected batch or tasks populate affected units and that the saved notice records them before relying on the recall response."
           ],
           "rules": [
             "Traceability quality depends on accurate scanning and consumption during production.",
             "A specific identifier list overrides the other dossier scope filters.",
             "Stage Timeline requires a date range, at least one Work Order, and 1–50 Operations.",
-            "A recall notice controls the response; traceability identifies the affected scope, but affected-unit assignment is currently blocked in SIT."
+            "A recall notice controls the response; traceability identifies the affected scope, and the saved notice must show the assigned affected units."
           ],
           "checklist": [
             "The completed two-unit Nova X1 dossier appears in Recent exports.",
             "The Nova X1 serial resolves to its consumed display and battery lots.",
             "The battery lot returns NOVA-X1-PHONE-000002 as affected.",
-            "The authorized Recall Notice remains Draft with zero affected units until the SIT assignment defect is fixed."
+            "The saved Recall Notice contains the intended affected units and status."
           ]
         }
       ]
@@ -1574,11 +1574,11 @@
           ],
           "steps": [
             "Confirm net working time after unpaid breaks. Nova X1 Assembly Morning Shift runs 06:00–14:00; its 15-minute unpaid tea break reduces 8 hours to 7h 45m net.",
-            "Verify Shift Schedule coverage. New Schedules remain Draft until activated, but status alone does not prove coverage: all three current SIT Schedules show 0 shifts/week, including the Active Standard and Weekend Schedules.",
+            "Verify Shift Schedule coverage. New Schedules remain Draft until activated, but status alone does not prove coverage; confirm generated shifts per week and calendar coverage in the target environment.",
             "Create a Shift Handover. Shift and Handover Date are required; Line, outgoing/incoming operators, summaries, notes, pending tasks, and checklist items are optional.",
             "Connect the authorized Nova X1 Handover to NOVA-X1-SHIFT-A and NOVA_X1_LINE_01, then record completed production, passed Route Logs, equipment state, safety, and two pending repair tasks.",
-            "Review the Draft before completion. Outgoing Supervisor defaults to the current Plant Administrator, Incoming Supervisor may remain blank, and Complete should be used only after the next Shift reviews the record.",
-            "Use Break Compliance carefully: with zero Break Logs, SIT displays 100% compliance and 0 violations, while Export CSV remains disabled until filtered records exist."
+            "Review the Draft before completion. Confirm the Outgoing and Incoming Supervisors explicitly, and use Complete only after the next Shift reviews the record.",
+            "Use Break Compliance carefully: a recorded SIT view with zero Break Logs displayed 100% compliance and 0 violations, but that percentage is not evidence that compliant breaks occurred. Confirm the underlying logs in the target environment; Export CSV requires exportable records."
           ],
           "rules": [
             "Unpaid breaks are deducted from Shift duration when net working time is calculated.",
@@ -1610,7 +1610,7 @@
             "Open the child Tools and Equipments page and supply the required Tool Name, Tool Code, Tool Category, Manufacturer, Model, Station, and Status.",
             "Enable Requires Calibration only when the Tool is governed; this reveals interval and provider fields.",
             "Record Calibration Date, Next Calibration Date, and Result so a governed Tool moves from Unknown to a current calibration state.",
-            "Use Trigger Maintenance Check to evaluate configured rules; no matching rules returns 0 alerts and leaves Export disabled when there are no rows.",
+            "Use Trigger Maintenance Check to evaluate configured rules. A result of 0 alerts may mean that no rule matched or that required rules or source data are absent; verify both before relying on the result. Export requires alert rows.",
             "Create a Maintenance Work Order with the required Tool and Title, then move it through Draft, Submitted, and Approved before Start is available."
           ],
           "rules": [
@@ -1640,14 +1640,14 @@
           "steps": [
             "In Master Traceability, combine optional scope filters or use a pasted/uploaded serial-number list, which overrides the other scope filters.",
             "Select the required dossier sheets, generate the report, and wait for Recent exports to show Completed, the unit count, and the XLSX filename.",
-            "From Work Orders, open Export Work Orders and re-apply Search, Status, and Priority in the separate Create Data Export dialog because list filters are not inherited.",
+            "From Work Orders, open Export Work Orders. In the recorded SIT flow this opened a separate Create Data Export dialog; verify the route in the target environment and re-apply Search, Status, and Priority when list filters are not inherited.",
             "Open Export Details to confirm type, format, state, file size, applied filters, processed rows, and progress before downloading.",
-            "Use View all changes for actor, action, affected Work Order, and timestamp; the current View All History destination returns an error in SIT."
+            "Use View all changes and Recent Changes for the available actor, action, affected record, and timestamp evidence. Confirm that any separate full-history destination works in the target environment before relying on it."
           ],
           "rules": [
             "A serial-number list overrides the other Master Traceability scope filters.",
             "A Completed export is not sufficient evidence by itself; verify processed rows, progress, file size, applied filters, and file contents.",
-            "Recent Changes is currently usable, while View All History is unavailable in SIT."
+            "The required audit evidence is available from the verified history view in the target environment."
           ],
           "checklist": [
             "The dossier scope and selected sheets match the investigation question.",

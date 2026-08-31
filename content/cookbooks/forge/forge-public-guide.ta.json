@@ -403,7 +403,7 @@
             "சேமித்து சரிபார்க்குங்கள்"
           ],
           "steps": [
-            "Fynd ERP இடது வழிசெலுத்தலில் Setup-ஐத் திறந்து Sites-ஐத் தேர்ந்தெடுங்கள்.",
+            "Fynd ERP இடது வழிசெலுத்தலில் Masters-ஐத் திறந்து Sites-ஐத் தேர்ந்தெடுங்கள்.",
             "மேல்-வலது மூலையில் Create Site-ஐத் தேர்ந்தெடுங்கள்.",
             "Name மற்றும் தனித்துவமான Code-ஐ உள்ளிடுங்கள். Code-இல் uppercase எழுத்துகள், எண்கள், மற்றும் hyphen மட்டுமே பயன்படுத்துங்கள்.",
             "Country-ஐத் தேர்ந்தெடுத்த பின்பு State, பின்னர் City இயங்கும்.",
@@ -599,9 +599,9 @@
           ]
         },
         {
-          "title": "Components-ஐ உருவாக்குங்கள்",
+          "title": "Item Master-இல் Materials-ஐ உருவாக்கி update செய்யுங்கள்",
           "slug": "components",
-          "summary": "Product BOMs மற்றும் தொழிற்சாலைத் தள சரிபார்ப்பில் பயன்படுத்தப்படும் பொருள் மற்றும் பாகப் பதிவுகளை உருவாக்குங்கள்.",
+          "summary": "Item Master-இல் material மற்றும் part records உருவாக்கி, மாற்றக்கூடிய விவரங்களை update செய்து, inventory tracking history-ஐத் திறந்து பாருங்கள்.",
           "importance": "Required",
           "prerequisites": ["Projects மற்றும் Product Families"],
           "flow": [
@@ -614,7 +614,7 @@
             "component-ஐ சேமியுங்கள்"
           ],
           "steps": [
-            "Setup-ஐத் திறந்து Item Master-ஐத் தேர்ந்தெடுங்கள்.",
+            "Masters-ஐத் திறந்து Item Master-ஐத் தேர்ந்தெடுங்கள்.",
             "Create action-ஐத் தேர்ந்தெடுத்து manual item creation-ஐத் தேர்வுசெய்யுங்கள்.",
             "Name, தனித்துவமான Code, மற்றும் Unit தேவை; பெயரும் code-மும் குறைந்தது இரண்டு எழுத்துகள் இருக்க வேண்டும்.",
             "Serialized, Consumable, அல்லது Fixed Serial-இல் ஒன்றை மட்டும் தேர்வுசெய்யலாம். Fixed Serial-க்கு நிரந்தர barcode அல்லது QR value தேவை.",
@@ -639,7 +639,7 @@
           "slug": "products-and-variants",
           "summary": "முடிக்கப்பட்ட-தயாரிப்பு வரையறைகளை உருவாக்கி, Variants எப்போது பயனுள்ளவை என்பதைத் தீர்மானியுங்கள்.",
           "importance": "Required",
-          "prerequisites": ["Components-ஐ உருவாக்குங்கள்"],
+          "prerequisites": ["Item Master-இல் Materials-ஐ உருவாக்கி update செய்யுங்கள்"],
           "flow": [
             "Products-ஐத் திறங்கள்",
             "ஒரு product-ஐத் தொடங்குங்கள்",
@@ -735,12 +735,12 @@
           ]
         },
         {
-          "title": "Serial, Lot, மற்றும் கலப்புப் பொருள் கண்காணிப்பு",
+          "title": "Item Master-இல் Serial, Lot, மற்றும் Mixed Materials-ஐ track செய்யுங்கள்",
           "slug": "material-tracking",
-          "summary": "முடிக்கப்பட்ட உற்பத்தியை Fynd ERP-இன் அலகு-சீரியல் மாதிரியுடன் ஒத்திசைத்து வைத்திருக்கும் அதே வேளையில் components எவ்வாறு கண்காணிக்கப்படுகின்றன என்பதைத் தேர்வுசெய்யுங்கள்.",
+          "summary": "Item Master materials-ஐ lot, serial, quantity, அல்லது mixed tracking model மூலம் receive செய்து trace செய்யுங்கள்.",
           "importance": "Conditional",
           "prerequisites": [
-            "Components-ஐ உருவாக்குங்கள்",
+            "Item Master-இல் Materials-ஐ உருவாக்கி update செய்யுங்கள்",
             "Bill of Materials-ஐ கட்டமையுங்கள்"
           ],
           "flow": [
@@ -1204,7 +1204,7 @@
           "importance": "Required",
           "prerequisites": [
             "Operator செயலாக்க Flow",
-            "Serial, Lot, மற்றும் கலப்புப் பொருள் கண்காணிப்பு"
+            "Item Master-இல் Serial, Lot, மற்றும் Mixed Materials-ஐ track செய்யுங்கள்"
           ],
           "flow": [
             "Material-ஐ Station-க்கு transfer செய்யுங்கள்",
@@ -1304,7 +1304,7 @@
         {
           "title": "ஆய்வுகள், Defects, NCR, மற்றும் CAPA",
           "slug": "inspection-to-capa",
-          "summary": "Configured inspection-ஐ இயக்கி, failed samples-ஐ பதிவு செய்து, தற்போதைய SIT NCR மற்றும் CAPA வரம்புகளைப் புரிந்துகொள்ளுங்கள்.",
+          "summary": "Configured inspection-ஐ இயக்கி, failed samples-ஐ பதிவு செய்து, target deployment-ல் NCR மற்றும் CAPA actions enabled ஆக உள்ளதா உறுதிசெய்யுங்கள்.",
           "importance": "Conditional",
           "prerequisites": ["தரக் கட்டுப்பாடுகளைக் கட்டமையுங்கள்"],
           "flow": [
@@ -1312,14 +1312,14 @@
             "Work Order அல்லது Lot inspection",
             "Sample checks மற்றும் Defect",
             "Rejected inspection மற்றும் hold scope",
-            "NCR மற்றும் CAPA வரம்புகள்"
+            "NCR மற்றும் CAPA availability-ஐ உறுதிசெய்யுங்கள்"
           ],
           "steps": [
             "Inspection-ஐத் தொடங்குவதற்கு முன் பொருந்தும் inspection configuration-ஐ உருவாக்கி activate செய்யுங்கள்.",
             "Work Order அல்லது available, non-expired Lot—இரண்டில் ஒன்றை மட்டும் தேர்ந்தெடுத்து required total மற்றும் sample quantities-ஐ உள்ளிடுங்கள்.",
             "ஒவ்வொரு sample மற்றும் checks-ஐ பதிவு செய்யுங்கள். Failed sample-ஐ save செய்வதற்கு Defect code மற்றும் Severity தேவை.",
             "Inspection-ஐ reject செய்து failed serials மட்டும் அல்லது முழு lot-ஐ hold செய்வதைத் தேர்ந்தெடுங்கள். Inspection-local defects மற்றும் plant Defects தனித்தனி records.",
-            "தற்போதைய SIT build-இல் இத்திரைகளிலிருந்து NCR மற்றும் CAPA கிடைக்கவில்லை: Create NCR ‘NCR report not found’ என்பதைத் திறக்கிறது; CAPA Management-இல் create action இல்லை."
+            "Target deployment மற்றும் signed-in role-க்கு NCR மற்றும் CAPA availability-ஐ உறுதிசெய்யுங்கள். Working create action இல்லையெனில் workflow available என்று கூறாமல் implementation owner-உடன் enablement-ஐ உறுதிசெய்யுங்கள்."
           ],
           "rules": [
             "Active inspection configuration ஒரு prerequisite; Plant scope fallback ஆகும், மேலும் specific scopes அதை override செய்யும்.",
@@ -1335,7 +1335,7 @@
         {
           "title": "Repair மற்றும் Rework",
           "slug": "repair-and-rework",
-          "summary": "Repair intake-ஐ configure செய்து, rework evidence-ஐ பதிவு செய்து, தற்போதைய SIT completion வரம்பைப் புரிந்துகொள்ளுங்கள்.",
+          "summary": "Repair intake-ஐ configure செய்து, rework evidence-ஐ பதிவு செய்து, resulting repair அல்லது re-inspection state-ஐ verify செய்யுங்கள்.",
           "importance": "Conditional",
           "prerequisites": [
             "Stations மற்றும் Repair Stations-ஐ உருவாக்குங்கள்",
@@ -1346,24 +1346,24 @@
             "Debug Queue",
             "Rework Board",
             "Record work",
-            "Completion வரம்பு"
+            "Result-ஐ verify செய்யுங்கள்"
           ],
           "steps": [
-            "Automatic intake தேவைப்பட்டால் Repair Config-இல் Auto-create repair on failure-ஐ enable செய்து Default Repair Station-ஐத் தேர்ந்தெடுங்கள்.",
+            "Automatic intake தேவைப்பட்டால் மட்டும் Repair Config-இல் Auto-create repair on failure-ஐ enable செய்யுங்கள். Automatically created tickets அந்த Station-க்கு route ஆக வேண்டுமெனில் Default Repair Station அமைக்கவும்.",
             "Incoming failures-ஐ Debug Queue-இல் triage செய்யுங்கள். Rework Board jobs failure அல்லது Disposition-இலிருந்து உருவாகும்; board-இல் create action இல்லை.",
             "Linked Work Order, serial, mechanism, attempt number, மற்றும் தற்போதைய board column-ஐ மதிப்பாய்வு செய்யுங்கள்.",
             "Record work-ஐத் தேர்ந்தெடுத்து labor minutes, material cost, மற்றும் சுருக்கமான work notes-ஐ உள்ளிட்டு Complete Work-ஐத் தேர்ந்தெடுங்கள்.",
-            "தற்போதைய SIT build-இல் Complete Work labor மற்றும் cost-ஐ save செய்கிறது; ஆனால் job In Progress-லேயே உள்ளது, reopen செய்யும் போது notes clear ஆகின்றன, re-inspection தொடங்கவில்லை."
+            "Complete Work பிறகு job-ஐ refresh செய்து status, notes, labor, costs, timeline, மற்றும் required re-inspection state பதிவு செய்யப்பட்டுள்ளதா உறுதிசெய்த பிறகே handoff successful என்று கருதுங்கள்."
           ],
           "rules": [
-            "Auto-create repair மற்றும் Default Repair Station automatic queue intake-ஐக் கட்டுப்படுத்துகின்றன.",
+            "Auto-create repair automatic queue intake-ஐக் கட்டுப்படுத்துகிறது; routing தேவைப்பட்டால் Default Repair Station station routing-ஐக் கட்டுப்படுத்துகிறது.",
             "Attempt Limit rules Alerts-இல் configure செய்யப்படுகின்றன; அவை alert, block அல்லது block செய்து scrap-ஐ propose செய்யலாம்.",
             "Total மற்றும் per-line repair WIP caps optional; cap-ஐ empty ஆக விட்டால் அந்த limit disable ஆகும்."
           ],
           "checklist": [
             "Job அசல் serial மற்றும் Work Order உடன் linked ஆக உள்ளது.",
             "Labor minutes, material cost, மற்றும் work notes உள்ளிடப்பட்டுள்ளன.",
-            "Re-inspection-ஐ நம்புவதற்கு முன் தற்போதைய SIT completion வரம்பு புரிந்துகொள்ளப்பட்டுள்ளது."
+            "Completed work மற்றும் required re-inspection state handoff ஏற்கும் முன் தெரிகிறது."
           ]
         },
         {
@@ -1481,14 +1481,14 @@
             "Active Shipment Rule-ஐச் சரிபாருங்கள்",
             "Shipping Gate balance-ஐ உறுதிப்படுத்துங்கள்",
             "ASN export-ஐ configure செய்யுங்கள்",
-            "SIT prerequisites-ஐத் தீர்க்குங்கள்"
+            "Deployment prerequisites-ஐ verify செய்யுங்கள்"
           ],
           "steps": [
             "Shipment Verification-ஐத் திறந்து existing Shipment-ஐத் தேர்ந்தெடுங்கள்; required Shipment தேர்ந்தெடுக்கப்படும் வரை Container Type, counts, container rows, மற்றும் Export கிடைக்காது.",
             "Active Shipment Rule selected container configuration-ஐ கொண்டிருந்து அதன் container-count மற்றும் maximum-weight limits-ஐ அனுமதிக்கிறதா என உறுதிப்படுத்துங்கள்.",
-            "Shipping Gate-இல் positive remaining approved Purchase Order quantity உள்ளதா எனச் சரிபாருங்கள்; current active SIT gate balance 0 உடன் முழுமையாக consumed ஆகிவிட்டது.",
-            "Excel export-க்கு client- அல்லது product-scoped ASN template-ஐப் பயன்படுத்துங்கள்; இந்த SIT Plant-இல் தற்போது ASN templates இல்லை.",
-            "தற்போதைய SIT வரம்பு: Plant-இல் Shipments இல்லை; Create Shipment backend-required lines மற்றும் warehouseRootLocationId-ஐ அனுப்பாததால் இந்த UI-இல் verification தொடங்க முடியாது."
+            "Shipping Gate-இல் positive remaining approved Purchase Order quantity உள்ளதா உறுதிசெய்யுங்கள்.",
+            "Excel export-க்கு client- அல்லது product-scoped ASN template-ஐப் பயன்படுத்தி, target environment-ல் required template உள்ளதா உறுதிசெய்யுங்கள்.",
+            "Recorded SIT walkthrough-ல் selectable Shipment இல்லை; container verification மற்றும் export exercise செய்யப்படவில்லை. Client demo முன் approved records கொண்டு full prerequisite path-ஐ retest செய்யுங்கள்."
           ],
           "rules": [
             "Container Type அல்லது verification data கிடைக்கும் முன் Shipment selection கட்டாயம்.",
@@ -1521,22 +1521,22 @@
           "steps": [
             "Master Traceability-இல் filters ஒன்றாகச் செயல்படும்; parent selection பின் dependent Product filters திறக்கும். Specific identifier list மற்ற filters-ஐ override செய்யும்; குறைந்தது ஒரு scope தேர்ந்தெடுக்கப்படும் வரை Generate Dossier disabled ஆக இருக்கும்.",
             "தேவையான dossier sheets மட்டும் தேர்ந்தெடுங்கள். Generation asynchronous; completed files Recent exports-இல் இருக்கும். Nova X1 Work Order இரண்டு-unit dossier-ஐ உருவாக்கியது.",
-            "Stage Timeline-க்கு date range, குறைந்தது ஒரு Work Order, மற்றும் 1–50 Operations தேவை. இந்த SIT build date range-க்கு asterisk காட்டாவிட்டாலும் அது கட்டாயம்.",
+            "Stage Timeline-க்கு date range, குறைந்தது ஒரு Work Order, மற்றும் 1–50 Operations தேவை. Recorded SIT form date range-க்கு asterisk காட்டாவிட்டாலும் அது கட்டாயமாக இருந்தது; form மாறினால் target environment-ஐ மீண்டும் சரிபார்க்கவும்.",
             "Pallet, carton, box, device, product, Component, அல்லது batch identifier மூலம் full genealogy tree-ஐ பயன்படுத்துங்கள். Downstream finished identity-யிலிருந்து Components/lots-க்கு செல்கிறது; Upstream lot-இலிருந்து finished units-க்கு செல்கிறது.",
             "Find Affected Units-இல் Batch/Lot Number அல்லது Component Serial மூலம் தேடுங்கள். Nova X1 battery lot, NOVA-X1-PHONE-000002-ஐ affected finished serial ஆகக் காட்டியது.",
-            "Recall உருவாக்க Title மற்றும் Severity கட்டாயம். இந்த SIT build-இல் By Batch production tasks-ஐக் கண்டுபிடிக்கவில்லை; completed task direct assignment, productionTaskIds unused என்பதால் fail ஆகிறது. Authorized Nova X1 Recall Notice zero affected units உடன் Draft-ஆகவே உள்ளது."
+            "Recall உருவாக்க Title மற்றும் Severity கட்டாயம். Selected batch அல்லது tasks affected units-ஐ populate செய்கிறதா, saved notice அவற்றை record செய்கிறதா உறுதிசெய்த பிறகே recall response-ஐ நம்புங்கள்."
           ],
           "rules": [
             "கண்காணிப்பு தரம் உற்பத்தியின் போது துல்லியமான ஸ்கேனிங் மற்றும் நுகர்வைச் சார்ந்துள்ளது.",
             "Specific identifier list மற்ற dossier scope filters-ஐ override செய்கிறது.",
             "Stage Timeline-க்கு date range, குறைந்தது ஒரு Work Order, மற்றும் 1–50 Operations கட்டாயம்.",
-            "Recall Notice response-ஐக் கட்டுப்படுத்தும்; traceability affected scope-ஐக் கண்டறியும். ஆனால் affected-unit assignment தற்போது SIT-இல் blocked ஆக உள்ளது."
+            "Recall Notice response-ஐக் கட்டுப்படுத்தும்; traceability affected scope-ஐக் கண்டறியும், மேலும் saved notice assigned affected units-ஐக் காட்ட வேண்டும்."
           ],
           "checklist": [
             "Completed two-unit Nova X1 dossier Recent exports-இல் தெரிகிறது.",
             "Nova X1 serial அதன் consumed display மற்றும் battery lots-க்கு resolve ஆகிறது.",
             "Battery lot, NOVA-X1-PHONE-000002-ஐ affected ஆகக் காட்டுகிறது.",
-            "SIT assignment defect fix ஆகும் வரை authorized Recall Notice zero affected units உடன் Draft-ஆகவே இருக்கும்."
+            "Saved Recall Notice intended affected units மற்றும் status-ஐக் கொண்டுள்ளது."
           ]
         }
       ]
@@ -1600,11 +1600,11 @@
           ],
           "steps": [
             "Unpaid breaks கழித்த net working time-ஐ உறுதிப்படுத்துங்கள். Nova X1 Assembly Morning Shift 06:00–14:00; 15-minute unpaid tea break காரணமாக 8 hours, 7h 45m net ஆகிறது.",
-            "Shift Schedule coverage-ஐச் சரிபார்க்குங்கள். புதிய Schedules activate செய்யப்படும் வரை Draft; ஆனால் status மட்டும் coverage-ஐ நிரூபிக்காது. Active Standard/Weekend உட்பட மூன்று current SIT Schedules-மும் 0 shifts/week காட்டுகின்றன.",
+            "Shift Schedule coverage-ஐச் சரிபார்க்குங்கள். புதிய Schedules activate செய்யப்படும் வரை Draft; status மட்டும் coverage-ஐ நிரூபிக்காது. Target environment-ல் generated shifts per week மற்றும் calendar coverage-ஐ உறுதிசெய்யுங்கள்.",
             "Shift Handover உருவாக்குங்கள். Shift மற்றும் Handover Date கட்டாயம்; Line, outgoing/incoming operators, summaries, notes, pending tasks, மற்றும் checklist items optional.",
             "Authorized Nova X1 Handover-ஐ NOVA-X1-SHIFT-A மற்றும் NOVA_X1_LINE_01 உடன் இணைத்து completed production, passed Route Logs, equipment state, safety, மற்றும் இரண்டு pending repair tasks-ஐப் பதிவு செய்யுங்கள்.",
-            "Complete செய்வதற்கு முன் Draft-ஐ review செய்யுங்கள். Outgoing Supervisor current Plant Administrator ஆக default ஆகும்; Incoming Supervisor blank ஆக இருக்கலாம்.",
-            "Break Compliance-ஐ கவனமாகப் பயன்படுத்துங்கள்: zero Break Logs இருந்தால் SIT 100% compliance மற்றும் 0 violations காட்டும்; filtered records வரும் வரை Export CSV disabled."
+            "Complete செய்வதற்கு முன் Draft-ஐ review செய்யுங்கள். Outgoing மற்றும் Incoming Supervisors-ஐ explicit-ஆக உறுதிசெய்து, அடுத்த Shift review செய்த பிறகே Complete பயன்படுத்துங்கள்.",
+            "Break Compliance-ஐ கவனமாகப் பயன்படுத்துங்கள்: zero Break Logs இருந்த recorded SIT view 100% compliance மற்றும் 0 violations காட்டியது; ஆனால் அந்த percentage compliant breaks நடந்ததற்கான evidence அல்ல. Target environment-ல் underlying logs-ஐ உறுதிப்படுத்துங்கள்; export செய்யக்கூடிய records இருந்தால் மட்டுமே Export CSV கிடைக்கும்."
           ],
           "rules": [
             "Net working time கணக்கிடும்போது unpaid breaks Shift duration-இலிருந்து கழிக்கப்படும்.",
@@ -1638,7 +1638,7 @@
             "Child Tools and Equipments page-ஐத் திறந்து required Tool Name, Tool Code, Tool Category, Manufacturer, Model, Station, மற்றும் Status-ஐ உள்ளிடுங்கள்.",
             "Tool governed ஆக இருந்தால் மட்டுமே Requires Calibration-ஐ enable செய்யுங்கள்; இதனால் interval மற்றும் provider fields தோன்றும்.",
             "Calibration Date, Next Calibration Date, மற்றும் Result-ஐப் பதிவு செய்து governed Tool-ஐ Unknown-இலிருந்து current calibration state-க்கு மாற்றுங்கள்.",
-            "Configured rules-ஐ evaluate செய்ய Trigger Maintenance Check-ஐப் பயன்படுத்துங்கள்; matching rule இல்லையெனில் 0 alerts வரும், rows இல்லாதபோது Export disabled ஆகும்.",
+            "Configured rules-ஐ evaluate செய்ய Trigger Maintenance Check-ஐப் பயன்படுத்துங்கள். 0 alerts என்பது rule match ஆகவில்லை அல்லது required rules/source data இல்லை என்பதைக் குறிக்கலாம்; result-ஐ நம்பும் முன் இரண்டையும் verify செய்யுங்கள். Alert rows இருந்தால் மட்டுமே Export கிடைக்கும்.",
             "Required Tool மற்றும் Title கொண்டு Maintenance Work Order உருவாக்கி, Start கிடைக்கும் முன் Draft, Submitted, Approved நிலைகளில் நகர்த்துங்கள்."
           ],
           "rules": [
@@ -1668,14 +1668,14 @@
           "steps": [
             "Master Traceability-இல் optional scope filters-ஐ combine செய்யுங்கள் அல்லது மற்ற scope filters-ஐ override செய்யும் pasted/uploaded serial-number list-ஐப் பயன்படுத்துங்கள்.",
             "தேவையான dossier sheets-ஐத் தேர்ந்தெடுத்து report-ஐ generate செய்து, Recent exports-இல் Completed, unit count, மற்றும் XLSX filename வரும்வரை காத்திருங்கள்.",
-            "Work Orders-இல் Export Work Orders-ஐத் திறந்து, list filters inherit ஆகாததால் தனி Create Data Export dialog-இல் Search, Status, Priority-ஐ மீண்டும் apply செய்யுங்கள்.",
+            "Work Orders-இல் Export Work Orders-ஐத் திறக்குங்கள். Recorded SIT flow-ல் இது தனி Create Data Export dialog-ஐத் திறந்தது; target environment-ல் route-ஐ verify செய்து, list filters inherit ஆகாதபோது Search, Status, Priority-ஐ மீண்டும் apply செய்யுங்கள்.",
             "Download செய்வதற்கு முன் Export Details-இல் type, format, state, file size, applied filters, processed rows, மற்றும் progress-ஐ உறுதிப்படுத்துங்கள்.",
-            "Actor, action, affected Work Order, மற்றும் timestamp-க்கு View all changes-ஐப் பயன்படுத்துங்கள்; current View All History destination SIT-இல் error தருகிறது."
+            "Available actor, action, affected record, மற்றும் timestamp evidence-க்கு View all changes மற்றும் Recent Changes-ஐப் பயன்படுத்துங்கள். Separate full-history destination-ஐ நம்பும் முன் target environment-ல் அது வேலை செய்கிறதா உறுதிசெய்யுங்கள்."
           ],
           "rules": [
             "Serial-number list மற்ற Master Traceability scope filters-ஐ override செய்கிறது.",
             "Completed export மட்டும் போதுமான evidence அல்ல; processed rows, progress, file size, applied filters, மற்றும் file contents-ஐ verify செய்யுங்கள்.",
-            "Recent Changes தற்போது usable; View All History SIT-இல் unavailable."
+            "Target environment-ல் verified history view required audit evidence-ஐ வழங்குகிறது."
           ],
           "checklist": [
             "Dossier scope மற்றும் selected sheets investigation question-க்கு பொருந்துகின்றன.",

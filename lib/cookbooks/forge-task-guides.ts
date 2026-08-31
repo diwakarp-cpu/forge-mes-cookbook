@@ -10,7 +10,7 @@ const guide = (navigationPath: string, steps: string[]): ForgeTaskGuide => ({
 
 const TASK_GUIDES: Record<string, ForgeTaskGuide> = {
   "complete-setup-journey": guide("Fynd ERP Dashboard", [
-    "**Open the setup journey:** Use the left navigation to work through Setup, Process & Engineering, Production, and Traceability in order.",
+    "**Open the manufacturing journey:** Use the left navigation to work through Production, Process & Engineering, Quality, and the downstream manufacturing modules in the order your process requires.",
     "**Create the factory records:** Create Sites, Lines, operation Stations, Repair Stations, and Shift Definitions.",
     "**Create the product records:** Create the Project, Product Family, Components, Product, Variants, and BOM Version.",
     "**Prepare execution:** Activate the BOM, create and validate the Routing, and assign the Product to eligible Lines.",
@@ -23,7 +23,7 @@ const TASK_GUIDES: Record<string, ForgeTaskGuide> = {
     "**Enter the required identity:** **Name** and **Code** are required. The code accepts letters, numbers, and hyphens only.",
     "**Add location details when needed:** Address fields are optional. Select **Country** before **State / Province / Region**; the available City values are filtered by the selected location.",
     "**Add optional metadata carefully:** Keep metadata within the 32 KB limit and add tags only when they improve search or grouping.",
-    "**Review the current SIT limitation:** Manual creation currently fails because the request includes **DIGIPIN**, which the SIT API rejects. The video preserves the exact error instead of showing a false success state.",
+    "**Create and verify:** Select **Create**, then confirm the Site appears in the Sites list and is available when a Station is created.",
   ]),
   lines: guide("Mfg → Process & Engineering → Line", [
     "**Open Lines:** Open **Mfg**, expand **Process & Engineering**, and select **Line**.",
@@ -65,14 +65,13 @@ const TASK_GUIDES: Record<string, ForgeTaskGuide> = {
       "**Run a small validation:** Use a small Work Order quantity to confirm the factory model can accept and route Production Tasks.",
     ],
   ),
-  "projects-and-product-families": guide("Mfg → Setup → Projects", [
-    "**Open Projects:** Open **Mfg**, expand **Setup**, and select **Projects**.",
-    "**Start a Project:** Select **Create Project**, then choose **Create Manually** or use the AI-assisted option.",
-    "**Enter Project requirements:** **Project Name**, **Code**, and **Status** are required. The code accepts letters, numbers, hyphens, and underscores; Client Company is optional.",
-    "**Create and open the Project:** Select **Create Project**, review the success summary, and select **View Details**.",
-    "**Open Product Families:** In the Project, select the **Product Families** tab and then **Create Product Family**. The Project is preselected and cannot be changed in this dialog.",
-    "**Enter Family requirements:** **Name** and **Code** are required. Type is optional and supports ODM, OEM, Custom, Standard, or Other; Status defaults to Active.",
-    "**Verify the hierarchy:** Select **Create** and confirm the Product Family appears under the Project with its code, status, type, and product count.",
+  "projects-and-product-families": guide("Mfg → Production → Product Families", [
+    "**Open Product Families:** Open **Mfg**, expand **Production**, and select **Product Families**.",
+    "**Review the list:** Use the available search and filters to find an existing Family before creating another one.",
+    "**Start a Product Family:** Select the available create action and enter the required **Name** and **Code**.",
+    "**Add classification:** Select the available Type, Status, Project, or other context only when it applies to the Product group.",
+    "**Create and verify:** Save the Product Family and confirm its code, status, type, Project context, and product count in the list.",
+    "**Recorded SIT navigation:** Projects was not a separate option under **Mfg → Production** during verification. Use the Project field or linked Project context only where the Product Family screen provides it, and recheck the target environment before a client demonstration.",
   ]),
   components: guide("Masters → Item Master", [
     "**Open Item Master:** Open **Masters**, select **Item Master**, and then select **Add Item**.",
@@ -81,6 +80,8 @@ const TASK_GUIDES: Record<string, ForgeTaskGuide> = {
     "**Configure tracking:** Enabling **Track by Serial Number** disables Consumable and Fixed Serial. **Track by Non-Serialized** can remain enabled at the same time for mixed serial and lot tracking.",
     "**Set stock thresholds:** The reorder point cannot exceed maximum stock; keep minimum stock at or below the reorder point.",
     "**Create and verify:** Select **Create Component/Part** and review the success summary for code, unit, serialized status, and non-serialized tracking.",
+    "**Update mutable details:** Reopen the material from **Item Master** and edit allowed identity, stock, supplier, or descriptive fields as needed. Unit and the permanent tracking controls remain locked after creation.",
+    "**Track inventory activity:** Use Inventory Lots, Serials, Usage History, and the related inventory views to receive stock and follow lot, serial, quantity, and consumption history.",
   ]),
   "products-and-variants": guide("Mfg → Production → Products", [
     "**Open Products:** Open **Mfg**, expand **Production**, and select **Products**.",
@@ -95,7 +96,7 @@ const TASK_GUIDES: Record<string, ForgeTaskGuide> = {
     "Mfg → Production → Products → Product detail → BOM Versions",
     [
       "**Open the Product:** Open **Mfg → Production → Products**, find the Product, and use **View** to open its details.",
-      "**Open the draft version:** Under **BOM Versions**, open **Initial Version (V1)** with **View Version Details**. SIT creates this Draft automatically from the BOM entered during Product creation.",
+      "**Open the draft version:** Under **BOM Versions**, open **Initial Version (V1)** with **View Version Details**. In the recorded SIT flow, Product creation generated this Draft from the entered BOM; verify that the target environment does the same.",
       "**Add a BOM item:** Select **Add Item**. Items can be added while the version is Draft.",
       "**Choose the scope:** Use **Shared** for material used by every Variant. Select a Variant BOM only for configuration-specific material.",
       "**Set quantity and unit:** Quantity is at least 1. **Unit Override** is optional and should be used only when production consumes a different compatible unit.",
@@ -155,6 +156,15 @@ const TASK_GUIDES: Record<string, ForgeTaskGuide> = {
       "**Save and verify:** Select **Save**, then confirm the Line detail shows the expected status, Site, Capacity Per Hour, Capacity Per Shift, and assigned Products.",
     ],
   ),
+  templates: guide("Mfg → Process & Engineering → Templates", [
+    "**Open Templates:** Open **Mfg**, expand **Process & Engineering**, and select **Templates**.",
+    "**Start a Template:** Select **Create Template**, then choose **Create Manually** or use the AI-assisted option to draft the Template.",
+    "**Enter the required identity:** **Template Name** and **Template Type** are required. Description is optional.",
+    "**Choose the data scope:** **Context Type** is optional and controls which data sources are available as variables. Leave it empty only when the Template needs maximum flexibility.",
+    "**Build the Template:** Enter the content, pattern, parser, or validation rule required by the selected type. PDF/HTML supports HTML, CSS, and Nunjucks variables; use **Load Sample** when a starter is useful.",
+    "**Preview before activation:** Use Editor, Variables, and Data Preview to verify the output with representative data. Keep **Active** on only when the Template is ready for use.",
+    "**Save and verify:** Select **Save**, then confirm the Templates list shows the correct name, type, status, creator, and creation date. Use **My Approvals** and change history when governance applies.",
+  ]),
   "product-identifiers": guide(
     "Manufacturing → Process & Engineering → Identifier Management; Production → Products → Product detail → Product Identifiers",
     [
@@ -176,6 +186,18 @@ const TASK_GUIDES: Record<string, ForgeTaskGuide> = {
     "**Review availability and test behavior:** Review Component Availability. Enable **Test Order** only for line setup or workflow testing because Test Orders are excluded from analytics.",
     "**Create and verify:** Select **Create Work Order** and confirm the success dialog shows the Work Order ID, Product hierarchy, quantity, due date, priority, and **PENDING** status.",
   ]),
+  "create-production-order": guide(
+    "Mfg → Production → Production Orders",
+    [
+      "**Open Production Orders:** Open **Mfg**, expand **Production**, and select **Production Orders**.",
+      "**Start an order:** Select **Create Production Order**, then choose **Create Manually** or use the AI-assisted option to draft the record.",
+      "**Enter the required identity:** **Name** and **Order Number** are required. Use an Order Number that uniquely identifies this grouping record.",
+      "**Set optional Client scope:** Select **Client** only when the Production Order must contain Work Orders for that Client. Selecting a Client restricts eligible Work Orders.",
+      "**Add planning context:** Description, Start Date, End Date, and metadata are optional. Add them when they improve scheduling, search, or reporting.",
+      "**Create the grouping record:** Review the fields and select **Create Production Order**. The Production Order groups work; it does not create executable quantity or Production Tasks by itself.",
+      "**Link and monitor Work Orders:** Open the Production Order, connect eligible related Work Orders, and monitor their combined progress, status, and planned date range.",
+    ],
+  ),
   "generate-unit-serials": guide(
     "Manufacturing → Production → Work Orders → Work Order detail",
     [
@@ -257,15 +279,23 @@ const TASK_GUIDES: Record<string, ForgeTaskGuide> = {
     "**Select one production source:** Create the inspection from either a **Work Order** or an available, non-expired **Lot**—never both. Enter the required total quantity and sampling quantity.",
     "**Record each sample:** Enter the serial or lot sample and complete its checks. Saving a failed sample requires a **Defect code** and **Severity**.",
     "**Choose the hold scope:** When rejecting the inspection, hold only the failed serials or place the entire lot on hold. Inspection-local defects and records in the plant **Defects** list are separate.",
-    "**Current SIT limitations:** **Create NCR** currently opens “NCR report not found”. **CAPA Management** has no create action in this build, so NCR and CAPA creation cannot be completed from these screens.",
+    "**Confirm deployment availability:** NCR and CAPA actions can vary by deployment and permission. If the target screen does not provide a working create action, confirm enablement with the implementation owner instead of presenting the workflow as available.",
   ]),
-  "repair-and-rework": guide("Manufacturing → Repair & Rework", [
-    "**Configure intake first:** Open **Repair Config**. Enable **Auto-create repair on failure** and select a **Default Repair Station** when failed units should enter the repair queue automatically.",
-    "**Triage failed units:** Use **Debug Queue** for incoming failures. Jobs shown on the **Rework Board** originate from a failure or Disposition; the board has no create action.",
-    "**Track the job:** Review the linked Work Order, serial number, rework mechanism, attempt number, and its Pending, In Progress, Pending Re-inspection, or Failed column.",
-    "**Record repair evidence:** Select **Record work**, enter labor minutes, material cost, and concise work notes, then select **Complete Work**.",
-    "**Current SIT limitation:** Complete Work saves labor and material cost, but the job remains **In Progress**; notes clear on reopen and re-inspection does not start. Attempt limits are configured separately under **Alerts**.",
-  ]),
+  "repair-and-rework": guide(
+    "Mfg → Repair & Rework → Debug Queue, Repair Queue, Repair Out, and Rework Board",
+    [
+      "**Send a failed RSN to Repair:** In **Debug Queue**, open the failed RSN and review its failure evidence, route context, and previous attempts. Select **Send to Repair** only when Forge displays it, choose the Repair Level and available 4M cause details, add diagnosis notes, submit, and verify the status becomes **Queued for Repair**.",
+      "**Start the repair:** In **Repair Queue**, find and open the same RSN. Confirm the failure evidence, Repair Station, attempt history, and current status. Select **Start Repair**, complete any prompted level or assignment fields, and verify that the job is **In Repair** before recording work.",
+      "**Complete the repair:** Select **Complete Repair** only after the work is finished. Record the result such as **Repair Successful** or **No Fault Found**, the confirmed 4M category, repair minutes, labor or material cost, notes, and required evidence. Submit and verify **Pending QC**. In the verified flow, successful completion is the QC handoff; there is no separate Send to QC action.",
+      "**Approve in QC:** In **Repair Out**, find the RSN in **Pending QC**, open it, and review the repair timeline, result, costs, notes, and evidence. Select **QC Pass** only when it is displayed, add the required notes, then refresh and verify **QC Passed** in the status and timeline.",
+      "**Release after QC:** Use **Release** only when Forge displays it for the QC-passed record. Confirm the configured destination or next step, submit once, and verify the resulting released or routed status before leaving the record.",
+      "**Reject in QC:** If evidence or verification fails, select **QC Reject** when available and record the required reason and notes. Refresh and verify the resulting status and timeline; do not assume whether Forge returned the RSN to Repair or Rework.",
+      "**Return to Repair:** When the post-rejection status or displayed action sends the RSN back to Repair, reopen it in **Repair Queue**, start the new attempt, correct the issue, record new evidence, complete the repair, and verify that it returns to **Pending QC**.",
+      "**Send to and complete Rework:** Use the displayed Rework disposition only when approved for the RSN. Select the controlled symptom, reason, and routing information requested by Forge, then track the card in **Rework Board**. Use **Record work**, capture the attempt and evidence, and verify the card moves to **Pending Re-inspection** or the other result Forge displays.",
+      "**Use Scrap only for an approved disposition:** Select **Report Scrap** or another Scrap action only when it is available and approved. Record the controlled reason and evidence, preserve the approval trail, and verify the Scrap Register status instead of treating the click as completion.",
+      "**Stop on any Forge error:** Do not repeat a state-changing action or assume success after an error. Stop, retain the RSN and visible status, and report the error for investigation.",
+    ],
+  ),
   "hold-scrap-teardown": guide("Manufacturing → Quality or Scrap & Teardown", [
     "**Create the correct hold:** Open **Quality → Hold Management → Create Hold**. Choose the Hold Level first; it changes the required target and the operational impact.",
     "**Complete required hold fields:** Select the target and a **Reason**. Notes are optional, and a Work Order hold can include an optional expected release date.",
@@ -273,12 +303,33 @@ const TASK_GUIDES: Record<string, ForgeTaskGuide> = {
     "**Track scrap upstream:** Configure **Scrap Reasons** first. **Scrap Register** tracks Pending Approval, Approved, Executed, and Rejected dispatches; it has no create action.",
     "**Start teardown correctly:** A Teardown order appears only after an executed Scrap dispatch is sent with **Send to teardown**. The donor serial and scrap dispatch remain linked to recovered Components.",
   ]),
+  "scrap-register": guide("Mfg → Scrap & Teardown → Scrap Register", [
+    "**Open the register:** Open **Scrap & Teardown** and select **Scrap Register**. The register is a review queue; it has no create action.",
+    "**Choose the status view:** Use **All**, **Pending Approval**, **Approved**, **Executed**, or **Rejected** to review the correct dispatch state.",
+    "**Set the scope:** Filter by Source, Category, Reason, Line, Station, Work Order, Product, or Date Range, then use **Refresh** when the source data may have changed.",
+    "**Review the dispatch evidence:** Confirm the dispatch number, source, unit or quantity, Product, Work Order, Station, reason, proposer, status, and age before taking any action in the owning workflow.",
+    "**Preserve the approval flow:** Do not approve, execute, reject, or send a dispatch to teardown unless the record is in the eligible state and the required evidence has been reviewed. The recorded SIT walkthrough is intentionally read-only.",
+  ]),
+  "scrap-reasons": guide("Mfg → Scrap & Teardown → Scrap Reasons", [
+    "**Open Scrap Reasons:** Open **Scrap & Teardown** and select **Scrap Reasons**. Use **Show inactive** only when obsolete categories or reasons must be reviewed.",
+    "**Choose how to initialise the taxonomy:** Select **Seed industry defaults** to create the standard material, process, equipment, handling, operator, setup, and design categories, or select **Add category** to define one manually.",
+    "**Enter a manual category:** **Code** and **Name** are required. Description is optional, and Sort Order controls where the category appears.",
+    "**Maintain reason codes under the category:** Add concise, non-duplicate reasons and keep only currently selectable entries active so equivalent causes report consistently.",
+    "**Recorded SIT state:** The verified walkthrough showed no scrap-reason categories. It does not seed or save categories, so existing data remains unchanged; recheck the target Plant before presenting the empty state as current.",
+  ]),
   packaging: guide("Manufacturing → Packaging & Shipping → Packaging", [
     "**Open Packaging:** Open **Packaging & Shipping** and select **Packaging**.",
     "**Configure the product hierarchy:** Open **Packing Configuration**, select the Product, and define the product-specific container type. **Product**, **Name**, and **Code** are required; Code accepts 2–10 alphanumeric characters.",
     "**Choose leaf or parent behavior:** Leave **Child Container Type** empty for a leaf that binds finished-unit serials directly, or select the allowed child to build Device → Box → Carton → Pallet.",
     "**Create the container:** Return to the Packaging Dashboard and select **Create Container**. Choose the Product, then select the required **Container Type** and **Work Order ID**; Create remains disabled until both required values are present.",
     "**Review and complete packaging:** Open the generated UID to review device count, weight and dimensions, linked Work Order, label state, and History. A UID template is optional; without one, Fynd ERP uses the default format.",
+  ]),
+  shipments: guide("Mfg → Packaging & Shipping → Shipments", [
+    "**Open Shipments:** Open **Packaging & Shipping** and select **Shipments**.",
+    "**Find an existing shipment:** Search by ASN or destination, or filter by Work Order, Product, Status, and Date Range. The list shows ASN, Work Order, destination, contents, carrier, status, dates, and available actions.",
+    "**Start a shipment only with valid source data:** Select **New Shipment**. Work Order is optional; **Product** and **Address line 1** are required. Complete the destination, carrier, optional invoice or vendor-lot details, and notes before submission.",
+    "**Verify the created record:** Confirm the new shipment appears in the list with the expected destination, contents, carrier, status, and dates before continuing to shipment verification.",
+    "**Recorded SIT state:** No Shipments were available in the verified walkthrough, and the form was not submitted to avoid creating client data. Treat shipment creation and the resulting verification handoff as unverified until they are tested with approved source records in the target environment.",
   ]),
   "containers-and-labels": guide("Manufacturing → Packaging & Shipping", [
     "**Build the container hierarchy:** In **Packing Configuration**, create the leaf first, then create each parent with its allowed **Child Container Type**. Selecting a child makes **Max child count** required.",
@@ -292,9 +343,9 @@ const TASK_GUIDES: Record<string, ForgeTaskGuide> = {
     [
       "**Select the Shipment first:** Open **Shipment Verification**. **Shipment** is required; **Container Type**, verification counts, container rows, and Export remain unavailable until a Shipment is selected.",
       "**Follow the governing rule:** An active **Shipment Rule** must include the selected container configuration and permit its container-count and maximum-weight limits; priority resolves which rule applies.",
-      "**Check the Shipping Gate:** The approved Purchase Order quantity needs positive remaining balance. The only active SIT gate is fully consumed: approved 5, consumed 5, balance 0.",
-      "**Configure ASN export when required:** ASN Excel columns come from a client- or product-scoped template. This SIT Plant currently has no ASN templates.",
-      "**Current SIT limitation:** This Plant has no Shipments. **Create Shipment** omits the backend-required `lines` and `warehouseRootLocationId` values, so submission fails and verification cannot begin from the current SIT UI.",
+      "**Check the Shipping Gate:** Confirm that the applicable approved Purchase Order quantity has a positive remaining balance before verification.",
+      "**Configure ASN export when required:** ASN Excel columns come from a client- or product-scoped template. Confirm that the required template exists in the target environment before relying on Export.",
+      "**Verify the prerequisite path:** The recorded SIT walkthrough had no selectable Shipment, so container verification and export were not exercised. Retest shipment creation, rule matching, gate balance, and ASN output with approved records before the client demonstration.",
     ],
   ),
   "traceability-genealogy-recall": guide(
@@ -302,10 +353,10 @@ const TASK_GUIDES: Record<string, ForgeTaskGuide> = {
     [
       "**Set a required dossier scope:** In **Master Traceability**, filters combine and dependent Product filters unlock from their parent selection. A specific identifier list overrides the other filters; **Generate Dossier** remains disabled until at least one scope is selected.",
       "**Choose the report output:** Select only the required unit, route, quality, genealogy, identifier, tool, checklist, packaging, or shipment sheets. Generation is asynchronous and completed files remain in **Recent exports**; the Nova X1 Work Order produced a two-unit dossier.",
-      "**Complete every Stage Timeline requirement:** Select a date range, at least one Work Order, and 1–50 Operations. The date range is required even though this SIT build does not mark it with an asterisk.",
+      "**Complete every Stage Timeline requirement:** Select a date range, at least one Work Order, and 1–50 Operations. The recorded SIT form required the date range even though it was not marked with an asterisk; recheck the target environment if the form changes.",
       "**Follow genealogy in the correct direction:** The full tree accepts pallet, carton, box, device, product, Component, or batch identifiers. **Downstream** follows a finished identity to Components and lots; **Upstream** follows a lot toward finished units.",
       "**Find the affected population:** Search **Find Affected Units** by Batch/Lot Number or Component Serial. The Nova X1 battery lot returned `NOVA-X1-PHONE-000002` as an affected finished serial.",
-      "**Current SIT recall limitation:** Recall creation requires Title and Severity. **By Batch** finds no production tasks, and adding the completed task directly fails because `productionTaskIds` is unused; the authorized Nova X1 Recall Notice therefore remains Draft with zero affected units.",
+      "**Verify Recall assignment before relying on it:** Recall creation requires Title and Severity. Confirm that the selected batch or tasks populate affected units and that the saved notice records them; the recorded SIT exercise did not complete affected-unit assignment.",
     ],
   ),
   dashboards: guide(
@@ -321,11 +372,11 @@ const TASK_GUIDES: Record<string, ForgeTaskGuide> = {
   ),
   "shift-operations": guide("Manufacturing → Shifts & Labor", [
     "**Confirm net working time:** Shift duration is reduced by unpaid breaks. **Nova X1 Assembly Morning Shift** runs 06:00–14:00; its 15-minute unpaid tea break reduces 8 hours to 7h 45m net.",
-    "**Verify Schedule coverage:** New Shift Schedules remain Draft until activated. Status alone does not prove coverage: all three current SIT Schedules show 0 shifts/week, including the Active Standard and Weekend Schedules.",
+    "**Verify Schedule coverage:** New Shift Schedules remain Draft until activated, but status alone does not prove coverage. Confirm the generated shifts per week and calendar coverage in the target environment.",
     "**Complete the required Handover fields:** **Shift** and **Handover Date** are required. Line, outgoing/incoming operators, production/quality/equipment summaries, notes, pending tasks, and checklist items are optional.",
     "**Record connected operating context:** The authorized Nova X1 Handover connects `NOVA-X1-SHIFT-A` to `NOVA_X1_LINE_01` and records completed production, passed Route Logs, equipment state, safety, and the two pending repair tasks.",
-    "**Review before completion:** A new Handover is **Draft**. Outgoing Supervisor defaults to the current Plant Administrator, Incoming Supervisor may remain blank, and **Complete** should be used only after the next Shift reviews the record.",
-    "**Interpret Break Compliance carefully:** With zero Break Logs, SIT displays 100% compliance and 0 violations. **Export CSV** remains disabled until filtered records exist.",
+    "**Review before completion:** A new Handover is **Draft**. Confirm the Outgoing and Incoming Supervisors explicitly; **Complete** should be used only after the next Shift reviews the record.",
+    "**Interpret Break Compliance carefully:** A recorded SIT view with zero Break Logs displayed 100% compliance and 0 violations, but that percentage is not evidence that compliant breaks occurred. Confirm the underlying logs in the target environment; **Export CSV** is available only when exportable records exist.",
   ]),
   "tools-and-maintenance": guide(
     "Manufacturing → Process & Engineering → Tools and Equipments",
@@ -334,7 +385,7 @@ const TASK_GUIDES: Record<string, ForgeTaskGuide> = {
       "**Complete the required identity:** **Tool Name, Tool Code, Tool Category, Manufacturer, Model, Station, and Status** are required. The authorized SIT example is `NOVA-X1-TORQUE-01`, assigned to **Nova X1 Smartphone SMT Placement Station**.",
       "**Configure calibration only when governed:** Enabling **Requires Calibration** reveals the optional interval and provider fields. A governed Tool stays **Unknown** until a calibration record supplies the required **Calibration Date, Next Calibration Date, and Result**.",
       "**Record readiness evidence:** The Nova X1 Tool has an Initial, Passed calibration with certificate `NOVA-X1-CAL-2026-001` and a next due date. Calibration overrides, when used, remain visible in override history.",
-      "**Evaluate Maintenance Alerts:** **Trigger Maintenance Check** evaluates configured maintenance rules. With no matching rules, SIT returns 0 alerts and **Export** remains disabled because there are no rows.",
+      "**Evaluate Maintenance Alerts:** **Trigger Maintenance Check** evaluates configured maintenance rules. A result of 0 alerts may mean that no rule matched or that the required rules or source data are absent; verify both before relying on the result. **Export** requires alert rows.",
       "**Control the maintenance Work Order:** Only **Tool** and **Title** are required; Priority defaults to **Medium** and Maintenance Type to **Corrective**. The connected preventive order progresses **Draft → Submitted → Approved**, after which **Start** becomes available.",
       "**Protect production timing:** Keep Tool status, calibration, and maintenance readiness current. Do not start a future approved maintenance order before the planned window.",
     ],
@@ -345,9 +396,9 @@ const TASK_GUIDES: Record<string, ForgeTaskGuide> = {
       "**Build the dossier scope:** Open **Traceability → Master Traceability → Dossier**. Scope filters are optional and combine; a serial-number list pasted or uploaded under **Specific identifiers** overrides the other scope filters.",
       "**Choose report sheets:** Select the required Unit Summary, Route Detail, tests, sampling, NCR/defects, repair, genealogy, identifiers, Tool Usage, checklist, packaging, and shipment sheets. The completed Nova X1 Work Order matches 2 units.",
       "**Generate and verify the dossier:** Select **Generate Dossier**, then wait for **Recent exports** to show **COMPLETED**, the unit count, and the XLSX filename before downloading.",
-      "**Create a Work Order export:** From **Production → Work Orders**, select **Export Work Orders**. SIT opens **Settings → Files & Data → Exports** and a separate **Create Data Export** dialog; list-page filters are not inherited, so re-apply Search, Status, and Priority there.",
+      "**Create a Work Order export:** From **Production → Work Orders**, select **Export Work Orders**. In the recorded SIT flow this opened **Settings → Files & Data → Exports** and a separate **Create Data Export** dialog. Verify the route in the target environment and re-apply Search, Status, and Priority when list-page filters are not inherited.",
       "**Verify export evidence:** Export Details retains type, format, status, file size, and applied filters. A job may show **COMPLETED** while Processed and Progress remain 0, so confirm the processed count and file contents before relying on it.",
-      "**Use the available audit history:** **View all changes** shows actor, action, affected Work Order, and timestamp. In current SIT, **View All History** opens an error page; use **Recent Changes** until the full audit-trail route is restored.",
+      "**Use the available audit history:** **View all changes** and **Recent Changes** show the available actor, action, affected record, and timestamp evidence. Confirm that any separate full-history route works in the target environment before relying on it.",
     ],
   ),
   "first-production-run": guide("Manufacturing → Production → Work Orders", [

@@ -44,6 +44,11 @@ type CookbookDict = {
   ctaStart: string;
   ctaJourney: string;
   ctaDownload: string;
+  ctaTraining: string;
+
+  trainingTitle: string;
+  trainingDescription: string;
+  trainingVideoTitle: string;
 
   browseTitle: string;
   browseSubtext: string;
@@ -136,41 +141,55 @@ const en: CookbookDict = {
   ctaStart: "Start the guided setup",
   ctaJourney: "See the complete setup journey",
   ctaDownload: "Download complete cookbook (PDF)",
+  ctaTraining: "Watch the training ↓",
+
+  trainingTitle: "Watch the complete Fynd ERP training",
+  trainingDescription:
+    "Follow the full manufacturing walkthrough, from setup and Work Orders to quality, repair, packaging, traceability, and analytics.",
+  trainingVideoTitle: "Neolync Fynd ERP training session",
 
   browseTitle: "Browse the cookbook",
   browseSubtext:
     "Start with a card, follow the stages in order, or use global search to jump directly to a topic.",
 
-  setupTitle: "Set up Fynd ERP in the right order",
+  setupTitle: "Work through the Mfg modules",
   setupSubtext:
-    "Follow one connected path from an empty environment to a traceable finished unit. Each stage unlocks the next.",
+    "Use the same module structure as Fynd ERP. Start with Production and Process & Engineering, then move through control, traceability, packaging, and shifts.",
   legendRequired: "Required — blocks the core flow",
   legendRecommended: "Recommended — improves control",
   legendConditional: "Conditional — use when the process needs it",
   setupStages: [
     {
-      title: "Model the factory",
-      detail: "Create the Site, Lines, Stations, repair Stations, and Shifts.",
+      title: "Production",
+      detail: "Define products and materials, create orders, release work, and monitor execution.",
     },
     {
-      title: "Define what you make",
-      detail: "Create Components, Products, Variants, and an active BOM.",
+      title: "Process & Engineering",
+      detail: "Configure Sites, Lines, Stations, Routings, Templates, identifiers, and tools.",
     },
     {
-      title: "Design the process",
-      detail: "Build a Routing and connect the Product to an eligible starting Line.",
+      title: "Quality",
+      detail: "Configure controls, inspections, defects, NCR, CAPA, and quality evidence.",
     },
     {
-      title: "Plan production",
-      detail: "Create a Work Order, confirm capacity, and generate every finished-unit serial.",
+      title: "Repair & Rework",
+      detail: "Manage debug and repair queues, rework, returns, RMAs, alerts, intake rules, symptoms, and reasons.",
     },
     {
-      title: "Run the work",
-      detail: "Release the Work Order and move its Production Tasks through the route.",
+      title: "Scrap & Teardown",
+      detail: "Control holds, scrap decisions, approvals, dispatches, and component recovery.",
     },
     {
-      title: "Verify and trace",
-      detail: "Inspect, handle exceptions, package, ship, and preserve genealogy.",
+      title: "Traceability",
+      detail: "Follow materials, units, genealogy, recalls, exports, and audit evidence.",
+    },
+    {
+      title: "Packaging & Shipping",
+      detail: "Build containers, print labels, apply shipping gates, and verify shipments.",
+    },
+    {
+      title: "Shifts & Labor",
+      detail: "Create Shifts, understand schedule coverage, and record handovers.",
     },
   ],
 
@@ -281,43 +300,55 @@ const ta: CookbookDict = {
   ctaStart: "வழிகாட்டப்பட்ட அமைப்பைத் தொடங்கு",
   ctaJourney: "முழு அமைப்புப் பயணத்தைக் காண்க",
   ctaDownload: "முழு வழிகாட்டியைப் பதிவிறக்கு (PDF)",
+  ctaTraining: "பயிற்சியைப் பாருங்கள் ↓",
+
+  trainingTitle: "முழு Fynd ERP பயிற்சியைப் பாருங்கள்",
+  trainingDescription:
+    "Setup மற்றும் Work Orders முதல் quality, repair, packaging, traceability, analytics வரை முழு manufacturing walkthrough-ஐ பாருங்கள்.",
+  trainingVideoTitle: "Neolync Fynd ERP பயிற்சி அமர்வு",
 
   browseTitle: "வழிகாட்டியை உலாவுங்கள்",
   browseSubtext:
     "ஒரு அட்டையிலிருந்து தொடங்குங்கள், நிலைகளை வரிசையாகப் பின்பற்றுங்கள், அல்லது ஒரு தலைப்பிற்கு நேரடியாகச் செல்ல தேடலைப் பயன்படுத்துங்கள்.",
 
-  setupTitle: "Fynd ERP-ஐ சரியான வரிசையில் அமைக்கவும்",
+  setupTitle: "Mfg modules வழியாக வேலை செய்யுங்கள்",
   setupSubtext:
-    "வெற்று சூழலிலிருந்து தடமறியக்கூடிய முடிக்கப்பட்ட அலகு வரை ஒரே தொடர்ச்சியான பாதையைப் பின்பற்றுங்கள். ஒவ்வொரு நிலையும் அடுத்ததைத் திறக்கிறது.",
+    "Fynd ERP-இல் இருக்கும் அதே module structure-ஐ பயன்படுத்துங்கள். Production மற்றும் Process & Engineering-இல் தொடங்கி, control, traceability, packaging, மற்றும் shifts வழியாக தொடருங்கள்.",
   legendRequired: "அவசியம் — முக்கியப் பாதையைத் தடுக்கிறது",
   legendRecommended: "பரிந்துரை — கட்டுப்பாட்டை மேம்படுத்துகிறது",
   legendConditional: "தேவைப்பட்டால் — செயல்முறைக்குத் தேவைப்படும்போது பயன்படுத்தவும்",
   setupStages: [
     {
-      title: "தொழிற்சாலையை வடிவமைக்கவும்",
-      detail: "Site, Lines, Stations, பழுதுபார்க்கும் Stations மற்றும் Shifts உருவாக்குங்கள்.",
+      title: "உற்பத்தி",
+      detail: "Products மற்றும் materials-ஐ வரையறுத்து, orders உருவாக்கி, work-ஐ release செய்து execution-ஐ monitor செய்யுங்கள்.",
     },
     {
-      title: "நீங்கள் தயாரிப்பதை வரையறுக்கவும்",
-      detail: "Components, Products, Variants மற்றும் ஒரு செயலில் உள்ள BOM உருவாக்குங்கள்.",
+      title: "செயல்முறை & பொறியியல்",
+      detail: "Sites, Lines, Stations, Routings, Templates, identifiers, மற்றும் tools-ஐ configure செய்யுங்கள்.",
     },
     {
-      title: "செயல்முறையை வடிவமைக்கவும்",
-      detail: "ஒரு Routing உருவாக்கி, Product-ஐ தகுதியான தொடக்க Line உடன் இணைக்கவும்.",
+      title: "தரம்",
+      detail: "Controls, inspections, defects, NCR, CAPA, மற்றும் quality evidence-ஐ configure செய்யுங்கள்.",
     },
     {
-      title: "உற்பத்தியைத் திட்டமிடவும்",
-      detail:
-        "ஒரு Work Order உருவாக்கி, திறனை உறுதிசெய்து, ஒவ்வொரு முடிக்கப்பட்ட அலகின் சீரியலையும் உருவாக்குங்கள்.",
+      title: "பழுதுபார்ப்பு & மறுவேலை",
+      detail: "Debug மற்றும் repair queues, rework, returns, RMA, alerts, intake rules, symptoms, மற்றும் reasons-ஐ நிர்வகியுங்கள்.",
     },
     {
-      title: "வேலையை இயக்கவும்",
-      detail: "Work Order-ஐ வெளியிட்டு, அதன் Production Tasks-ஐ பாதை வழியாக நகர்த்துங்கள்.",
+      title: "கழிவு & பிரித்தல்",
+      detail: "Holds, scrap decisions, approvals, dispatches, மற்றும் component recovery-ஐ கட்டுப்படுத்துங்கள்.",
     },
     {
-      title: "சரிபார்த்து தடமறியவும்",
-      detail:
-        "ஆய்வு செய்து, விதிவிலக்குகளைக் கையாண்டு, பேக் செய்து, அனுப்பி, genealogy-ஐப் பாதுகாக்கவும்.",
+      title: "தடமறிதல்",
+      detail: "Materials, units, genealogy, recalls, exports, மற்றும் audit evidence-ஐ trace செய்யுங்கள்.",
+    },
+    {
+      title: "பொதி செய்தல் & அனுப்புதல்",
+      detail: "Containers உருவாக்கி, labels print செய்து, shipping gates apply செய்து, shipments verify செய்யுங்கள்.",
+    },
+    {
+      title: "ஷிப்ட்கள் & பணியாளர்கள்",
+      detail: "Shifts உருவாக்கி, schedule coverage-ஐ புரிந்து, handovers பதிவு செய்யுங்கள்.",
     },
   ],
 
@@ -428,43 +459,55 @@ const te: CookbookDict = {
   ctaStart: "గైడెడ్ సెటప్‌ను ప్రారంభించండి",
   ctaJourney: "పూర్తి సెటప్ ప్రయాణాన్ని చూడండి",
   ctaDownload: "పూర్తి గైడ్‌ను డౌన్‌లోడ్ చేయండి (PDF)",
+  ctaTraining: "శిక్షణను చూడండి ↓",
+
+  trainingTitle: "పూర్తి Fynd ERP శిక్షణను చూడండి",
+  trainingDescription:
+    "Setup మరియు Work Orders నుంచి quality, repair, packaging, traceability, analytics వరకు పూర్తి manufacturing walkthrough‌ను చూడండి.",
+  trainingVideoTitle: "Neolync Fynd ERP శిక్షణ సెషన్",
 
   browseTitle: "గైడ్‌ను విహరించండి",
   browseSubtext:
     "ఒక కార్డ్‌తో ప్రారంభించండి, దశలను వరుసగా అనుసరించండి, లేదా నేరుగా ఒక అంశానికి వెళ్లడానికి శోధనను ఉపయోగించండి.",
 
-  setupTitle: "Fynd ERP‑ని సరైన వరుసలో సెటప్ చేయండి",
+  setupTitle: "Mfg modules ద్వారా పని చేయండి",
   setupSubtext:
-    "ఖాళీ వాతావరణం నుండి ట్రేస్ చేయదగిన పూర్తయిన యూనిట్ వరకు ఒకే అనుసంధాన మార్గాన్ని అనుసరించండి. ప్రతి దశ తదుపరిదాన్ని అన్‌లాక్ చేస్తుంది.",
+    "Fynd ERP‌లో ఉన్న అదే module structure‌ను ఉపయోగించండి. Production మరియు Process & Engineering‌తో ప్రారంభించి, control, traceability, packaging, మరియు shifts ద్వారా కొనసాగండి.",
   legendRequired: "అవసరం — ప్రధాన ప్రవాహాన్ని అడ్డుకుంటుంది",
   legendRecommended: "సిఫార్సు — నియంత్రణను మెరుగుపరుస్తుంది",
   legendConditional: "అవసరమైతే — ప్రక్రియకు అవసరమైనప్పుడు ఉపయోగించండి",
   setupStages: [
     {
-      title: "ఫ్యాక్టరీని మోడల్ చేయండి",
-      detail: "Site, Lines, Stations, రిపేర్ Stations మరియు Shifts సృష్టించండి.",
+      title: "ఉత్పత్తి",
+      detail: "Products మరియు materials‌ను నిర్వచించి, orders సృష్టించి, work‌ను release చేసి execution‌ను monitor చేయండి.",
     },
     {
-      title: "మీరు తయారు చేసేదాన్ని నిర్వచించండి",
-      detail: "Components, Products, Variants మరియు ఒక యాక్టివ్ BOM సృష్టించండి.",
+      title: "ప్రక్రియ & ఇంజినీరింగ్",
+      detail: "Sites, Lines, Stations, Routings, Templates, identifiers, మరియు tools‌ను configure చేయండి.",
     },
     {
-      title: "ప్రక్రియను రూపొందించండి",
-      detail: "ఒక Routing రూపొందించి, Product‑ను అర్హత గల ప్రారంభ Line‑తో అనుసంధానించండి.",
+      title: "నాణ్యత",
+      detail: "Controls, inspections, defects, NCR, CAPA, మరియు quality evidence‌ను configure చేయండి.",
     },
     {
-      title: "ఉత్పత్తిని ప్రణాళిక చేయండి",
-      detail:
-        "ఒక Work Order సృష్టించి, సామర్థ్యాన్ని నిర్ధారించి, ప్రతి పూర్తయిన యూనిట్ సీరియల్‌ను రూపొందించండి.",
+      title: "మరమ్మతు & మళ్లీ పని",
+      detail: "Debug మరియు repair queues, rework, returns, RMA, alerts, intake rules, symptoms, మరియు reasons‌ను నిర్వహించండి.",
     },
     {
-      title: "పనిని నడపండి",
-      detail: "Work Order‑ను విడుదల చేసి, దాని Production Tasks‑ను మార్గం గుండా తరలించండి.",
+      title: "స్క్రాప్ & విడదీయడం",
+      detail: "Holds, scrap decisions, approvals, dispatches, మరియు component recovery‌ను నియంత్రించండి.",
     },
     {
-      title: "ధృవీకరించి ట్రేస్ చేయండి",
-      detail:
-        "తనిఖీ చేసి, మినహాయింపులను నిర్వహించి, ప్యాక్ చేసి, షిప్ చేసి, genealogy‑ను భద్రపరచండి.",
+      title: "ట్రేసింగ్",
+      detail: "Materials, units, genealogy, recalls, exports, మరియు audit evidence‌ను trace చేయండి.",
+    },
+    {
+      title: "ప్యాకింగ్ & షిప్పింగ్",
+      detail: "Containers నిర్మించి, labels print చేసి, shipping gates apply చేసి, shipments verify చేయండి.",
+    },
+    {
+      title: "షిఫ్టులు & సిబ్బంది",
+      detail: "Shifts సృష్టించి, schedule coverage‌ను అర్థం చేసుకుని, handovers నమోదు చేయండి.",
     },
   ],
 

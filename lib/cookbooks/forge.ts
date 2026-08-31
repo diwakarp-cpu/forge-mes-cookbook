@@ -4,6 +4,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { getForgeTaskGuide } from "@/lib/cookbooks/forge-task-guides";
 import {
+  getForgeModuleSections,
+  LEGACY_PAGE_DESTINATIONS,
+  LEGACY_SECTION_DESTINATIONS,
+} from "@/lib/cookbooks/forge-module-structure";
+import { getForgeLiveModulePages } from "@/lib/cookbooks/forge-live-module-pages";
+import { getForgeSupplementalPages } from "@/lib/cookbooks/forge-supplemental-pages";
+import {
   cookbookUi,
   DEFAULT_COOKBOOK_LANG,
   normalizeCookbookLang,
@@ -36,7 +43,6 @@ const PAGE_MEDIA: Record<string, PageMedia> = {
   sites: gif("forge-create-site-v3.gif"),
   lines: gif("forge-create-production-line.gif"),
   "stations-and-repair-stations": gif("forge-station-creation.gif"),
-  shifts: gif("forge-create-shifts.gif", 368),
   // Define products and materials
   "projects-and-product-families": gif(
     "forge-projects-product-families.gif",
@@ -55,6 +61,7 @@ const PAGE_MEDIA: Record<string, PageMedia> = {
     "forge-starting-lines-and-capacity.gif",
     368,
   ),
+  templates: gif("forge-templates.gif", 356),
   "product-identifiers": gif("forge-product-identifiers.gif", 368),
   // Plan and launch production
   "production-order-vs-work-order": gif(
@@ -72,10 +79,20 @@ const PAGE_MEDIA: Record<string, PageMedia> = {
   // Control quality and exceptions
   "quality-controls": gif("forge-configure-quality-controls.gif", 385),
   "inspection-to-capa": gif("forge-inspections-defects-ncr-capa.gif", 385),
-  "repair-and-rework": gif("forge-repair-rework.gif", 385),
   "hold-scrap-teardown": gif("forge-hold-scrap-teardown.gif", 385),
+  "debug-queue": gif("forge-debug-queue.gif", 356),
+  "repair-and-rework": gif("forge-repair-journey-placeholder.svg", 356),
+  "repair-out": gif("forge-repair-out.gif", 356),
+  "rework-board": gif("forge-rework-board.gif", 356),
+  "repair-alerts": gif("forge-repair-alerts.gif", 356),
+  "repair-config": gif("forge-repair-config.gif", 356),
+  "rework-symptoms": gif("forge-rework-symptoms.gif", 356),
+  "rework-reasons": gif("forge-rework-reasons.gif", 356),
+  "scrap-register": gif("forge-scrap-register.gif", 356),
+  "scrap-reasons": gif("forge-scrap-reasons.gif", 356),
   // Package, ship, and trace
   packaging: gif("forge-packaging-in-fynd-erp.gif", 385),
+  shipments: gif("forge-shipments.gif", 356),
   "containers-and-labels": gif("forge-containers-labels.gif", 385),
   "shipment-verification": gif("forge-shipment-verification.gif", 385),
   "traceability-genealogy-recall": gif(
@@ -89,9 +106,11 @@ const PAGE_MEDIA: Record<string, PageMedia> = {
   "reports-and-audit": gif("forge-reports-and-audit.gif", 385),
 };
 
-// Conceptual and reference articles explain the system without demonstrating a
-// discrete UI task, so they intentionally do not render a video placeholder.
+// These pages are intentionally explained in writing. Only approved cookbook
+// tasks render a recording placeholder; related read-only, reference, and
+// configuration pages stay uncluttered.
 const PAGES_WITHOUT_VIDEO = new Set([
+  // Start Here
   "forge-mes-in-plain-language",
   "manufacturing-basics",
   "how-forge-data-connects",
@@ -104,6 +123,50 @@ const PAGES_WITHOUT_VIDEO = new Set([
   "troubleshooting",
   "glossary",
   "capability-availability",
+  // Production
+  "create-production-order",
+  // Quality
+  "quality-dashboard",
+  "quality-alerts",
+  "alert-rules",
+  "defects",
+  "dispositions",
+  "hold-management",
+  "disposition-approvals",
+  "control-points",
+  "process-audits",
+  "ncr-reports",
+  "capa",
+  "quality-inspections",
+  "offline-testing",
+  "quality-settings",
+  // Repair & Rework
+  "repair-dashboard",
+  "rd-tracking",
+  "customer-returns",
+  "rma-tracking",
+  // Scrap & Teardown
+  "scrap-analytics",
+  "teardown-queue",
+  // Traceability
+  "recall-notices",
+  "certificates",
+  "batch-genealogy",
+  "unit-history",
+  "master-traceability",
+  // Packaging & Shipping
+  "container-comparison",
+  "shipment-rules",
+  "packaging-rules",
+  "shipping-gating",
+  "asn-templates",
+  // Shifts & Labor
+  "shift-schedules",
+  "shift-calendar",
+  "operator-shifts",
+  "shift-handovers",
+  "break-logs",
+  "break-compliance",
 ]);
 
 type GuidePageSpec = {
@@ -152,6 +215,7 @@ export type ForgeCookbookEntry = {
   excerpt: string;
   metadata: Array<{ label: string; value: string }>;
   kind: "page" | "collection";
+  redirectTo?: string;
 };
 
 export type ForgeCookbookSection = {
@@ -261,7 +325,7 @@ function buildPageBody(page: GuidePageSpec, lang: CookbookLang): string {
 }
 
 function buildSectionBody(
-  section: GuideSectionSpec,
+  section: { title: string },
   lang: CookbookLang,
 ): string {
   void section;
@@ -283,8 +347,22 @@ function buildDataset(lang: CookbookLang): ForgeDataset {
   const catalog = loadCatalog(lang);
   const ui = cookbookUi(lang);
   const sourcePath = GUIDE_PATHS[lang];
+  const moduleSections = getForgeModuleSections(lang);
+  const catalogPages = catalog.sections.flatMap((section) => section.pages);
+  const supplementalPages = getForgeSupplementalPages(lang);
+  const sourcePagesBySlug = new Map(
+    [...catalogPages, ...supplementalPages].map((page) => [page.slug, page]),
+  );
+  const liveModulePages = getForgeLiveModulePages(lang, sourcePagesBySlug);
+  const pagesBySlug = new Map(
+    [...catalogPages, ...supplementalPages, ...liveModulePages].map((page) => [
+      page.slug,
+      page,
+    ]),
+  );
+  const canonicalSectionByPageSlug = new Map<string, string>();
 
-  const sections: ForgeCookbookSection[] = catalog.sections.map(
+  const sections: ForgeCookbookSection[] = moduleSections.map(
     ({ title, label, slug, description }) => ({
       title,
       label,
@@ -307,7 +385,7 @@ function buildDataset(lang: CookbookLang): ForgeDataset {
     },
   ];
 
-  for (const section of catalog.sections) {
+  for (const section of moduleSections) {
     entries.push({
       id: `section-${section.slug}`,
       title: section.title,
@@ -320,7 +398,17 @@ function buildDataset(lang: CookbookLang): ForgeDataset {
       kind: "collection",
     });
 
-    for (const page of section.pages) {
+    for (const pageSlug of section.pageSlugs) {
+      const page = pagesBySlug.get(pageSlug);
+      if (!page) {
+        throw new Error(
+          `Missing ${lang} cookbook page for module mapping: ${pageSlug}`,
+        );
+      }
+      if (canonicalSectionByPageSlug.has(page.slug)) {
+        throw new Error(`Cookbook page is mapped more than once: ${page.slug}`);
+      }
+      canonicalSectionByPageSlug.set(page.slug, section.slug);
       const slug = [section.slug, page.slug];
       entries.push({
         id: slug.join("/"),
@@ -337,6 +425,62 @@ function buildDataset(lang: CookbookLang): ForgeDataset {
           },
         ],
         kind: "page",
+      });
+    }
+  }
+
+  if (canonicalSectionByPageSlug.size !== pagesBySlug.size) {
+    const unmapped = [...pagesBySlug.keys()].filter(
+      (pageSlug) => !canonicalSectionByPageSlug.has(pageSlug),
+    );
+    throw new Error(`Unmapped cookbook pages: ${unmapped.join(", ")}`);
+  }
+
+  // Keep every previously published deep link working while the visible
+  // cookbook adopts the Mfg module structure. These generated entries redirect
+  // to the canonical module route and stay out of navigation and search.
+  for (const legacySection of catalog.sections) {
+    const destinationSection =
+      LEGACY_SECTION_DESTINATIONS[legacySection.slug] || legacySection.slug;
+    if (legacySection.slug !== destinationSection) {
+      entries.push({
+        id: `legacy-section-${legacySection.slug}`,
+        title: legacySection.title,
+        slug: [legacySection.slug],
+        href: entryHref([legacySection.slug]),
+        sourcePath,
+        body: "",
+        excerpt: legacySection.description,
+        metadata: [],
+        kind: "collection",
+        redirectTo: entryHref([destinationSection]),
+      });
+    }
+
+    for (const page of legacySection.pages) {
+      const canonicalSection = canonicalSectionByPageSlug.get(page.slug);
+      const explicitDestination = LEGACY_PAGE_DESTINATIONS[page.slug];
+      const destination = canonicalSection
+        ? entryHref([canonicalSection, page.slug])
+        : explicitDestination
+          ? entryHref([
+              explicitDestination.sectionSlug,
+              explicitDestination.pageSlug,
+            ])
+          : undefined;
+      if (!destination || canonicalSection === legacySection.slug) continue;
+      const legacySlug = [legacySection.slug, page.slug];
+      entries.push({
+        id: `legacy-${legacySlug.join("/")}`,
+        title: page.title,
+        slug: legacySlug,
+        href: entryHref(legacySlug),
+        sourcePath,
+        body: "",
+        excerpt: page.summary,
+        metadata: [],
+        kind: "page",
+        redirectTo: destination,
       });
     }
   }
@@ -390,7 +534,7 @@ export function isForgeCookbookEntryVisible(
 export function getVisibleForgeCookbookEntries(
   lang: CookbookLang = DEFAULT_COOKBOOK_LANG,
 ): ForgeCookbookEntry[] {
-  return getDataset(lang).entries;
+  return getDataset(lang).entries.filter((entry) => !entry.redirectTo);
 }
 
 export function getForgeCookbookEntry(
@@ -408,6 +552,7 @@ export function getForgeCookbookChildren(
   return entries
     .filter(
       (candidate) =>
+        !candidate.redirectTo &&
         candidate.slug.length === entry.slug.length + 1 &&
         entry.slug.every((segment, index) => candidate.slug[index] === segment),
     )
@@ -421,7 +566,9 @@ export function getForgeCookbookChildren(
 export function getForgeCookbookTopLevelEntries(
   lang: CookbookLang = DEFAULT_COOKBOOK_LANG,
 ): ForgeCookbookEntry[] {
-  return getDataset(lang).entries.filter((entry) => entry.slug.length === 1);
+  return getDataset(lang).entries.filter(
+    (entry) => entry.slug.length === 1 && !entry.redirectTo,
+  );
 }
 
 export function getForgeCookbookBreadcrumbs(
@@ -444,7 +591,9 @@ export function getForgeCookbookArticleNavigation(
   if (entry.slug.length !== 2) return undefined;
 
   const { entries, entriesByRoute } = getDataset(lang);
-  const articles = entries.filter((candidate) => candidate.slug.length === 2);
+  const articles = entries.filter(
+    (candidate) => candidate.slug.length === 2 && !candidate.redirectTo,
+  );
   const articleIndex = articles.findIndex(
     (candidate) => candidate.id === entry.id,
   );

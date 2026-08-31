@@ -7,7 +7,7 @@ const guide = (navigationPath: string, steps: string[]): ForgeTaskGuide => ({
 
 export const TASK_GUIDES_TA: Record<string, ForgeTaskGuide> = {
   "complete-setup-journey": guide("Fynd ERP Dashboard", [
-    "**அமைப்புப் பயணத்தைத் திறங்கள்:** Setup, Process & Engineering, Production, மற்றும் Traceability வழியாக வரிசையாக வேலை செய்ய இடது வழிசெலுத்தலைப் பயன்படுத்துங்கள்.",
+    "**Manufacturing பயணத்தைத் திறங்கள்:** உங்கள் process-க்கு தேவையான வரிசையில் Production, Process & Engineering, Quality, மற்றும் அடுத்த manufacturing modules வழியாக வேலை செய்ய இடது navigation-ஐ பயன்படுத்துங்கள்.",
     "**தொழிற்சாலைப் பதிவுகளை உருவாக்குங்கள்:** Sites, Lines, operation Stations, Repair Stations, மற்றும் Shift Definitions-ஐ உருவாக்குங்கள்.",
     "**தயாரிப்புப் பதிவுகளை உருவாக்குங்கள்:** Project, Product Family, Components, Product, Variants, மற்றும் BOM Version-ஐ உருவாக்குங்கள்.",
     "**செயலாக்கத்தைத் தயார் செய்யுங்கள்:** BOM-ஐச் செயலில் ஆக்கி, Routing-ஐ உருவாக்கி சரிபார்த்து, Product-ஐ தகுதியான Lines-க்கு ஒதுக்குங்கள்.",
@@ -20,7 +20,7 @@ export const TASK_GUIDES_TA: Record<string, ForgeTaskGuide> = {
     "**தேவையான அடையாளத்தை உள்ளிடுங்கள்:** **Name** மற்றும் **Code** கட்டாயம். Code-இல் எழுத்துகள், எண்கள், மற்றும் hyphen மட்டுமே அனுமதிக்கப்படும்.",
     "**தேவைப்பட்டால் இருப்பிடத்தைச் சேர்க்குங்கள்:** Address fields விருப்பமானவை. **State / Province / Region**-க்கு முன் **Country**-ஐத் தேர்ந்தெடுக்கவும்; தேர்ந்தெடுத்த இடத்தின் அடிப்படையில் City values வடிகட்டப்படும்.",
     "**விருப்ப metadata-ஐ கவனமாகச் சேர்க்குங்கள்:** Metadata 32 KB வரம்புக்குள் இருக்க வேண்டும்; தேடலுக்கு உதவும்போது மட்டும் tags சேர்க்குங்கள்.",
-    "**தற்போதைய SIT வரம்பை மதிப்பாய்வு செய்யுங்கள்:** Request-இல் உள்ள **DIGIPIN**-ஐ SIT API நிராகரிப்பதால் manual creation தற்போது தோல்வியடைகிறது. தவறான success state-ஐ காட்டாமல், video அசல் error-ஐ வைத்திருக்கிறது.",
+    "**உருவாக்கி சரிபார்க்குங்கள்:** **Create**-ஐத் தேர்ந்தெடுத்து, Site பட்டியலில் புதிய Site தோன்றுவதையும் Station உருவாக்கும்போது அதைத் தேர்ந்தெடுக்க முடிவதையும் உறுதிப்படுத்துங்கள்.",
   ]),
   lines: guide("Mfg → Process & Engineering → Line", [
     "**Lines-ஐத் திறங்கள்:** **Mfg**-ஐத் திறந்து, **Process & Engineering**-ஐ விரித்து, **Line**-ஐத் தேர்ந்தெடுங்கள்.",
@@ -62,14 +62,13 @@ export const TASK_GUIDES_TA: Record<string, ForgeTaskGuide> = {
       "**ஒரு சிறிய சரிபார்ப்பை இயக்குங்கள்:** தொழிற்சாலை மாதிரி Production Tasks-ஐ ஏற்று வழிநடத்த முடியும் என்பதை உறுதிப்படுத்த ஒரு சிறிய Work Order அளவைப் பயன்படுத்துங்கள்.",
     ],
   ),
-  "projects-and-product-families": guide("Mfg → Setup → Projects", [
-    "**Projects-ஐத் திறங்கள்:** **Mfg**-ஐத் திறந்து, **Setup**-ஐ விரித்து, **Projects**-ஐத் தேர்ந்தெடுங்கள்.",
-    "**Project-ஐத் தொடங்குங்கள்:** **Create Project**-ஐத் தேர்ந்தெடுத்து **Create Manually**-ஐத் தேர்வு செய்யவும்; AI-assisted விருப்பத்தையும் பயன்படுத்தலாம்.",
-    "**Project requirements-ஐ உள்ளிடுங்கள்:** **Project Name**, **Code**, மற்றும் **Status** கட்டாயம். Code-இல் எழுத்துகள், எண்கள், hyphen, மற்றும் underscore அனுமதிக்கப்படும்; Client Company விருப்பமானது.",
-    "**Project-ஐ உருவாக்கி திறங்கள்:** **Create Project**-ஐத் தேர்ந்தெடுத்து success summary-ஐ மதிப்பாய்வு செய்து **View Details**-ஐத் தேர்வு செய்யவும்.",
-    "**Product Families-ஐத் திறங்கள்:** Project-இல் **Product Families** tab-ஐத் தேர்ந்தெடுத்து **Create Product Family**-ஐத் தேர்வு செய்யவும். Project முன்கூட்டியே தேர்ந்தெடுக்கப்பட்டிருக்கும்; இந்த dialog-இல் அதை மாற்ற முடியாது.",
-    "**Family requirements-ஐ உள்ளிடுங்கள்:** **Name** மற்றும் **Code** கட்டாயம். Type விருப்பமானது; ODM, OEM, Custom, Standard, அல்லது Other ஆதரிக்கப்படும். Status default-ஆக Active இருக்கும்.",
-    "**Hierarchy-ஐச் சரிபார்க்குங்கள்:** **Create**-ஐத் தேர்ந்தெடுத்து Product Family அதன் code, status, type, மற்றும் product count உடன் Project-க்குக் கீழ் தோன்றுவதை உறுதிப்படுத்துங்கள்.",
+  "projects-and-product-families": guide("Mfg → Production → Product Families", [
+    "**Product Families-ஐத் திறங்கள்:** **Mfg**-ஐத் திறந்து, **Production**-ஐ விரித்து, **Product Families**-ஐத் தேர்ந்தெடுங்கள்.",
+    "**List-ஐ review செய்யுங்கள்:** புதிய Family உருவாக்கும் முன் search மற்றும் filters மூலம் ஏற்கனவே உள்ளதா பாருங்கள்.",
+    "**Product Family-ஐ தொடங்குங்கள்:** Available create action-ஐத் தேர்வு செய்து required **Name** மற்றும் **Code** உள்ளிடுங்கள்.",
+    "**Classification சேர்க்கவும்:** Product group-க்கு பொருந்தினால் மட்டும் Type, Status, Project, அல்லது வேறு context-ஐ தேர்வு செய்யுங்கள்.",
+    "**Create செய்து verify செய்யுங்கள்:** Product Family-ஐ save செய்து code, status, type, Project context, மற்றும் product count list-ல் சரியா என்று பாருங்கள்.",
+    "**Recorded SIT navigation:** Verification நேரத்தில் **Mfg → Production** கீழ் Projects தனி option ஆக இல்லை. Product Family screen-ல் Project field அல்லது linked Project context இருந்தால் மட்டும் பயன்படுத்தி, client demo முன் target environment-ஐ மீண்டும் சரிபார்க்கவும்.",
   ]),
   components: guide("Masters → Item Master", [
     "**Item Master-ஐத் திறங்கள்:** **Masters**-ஐத் திறந்து **Item Master**-ஐத் தேர்ந்தெடுத்து, பின்னர் **Add Item**-ஐத் தேர்வு செய்யுங்கள்.",
@@ -78,6 +77,8 @@ export const TASK_GUIDES_TA: Record<string, ForgeTaskGuide> = {
     "**Tracking-ஐ அமைக்குங்கள்:** **Track by Serial Number**-ஐ இயக்கினால் Consumable மற்றும் Fixed Serial முடக்கப்படும். Mixed serial மற்றும் lot tracking-க்கு **Track by Non-Serialized** அதே நேரத்தில் இயக்கப்பட்டிருக்கலாம்.",
     "**Stock வரம்புகளை அமைக்குங்கள்:** Reorder point, maximum stock-ஐ மீறக்கூடாது; minimum stock-ஐ reorder point-க்கு சமமாகவோ அதற்குக் குறைவாகவோ வைத்திருங்கள்.",
     "**உருவாக்கிச் சரிபாருங்கள்:** **Create Component/Part**-ஐத் தேர்ந்தெடுத்து code, unit, serialized status, மற்றும் non-serialized tracking உள்ள success summary-ஐ மதிப்பாய்வு செய்யுங்கள்.",
+    "**மாற்றக்கூடிய விவரங்களை update செய்யுங்கள்:** **Item Master**-இல் material-ஐ மீண்டும் திறந்து, அனுமதிக்கப்பட்ட identity, stock, supplier, அல்லது description fields-ஐ தேவைக்கேற்ப edit செய்யுங்கள். Unit மற்றும் permanent tracking controls creation-க்குப் பிறகு locked ஆக இருக்கும்.",
+    "**Inventory activity-ஐ track செய்யுங்கள்:** Inventory Lots, Serials, Usage History, மற்றும் தொடர்புடைய inventory views மூலம் stock receive செய்து, lot, serial, quantity, மற்றும் consumption history-ஐப் பின்தொடருங்கள்.",
   ]),
   "products-and-variants": guide("Mfg → Production → Products", [
     "**Products-ஐத் திறங்கள்:** **Mfg**-ஐத் திறந்து **Production**-ஐ விரித்து **Products**-ஐத் தேர்ந்தெடுங்கள்.",
@@ -92,7 +93,7 @@ export const TASK_GUIDES_TA: Record<string, ForgeTaskGuide> = {
     "Mfg → Production → Products → Product detail → BOM Versions",
     [
       "**Product-ஐத் திறங்கள்:** **Mfg → Production → Products**-ஐத் திறந்து Product-ஐக் கண்டுபிடித்து **View** மூலம் details-ஐத் திறங்கள்.",
-      "**Draft version-ஐத் திறங்கள்:** **BOM Versions** கீழ் **View Version Details** மூலம் **Initial Version (V1)**-ஐத் திறங்கள். Product உருவாக்கும்போது உள்ளிட்ட BOM-இலிருந்து SIT இந்த Draft-ஐ தானாக உருவாக்குகிறது.",
+      "**Draft version-ஐத் திறங்கள்:** **BOM Versions** கீழ் **View Version Details** மூலம் **Initial Version (V1)**-ஐத் திறங்கள். Recorded SIT flow-ல் Product creation, உள்ளிட்ட BOM-இலிருந்து இந்த Draft-ஐ உருவாக்கியது; target environment-லும் இதேபோல் உள்ளதா verify செய்யுங்கள்.",
       "**BOM item-ஐச் சேர்க்குங்கள்:** **Add Item**-ஐத் தேர்ந்தெடுங்கள். Version Draft நிலையில் இருக்கும் போது items-ஐச் சேர்க்கலாம்.",
       "**Scope-ஐத் தேர்ந்தெடுங்கள்:** எல்லா Variants-க்கும் பொதுவான material-க்கு **Shared** பயன்படுத்துங்கள். Configuration-specific material-க்கு மட்டும் Variant BOM-ஐத் தேர்ந்தெடுங்கள்.",
       "**Quantity மற்றும் unit-ஐ அமைக்குங்கள்:** Quantity குறைந்தது 1. Production வேறு compatible unit-ஐப் பயன்படுத்தும் போது மட்டும் optional **Unit Override**-ஐப் பயன்படுத்துங்கள்.",
@@ -152,6 +153,15 @@ export const TASK_GUIDES_TA: Record<string, ForgeTaskGuide> = {
       "**Save செய்து verify செய்யுங்கள்:** **Save**-ஐத் தேர்ந்தெடுத்து Line detail-இல் status, Site, Capacity Per Hour, Capacity Per Shift, மற்றும் assigned Products சரியாக உள்ளதை உறுதிப்படுத்துங்கள்.",
     ],
   ),
+  templates: guide("Mfg → Process & Engineering → Templates", [
+    "**Templates-ஐத் திறங்கள்:** **Mfg** திறந்து, **Process & Engineering** விரிவாக்கி, **Templates** தேர்ந்தெடுங்கள்.",
+    "**Template தொடங்குங்கள்:** **Create Template** தேர்ந்தெடுத்து, **Create Manually** தேர்வு செய்யுங்கள் அல்லது AI-assisted option மூலம் draft உருவாக்குங்கள்.",
+    "**கட்டாய identity உள்ளிடுங்கள்:** **Template Name** மற்றும் **Template Type** கட்டாயம். Description விருப்பமானது.",
+    "**Data scope தேர்ந்தெடுங்கள்:** **Context Type** விருப்பமானது; எந்த data sources variables-ஆக கிடைக்கும் என்பதை இது கட்டுப்படுத்துகிறது. அதிக flexibility தேவைப்பட்டால் மட்டும் அதை காலியாக விடுங்கள்.",
+    "**Template உருவாக்குங்கள்:** தேர்ந்தெடுத்த type-க்கு தேவையான content, pattern, parser அல்லது validation rule சேர்க்குங்கள். PDF/HTML, HTML, CSS மற்றும் Nunjucks variables-ஐ ஆதரிக்கிறது; starter தேவைப்பட்டால் **Load Sample** பயன்படுத்துங்கள்.",
+    "**Activate செய்வதற்கு முன் preview செய்யுங்கள்:** Editor, Variables மற்றும் Data Preview மூலம் realistic data கொண்டு output-ஐ சரிபாருங்கள். Template பயன்படுத்தத் தயாராக இருந்தால் மட்டும் **Active** on-இல் இருக்கட்டும்.",
+    "**Save செய்து சரிபார்க்கவும்:** **Save** தேர்ந்தெடுத்து Templates list-இல் சரியான name, type, status, creator மற்றும் creation date இருக்கிறதா பாருங்கள். Governance தேவைப்பட்டால் **My Approvals** மற்றும் change history பயன்படுத்துங்கள்.",
+  ]),
   "product-identifiers": guide(
     "Manufacturing → Process & Engineering → Identifier Management; Production → Products → Product detail → Product Identifiers",
     [
@@ -162,6 +172,18 @@ export const TASK_GUIDES_TA: Record<string, ForgeTaskGuide> = {
       "**Mapping-ஐ configure செய்யுங்கள்:** Identifier definition-ஐத் தேர்ந்தெடுத்து கட்டாய Identifier Key மற்றும் Display Name-ஐ உள்ளிட்டு **Generated** அல்லது **External**-ஐத் தேர்ந்தெடுங்கள். Keys uppercase-ஆக store செய்யப்படும்.",
       "**Assignment behavior-ஐ அமைக்குங்கள்:** **On Task Creation**, **On Task Start**, அல்லது **At Route Step**-ஐத் தேர்ந்தெடுங்கள். Generated IMEI-க்கு தேவைக்கேற்ப **Auto-generate** மற்றும் **Must be Unique**-ஐ இயக்குங்கள்.",
       "**Save செய்து verify செய்யுங்கள்:** **Add Identifier**-ஐத் தேர்ந்தெடுத்து Product table-இல் key, display name, type, source, assignment timing, மற்றும் linked range-ஐ உறுதிப்படுத்துங்கள்.",
+    ],
+  ),
+  "create-production-order": guide(
+    "Mfg → Production → Production Orders",
+    [
+      "**Production Orders-ஐத் திறங்கள்:** **Mfg** திறந்து, **Production** விரிவாக்கி, **Production Orders** தேர்ந்தெடுங்கள்.",
+      "**Order தொடங்குங்கள்:** **Create Production Order** தேர்ந்தெடுத்து, **Create Manually** தேர்வு செய்யுங்கள் அல்லது AI-assisted option மூலம் draft உருவாக்குங்கள்.",
+      "**கட்டாய identity உள்ளிடுங்கள்:** **Name** மற்றும் **Order Number** கட்டாயம். இந்த grouping record-ஐ தனியாக அடையாளம் காட்டும் Order Number பயன்படுத்துங்கள்.",
+      "**விருப்ப Client scope அமைக்கவும்:** இந்த Production Order ஒரு Client-ன் Work Orders-க்கு மட்டும் என்றால் **Client** தேர்ந்தெடுங்கள். Client தேர்வு eligible Work Orders-ஐ கட்டுப்படுத்தும்.",
+      "**Planning context சேர்க்கவும்:** Description, Start Date, End Date மற்றும் metadata விருப்பமானவை. Scheduling, search அல்லது reporting-க்கு உதவும்போது சேர்க்குங்கள்.",
+      "**Grouping record உருவாக்குங்கள்:** Fields-ஐ review செய்து **Create Production Order** தேர்ந்தெடுங்கள். Production Order work-ஐ group செய்கிறது; அது தனியாக executable quantity அல்லது Production Tasks உருவாக்காது.",
+      "**Work Orders-ஐ இணைத்து கண்காணிக்கவும்:** Production Order திறந்து, தகுதியான தொடர்புடைய Work Orders-ஐ இணைத்து, combined progress, status மற்றும் planned date range-ஐ கண்காணியுங்கள்.",
     ],
   ),
   "create-work-order": guide("Manufacturing → Production → Work Orders", [
@@ -254,15 +276,23 @@ export const TASK_GUIDES_TA: Record<string, ForgeTaskGuide> = {
     "**ஒரே production source-ஐத் தேர்ந்தெடுங்கள்:** **Work Order** அல்லது available, non-expired **Lot**—இரண்டில் ஒன்றிலிருந்து மட்டும் inspection-ஐ உருவாக்குங்கள். Required total quantity மற்றும் sampling quantity-ஐ உள்ளிடுங்கள்.",
     "**ஒவ்வொரு sample-ஐயும் பதிவு செய்யுங்கள்:** Serial அல்லது lot sample-ஐ உள்ளிட்டு checks-ஐ முடிக்குங்கள். Failed sample-ஐ save செய்ய **Defect code** மற்றும் **Severity** தேவை.",
     "**Hold scope-ஐத் தேர்ந்தெடுங்கள்:** Inspection-ஐ reject செய்யும்போது failed serials மட்டும் அல்லது முழு lot-ஐ hold செய்யுங்கள். Inspection-இன் local defects மற்றும் plant **Defects** list records தனித்தனி.",
-    "**தற்போதைய SIT வரம்புகள்:** **Create NCR** தற்போது “NCR report not found” என்பதைத் திறக்கிறது. இந்த build-இல் **CAPA Management** create action வழங்கவில்லை; எனவே இத்திரைகளிலிருந்து NCR மற்றும் CAPA creation-ஐ முடிக்க முடியாது.",
+    "**Deployment availability-ஐ உறுதிசெய்யவும்:** NCR மற்றும் CAPA actions deployment மற்றும் permission-ஐப் பொறுத்து மாறலாம். Working create action இல்லையெனில் workflow available என்று கூறாமல் implementation owner-உடன் enablement-ஐ உறுதிசெய்யவும்.",
   ]),
-  "repair-and-rework": guide("Manufacturing → Repair & Rework", [
-    "**முதலில் intake-ஐ configure செய்யுங்கள்:** **Repair Config**-ஐத் திறங்கள். Failed units தானாக repair queue-க்கு செல்ல வேண்டுமெனில் **Auto-create repair on failure**-ஐ enable செய்து **Default Repair Station**-ஐத் தேர்ந்தெடுங்கள்.",
-    "**Failed units-ஐ triage செய்யுங்கள்:** Incoming failures-க்கு **Debug Queue**-ஐப் பயன்படுத்துங்கள். **Rework Board** jobs failure அல்லது Disposition-இலிருந்து உருவாகும்; board-இல் create action இல்லை.",
-    "**Job-ஐ track செய்யுங்கள்:** Linked Work Order, serial number, rework mechanism, attempt number, மற்றும் Pending, In Progress, Pending Re-inspection அல்லது Failed column-ஐ மதிப்பாய்வு செய்யுங்கள்.",
-    "**Repair evidence-ஐப் பதிவு செய்யுங்கள்:** **Record work**-ஐத் தேர்ந்தெடுத்து labor minutes, material cost, மற்றும் சுருக்கமான work notes-ஐ உள்ளிட்டு **Complete Work**-ஐத் தேர்ந்தெடுங்கள்.",
-    "**தற்போதைய SIT வரம்பு:** Complete Work labor மற்றும் material cost-ஐ save செய்கிறது; ஆனால் job **In Progress**-லேயே உள்ளது, reopen செய்யும் போது notes clear ஆகின்றன, re-inspection தொடங்கவில்லை. Attempt limits தனியாக **Alerts**-இல் configure செய்யப்படுகின்றன.",
-  ]),
+  "repair-and-rework": guide(
+    "Mfg → Repair & Rework → Debug Queue, Repair Queue, Repair Out, மற்றும் Rework Board",
+    [
+      "**Failed RSN-ஐ Repair-க்கு அனுப்புங்கள்:** **Debug Queue**-ல் RSN-ஐ திறந்து failure evidence, route context, மற்றும் previous attempts-ஐ review செய்யுங்கள். Forge **Send to Repair** காட்டினால் மட்டும் அதைத் தேர்ந்தெடுத்து Repair Level, available 4M cause details, diagnosis notes ஆகியவற்றை பதிவு செய்து submit செய்யுங்கள்; status **Queued for Repair** ஆனதா உறுதிசெய்யுங்கள்.",
+      "**Repair-ஐ தொடங்குங்கள்:** **Repair Queue**-ல் அதே RSN-ஐத் திறந்து failure evidence, Repair Station, attempt history, மற்றும் status-ஐ சரிபார்க்கவும். **Start Repair** தேர்ந்தெடுத்து prompted fields-ஐ முடித்து job **In Repair** ஆனதா பார்க்கவும்.",
+      "**Repair-ஐ complete செய்யுங்கள்:** Work முடிந்த பிறகே **Complete Repair** தேர்ந்தெடுக்கவும். **Repair Successful** அல்லது **No Fault Found**, confirmed 4M category, repair minutes, cost, notes, மற்றும் evidence-ஐ பதிவு செய்யுங்கள். Submit செய்து **Pending QC** ஆனதா பார்க்கவும். Verified flow-ல் இதுவே QC handoff; தனி Send to QC action இல்லை.",
+      "**QC-ல் approve செய்யுங்கள்:** **Repair Out**-ல் **Pending QC** RSN-ஐத் திறந்து timeline, result, costs, notes, மற்றும் evidence-ஐ review செய்யுங்கள். Forge காட்டினால் **QC Pass** தேர்ந்தெடுத்து required notes சேர்த்து refresh செய்த பின் **QC Passed** status மற்றும் timeline-ல் உள்ளதா உறுதிசெய்யுங்கள்.",
+      "**QC பிறகு release செய்யுங்கள்:** QC-passed record-க்கு Forge **Release** காட்டினால் மட்டும் பயன்படுத்துங்கள். Destination அல்லது next step-ஐ உறுதிசெய்து ஒருமுறை submit செய்து resulting status-ஐ verify செய்யுங்கள்.",
+      "**QC-ல் reject செய்யுங்கள்:** Verification fail ஆனால் available **QC Reject** action-ஐப் பயன்படுத்தி required reason மற்றும் notes-ஐ பதிவு செய்யுங்கள். Refresh செய்து resulting status மற்றும் timeline-ஐப் பார்க்கவும்; RSN Repair அல்லது Rework-க்கு திரும்பியது என்று assume செய்யாதீர்கள்.",
+      "**Repair-க்கு திரும்பிய RSN:** Post-rejection status அல்லது displayed action Repair-க்கு அனுப்பினால் **Repair Queue**-ல் new attempt-ஐ தொடங்கி issue-ஐ சரிசெய்து new evidence பதிவு செய்து complete செய்து மீண்டும் **Pending QC** வந்ததா பார்க்கவும்.",
+      "**Rework-க்கு அனுப்பி complete செய்யுங்கள்:** Approved RSN-க்கு Forge காட்டும் Rework disposition மட்டும் பயன்படுத்துங்கள். Controlled symptom, reason, மற்றும் routing information-ஐ பதிவு செய்து **Rework Board**-ல் card-ஐ track செய்யுங்கள். **Record work** மூலம் attempt மற்றும் evidence-ஐ பதிவு செய்து displayed result column-க்கு சென்றதா verify செய்யுங்கள்.",
+      "**Approved disposition-க்கு மட்டும் Scrap:** **Report Scrap** அல்லது Scrap action available மற்றும் approved ஆக இருந்தால் மட்டும் பயன்படுத்தி controlled reason, evidence, மற்றும் approval trail-ஐப் பதிவு செய்யுங்கள்; Scrap Register status-ஐ verify செய்யுங்கள்.",
+      "**Forge error வந்தால் நிறுத்துங்கள்:** State-changing action-ஐ repeat செய்யாதீர்கள்; success என்று assume செய்யாதீர்கள். RSN மற்றும் visible status-ஐ வைத்துக் கொண்டு error-ஐ report செய்யுங்கள்.",
+    ],
+  ),
   "hold-scrap-teardown": guide("Manufacturing → Quality or Scrap & Teardown", [
     "**சரியான hold-ஐ உருவாக்குங்கள்:** **Quality → Hold Management → Create Hold**-ஐத் திறங்கள். முதலில் Hold Level-ஐத் தேர்ந்தெடுங்கள்; இது required target மற்றும் operational impact-ஐ மாற்றும்.",
     "**Required hold fields-ஐ முடிக்குங்கள்:** Target மற்றும் **Reason**-ஐத் தேர்ந்தெடுங்கள். Notes optional; Work Order hold-க்கு optional expected release date சேர்க்கலாம்.",
@@ -270,12 +300,33 @@ export const TASK_GUIDES_TA: Record<string, ForgeTaskGuide> = {
     "**Scrap-ஐ upstream-இல் track செய்யுங்கள்:** முதலில் **Scrap Reasons**-ஐ configure செய்யுங்கள். **Scrap Register** Pending Approval, Approved, Executed, மற்றும் Rejected dispatches-ஐ track செய்கிறது; இதில் create action இல்லை.",
     "**Teardown-ஐ சரியாகத் தொடங்குங்கள்:** Executed Scrap dispatch **Send to teardown** உடன் அனுப்பப்பட்ட பிறகே Teardown order தோன்றும். Donor serial மற்றும் scrap dispatch recovered Components உடன் linked ஆக இருக்கும்.",
   ]),
+  "scrap-register": guide("Mfg → Scrap & Teardown → Scrap Register", [
+    "**Register-ஐத் திறக்கவும்:** **Scrap & Teardown** திறந்து **Scrap Register** தேர்ந்தெடுக்கவும். இது review queue; create action இல்லை.",
+    "**Status view தேர்ந்தெடுக்கவும்:** சரியான dispatch state-ஐப் பார்க்க **All**, **Pending Approval**, **Approved**, **Executed**, அல்லது **Rejected** பயன்படுத்தவும்.",
+    "**Scope அமைக்கவும்:** Source, Category, Reason, Line, Station, Work Order, Product, அல்லது Date Range மூலம் filter செய்து, source data மாறியிருந்தால் **Refresh** பயன்படுத்தவும்.",
+    "**Dispatch evidence review செய்யவும்:** Action எடுக்கும் முன் dispatch number, source, unit அல்லது quantity, Product, Work Order, Station, reason, proposer, status, மற்றும் age சரியா என உறுதிசெய்யவும்.",
+    "**Approval flow-ஐ பாதுகாக்கவும்:** Record eligible state-ல் இருந்து required evidence review செய்யப்பட்டால் மட்டுமே approve, execute, reject, அல்லது teardown-க்கு அனுப்பவும். Recorded SIT walkthrough read-only ஆகும்.",
+  ]),
+  "scrap-reasons": guide("Mfg → Scrap & Teardown → Scrap Reasons", [
+    "**Scrap Reasons திறக்கவும்:** **Scrap & Teardown → Scrap Reasons** செல்லவும். Obsolete categories அல்லது reasons பார்க்க வேண்டியபோது மட்டும் **Show inactive** பயன்படுத்தவும்.",
+    "**Taxonomy தொடங்கும் முறையைத் தேர்ந்தெடுக்கவும்:** Standard categories உருவாக்க **Seed industry defaults** தேர்ந்தெடுக்கவும்; manual category-க்கு **Add category** தேர்ந்தெடுக்கவும்.",
+    "**Manual category நிரப்பவும்:** **Code** மற்றும் **Name** required. Description optional; Sort Order category எந்த இடத்தில் வர வேண்டும் என்பதை நிர்ணயிக்கிறது.",
+    "**Category கீழ் reason codes பராமரிக்கவும்:** Duplicate அல்லாத தெளிவான reasons சேர்த்து, தற்போது select செய்ய வேண்டிய entries மட்டும் active ஆக வைத்திருக்கவும்.",
+    "**Recorded SIT state:** Verified walkthrough-ல் scrap-reason categories இல்லை. Existing data மாறாமல் இருக்க seed அல்லது save செய்யவில்லை; empty state இன்னும் current என்று client-க்கு காட்டும் முன் target Plant-ஐ மீண்டும் சரிபார்க்கவும்.",
+  ]),
   packaging: guide("Manufacturing → Packaging & Shipping → Packaging", [
     "**Packaging-ஐத் திறங்கள்:** **Packaging & Shipping**-ஐத் திறந்து **Packaging**-ஐத் தேர்ந்தெடுங்கள்.",
     "**Product hierarchy-ஐ கட்டமைக்குங்கள்:** **Packing Configuration**-ஐத் திறந்து Product-ஐத் தேர்ந்தெடுத்து product-specific container type-ஐ வரையறுக்குங்கள். **Product**, **Name**, மற்றும் **Code** கட்டாயம்; Code 2–10 alphanumeric எழுத்துகளை ஏற்கும்.",
     "**Leaf அல்லது parent நடத்தையைத் தேர்ந்தெடுங்கள்:** Finished-unit serial-களை நேரடியாக bind செய்யும் leaf-க்கு **Child Container Type**-ஐ காலியாக விடுங்கள்; இல்லையெனில் Device → Box → Carton → Pallet hierarchy-க்கான child-ஐத் தேர்ந்தெடுங்கள்.",
     "**Container-ஐ உருவாக்குங்கள்:** Packaging Dashboard-க்கு திரும்பி **Create Container**-ஐத் தேர்ந்தெடுங்கள். Product-ஐத் தேர்ந்தெடுத்து, கட்டாயமான **Container Type** மற்றும் **Work Order ID**-ஐ தேர்ந்தெடுங்கள்; இரண்டும் இல்லாமல் Create enable ஆகாது.",
     "**Packaging-ஐ மதிப்பாய்வு செய்து முடிக்குங்கள்:** உருவாக்கப்பட்ட UID-ஐத் திறந்து device count, weight and dimensions, linked Work Order, label state, மற்றும் History-ஐச் சரிபாருங்கள். UID template optional; இல்லையெனில் Fynd ERP default format-ஐப் பயன்படுத்தும்.",
+  ]),
+  shipments: guide("Mfg → Packaging & Shipping → Shipments", [
+    "**Shipments திறக்கவும்:** **Packaging & Shipping** திறந்து **Shipments** தேர்ந்தெடுக்கவும்.",
+    "**Existing shipment தேடவும்:** ASN அல்லது destination மூலம் search செய்யவும்; Work Order, Product, Status, மற்றும் Date Range filters பயன்படுத்தவும். List-ல் ASN, Work Order, destination, contents, carrier, status, dates, மற்றும் actions வரும்.",
+    "**Valid source data இருந்தால் மட்டும் shipment தொடங்கவும்:** **New Shipment** தேர்ந்தெடுக்கவும். Work Order optional; **Product** மற்றும் **Address line 1** required. Destination, carrier, optional invoice அல்லது vendor-lot details, மற்றும் notes நிரப்பவும்.",
+    "**Created record verify செய்யவும்:** Shipment verification செல்லும் முன் புதிய record எதிர்பார்த்த destination, contents, carrier, status, மற்றும் dates-உடன் list-ல் வருகிறதா பார்க்கவும்.",
+    "**Recorded SIT state:** Verified walkthrough-ல் Shipments இல்லை; client data உருவாக்காமல் இருக்க form submit செய்யப்படவில்லை. Target environment-ல் approved source records கொண்டு test செய்யும் வரை shipment creation மற்றும் verification handoff unverified ஆகும்.",
   ]),
   "containers-and-labels": guide("Manufacturing → Packaging & Shipping", [
     "**Container hierarchy-ஐ உருவாக்குங்கள்:** **Packing Configuration**-இல் முதலில் leaf-ஐ உருவாக்கி, பின்னர் ஒவ்வொரு parent-க்கும் அனுமதிக்கப்பட்ட **Child Container Type**-ஐத் தேர்ந்தெடுங்கள். Child-ஐத் தேர்ந்தெடுத்ததும் **Max child count** கட்டாயமாகும்.",
@@ -289,9 +340,9 @@ export const TASK_GUIDES_TA: Record<string, ForgeTaskGuide> = {
     [
       "**முதலில் Shipment-ஐத் தேர்ந்தெடுங்கள்:** **Shipment Verification**-ஐத் திறங்கள். **Shipment** கட்டாயம்; Shipment தேர்ந்தெடுக்கப்படும் வரை **Container Type**, verification counts, container rows, மற்றும் Export கிடைக்காது.",
       "**Governing rule-ஐப் பின்பற்றுங்கள்:** Active **Shipment Rule** selected container configuration-ஐ கொண்டிருக்க வேண்டும்; container count மற்றும் maximum-weight limits-ஐ அனுமதிக்க வேண்டும். Priority எந்த rule apply ஆகும் என்பதைத் தீர்மானிக்கும்.",
-      "**Shipping Gate-ஐச் சரிபாருங்கள்:** Approved Purchase Order quantity-க்கு positive remaining balance தேவை. SIT-இல் உள்ள ஒரே active gate முழுமையாக consumed: approved 5, consumed 5, balance 0.",
-      "**தேவைப்பட்டால் ASN export-ஐ configure செய்யுங்கள்:** ASN Excel columns client- அல்லது product-scoped template-இலிருந்து வரும். இந்த SIT Plant-இல் தற்போது ASN templates இல்லை.",
-      "**தற்போதைய SIT வரம்பு:** இந்த Plant-இல் Shipments இல்லை. **Create Shipment** backend-க்கு கட்டாயமான `lines` மற்றும் `warehouseRootLocationId` values-ஐ அனுப்பவில்லை; submission fail ஆகுவதால் current SIT UI-இல் verification தொடங்க முடியாது.",
+      "**Shipping Gate-ஐச் சரிபாருங்கள்:** Verification முன் applicable approved Purchase Order quantity-ல் positive remaining balance உள்ளதா உறுதிசெய்யவும்.",
+      "**தேவைப்பட்டால் ASN export-ஐ configure செய்யுங்கள்:** ASN Excel columns client- அல்லது product-scoped template-இலிருந்து வரும். Export-ஐ நம்பும் முன் target environment-ல் required template உள்ளதா உறுதிசெய்யவும்.",
+      "**Prerequisite path-ஐ verify செய்யுங்கள்:** Recorded SIT walkthrough-ல் selectable Shipment இல்லை; container verification மற்றும் export exercise செய்யப்படவில்லை. Client demo முன் approved records கொண்டு shipment creation, rule matching, gate balance, மற்றும் ASN output-ஐ retest செய்யவும்.",
     ],
   ),
   "traceability-genealogy-recall": guide(
@@ -299,10 +350,10 @@ export const TASK_GUIDES_TA: Record<string, ForgeTaskGuide> = {
     [
       "**கட்டாயமான dossier scope-ஐ அமைக்குங்கள்:** **Master Traceability**-இல் filters ஒன்றாகச் செயல்படும்; parent selection செய்த பின் dependent Product filters திறக்கும். Specific identifier list மற்ற filters-ஐ override செய்யும்; குறைந்தது ஒரு scope தேர்ந்தெடுக்கப்படும் வரை **Generate Dossier** disabled ஆக இருக்கும்.",
       "**Report output-ஐத் தேர்ந்தெடுங்கள்:** தேவையான unit, route, quality, genealogy, identifier, tool, checklist, packaging, அல்லது shipment sheets மட்டும் தேர்ந்தெடுங்கள். Generation asynchronous; completed files **Recent exports**-இல் இருக்கும். Nova X1 Work Order இரண்டு-unit dossier-ஐ உருவாக்கியது.",
-      "**Stage Timeline requirements அனைத்தையும் பூர்த்தி செய்யுங்கள்:** Date range, குறைந்தது ஒரு Work Order, மற்றும் 1–50 Operations தேவை. இந்த SIT build date range-க்கு asterisk காட்டாவிட்டாலும் அது கட்டாயம்.",
+      "**Stage Timeline requirements அனைத்தையும் பூர்த்தி செய்யுங்கள்:** Date range, குறைந்தது ஒரு Work Order, மற்றும் 1–50 Operations தேவை. Recorded SIT form date range-க்கு asterisk காட்டாவிட்டாலும் அது கட்டாயமாக இருந்தது; form மாறினால் target environment-ஐ மீண்டும் சரிபார்க்கவும்.",
       "**சரியான திசையில் genealogy-ஐப் பின்தொடருங்கள்:** Full tree pallet, carton, box, device, product, Component, அல்லது batch identifiers-ஐ ஏற்கும். **Downstream** finished identity-யிலிருந்து Components/lots-க்கு செல்கிறது; **Upstream** lot-இலிருந்து finished units-க்கு செல்கிறது.",
       "**Affected population-ஐக் கண்டறியுங்கள்:** **Find Affected Units**-இல் Batch/Lot Number அல்லது Component Serial மூலம் தேடுங்கள். Nova X1 battery lot, `NOVA-X1-PHONE-000002`-ஐ affected finished serial ஆகக் காட்டியது.",
-      "**தற்போதைய SIT recall வரம்பு:** Recall உருவாக்க Title மற்றும் Severity கட்டாயம். **By Batch** production tasks-ஐக் கண்டுபிடிக்கவில்லை; completed task-ஐ direct ஆகச் சேர்க்கும்போது `productionTaskIds` unused என்பதால் fail ஆகிறது. எனவே authorized Nova X1 Recall Notice, zero affected units உடன் Draft-ஆகவே உள்ளது.",
+      "**Recall assignment-ஐ நம்பும் முன் verify செய்யவும்:** Recall உருவாக்க Title மற்றும் Severity கட்டாயம். Selected batch அல்லது tasks affected units-ஐ populate செய்கிறதா, saved notice அவற்றை record செய்கிறதா உறுதிசெய்யவும்; recorded SIT exercise affected-unit assignment-ஐ complete செய்யவில்லை.",
     ],
   ),
   dashboards: guide(
@@ -318,11 +369,11 @@ export const TASK_GUIDES_TA: Record<string, ForgeTaskGuide> = {
   ),
   "shift-operations": guide("Manufacturing → Shifts & Labor", [
     "**Net working time-ஐ உறுதிப்படுத்துங்கள்:** Unpaid breaks Shift duration-இலிருந்து கழிக்கப்படும். **Nova X1 Assembly Morning Shift** 06:00–14:00; 15-minute unpaid tea break காரணமாக 8 hours, 7h 45m net ஆகிறது.",
-    "**Schedule coverage-ஐச் சரிபார்க்குங்கள்:** புதிய Shift Schedules activate செய்யப்படும் வரை Draft. Status மட்டும் coverage-ஐ நிரூபிக்காது; Active Standard/Weekend உட்பட மூன்று current SIT Schedules-மும் 0 shifts/week காட்டுகின்றன.",
+    "**Schedule coverage-ஐச் சரிபார்க்குங்கள்:** புதிய Shift Schedules activate செய்யப்படும் வரை Draft. Status மட்டும் coverage-ஐ நிரூபிக்காது; target environment-ல் generated shifts per week மற்றும் calendar coverage-ஐ உறுதிசெய்யவும்.",
     "**Required Handover fields-ஐப் பூர்த்தி செய்யுங்கள்:** **Shift** மற்றும் **Handover Date** கட்டாயம். Line, outgoing/incoming operators, production/quality/equipment summaries, notes, pending tasks, மற்றும் checklist items optional.",
     "**Connected operating context-ஐப் பதிவு செய்யுங்கள்:** Authorized Nova X1 Handover, `NOVA-X1-SHIFT-A`-ஐ `NOVA_X1_LINE_01` உடன் இணைத்து completed production, passed Route Logs, equipment state, safety, மற்றும் இரண்டு pending repair tasks-ஐப் பதிவு செய்கிறது.",
-    "**Complete செய்வதற்கு முன் review செய்யுங்கள்:** புதிய Handover **Draft**. Outgoing Supervisor current Plant Administrator ஆக default ஆகும்; Incoming Supervisor blank ஆக இருக்கலாம். அடுத்த Shift review செய்த பின் மட்டுமே **Complete** பயன்படுத்துங்கள்.",
-    "**Break Compliance-ஐ கவனமாகப் புரிந்துகொள்ளுங்கள்:** Zero Break Logs இருந்தால் SIT 100% compliance மற்றும் 0 violations காட்டுகிறது. Filtered records இருக்கும் வரை **Export CSV** disabled.",
+    "**Complete செய்வதற்கு முன் review செய்யுங்கள்:** புதிய Handover **Draft**. Outgoing மற்றும் Incoming Supervisors-ஐ explicit-ஆக உறுதிசெய்து, அடுத்த Shift review செய்த பின் மட்டுமே **Complete** பயன்படுத்துங்கள்.",
+    "**Break Compliance-ஐ கவனமாகப் புரிந்துகொள்ளுங்கள்:** Zero Break Logs இருந்த recorded SIT view 100% compliance மற்றும் 0 violations காட்டியது; ஆனால் அந்த percentage compliant breaks நடந்ததற்கான evidence அல்ல. Target environment-ல் underlying logs-ஐ உறுதிப்படுத்துங்கள்; export செய்யக்கூடிய records இருந்தால் மட்டுமே **Export CSV** கிடைக்கும்.",
   ]),
   "tools-and-maintenance": guide(
     "Manufacturing → Process & Engineering → Tools and Equipments",
@@ -331,7 +382,7 @@ export const TASK_GUIDES_TA: Record<string, ForgeTaskGuide> = {
       "**தேவையான identity-ஐ முடிக்குங்கள்:** **Tool Name, Tool Code, Tool Category, Manufacturer, Model, Station, மற்றும் Status** required. Authorized SIT example `NOVA-X1-TORQUE-01`, **Nova X1 Smartphone SMT Placement Station**-க்கு assigned.",
       "**Governed Tool-க்கு மட்டும் calibration அமைக்குங்கள்:** **Requires Calibration** enable செய்தால் optional interval மற்றும் provider fields தோன்றும். Required **Calibration Date, Next Calibration Date, மற்றும் Result** உள்ள record உருவாகும் வரை governed Tool **Unknown** ஆக இருக்கும்.",
       "**Readiness evidence-ஐப் பதிவு செய்யுங்கள்:** Nova X1 Tool-க்கு Initial, Passed calibration, certificate `NOVA-X1-CAL-2026-001`, மற்றும் next due date உள்ளன. Override பயன்படுத்தப்பட்டால் அது calibration override history-இல் இருக்கும்.",
-      "**Maintenance Alerts-ஐ மதிப்பிடுங்கள்:** **Trigger Maintenance Check** configured maintenance rules-ஐ evaluate செய்கிறது. Matching rule இல்லையெனில் SIT 0 alerts காட்டும்; rows இல்லாததால் **Export** disabled ஆகும்.",
+      "**Maintenance Alerts-ஐ மதிப்பிடுங்கள்:** **Trigger Maintenance Check** configured maintenance rules-ஐ evaluate செய்கிறது. 0 alerts என்பது rule match ஆகவில்லை அல்லது required rules/source data இல்லை என்பதைக் குறிக்கலாம்; result-ஐ நம்பும் முன் இரண்டையும் verify செய்யுங்கள். Alert rows இருந்தால் மட்டுமே **Export** கிடைக்கும்.",
       "**Maintenance Work Order-ஐ control செய்யுங்கள்:** **Tool** மற்றும் **Title** மட்டும் required; Priority **Medium** ஆகவும் Maintenance Type **Corrective** ஆகவும் default ஆகும். Connected preventive order **Draft → Submitted → Approved** என நகர்ந்து, பின்னர் **Start** கிடைக்கும்.",
       "**Production timing-ஐ பாதுகாக்குங்கள்:** Tool status, calibration, மற்றும் maintenance readiness current ஆக இருக்கட்டும். Future approved maintenance order-ஐ planned window-க்கு முன் start செய்யாதீர்கள்.",
     ],
@@ -342,9 +393,9 @@ export const TASK_GUIDES_TA: Record<string, ForgeTaskGuide> = {
       "**Dossier scope-ஐ அமைக்குங்கள்:** **Traceability → Master Traceability → Dossier**-ஐத் திறங்கள். Scope filters optional மற்றும் combine ஆகும்; **Specific identifiers**-இல் paste அல்லது upload செய்யும் serial-number list மற்ற scope filters-ஐ override செய்கிறது.",
       "**Report sheets-ஐத் தேர்ந்தெடுங்கள்:** தேவையான Unit Summary, Route Detail, tests, sampling, NCR/defects, repair, genealogy, identifiers, Tool Usage, checklist, packaging, மற்றும் shipment sheets-ஐத் தேர்ந்தெடுங்கள். Completed Nova X1 Work Order 2 units-க்கு match ஆகிறது.",
       "**Dossier-ஐ generate செய்து verify செய்யுங்கள்:** **Generate Dossier**-ஐத் தேர்ந்தெடுத்து, download செய்வதற்கு முன் **Recent exports**-இல் **COMPLETED**, unit count, மற்றும் XLSX filename இருப்பதை உறுதிப்படுத்துங்கள்.",
-      "**Work Order export உருவாக்குங்கள்:** **Production → Work Orders**-இல் **Export Work Orders**-ஐத் தேர்ந்தெடுங்கள். SIT தனி **Settings → Files & Data → Exports** மற்றும் **Create Data Export** dialog-ஐத் திறக்கும்; list-page filters inherit ஆகாததால் Search, Status, Priority-ஐ அங்கே மீண்டும் apply செய்யுங்கள்.",
+      "**Work Order export உருவாக்குங்கள்:** **Production → Work Orders**-இல் **Export Work Orders**-ஐத் தேர்ந்தெடுங்கள். Recorded SIT flow-ல் இது **Settings → Files & Data → Exports** மற்றும் தனி **Create Data Export** dialog-ஐத் திறந்தது. Target environment-ல் route-ஐ verify செய்து, list-page filters inherit ஆகாதபோது Search, Status, Priority-ஐ மீண்டும் apply செய்யுங்கள்.",
       "**Export evidence-ஐ verify செய்யுங்கள்:** Export Details type, format, status, file size, மற்றும் applied filters-ஐ வைத்திருக்கும். Job **COMPLETED** ஆனாலும் Processed மற்றும் Progress 0 ஆக இருக்கலாம்; பயன்படுத்தும் முன் processed count மற்றும் file contents-ஐ உறுதிப்படுத்துங்கள்.",
-      "**கிடைக்கும் audit history-ஐப் பயன்படுத்துங்கள்:** **View all changes** actor, action, affected Work Order, மற்றும் timestamp-ஐக் காட்டுகிறது. Current SIT-இல் **View All History** error page-ஐத் திறக்கிறது; full audit-trail route restore ஆகும் வரை **Recent Changes**-ஐப் பயன்படுத்துங்கள்.",
+      "**கிடைக்கும் audit history-ஐப் பயன்படுத்துங்கள்:** **View all changes** மற்றும் **Recent Changes** கிடைக்கும் actor, action, affected record, மற்றும் timestamp evidence-ஐக் காட்டும். Separate full-history route-ஐ நம்பும் முன் target environment-ல் அது வேலை செய்கிறதா உறுதிசெய்யவும்.",
     ],
   ),
   "first-production-run": guide("Manufacturing → Production → Work Orders", [

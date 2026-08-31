@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { buildMetadata } from "@/app/components/seo/metadata";
 import {
   getForgeCookbookEntries,
@@ -38,5 +38,6 @@ export default async function ForgeCookbookDetailPage({ params }: Props) {
   const lang = await getCookbookLang();
   const entry = getForgeCookbookEntry(slug, lang);
   if (!entry || !isForgeCookbookEntryVisible(entry)) notFound();
+  if (entry.redirectTo) redirect(entry.redirectTo);
   return <CookbookPageView entry={entry} lang={lang} />;
 }

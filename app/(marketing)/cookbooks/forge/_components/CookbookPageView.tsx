@@ -30,12 +30,14 @@ type Dict = ReturnType<typeof cookbookUi>;
 
 // Stage/blocker copy is language-driven; hrefs stay stable across languages.
 const SETUP_STAGE_HREFS = [
-  `${FORGE_COOKBOOK_BASE_PATH}/configure-factory`,
-  `${FORGE_COOKBOOK_BASE_PATH}/define-products`,
-  `${FORGE_COOKBOOK_BASE_PATH}/design-process`,
-  `${FORGE_COOKBOOK_BASE_PATH}/plan-production`,
-  `${FORGE_COOKBOOK_BASE_PATH}/run-production`,
-  `${FORGE_COOKBOOK_BASE_PATH}/quality-exceptions`,
+  `${FORGE_COOKBOOK_BASE_PATH}/production`,
+  `${FORGE_COOKBOOK_BASE_PATH}/process-engineering`,
+  `${FORGE_COOKBOOK_BASE_PATH}/quality`,
+  `${FORGE_COOKBOOK_BASE_PATH}/repair-rework`,
+  `${FORGE_COOKBOOK_BASE_PATH}/scrap-teardown`,
+  `${FORGE_COOKBOOK_BASE_PATH}/traceability`,
+  `${FORGE_COOKBOOK_BASE_PATH}/packaging-shipping`,
+  `${FORGE_COOKBOOK_BASE_PATH}/shifts-labor`,
 ];
 
 function entryDescription(entry: ForgeCookbookEntry, lang: CookbookLang, t: Dict): string {
@@ -126,6 +128,21 @@ function RootPage({ lang, t }: { lang: CookbookLang; t: Dict }) {
 
   return (
     <>
+      <div id="training-recording">
+        <Section title={t.trainingTitle} subtext={t.trainingDescription} bg="subtle">
+          <div className={styles.trainingVideoFrame}>
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/8NPOl0Qx178"
+              title={t.trainingVideoTitle}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
+        </Section>
+      </div>
+
       <div id="explore-cookbook">
         <Section title={t.browseTitle} subtext={t.browseSubtext}>
           <CookbookSearch items={searchableItems} lang={lang} />
@@ -242,6 +259,11 @@ function RootHero({ t }: { t: Dict }) {
           <Button
             label={t.ctaDownload}
             href="/api/cookbooks/forge/download"
+            variant="secondary"
+          />
+          <Button
+            label={t.ctaTraining}
+            href="#training-recording"
             variant="secondary"
           />
         </div>
