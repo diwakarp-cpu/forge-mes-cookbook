@@ -128,21 +128,6 @@ function RootPage({ lang, t }: { lang: CookbookLang; t: Dict }) {
 
   return (
     <>
-      <div id="training-recording">
-        <Section title={t.trainingTitle} subtext={t.trainingDescription} bg="subtle">
-          <div className={styles.trainingVideoFrame}>
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/8NPOl0Qx178"
-              title={t.trainingVideoTitle}
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            />
-          </div>
-        </Section>
-      </div>
-
       <div id="explore-cookbook">
         <Section title={t.browseTitle} subtext={t.browseSubtext}>
           <CookbookSearch items={searchableItems} lang={lang} />
@@ -259,11 +244,6 @@ function RootHero({ t }: { t: Dict }) {
           <Button
             label={t.ctaDownload}
             href="/api/cookbooks/forge/download"
-            variant="secondary"
-          />
-          <Button
-            label={t.ctaTraining}
-            href="#training-recording"
             variant="secondary"
           />
         </div>

@@ -44,11 +44,6 @@ type CookbookDict = {
   ctaStart: string;
   ctaJourney: string;
   ctaDownload: string;
-  ctaTraining: string;
-
-  trainingTitle: string;
-  trainingDescription: string;
-  trainingVideoTitle: string;
 
   browseTitle: string;
   browseSubtext: string;
@@ -141,12 +136,6 @@ const en: CookbookDict = {
   ctaStart: "Start the guided setup",
   ctaJourney: "See the complete setup journey",
   ctaDownload: "Download complete cookbook (PDF)",
-  ctaTraining: "Watch the training ↓",
-
-  trainingTitle: "Watch the complete Fynd ERP training",
-  trainingDescription:
-    "Follow the full manufacturing walkthrough, from setup and Work Orders to quality, repair, packaging, traceability, and analytics.",
-  trainingVideoTitle: "Neolync Fynd ERP training session",
 
   browseTitle: "Browse the cookbook",
   browseSubtext:
@@ -300,12 +289,6 @@ const ta: CookbookDict = {
   ctaStart: "வழிகாட்டப்பட்ட அமைப்பைத் தொடங்கு",
   ctaJourney: "முழு அமைப்புப் பயணத்தைக் காண்க",
   ctaDownload: "முழு வழிகாட்டியைப் பதிவிறக்கு (PDF)",
-  ctaTraining: "பயிற்சியைப் பாருங்கள் ↓",
-
-  trainingTitle: "முழு Fynd ERP பயிற்சியைப் பாருங்கள்",
-  trainingDescription:
-    "Setup மற்றும் Work Orders முதல் quality, repair, packaging, traceability, analytics வரை முழு manufacturing walkthrough-ஐ பாருங்கள்.",
-  trainingVideoTitle: "Neolync Fynd ERP பயிற்சி அமர்வு",
 
   browseTitle: "வழிகாட்டியை உலாவுங்கள்",
   browseSubtext:
@@ -459,12 +442,6 @@ const te: CookbookDict = {
   ctaStart: "గైడెడ్ సెటప్‌ను ప్రారంభించండి",
   ctaJourney: "పూర్తి సెటప్ ప్రయాణాన్ని చూడండి",
   ctaDownload: "పూర్తి గైడ్‌ను డౌన్‌లోడ్ చేయండి (PDF)",
-  ctaTraining: "శిక్షణను చూడండి ↓",
-
-  trainingTitle: "పూర్తి Fynd ERP శిక్షణను చూడండి",
-  trainingDescription:
-    "Setup మరియు Work Orders నుంచి quality, repair, packaging, traceability, analytics వరకు పూర్తి manufacturing walkthrough‌ను చూడండి.",
-  trainingVideoTitle: "Neolync Fynd ERP శిక్షణ సెషన్",
 
   browseTitle: "గైడ్‌ను విహరించండి",
   browseSubtext:

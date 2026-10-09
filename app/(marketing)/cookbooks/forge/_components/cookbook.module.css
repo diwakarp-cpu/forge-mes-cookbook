@@ -4,24 +4,6 @@
   gap: 1rem;
 }
 
-.trainingVideoFrame {
-  aspect-ratio: 16 / 9;
-  background: var(--fds-neutral-100);
-  border: 1px solid var(--fds-neutral-30);
-  border-radius: 1.25rem;
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--fds-neutral-100) 12%, transparent);
-  max-width: 72rem;
-  overflow: hidden;
-  width: 100%;
-}
-
-.trainingVideoFrame iframe {
-  border: 0;
-  display: block;
-  height: 100%;
-  width: 100%;
-}
-
 .requirementLegend {
   display: flex;
   flex-wrap: wrap;
