@@ -17,6 +17,22 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/assets/InterDisplay-Regular.ttf",
+        destination: "/webflow-fonts/InterDisplay-Regular.ttf",
+      },
+      {
+        source: "/assets/InterDisplay-Medium.ttf",
+        destination: "/webflow-fonts/InterDisplay-Medium.ttf",
+      },
+      {
+        source: "/assets/InterDisplay-SemiBold.ttf",
+        destination: "/webflow-fonts/InterDisplay-SemiBold.ttf",
+      },
+    ];
+  },
   async headers() {
     return [
       {

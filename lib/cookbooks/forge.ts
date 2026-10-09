@@ -81,7 +81,7 @@ const PAGE_MEDIA: Record<string, PageMedia> = {
   "inspection-to-capa": gif("forge-inspections-defects-ncr-capa.gif", 385),
   "hold-scrap-teardown": gif("forge-hold-scrap-teardown.gif", 385),
   "debug-queue": gif("forge-debug-queue.gif", 356),
-  "repair-and-rework": gif("forge-repair-journey-placeholder.svg", 356),
+  "repair-and-rework": gif("forge-repair-rework.gif", 356),
   "repair-out": gif("forge-repair-out.gif", 356),
   "rework-board": gif("forge-rework-board.gif", 356),
   "repair-alerts": gif("forge-repair-alerts.gif", 356),
@@ -104,6 +104,7 @@ const PAGE_MEDIA: Record<string, PageMedia> = {
   "shift-operations": gif("forge-shift-operations.gif", 385),
   "tools-and-maintenance": gif("forge-tools-and-maintenance.gif", 385),
   "reports-and-audit": gif("forge-reports-and-audit.gif", 385),
+  shifts: gif("forge-create-shifts.gif", 356),
 };
 
 // These pages are intentionally explained in writing. Only approved cookbook
@@ -125,6 +126,8 @@ const PAGES_WITHOUT_VIDEO = new Set([
   "capability-availability",
   // Production
   "create-production-order",
+  // Process & Engineering
+  "label-management",
   // Quality
   "quality-dashboard",
   "quality-alerts",
@@ -282,18 +285,41 @@ function buildDiagram(page: GuidePageSpec, lang: CookbookLang): string {
 
 function buildPageBody(page: GuidePageSpec, lang: CookbookLang): string {
   const scaffold = cookbookUi(lang).scaffold;
-  const prerequisites =
+  const prerequisitesSection =
     page.prerequisites.length > 0
-      ? bulletList(page.prerequisites)
-      : `- ${scaffold.noPrerequisite}`;
+      ? [`## ${scaffold.beforeYouBegin}`, bulletList(page.prerequisites)]
+      : [];
   const taskGuide = getForgeTaskGuide(page.slug, lang);
-  const actionSection = taskGuide
+  const actionSteps = taskGuide?.steps.length ? taskGuide.steps : page.steps;
+  const actionSection =
+    actionSteps.length > 0
+      ? [
+          `## ${taskGuide ? scaffold.stepByStep : scaffold.whatToDo}`,
+          ...(taskGuide?.navigationPath
+            ? [`**${scaffold.navigation}** ${taskGuide.navigationPath}`]
+            : []),
+          numberedList(actionSteps),
+        ]
+      : [];
+  const hasDiagram = Boolean(page.diagram?.nodes.length || page.flow.length);
+  const howItWorksSection = hasDiagram
     ? [
-        `## ${scaffold.stepByStep}`,
-        `**${scaffold.navigation}** ${taskGuide.navigationPath}`,
-        numberedList(taskGuide.steps),
+        `## ${scaffold.howItWorks}`,
+        `\`\`\`diagram\n${buildDiagram(page, lang)}\n\`\`\``,
       ]
-    : [`## ${scaffold.whatToDo}`, numberedList(page.steps)];
+    : [];
+  const [whyItMatters, ...remainingRules] = page.rules;
+  const whyItMattersSection = whyItMatters
+    ? [`**${scaffold.whyMatters}** ${whyItMatters}`]
+    : [];
+  const rulesSection =
+    remainingRules.length > 0
+      ? [`## ${scaffold.rulesToRemember}`, bulletList(remainingRules)]
+      : [];
+  const readinessSection =
+    page.checklist.length > 0
+      ? [`## ${scaffold.readyWhen}`, checklist(page.checklist)]
+      : [];
   const media = PAGE_MEDIA[page.slug];
   const gifPlaceholder = JSON.stringify({
     title: scaffold.watchTitle(page.title),
@@ -310,17 +336,13 @@ function buildPageBody(page: GuidePageSpec, lang: CookbookLang): string {
       ];
 
   return [
-    `## ${scaffold.beforeYouBegin}`,
-    prerequisites,
-    `## ${scaffold.howItWorks}`,
-    `\`\`\`diagram\n${buildDiagram(page, lang)}\n\`\`\``,
-    `**${scaffold.whyMatters}** ${page.rules[0]}`,
+    ...prerequisitesSection,
+    ...howItWorksSection,
+    ...whyItMattersSection,
     ...actionSection,
     ...watchSection,
-    `## ${scaffold.rulesToRemember}`,
-    bulletList(page.rules),
-    `## ${scaffold.readyWhen}`,
-    checklist(page.checklist),
+    ...rulesSection,
+    ...readinessSection,
   ].join("\n\n");
 }
 

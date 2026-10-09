@@ -1302,7 +1302,7 @@
         {
           "title": "Inspections, Defects, NCR మరియు CAPA",
           "slug": "inspection-to-capa",
-          "summary": "Configured inspection నడిపి, failed samples రికార్డ్ చేసి, target deployment‌లో NCR మరియు CAPA actions enabled‌గా ఉన్నాయో నిర్ధారించండి.",
+          "summary": "Configured inspection నడిపి, failed samples రికార్డ్ చేసి, NCR మరియు CAPA actions అందుబాటులో ఉన్నాయో నిర్ధారించండి.",
           "importance": "Conditional",
           "prerequisites": ["నాణ్యత నియంత్రణలను కాన్ఫిగర్ చేయండి"],
           "flow": [
@@ -1317,7 +1317,7 @@
             "Work Order లేదా available, non-expired Lot—రెండింటిలో ఒకదాన్ని మాత్రమే ఎంచుకుని required total మరియు sample quantities నమోదు చేయండి.",
             "ప్రతి sample మరియు checks రికార్డ్ చేయండి. Failed sample save చేయడానికి Defect code మరియు Severity అవసరం.",
             "Inspection reject చేసి failed serials మాత్రమే లేదా మొత్తం lot ను hold చేయాలా ఎంచుకోండి. Inspection-local defects మరియు plant Defects వేర్వేరు records.",
-            "Target deployment మరియు signed-in role‌కు NCR మరియు CAPA availability నిర్ధారించండి. Working create action లేకపోతే workflow available అని చెప్పకుండా implementation owner‌తో enablement నిర్ధారించండి."
+            "ప్రస్తుత configuration మరియు signed-in role‌కు NCR మరియు CAPA availability నిర్ధారించండి. Working create action లేకపోతే workflow available అని చెప్పకుండా implementation owner‌తో enablement నిర్ధారించండి."
           ],
           "rules": [
             "Active inspection configuration ఒక prerequisite; Plant scope fallback, మరింత specific scopes దానిని override చేస్తాయి.",
@@ -1485,8 +1485,8 @@
             "Shipment Verification తెరిచి existing Shipment ఎంచుకోండి; required Shipment ఎంచుకునే వరకు Container Type, counts, container rows, మరియు Export అందుబాటులో ఉండవు.",
             "Active Shipment Rule selected container configuration ను కలిగి, దాని container-count మరియు maximum-weight limits ను అనుమతిస్తుందో నిర్ధారించండి.",
             "Shipping Gate‌లో positive remaining approved Purchase Order quantity ఉందో నిర్ధారించండి.",
-            "Excel export కోసం client- లేదా product-scoped ASN template ఉపయోగించి, target environment‌లో required template ఉందో నిర్ధారించండి.",
-            "Recorded SIT walkthrough‌లో selectable Shipment లేదు; container verification మరియు export exercise చేయలేదు. Client demo ముందు approved records‌తో full prerequisite path retest చేయండి."
+            "Excel export కోసం client- లేదా product-scoped ASN template ఉపయోగించి, selected scope‌కు required template configured ఉందో నిర్ధారించండి.",
+            "Approved records‌తో Shipment సృష్టించి, rule matching, positive gate balance, container verification, మరియు ASN output‌ను end to end నిర్ధారించండి."
           ],
           "rules": [
             "Container Type లేదా verification data అందుబాటులోకి రావడానికి ముందు Shipment selection తప్పనిసరి.",
@@ -1518,10 +1518,10 @@
           ],
           "steps": [
             "Master Traceability లో filters కలిపి పనిచేస్తాయి; parent selection తర్వాత dependent Product filters తెరుచుకుంటాయి. Specific identifier list ఇతర filters ను override చేస్తుంది; కనీసం ఒక scope ఎంచుకునే వరకు Generate Dossier disabled గా ఉంటుంది.",
-            "అవసరమైన dossier sheets మాత్రమే ఎంచుకోండి. Generation asynchronous; completed files Recent exports లో ఉంటాయి. Nova X1 Work Order రెండు-unit dossier రూపొందించింది.",
-            "Stage Timeline‌కు date range, కనీసం ఒక Work Order, మరియు 1–50 Operations అవసరం. Recorded SIT form date range‌కు asterisk చూపకపోయినా అది తప్పనిసరి; form మారితే target environment‌ను మళ్లీ తనిఖీ చేయండి.",
+            "అవసరమైన dossier sheets మాత్రమే ఎంచుకోండి. Generation asynchronous; completed files Recent exports లో ఉంటాయి. Exported unit count selected scope‌కు సరిపోతుందో నిర్ధారించండి.",
+            "Stage Timeline‌కు date range, కనీసం ఒక Work Order, మరియు 1–50 Operations అవసరం. Date range‌కు required indicator కనిపించకపోయినా field పూర్తి చేయండి.",
             "Pallet, carton, box, device, product, Component, లేదా batch identifier తో full genealogy tree ఉపయోగించండి. Downstream finished identity నుండి Components/lots వరకు వెళుతుంది; Upstream lot నుండి finished units వైపు వెళుతుంది.",
-            "Find Affected Units లో Batch/Lot Number లేదా Component Serial ద్వారా వెతకండి. Nova X1 battery lot, NOVA-X1-PHONE-000002 ను affected finished serial గా చూపించింది.",
+            "Find Affected Units లో Batch/Lot Number లేదా Component Serial ద్వారా వెతకండి. Results expected finished serials మరియు related Work Orders‌ను చూపుతున్నాయో నిర్ధారించండి.",
             "Recall సృష్టించడానికి Title మరియు Severity తప్పనిసరి. Selected batch లేదా tasks affected units‌ను populate చేస్తున్నాయా, saved notice వాటిని record చేస్తున్నదా నిర్ధారించిన తర్వాతే recall response‌పై ఆధారపడండి."
           ],
           "rules": [
@@ -1531,9 +1531,9 @@
             "Recall Notice response‌ను నియంత్రిస్తుంది; traceability affected scope‌ను గుర్తిస్తుంది, మరియు saved notice assigned affected units‌ను చూపాలి."
           ],
           "checklist": [
-            "Completed two-unit Nova X1 dossier Recent exports లో కనిపిస్తుంది.",
-            "Nova X1 serial దాని consumed display మరియు battery lots కు resolve అవుతుంది.",
-            "Battery lot, NOVA-X1-PHONE-000002 ను affected గా చూపిస్తుంది.",
+            "Completed dossier Recent exports లో expected unit count‌తో కనిపిస్తుంది.",
+            "Finished serial దాని consumed Components మరియు lots‌కు resolve అవుతుంది.",
+            "Selected Component lot‌కు సంబంధించిన finished units affected‌గా కనిపిస్తాయి.",
             "Saved Recall Notice intended affected units మరియు status‌ను కలిగి ఉంది."
           ]
         }
@@ -1561,11 +1561,11 @@
           ],
           "steps": [
             "Selected Plant కోసం setup readiness, active Work Orders, production Stations, active Products, Clients, Projects, production completion, మరియు quality targets ను Dashboard లో చూడండి.",
-            "Work Orders లో Status, Priority, మరియు Due Date ను కలిపి సమీక్షించండి. Past-due active records Delayed గా గుర్తించబడతాయి; Nova X1 list completed original Work Order ను దాని in-progress repair Work Order నుండి వేరు చేస్తుంది.",
-            "Completed Nova X1 Work Order లో 2/2 tasks, 2.9 units/hour, 20m 56s takt/cycle time, 100% yield, మరియు 42m total execution time చూడండి. Yield అంటే passed quality steps ÷ completed steps; displayed target కనీసం 95%.",
+            "Work Orders లో Status, Priority, మరియు Due Date ను కలిపి సమీక్షించండి. Past-due active records Delayed గా గుర్తించబడతాయి; completed original Work Order‌ను active repair Work Order నుంచి Work Order, Line, మరియు status ఆధారంగా వేరు చేయండి.",
+            "Completed Work Order‌లో completed/total tasks, units per hour, takt/cycle time, yield, మరియు total execution time చూడండి. Yield అంటే passed quality steps ÷ completed steps; displayed target‌తో పోల్చండి.",
             "Live board కోసం Track Progress ఉపయోగించండి. Default auto-refresh 30 seconds; Station filters, completed highlighting, samples-only, sorting, మరియు fullscreen ఉన్నాయి.",
             "Production Tasks లో Serial, task ID, grouping, Work Order, Line, Product/Routing, మరియు status ధృవీకరించండి. ఒకే serial కు later repair task సహా అనేక task records ఉండవచ్చు; చర్యకు ముందు Work Order మరియు Line నిర్ధారించండి.",
-            "Route Logs లో Work Order, Product, Routing, Line, Station, operator, timestamp, quality status, మరియు execution status ధృవీకరించండి. రెండు Nova X1 logs Passed మరియు Complete గా ఉన్నాయి."
+            "Route Logs లో Work Order, Product, Routing, Line, Station, operator, timestamp, quality status, మరియు execution status ధృవీకరించండి. Summary counts underlying records‌కు సరిపోతాయో నిర్ధారించండి."
           ],
           "rules": [
             "ఒక డాష్‌బోర్డ్ రికార్డులను సంగ్రహిస్తుంది; అంతర్లీన రికార్డులు సాక్ష్య మూలంగా ఉంటాయి.",
@@ -1575,9 +1575,9 @@
           ],
           "checklist": [
             "Plant-level counts మరియు targets selected Plant కు సరిపోతాయి.",
-            "Completed మరియు repair Nova X1 Work Orders సరిగ్గా వేరు చేయబడ్డాయి.",
-            "Live board రెండు completed Nova X1 tasks మరియు రెండు logs చూపిస్తుంది.",
-            "రెండు Nova X1 Route Logs operator/Station evidence తో Passed మరియు Complete చూపిస్తాయి."
+            "Completed original మరియు active repair Work Orders సరిగ్గా వేరు చేయబడ్డాయి.",
+            "Live board expected completed tasks మరియు Route Logs చూపిస్తుంది.",
+            "Route Logs operator మరియు Station evidence‌తో expected quality మరియు execution status చూపిస్తాయి."
           ]
         },
         {
@@ -1597,12 +1597,12 @@
             "Break Compliance తనిఖీ చేయండి"
           ],
           "steps": [
-            "Unpaid breaks తర్వాత net working time నిర్ధారించండి. Nova X1 Assembly Morning Shift 06:00–14:00; 15-minute unpaid tea break వల్ల 8 hours, 7h 45m net అవుతుంది.",
-            "Shift Schedule coverage ధృవీకరించండి. కొత్త Schedules activate వరకు Draft; status మాత్రమే coverage నిరూపించదు. Target environment‌లో generated shifts per week మరియు calendar coverage నిర్ధారించండి.",
+            "Unpaid breaks తర్వాత net working time నిర్ధారించండి. Displayed net working time, Shift duration నుంచి మొత్తం unpaid break time తీసివేసిన విలువకు సరిపోవాలి.",
+            "Shift Schedule coverage ధృవీకరించండి. కొత్త Schedules activate వరకు Draft; status మాత్రమే coverage నిరూపించదు. Generated shifts per week మరియు calendar coverage‌ను నిర్ధారించండి.",
             "Shift Handover సృష్టించండి. Shift మరియు Handover Date తప్పనిసరి; Line, outgoing/incoming operators, summaries, notes, pending tasks, మరియు checklist items optional.",
-            "Authorized Nova X1 Handover ను NOVA-X1-SHIFT-A మరియు NOVA_X1_LINE_01 తో కలిపి completed production, passed Route Logs, equipment state, safety, మరియు రెండు pending repair tasks రికార్డు చేయండి.",
+            "Handover‌ను selected Shift మరియు Line‌కు అనుసంధానించి completed production, quality results, equipment state, safety, మరియు pending repair tasks రికార్డు చేయండి.",
             "Complete ముందు Draft review చేయండి. Outgoing మరియు Incoming Supervisors‌ను explicit‌గా నిర్ధారించి, తదుపరి Shift review చేసిన తర్వాత మాత్రమే Complete ఉపయోగించండి.",
-            "Break Compliance జాగ్రత్తగా ఉపయోగించండి: zero Break Logs ఉన్న recorded SIT view 100% compliance మరియు 0 violations చూపించింది; అయితే ఆ percentage compliant breaks జరిగాయనే evidence కాదు. Target environmentలో underlying logs నిర్ధారించండి; export చేయగల records ఉన్నప్పుడే Export CSV అందుబాటులో ఉంటుంది."
+            "Break Compliance జాగ్రత్తగా ఉపయోగించండి: zero Break Logs ఉన్నప్పుడు view 100% compliance మరియు 0 violations చూపవచ్చు; అయితే ఆ percentage compliant breaks జరిగాయనే evidence కాదు. Underlying logs‌ను నిర్ధారించండి; export చేయగల records ఉన్నప్పుడే Export CSV అందుబాటులో ఉంటుంది."
           ],
           "rules": [
             "Net working time లెక్కించినప్పుడు unpaid breaks Shift duration నుండి తీసివేయబడతాయి.",
@@ -1611,8 +1611,8 @@
             "Zero Break Logs తో 100% Break Compliance rate, compliant breaks జరిగాయని నిరూపించదు."
           ],
           "checklist": [
-            "Nova X1 Shift net working time unpaid break తర్వాత 7h 45m.",
-            "Authorized Handover Nova X1 Shift మరియు Final Assembly Line కు అనుసంధానించబడింది.",
+            "Shift net working time మొత్తం unpaid break time తీసివేసిన తర్వాత సరైనదిగా ఉంది.",
+            "Handover selected Shift మరియు Line‌కు అనుసంధానించబడింది.",
             "Production, quality, equipment, safety, మరియు pending repair work రికార్డు చేయబడ్డాయి.",
             "Complete ఎంచుకునే ముందు Draft review చేయబడుతుంది."
           ]
@@ -1643,7 +1643,7 @@
             "Maintenance Work Orders కు Tool మరియు Title required; Medium మరియు Corrective defaults; approval ముందు Start చేయలేరు."
           ],
           "checklist": [
-            "Tool intended Nova X1 Station కు assigned అయి సరైన status కలిగి ఉంది.",
+            "Tool ఉద్దేశించిన Station‌కు assigned అయి సరైన status కలిగి ఉంది.",
             "అవసరమైతే calibration evidence, certificate, మరియు next due date current గా ఉన్నాయి.",
             "Approved maintenance window scheduled అయి, order ముందుగానే start కాలేదు."
           ]
@@ -1664,19 +1664,19 @@
           "steps": [
             "Master Traceability లో optional scope filters combine చేయండి లేదా మిగతా scope filters ను override చేసే pasted/uploaded serial-number list ఉపయోగించండి.",
             "అవసరమైన dossier sheets ఎంచుకుని report generate చేసి, Recent exports లో Completed, unit count, మరియు XLSX filename కనిపించే వరకు వేచి ఉండండి.",
-            "Work Orders లో Export Work Orders తెరవండి. Recorded SIT flowలో ఇది వేరే Create Data Export dialog తెరిచింది; target environmentలో route verify చేసి, list filters inherit కానప్పుడు Search, Status, Priority మళ్లీ apply చేయండి.",
+            "Work Orders లో Export Work Orders తెరిచి Create Data Export dialog పూర్తి చేయండి. List filters inherit కాకపోతే Search, Status, మరియు Priority మళ్లీ apply చేయండి.",
             "Download ముందు Export Details లో type, format, state, file size, applied filters, processed rows, మరియు progress నిర్ధారించండి.",
-            "Available actor, action, affected record, మరియు timestamp evidence కోసం View all changes మరియు Recent Changes ఉపయోగించండి. Separate full-history destination‌పై ఆధారపడే ముందు target environment‌లో అది పనిచేస్తుందో నిర్ధారించండి."
+            "Available actor, action, affected record, మరియు timestamp evidence కోసం View all changes మరియు Recent Changes ఉపయోగించండి. Separate full-history destination‌పై ఆధారపడే ముందు required evidence అందులో ఉందో నిర్ధారించండి."
           ],
           "rules": [
             "Serial-number list మిగతా Master Traceability scope filters ను override చేస్తుంది.",
             "Completed export మాత్రమే సరిపడ evidence కాదు; processed rows, progress, file size, applied filters, మరియు file contents verify చేయండి.",
-            "Target environment‌లో verified history view required audit evidence అందిస్తుంది."
+            "అందుబాటులో ఉన్న history view required audit evidence అందిస్తుంది."
           ],
           "checklist": [
             "Dossier scope మరియు selected sheets investigation question కు సరిపోతాయి.",
             "Operational export intended filtered records ను కలిగి ఉంది.",
-            "Nova X1 Work Order ను ఎవరు ఎప్పుడు మార్చారో Recent Changes చూపిస్తుంది."
+            "Selected Work Order‌ను ఎవరు ఎప్పుడు మార్చారో Recent Changes చూపిస్తుంది."
           ]
         }
       ]

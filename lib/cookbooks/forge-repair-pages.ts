@@ -71,7 +71,7 @@ const en: RepairGuidePage[] = [
     rules: [
       "Every repair job must remain linked to the original unit and Work Order.",
       "Repair, QC, Release, return, Rework, and Scrap actions are status-dependent; use only the action Forge displays.",
-      "Complete Repair is the Pending QC handoff in the verified flow; do not document a separate Send to QC action unless the target deployment displays one.",
+      "Complete Repair sends the record to Pending QC; use a separate Send to QC action only when the record's current state explicitly provides one.",
       "If Forge shows an error, stop and report it. Do not repeat a state-changing action or assume that it succeeded.",
     ],
     checklist: ["The correct RSN and attempt are open", "Every transition is visible in status and timeline", "Repair and QC evidence are complete", "The final route or release is verified"],
@@ -211,7 +211,7 @@ const en: RepairGuidePage[] = [
       "Save the configuration and verify a new eligible failure follows the expected intake path.",
     ],
     rules: [
-      "Auto-create repair can be enabled while Default Repair Station is blank in the verified SIT screen; set a Station when the operating model requires automatic station routing.",
+      "Auto-create repair can be enabled without a Default Repair Station, but set a Station when the operating model requires automatic station routing.",
       "Leave automatic intake disabled when failures must be reviewed in Debug Queue first.",
       "Configuration changes affect future intake; review active jobs separately.",
     ],
@@ -430,7 +430,7 @@ const taCopy: Record<string, LocalizedRepairCopy> = {
       "Save செய்து புதிய eligible failure expected intake path-ஐ பின்பற்றுகிறதா பார்க்கவும்.",
     ],
     rules: [
-      "Verified SIT screen-ல் Default Repair Station காலியாக இருந்தபோதும் Auto-create repair enabled ஆக இருந்தது; operating model automatic station routing கேட்கும் போது Station அமைக்கவும்.",
+      "Default Repair Station இல்லாமலும் Auto-create repair enabled ஆக இருக்கலாம்; operating model automatic station routing கேட்கும் போது Station அமைக்கவும்.",
       "Failures முதலில் Debug Queue-ல் review செய்ய வேண்டுமெனில் automatic intake disable ஆக இருக்க வேண்டும்.",
       "Config changes future intake-ஐ பாதிக்கும்; active jobs-ஐ தனியாக review செய்யுங்கள்.",
     ],
@@ -638,7 +638,7 @@ const teCopy: Record<string, LocalizedRepairCopy> = {
       "Save చేసి కొత్త eligible failure expected intake path‌ను follow చేస్తుందో చూడండి.",
     ],
     rules: [
-      "Verified SIT screen‌లో Default Repair Station ఖాళీగా ఉన్నప్పటికీ Auto-create repair enabled‌గా ఉంది; operating model automatic station routing కోరినప్పుడు Station సెట్ చేయండి.",
+      "Default Repair Station లేకుండానే Auto-create repair enabled‌గా ఉండవచ్చు; operating model automatic station routing కోరినప్పుడు Station సెట్ చేయండి.",
       "Failures‌ను ముందుగా Debug Queue‌లో review చేయాలంటే automatic intake disabled‌గా ఉంచండి.",
       "Config changes future intake‌ను ప్రభావితం చేస్తాయి; active jobs‌ను విడిగా review చేయండి.",
     ],

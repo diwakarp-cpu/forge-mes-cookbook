@@ -4,6 +4,7 @@ entrypoint: "server.js"
 env:
   HOSTNAME: "0.0.0.0"
   NODE_ENV: "production"
+  NEXT_PUBLIC_SITE_URL: "https://forge-mes-cookbook-dcca2d61.serverless.boltic.app"
   PORT: "8080"
 serverlessConfig:
   Name: "forge-mes-cookbook"

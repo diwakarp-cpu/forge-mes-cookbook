@@ -1304,7 +1304,7 @@
         {
           "title": "ஆய்வுகள், Defects, NCR, மற்றும் CAPA",
           "slug": "inspection-to-capa",
-          "summary": "Configured inspection-ஐ இயக்கி, failed samples-ஐ பதிவு செய்து, target deployment-ல் NCR மற்றும் CAPA actions enabled ஆக உள்ளதா உறுதிசெய்யுங்கள்.",
+          "summary": "Configured inspection-ஐ இயக்கி, failed samples-ஐ பதிவு செய்து, தற்போதைய configuration மற்றும் role-க்கு NCR மற்றும் CAPA actions enabled ஆக உள்ளதா உறுதிசெய்யுங்கள்.",
           "importance": "Conditional",
           "prerequisites": ["தரக் கட்டுப்பாடுகளைக் கட்டமையுங்கள்"],
           "flow": [
@@ -1319,7 +1319,7 @@
             "Work Order அல்லது available, non-expired Lot—இரண்டில் ஒன்றை மட்டும் தேர்ந்தெடுத்து required total மற்றும் sample quantities-ஐ உள்ளிடுங்கள்.",
             "ஒவ்வொரு sample மற்றும் checks-ஐ பதிவு செய்யுங்கள். Failed sample-ஐ save செய்வதற்கு Defect code மற்றும் Severity தேவை.",
             "Inspection-ஐ reject செய்து failed serials மட்டும் அல்லது முழு lot-ஐ hold செய்வதைத் தேர்ந்தெடுங்கள். Inspection-local defects மற்றும் plant Defects தனித்தனி records.",
-            "Target deployment மற்றும் signed-in role-க்கு NCR மற்றும் CAPA availability-ஐ உறுதிசெய்யுங்கள். Working create action இல்லையெனில் workflow available என்று கூறாமல் implementation owner-உடன் enablement-ஐ உறுதிசெய்யுங்கள்."
+            "தற்போதைய configuration மற்றும் signed-in role-க்கு NCR மற்றும் CAPA availability-ஐ உறுதிசெய்யுங்கள். Working create action இல்லையெனில், implementation owner-உடன் enablement-ஐ உறுதிசெய்த பிறகே workflow-ஐ பயன்படுத்தவும்."
           ],
           "rules": [
             "Active inspection configuration ஒரு prerequisite; Plant scope fallback ஆகும், மேலும் specific scopes அதை override செய்யும்.",
@@ -1487,8 +1487,8 @@
             "Shipment Verification-ஐத் திறந்து existing Shipment-ஐத் தேர்ந்தெடுங்கள்; required Shipment தேர்ந்தெடுக்கப்படும் வரை Container Type, counts, container rows, மற்றும் Export கிடைக்காது.",
             "Active Shipment Rule selected container configuration-ஐ கொண்டிருந்து அதன் container-count மற்றும் maximum-weight limits-ஐ அனுமதிக்கிறதா என உறுதிப்படுத்துங்கள்.",
             "Shipping Gate-இல் positive remaining approved Purchase Order quantity உள்ளதா உறுதிசெய்யுங்கள்.",
-            "Excel export-க்கு client- அல்லது product-scoped ASN template-ஐப் பயன்படுத்தி, target environment-ல் required template உள்ளதா உறுதிசெய்யுங்கள்.",
-            "Recorded SIT walkthrough-ல் selectable Shipment இல்லை; container verification மற்றும் export exercise செய்யப்படவில்லை. Client demo முன் approved records கொண்டு full prerequisite path-ஐ retest செய்யுங்கள்."
+            "Excel export-க்கு client- அல்லது product-scoped ASN template-ஐப் பயன்படுத்தி, selected scope-க்கு required template configure செய்யப்பட்டுள்ளதா உறுதிசெய்யுங்கள்.",
+            "Approved source records கொண்டு shipment creation, rule matching, positive gate balance, container verification, மற்றும் ASN output ஆகிய முழுப் பாதையையும் சரிபார்க்குங்கள்."
           ],
           "rules": [
             "Container Type அல்லது verification data கிடைக்கும் முன் Shipment selection கட்டாயம்.",
@@ -1520,10 +1520,10 @@
           ],
           "steps": [
             "Master Traceability-இல் filters ஒன்றாகச் செயல்படும்; parent selection பின் dependent Product filters திறக்கும். Specific identifier list மற்ற filters-ஐ override செய்யும்; குறைந்தது ஒரு scope தேர்ந்தெடுக்கப்படும் வரை Generate Dossier disabled ஆக இருக்கும்.",
-            "தேவையான dossier sheets மட்டும் தேர்ந்தெடுங்கள். Generation asynchronous; completed files Recent exports-இல் இருக்கும். Nova X1 Work Order இரண்டு-unit dossier-ஐ உருவாக்கியது.",
-            "Stage Timeline-க்கு date range, குறைந்தது ஒரு Work Order, மற்றும் 1–50 Operations தேவை. Recorded SIT form date range-க்கு asterisk காட்டாவிட்டாலும் அது கட்டாயமாக இருந்தது; form மாறினால் target environment-ஐ மீண்டும் சரிபார்க்கவும்.",
+            "தேவையான dossier sheets மட்டும் தேர்ந்தெடுங்கள். Generation asynchronous; completed files Recent exports-இல் இருக்கும். Download செய்வதற்கு முன் status, scope, மற்றும் unit count-ஐ உறுதிப்படுத்துங்கள்.",
+            "Stage Timeline-க்கு date range, குறைந்தது ஒரு Work Order, மற்றும் 1–50 Operations தேவை. Generate செய்வதற்கு முன் இந்த required fields அனைத்தும் நிரப்பப்பட்டுள்ளனவா உறுதிப்படுத்துங்கள்.",
             "Pallet, carton, box, device, product, Component, அல்லது batch identifier மூலம் full genealogy tree-ஐ பயன்படுத்துங்கள். Downstream finished identity-யிலிருந்து Components/lots-க்கு செல்கிறது; Upstream lot-இலிருந்து finished units-க்கு செல்கிறது.",
-            "Find Affected Units-இல் Batch/Lot Number அல்லது Component Serial மூலம் தேடுங்கள். Nova X1 battery lot, NOVA-X1-PHONE-000002-ஐ affected finished serial ஆகக் காட்டியது.",
+            "Find Affected Units-இல் Batch/Lot Number அல்லது Component Serial மூலம் தேடுங்கள். கிடைக்கும் finished-unit results சரியான Product மற்றும் Work Order context-க்கு பொருந்துகின்றனவா உறுதிப்படுத்துங்கள்.",
             "Recall உருவாக்க Title மற்றும் Severity கட்டாயம். Selected batch அல்லது tasks affected units-ஐ populate செய்கிறதா, saved notice அவற்றை record செய்கிறதா உறுதிசெய்த பிறகே recall response-ஐ நம்புங்கள்."
           ],
           "rules": [
@@ -1533,9 +1533,9 @@
             "Recall Notice response-ஐக் கட்டுப்படுத்தும்; traceability affected scope-ஐக் கண்டறியும், மேலும் saved notice assigned affected units-ஐக் காட்ட வேண்டும்."
           ],
           "checklist": [
-            "Completed two-unit Nova X1 dossier Recent exports-இல் தெரிகிறது.",
-            "Nova X1 serial அதன் consumed display மற்றும் battery lots-க்கு resolve ஆகிறது.",
-            "Battery lot, NOVA-X1-PHONE-000002-ஐ affected ஆகக் காட்டுகிறது.",
+            "Completed dossier சரியான scope மற்றும் expected unit count உடன் Recent exports-இல் தெரிகிறது.",
+            "Finished-unit serial அதன் consumed Components மற்றும் lots-க்கு resolve ஆகிறது.",
+            "Selected lot-க்கு linked finished units சரியாகக் காட்டப்படுகின்றன.",
             "Saved Recall Notice intended affected units மற்றும் status-ஐக் கொண்டுள்ளது."
           ]
         }
@@ -1563,11 +1563,11 @@
           ],
           "steps": [
             "Selected Plant-க்கான setup readiness, active Work Orders, production Stations, active Products, Clients, Projects, production completion, மற்றும் quality targets-ஐ Dashboard-இல் பாருங்கள்.",
-            "Work Orders-இல் Status, Priority, மற்றும் Due Date-ஐ ஒன்றாக மதிப்பாய்வு செய்யுங்கள். Past-due active records Delayed எனக் குறிக்கப்படும்; Nova X1 list completed original Work Order-ஐ அதன் in-progress repair Work Order-இலிருந்து பிரிக்கிறது.",
-            "Completed Nova X1 Work Order-இல் 2/2 tasks, 2.9 units/hour, 20m 56s takt/cycle time, 100% yield, மற்றும் 42m total execution time-ஐப் பாருங்கள். Yield என்பது passed quality steps ÷ completed steps; displayed target குறைந்தது 95%.",
+            "Work Orders-இல் Status, Priority, மற்றும் Due Date-ஐ ஒன்றாக மதிப்பாய்வு செய்யுங்கள். Past-due active records Delayed எனக் குறிக்கப்படும்; original மற்றும் repair Work Orders-ஐ அவற்றின் status, type, மற்றும் linked unit context மூலம் வேறுபடுத்துங்கள்.",
+            "Task completion, units/hour, takt/cycle time, yield, மற்றும் total execution time-ஐ ஒன்றாகப் பாருங்கள். Yield என்பது passed quality steps ÷ completed steps; அதை configured quality target-உடன் ஒப்பிடுங்கள்.",
             "Live board-க்கு Track Progress-ஐப் பயன்படுத்துங்கள். Default auto-refresh 30 seconds; Station filters, completed highlighting, samples-only, sorting, மற்றும் fullscreen உள்ளன.",
             "Production Tasks-இல் Serial, task ID, grouping, Work Order, Line, Product/Routing, மற்றும் status-ஐச் சரிபாருங்கள். ஒரே serial-க்கு later repair task உட்பட பல task records இருக்கலாம்; செயல்படுவதற்கு முன் Work Order மற்றும் Line-ஐ உறுதிப்படுத்துங்கள்.",
-            "Route Logs-இல் Work Order, Product, Routing, Line, Station, operator, timestamp, quality status, மற்றும் execution status-ஐச் சரிபாருங்கள். இரண்டு Nova X1 logs-மும் Passed மற்றும் Complete."
+            "Route Logs-இல் Work Order, Product, Routing, Line, Station, operator, timestamp, quality status, மற்றும் execution status-ஐச் சரிபாருங்கள். இந்த values operation result-க்கு பொருந்துகின்றனவா உறுதிப்படுத்துங்கள்."
           ],
           "rules": [
             "ஒரு dashboard பதிவுகளைச் சுருக்குகிறது; அடிப்படைப் பதிவுகள் சான்றின் மூலமாகவே இருக்கின்றன.",
@@ -1577,9 +1577,9 @@
           ],
           "checklist": [
             "Plant-level counts மற்றும் targets selected Plant-க்கு பொருந்துகின்றன.",
-            "Completed மற்றும் repair Nova X1 Work Orders சரியாக வேறுபடுத்தப்படுகின்றன.",
-            "Live board இரண்டு completed Nova X1 tasks மற்றும் இரண்டு logs-ஐக் காட்டுகிறது.",
-            "இரண்டு Nova X1 Route Logs-மும் operator/Station evidence உடன் Passed மற்றும் Complete காட்டுகின்றன."
+            "Completed மற்றும் repair Work Orders status மற்றும் linked unit context மூலம் சரியாக வேறுபடுத்தப்படுகின்றன.",
+            "Live board expected Production Tasks மற்றும் அவற்றின் current status-ஐக் காட்டுகிறது.",
+            "Route Logs operator, Station, quality, மற்றும் execution evidence-ஐக் காட்டுகின்றன."
           ]
         },
         {
@@ -1599,12 +1599,12 @@
             "Break Compliance-ஐச் சரிபார்க்குங்கள்"
           ],
           "steps": [
-            "Unpaid breaks கழித்த net working time-ஐ உறுதிப்படுத்துங்கள். Nova X1 Assembly Morning Shift 06:00–14:00; 15-minute unpaid tea break காரணமாக 8 hours, 7h 45m net ஆகிறது.",
-            "Shift Schedule coverage-ஐச் சரிபார்க்குங்கள். புதிய Schedules activate செய்யப்படும் வரை Draft; status மட்டும் coverage-ஐ நிரூபிக்காது. Target environment-ல் generated shifts per week மற்றும் calendar coverage-ஐ உறுதிசெய்யுங்கள்.",
+            "Unpaid breaks கழித்த net working time-ஐ உறுதிப்படுத்துங்கள். Shift times அல்லது break durations update செய்த பின் calculated net working time-ஐ மதிப்பாய்வு செய்யுங்கள்.",
+            "Shift Schedule coverage-ஐச் சரிபார்க்குங்கள். புதிய Schedules activate செய்யப்படும் வரை Draft; status மட்டும் coverage-ஐ நிரூபிக்காது. Generated shifts per week மற்றும் calendar coverage-ஐ உறுதிசெய்யுங்கள்.",
             "Shift Handover உருவாக்குங்கள். Shift மற்றும் Handover Date கட்டாயம்; Line, outgoing/incoming operators, summaries, notes, pending tasks, மற்றும் checklist items optional.",
-            "Authorized Nova X1 Handover-ஐ NOVA-X1-SHIFT-A மற்றும் NOVA_X1_LINE_01 உடன் இணைத்து completed production, passed Route Logs, equipment state, safety, மற்றும் இரண்டு pending repair tasks-ஐப் பதிவு செய்யுங்கள்.",
+            "Handover-ஐ தொடர்புடைய Line-உடன் இணைத்து completed production, Route Logs, equipment state, safety, மற்றும் pending tasks-ஐப் பதிவு செய்யுங்கள்.",
             "Complete செய்வதற்கு முன் Draft-ஐ review செய்யுங்கள். Outgoing மற்றும் Incoming Supervisors-ஐ explicit-ஆக உறுதிசெய்து, அடுத்த Shift review செய்த பிறகே Complete பயன்படுத்துங்கள்.",
-            "Break Compliance-ஐ கவனமாகப் பயன்படுத்துங்கள்: zero Break Logs இருந்த recorded SIT view 100% compliance மற்றும் 0 violations காட்டியது; ஆனால் அந்த percentage compliant breaks நடந்ததற்கான evidence அல்ல. Target environment-ல் underlying logs-ஐ உறுதிப்படுத்துங்கள்; export செய்யக்கூடிய records இருந்தால் மட்டுமே Export CSV கிடைக்கும்."
+            "Break Compliance-ஐ கவனமாகப் பயன்படுத்துங்கள்: zero Break Logs இருக்கும்போது 100% compliance மற்றும் 0 violations காட்டப்படலாம்; ஆனால் அந்த percentage compliant breaks நடந்ததற்கான evidence அல்ல. Underlying logs-ஐ உறுதிப்படுத்துங்கள்; export செய்யக்கூடிய records இருந்தால் மட்டுமே Export CSV கிடைக்கும்."
           ],
           "rules": [
             "Net working time கணக்கிடும்போது unpaid breaks Shift duration-இலிருந்து கழிக்கப்படும்.",
@@ -1613,8 +1613,8 @@
             "Zero Break Logs உடன் 100% Break Compliance rate, compliant breaks நடந்ததை நிரூபிக்காது."
           ],
           "checklist": [
-            "Nova X1 Shift net working time unpaid break பின் 7h 45m.",
-            "Authorized Handover Nova X1 Shift மற்றும் Final Assembly Line உடன் இணைக்கப்பட்டுள்ளது.",
+            "Calculated net working time Shift duration-இலிருந்து unpaid breaks-ஐ சரியாகக் கழிக்கிறது.",
+            "Handover சரியான Shift மற்றும் Line-உடன் இணைக்கப்பட்டுள்ளது.",
             "Production, quality, equipment, safety, மற்றும் pending repair work பதிவு செய்யப்பட்டுள்ளன.",
             "Complete தேர்ந்தெடுக்கும் முன் Draft review செய்யப்படுகிறது."
           ]
@@ -1647,7 +1647,7 @@
             "Maintenance Work Orders-க்கு Tool மற்றும் Title required; Medium மற்றும் Corrective defaults; approval முன் Start செய்ய முடியாது."
           ],
           "checklist": [
-            "Tool intended Nova X1 Station-க்கு assigned ஆகி சரியான status கொண்டுள்ளது.",
+            "Tool intended Station-க்கு assigned ஆகி சரியான status கொண்டுள்ளது.",
             "தேவைப்பட்டால் calibration evidence, certificate, மற்றும் next due date current ஆக உள்ளன.",
             "Approved maintenance window scheduled ஆகி, order முன்கூட்டியே start செய்யப்படவில்லை."
           ]
@@ -1668,19 +1668,19 @@
           "steps": [
             "Master Traceability-இல் optional scope filters-ஐ combine செய்யுங்கள் அல்லது மற்ற scope filters-ஐ override செய்யும் pasted/uploaded serial-number list-ஐப் பயன்படுத்துங்கள்.",
             "தேவையான dossier sheets-ஐத் தேர்ந்தெடுத்து report-ஐ generate செய்து, Recent exports-இல் Completed, unit count, மற்றும் XLSX filename வரும்வரை காத்திருங்கள்.",
-            "Work Orders-இல் Export Work Orders-ஐத் திறக்குங்கள். Recorded SIT flow-ல் இது தனி Create Data Export dialog-ஐத் திறந்தது; target environment-ல் route-ஐ verify செய்து, list filters inherit ஆகாதபோது Search, Status, Priority-ஐ மீண்டும் apply செய்யுங்கள்.",
+            "Work Orders-இல் Export Work Orders-ஐத் திறக்குங்கள். Create Data Export dialog-ல் Search, Status, மற்றும் Priority values-ஐ மதிப்பாய்வு செய்து, list filters carry over ஆகவில்லை என்றால் அவற்றை மீண்டும் apply செய்யுங்கள்.",
             "Download செய்வதற்கு முன் Export Details-இல் type, format, state, file size, applied filters, processed rows, மற்றும் progress-ஐ உறுதிப்படுத்துங்கள்.",
-            "Available actor, action, affected record, மற்றும் timestamp evidence-க்கு View all changes மற்றும் Recent Changes-ஐப் பயன்படுத்துங்கள். Separate full-history destination-ஐ நம்பும் முன் target environment-ல் அது வேலை செய்கிறதா உறுதிசெய்யுங்கள்."
+            "Available actor, action, affected record, மற்றும் timestamp evidence-க்கு View all changes மற்றும் Recent Changes-ஐப் பயன்படுத்துங்கள். History view-ஐத் திறந்து தேவையான date range மற்றும் record changes கிடைக்கின்றனவா உறுதிசெய்யுங்கள்."
           ],
           "rules": [
             "Serial-number list மற்ற Master Traceability scope filters-ஐ override செய்கிறது.",
             "Completed export மட்டும் போதுமான evidence அல்ல; processed rows, progress, file size, applied filters, மற்றும் file contents-ஐ verify செய்யுங்கள்.",
-            "Target environment-ல் verified history view required audit evidence-ஐ வழங்குகிறது."
+            "History view required actor, action, affected record, மற்றும் timestamp evidence-ஐ வழங்குகிறது."
           ],
           "checklist": [
             "Dossier scope மற்றும் selected sheets investigation question-க்கு பொருந்துகின்றன.",
             "Operational export intended filtered records-ஐ கொண்டுள்ளது.",
-            "Nova X1 Work Order-ஐ யார் எப்போது மாற்றினார் என்பதை Recent Changes காட்டுகிறது."
+            "Selected Work Order-ஐ யார் எப்போது மாற்றினார் என்பதை Recent Changes காட்டுகிறது."
           ]
         }
       ]

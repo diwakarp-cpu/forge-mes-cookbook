@@ -11,36 +11,15 @@
 // - Use buildGraph() to wrap nodes in a single @graph payload, then
 //   render with <JsonLd graph={...} />. One <script> tag per page.
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  "https://forge-mes-cookbook-dcca2d61.serverless.boltic.app";
 
 export const ORG_ID = `${SITE_URL}#organization`;
 export const SITE_ID = `${SITE_URL}#website`;
 
-// Single source of truth for organization-level facts. Edit this when
-// brand details change — every page's JSON-LD picks them up.
-//
-// TODO(deepak): verify each field against legal/marketing source of
-// truth before launch. Marked items below are best-guess placeholders.
-const BRAND = {
-  name: "Fynd",
-  legalName: "Shopsense Retail Technologies Limited", // TODO verify
-  logoPath: "https://cdn.pixelbin.io/v2/nameless-waterfall-bf6e98/original/fynd-web/misc/fynd-logo.jpg", // TODO replace with /logo.svg once design ships a clean asset
-  description:
-    "Fynd builds AI-powered commerce, retail and supply chain software for modern brands.",
-  foundingDate: "2012", // TODO confirm exact date — using year-only for safety
-  address: {
-    addressLocality: "Mumbai",
-    addressRegion: "Maharashtra",
-    addressCountry: "IN",
-  },
-  // sameAs entries are public profiles Google uses to consolidate the
-  // entity. Only include profiles that actually exist and are owned by
-  // the organization. TODO confirm each handle.
-  sameAs: [
-    "https://www.linkedin.com/company/fynd",
-    "https://twitter.com/Fynd",
-  ],
-} as const;
+const ORGANIZATION_NAME = "Fynd";
+const WEBSITE_NAME = "Fynd ERP Product Cookbook";
 
 type LDNode = Record<string, unknown>;
 
@@ -52,19 +31,8 @@ export function organizationLd(): LDNode {
   return {
     "@type": "Organization",
     "@id": ORG_ID,
-    name: BRAND.name,
-    legalName: BRAND.legalName,
+    name: ORGANIZATION_NAME,
     url: SITE_URL,
-    logo: abs(BRAND.logoPath),
-    description: BRAND.description,
-    foundingDate: BRAND.foundingDate,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: BRAND.address.addressLocality,
-      addressRegion: BRAND.address.addressRegion,
-      addressCountry: BRAND.address.addressCountry,
-    },
-    sameAs: BRAND.sameAs,
   };
 }
 
@@ -73,7 +41,7 @@ export function websiteLd(): LDNode {
     "@type": "WebSite",
     "@id": SITE_ID,
     url: SITE_URL,
-    name: BRAND.name,
+    name: WEBSITE_NAME,
     publisher: { "@id": ORG_ID },
   };
 }

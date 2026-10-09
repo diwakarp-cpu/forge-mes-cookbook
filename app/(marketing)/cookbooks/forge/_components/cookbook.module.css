@@ -4,10 +4,20 @@
   gap: 1rem;
 }
 
-.requirementLegend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+.homeShellContent :global(#hero) {
+  padding-bottom: 2rem !important;
+}
+
+.landingSection {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+
+.browseSection {
+  padding-top: 2rem;
+}
+
+.browseSection :global(.fds-section-header) {
   margin-bottom: 2rem;
 }
 
@@ -159,7 +169,7 @@
 }
 
 .sectionGrid {
-  margin-top: 2.5rem;
+  margin-top: 2rem;
 }
 
 .cardLink {
@@ -239,6 +249,8 @@
 .bodySection {
   background: var(--fds-neutral-10);
   min-height: calc(100vh - var(--fds-nav-h, 0px));
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem;
 }
 
 .pageLayout {
@@ -1104,15 +1116,14 @@
   }
 
   .sidebar {
+    max-height: 22rem;
     position: static;
   }
 
   .sidebarNav {
     display: grid;
     gap: 0.5rem;
-    max-height: 30rem;
     max-width: 100%;
-    overflow-y: auto;
     padding: 0.25rem 0.25rem 0.5rem 0;
   }
 
@@ -1131,6 +1142,24 @@
 }
 
 @media (max-width: 767px) {
+  .homeShellContent :global(#hero) {
+    padding-bottom: 1rem !important;
+  }
+
+  .landingSection {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+
+  .browseSection {
+    padding-top: 1.5rem;
+  }
+
+  .bodySection {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+  }
+
   .setupFlow {
     grid-template-columns: 1fr;
   }

@@ -8,7 +8,8 @@ import "@fynd-design-engineering/fynd-one-ds/styles/tokens.css";
 import "./globals.css";
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  "https://forge-mes-cookbook-dcca2d61.serverless.boltic.app";
 
 const navigation: NavItem[] = [
   {

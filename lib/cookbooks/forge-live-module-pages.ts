@@ -595,77 +595,10 @@ const definitions: LivePageDefinition[] = [
   },
 ];
 
-const genericCopy: Record<
-  CookbookLang,
-  {
-    prerequisite: string;
-    scope: string;
-    review: (title: string) => string;
-    act: string;
-    verify: string;
-    rules: string[];
-    checklist: string[];
-  }
-> = {
-  en: {
-    prerequisite: "The required source records or configuration context must already exist",
-    scope: "Use the available search, date, status, and scope filters to select the correct records.",
-    review: (title) => `Review the records, status, and available actions shown in ${title}.`,
-    act: "Open the relevant action, complete every required field, and review the result before saving or submitting.",
-    verify: "Confirm the saved result, new status, linked records, and history before leaving the page.",
-    rules: [
-      "Use only the actions allowed by the current status and your permission.",
-      "Confirm the selected record and filter scope before changing data.",
-      "After saving, verify the resulting status and traceable history.",
-    ],
-    checklist: [
-      "The correct record and scope are selected",
-      "Required details and evidence are complete",
-      "The expected status or history update is visible",
-    ],
-  },
-  ta: {
-    prerequisite: "தேவையான source records அல்லது configuration context முன்பே இருக்க வேண்டும்",
-    scope: "கிடைக்கும் search, date, status, மற்றும் scope filters மூலம் சரியான records-ஐ தேர்வு செய்யுங்கள்.",
-    review: (title) => `${title}-ல் உள்ள records, status, மற்றும் available actions-ஐ review செய்யுங்கள்.`,
-    act: "தேவையான action-ஐ திறந்து, எல்லா required fields-ஐ நிரப்பி, save அல்லது submit செய்வதற்கு முன் result-ஐ review செய்யுங்கள்.",
-    verify: "Page-ஐ விட்டு வெளியேறும் முன் saved result, new status, linked records, மற்றும் history-ஐ verify செய்யுங்கள்.",
-    rules: [
-      "Current status மற்றும் உங்கள் permission அனுமதிக்கும் actions மட்டும் பயன்படுத்துங்கள்.",
-      "Data மாற்றும் முன் selected record மற்றும் filter scope சரியா என்று உறுதிசெய்யுங்கள்.",
-      "Save செய்த பிறகு resulting status மற்றும் traceable history-ஐ verify செய்யுங்கள்.",
-    ],
-    checklist: [
-      "சரியான record மற்றும் scope தேர்வு செய்யப்பட்டுள்ளது",
-      "Required details மற்றும் evidence முழுமையாக உள்ளது",
-      "Expected status அல்லது history update தெரிகிறது",
-    ],
-  },
-  te: {
-    prerequisite: "అవసరమైన source records లేదా configuration context ముందుగానే ఉండాలి",
-    scope: "అందుబాటులో ఉన్న search, date, status, మరియు scope filters‌తో సరైన records‌ను ఎంచుకోండి.",
-    review: (title) => `${title}లో ఉన్న records, status, మరియు available actions‌ను review చేయండి.`,
-    act: "అవసరమైన action‌ను తెరిచి, అన్ని required fields పూర్తి చేసి, save లేదా submit చేసే ముందు result‌ను review చేయండి.",
-    verify: "Page నుంచి బయటకు వెళ్లే ముందు saved result, new status, linked records, మరియు history‌ను verify చేయండి.",
-    rules: [
-      "Current status మరియు మీ permission అనుమతించే actions మాత్రమే ఉపయోగించండి.",
-      "Data మార్చే ముందు selected record మరియు filter scope సరైందో నిర్ధారించండి.",
-      "Save చేసిన తర్వాత resulting status మరియు traceable history‌ను verify చేయండి.",
-    ],
-    checklist: [
-      "సరైన record మరియు scope ఎంచుకున్నారు",
-      "Required details మరియు evidence పూర్తిగా ఉన్నాయి",
-      "Expected status లేదా history update కనిపిస్తోంది",
-    ],
-  },
-};
-
 export function getForgeLiveModulePages(
   lang: CookbookLang,
   sourcePages: Map<string, LiveModuleGuidePage>,
 ): LiveModuleGuidePage[] {
-  const copy = genericCopy[lang];
-
   return definitions.map((definition) => {
     const source = definition.sourceSlug
       ? sourcePages.get(definition.sourceSlug)
@@ -687,22 +620,13 @@ export function getForgeLiveModulePages(
       slug: definition.slug,
       summary: definition.summary[lang],
       importance: definition.importance ?? "Conditional",
-      prerequisites: [copy.prerequisite],
-      flow: [
-        definition.title,
-        lang === "en" ? "Set the scope" : lang === "ta" ? "Scope அமைக்கவும்" : "Scope సెట్ చేయండి",
-        lang === "en" ? "Review and act" : lang === "ta" ? "Review செய்து action எடுக்கவும்" : "Review చేసి action తీసుకోండి",
-        lang === "en" ? "Verify the result" : lang === "ta" ? "Result-ஐ verify செய்யவும்" : "Result‌ను verify చేయండి",
-      ],
+      prerequisites: [],
+      flow: [],
       steps: [
         `${lang === "en" ? "Open" : lang === "ta" ? "திறக்கவும்" : "తెరవండి"}: ${openStep}.`,
-        copy.scope,
-        copy.review(definition.title),
-        copy.act,
-        copy.verify,
       ],
-      rules: copy.rules,
-      checklist: copy.checklist,
+      rules: [],
+      checklist: [],
     };
   });
 }

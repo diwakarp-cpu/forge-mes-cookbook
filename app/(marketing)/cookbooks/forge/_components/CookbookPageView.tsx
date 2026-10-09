@@ -129,7 +129,11 @@ function RootPage({ lang, t }: { lang: CookbookLang; t: Dict }) {
   return (
     <>
       <div id="explore-cookbook">
-        <Section title={t.browseTitle} subtext={t.browseSubtext}>
+        <Section
+          title={t.browseTitle}
+          subtext={t.browseSubtext}
+          className={`${styles.landingSection} ${styles.browseSection}`}
+        >
           <CookbookSearch items={searchableItems} lang={lang} />
           <Grid columns={3} gap={24} className={styles.sectionGrid}>
             {topLevel.map((sectionEntry) => {
@@ -154,12 +158,11 @@ function RootPage({ lang, t }: { lang: CookbookLang; t: Dict }) {
       </div>
 
       <div id="setup-journey">
-        <Section title={t.setupTitle} subtext={t.setupSubtext}>
-          <div className={styles.requirementLegend} aria-label="Requirement level legend">
-            <Chip label={t.legendRequired} variant="outlined" showDot={false} />
-            <Chip label={t.legendRecommended} variant="outlined" showDot={false} />
-            <Chip label={t.legendConditional} variant="outlined" showDot={false} />
-          </div>
+        <Section
+          title={t.setupTitle}
+          subtext={t.setupSubtext}
+          className={styles.landingSection}
+        >
           <ol className={styles.setupFlow}>
             {t.setupStages.map((stage, index) => (
               <li className={styles.setupStage} key={SETUP_STAGE_HREFS[index]}>
@@ -184,7 +187,12 @@ function RootPage({ lang, t }: { lang: CookbookLang; t: Dict }) {
       </div>
 
       <div id="production-gates">
-        <Section title={t.gatesTitle} subtext={t.gatesSubtext} bg="subtle">
+        <Section
+          title={t.gatesTitle}
+          subtext={t.gatesSubtext}
+          bg="subtle"
+          className={styles.landingSection}
+        >
           <div className={styles.blockerFlow}>
             <div className={styles.blockerStart}>
               <Text variant="body-s" as="span" weight="semibold">

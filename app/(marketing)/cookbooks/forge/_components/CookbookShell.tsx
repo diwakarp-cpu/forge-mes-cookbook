@@ -74,7 +74,9 @@ export function CookbookShell({
                 {t.brandTitle}
               </Text>
             </Link>
-            <CookbookSearch items={searchItems} variant="compact" lang={lang} />
+            {!isCookbookHome ? (
+              <CookbookSearch items={searchItems} variant="compact" lang={lang} />
+            ) : null}
             <nav aria-label={t.navSectionsAria} className={styles.sidebarNav}>
               {navigationItems.map((item, index) => {
                 const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
